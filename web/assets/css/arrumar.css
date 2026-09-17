@@ -1,0 +1,10 @@
+/* =========================================================
+   ARMAZÉM INTELIGENTE — arrumar uma palete
+   Só arrumação: o que fica onde nos ecrãs a1 a a5.
+   ========================================================= */
+
+/* «Vai a» e o número da proposta, na mesma linha */
+.proposta { display: flex; align-items: center; gap: var(--e-md); }
+.proposta .selo { align-self: center; }
+
+.porque-aqui { font-size: var(--t-body); }

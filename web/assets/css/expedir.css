@@ -1,0 +1,31 @@
+/* =========================================================
+   ARMAZÉM INTELIGENTE — da prateleira de preparados ao camião
+   Só arrumação: o que fica onde nos ecrãs x1 a x4.
+   ========================================================= */
+
+.camiao {
+  display: grid; grid-template-columns: 1fr auto; gap: var(--e-xs) var(--e-md); width: 100%;
+  padding: var(--e-md) var(--e-lg); text-align: left;
+  background: var(--c-cartao); border: 1px solid var(--c-cinzento); border-radius: var(--r-md);
+  font: inherit; color: inherit;
+}
+.camiao__nome { font-size: var(--t-body); font-weight: 700; }
+.camiao__hora { font-size: var(--t-small); font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
+.camiao__hora--erro { color: var(--c-erro); }
+.camiao__estado { grid-column: 1 / -1; font-size: var(--t-tiny); color: var(--c-texto-2); }
+.camiao__barra  { grid-column: 1 / -1; height: var(--e-sm); border-radius: var(--r-pill); background: var(--c-neutro-suave); overflow: hidden; }
+.camiao__cheio  { display: block; height: 100%; }
+.camiao__cheio--erro  { background: var(--c-erro); }
+.camiao__cheio--aviso { background: var(--c-aviso); }
+.camiao__cheio--bom   { background: var(--c-bom); }
+
+.volumes { display: flex; flex-direction: column; gap: var(--e-sm); }
+.volume {
+  display: flex; align-items: center; gap: var(--e-md); padding: var(--e-sm) var(--e-md);
+  background: var(--c-cartao); border: 1px solid var(--c-cinzento); border-radius: var(--r-sm);
+  font-size: var(--t-small);
+}
+.volume__visto { width: 18px; height: 18px; flex: none; border-radius: var(--r-pill); border: 2px solid var(--c-cinzento); }
+.volume__codigo { margin-left: auto; font-family: var(--f-mono); font-size: var(--t-tiny); color: var(--c-texto-2); }
+.volume--lido { color: var(--c-texto-3); }
+.volume--lido .volume__visto { background: var(--c-bom); border-color: var(--c-bom); }

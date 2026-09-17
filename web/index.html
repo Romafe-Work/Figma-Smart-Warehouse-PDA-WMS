@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ecrãs do PDA — Armazém Inteligente</title>
+<meta name="description" content="Os ecrãs do PDA do Armazém Inteligente da Romafe, em modo de edição.">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/entrada.css">
+<link rel="stylesheet" href="assets/css/arrumar.css">
+<link rel="stylesheet" href="assets/css/separar.css">
+<link rel="stylesheet" href="assets/css/expedir.css">
+<link rel="stylesheet" href="assets/css/gestor.css">
+<link rel="stylesheet" href="assets/css/editor.css">
+</head>
+<body>
+
+<!--
+  Um ecrã é um <div class="ecra">. O que o editor lê dele:
+    data-ecra   o identificador, que entra nos seletores do CSS exportado
+    data-nome   o nome no seletor de ecrãs
+    data-fluxo  o grupo no seletor de ecrãs
+    data-refs   os requisitos e casos de uso de onde o ecrã sai
+  Dentro, o <div class="pda"> é o ecrã do aparelho, 320 × 533 dp.
+  data-ir="…" num botão diz para que ecrã ele leva no protótipo.
+
+  Os nomes, as posições e as horas são de exemplo.
+-->
+
+<main class="tela" id="tela">
+
+<!-- ================= 1 · ENTRAR E COMEÇAR O TURNO ================= -->
+
+<div class="ecra" data-ecra="e1" data-fluxo="Entrar e começar o turno" data-nome="01 · Entrar" data-refs="CU-01 · RF-01">
+<div class="pda">
+  <header class="marca-app">
+    <p class="marca-app__casa">ROMAFE</p>
+    <p class="marca-app__nome">Armazém Inteligente</p>
+  </header>
+  <div class="corpo">
+    <h1 class="txt-lead">Quem está ao serviço?</h1>
+    <div class="campo">
+      <p class="campo__rotulo">Código de utilizador</p>
+      <p class="campo__valor">1042 · Marta Silva</p>
+    </div>
+    <p class="txt-legenda">Lê o cartão com o gatilho, ou escreve o código</p>
+    <p class="txt-legenda">PIN</p>
+    <div class="pin" aria-label="3 de 4 algarismos">
+      <span class="pin__ponto pin__ponto--cheio"></span><span class="pin__ponto pin__ponto--cheio"></span><span class="pin__ponto pin__ponto--cheio"></span><span class="pin__ponto"></span>
+    </div>
+    <div class="teclado">
+      <span class="tecla">1</span><span class="tecla">2</span><span class="tecla">3</span>
+      <span class="tecla">4</span><span class="tecla">5</span><span class="tecla">6</span>
+      <span class="tecla">7</span><span class="tecla">8</span><span class="tecla">9</span>
+      <span class="tecla">⌫</span><span class="tecla">0</span><span class="tecla">OK</span>
+    </div>
+  </div>
+  <div class="rodape">
+    <button type="button" class="btn btn--acao" data-ir="e2">Entrar</button>
+  </div>
+</div>
+</div>
+
+<div class="ecra" data-ecra="e2" data-fluxo="Entrar e começar o turno" data-nome="02 · Menu da arrumação" data-refs="RF-02 · RF-100" hidden>
+<div class="pda">
+  <div class="faixa"><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede">● ligado</span></div>
+  <header class="barra"><h1 class="barra__titulo">Bom dia, Marta</h1><p class="barra__sub">Turno das 8h · 12 tarefas na tua fila</p></header>
+  <div class="corpo">
+    <div class="mosaicos">
+      <div class="mosaico mosaico--tarefa"><span class="mosaico__nome">Receber</span><span class="mosaico__conta">3 paletes no cais</span></div>
+      <button type="button" class="mosaico mosaico--tarefa" data-ir="e3"><span class="mosaico__nome">Arrumar</span><span class="mosaico__conta">5 por arrumar</span></button>
+      <div class="mosaico mosaico--tarefa"><span class="mosaico__nome">Contar</span><span class="mosaico__conta">2 posições</span></div>
+      <div class="mosaico mosaico--tarefa"><span class="mosaico__nome">Corrigir posição</span><span class="mosaico__conta">1 por corrigir</span></div>
+      <div class="mosaico"><span class="mosaico__nome">Consultar artigo</span></div>
+      <div class="mosaico"><span class="mosaico__nome">Mapa</span></div>
+      <div class="mosaico"><span class="mosaico__nome">Pedir etiqueta</span></div>
+      <div class="mosaico"><span class="mosaico__nome">Bloquear artigo</span></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="ecra" data-ecra="e3" data-fluxo="Entrar e começar o turno" data-nome="03 · A fila, com o porquê" data-refs="RF-20 · RF-21 · RF-95" hidden>
+<div class="pda">
+  <div class="faixa"><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede">● ligado</span></div>
+  <header class="barra"><h1 class="barra__titulo">O teu trabalho</h1><p class="barra__sub">Por ordem. A de cima é a seguinte.</p></header>
+  <div class="corpo">
+    <button type="button" class="tarefa tarefa--seguinte" data-ir="a1">
+      <span class="selo selo--bom">Seguinte</span>
+      <span class="tarefa__titulo">Arrumar palete · Óleo 5W30 (40 un.)</span>
+      <span class="tarefa__porque">Porquê: espera há 2h10 — sobe para não ficar esquecida</span>
+    </button>
+    <div class="tarefa">
+      <span class="selo">Contagem</span>
+      <span class="tarefa__titulo">Contar C02-E03-N02</span>
+      <span class="tarefa__porque">Porquê: houve uma rutura aqui às 9h40</span>
+    </div>
+    <div class="tarefa">
+      <span class="selo selo--aviso">Palete vazia</span>
+      <span class="tarefa__titulo">Levar palete vazia ao parque</span>
+      <span class="tarefa__porque">Porquê: esvaziada às 10h02 em C01-E02 (zona de máquina)</span>
+    </div>
+    <p class="txt-legenda">Com outra pessoa: 2 tarefas · João (Arrumação)</p>
+  </div>
+</div>
+</div>
+
+<!-- ================= 2 · ARRUMAR UMA PALETE ================= -->
+
+<div class="ecra" data-ecra="a1" data-fluxo="Arrumar uma palete" data-nome="04 · Lê o artigo" data-refs="CU-07 · RF-33" hidden>
+<div class="pda">
+  <div class="faixa"><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede">● ligado</span></div>
+  <div class="passos">
+    <div class="passos__linha"><span class="passos__titulo">Arrumar palete</span><span class="passos__conta">Passo 1 de 4</span></div>
+    <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i><i class="passos__traco"></i><i class="passos__traco"></i></div>
+  </div>
+  <div class="corpo">
+    <h1 class="ordem">Lê o ARTIGO</h1>
+    <p class="txt-corpo">A etiqueta da caixa ou da palete que tens à frente</p>
+    <div class="cartao">
+      <span class="rotulo">Esperado</span>
+      <span class="txt-lead">Óleo 5W30 · 5 L</span>
+      <span class="txt-sec">40 unidades · do cais de entrada</span>
+    </div>
+    <div class="leitor" data-ir="a2"><span class="leitor__icone"><i></i><i></i><i></i><i></i><i></i></span>Aponta e carrega no gatilho</div>
+  </div>
+  <div class="rodape">
+    <button type="button" class="btn btn--secundario">Não consigo ler — escrever</button>
+  </div>
+</div>
+</div>
+
+<div class="ecra" data-ecra="a2" data-fluxo="Arrumar uma palete" data-nome="05 · Vai à proposta 1 de 3" data-refs="RF-31 · RF-32 · RF-35" hidden>
+<div class="pda">
+  <div class="faixa"><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede">● ligado</span></div>
+  <div class="passos">
+    <div class="passos__linha"><span class="passos__titulo">Arrumar palete</span><span class="passos__conta">Passo 2 de 4</span></div>
+    <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i><i class="passos__traco"></i></div>
+  </div>
+  <div class="corpo">
+    <div class="proposta"><span class="txt-corpo">Vai a</span><span class="selo selo--acento">Proposta 1 de 3</span></div>
+    <p class="codigo">C02-E03-N01</p>
+    <p class="txt-sec">Zona 10 · Corredor 2 · Estante 3 · Prateleira de baixo</p>
+    <div class="cartao cartao--acento">
+      <span class="rotulo rotulo--acento">Porquê aqui</span>
+      <span class="porque-aqui">Sai muito — 34 por dia — e fica a 8 m do cais. É pesado para ir mais alto.</span>
+    </div>
+    <p class="txt-sec">Caminho: sai do cais, segue o corredor 2, terceira estante à direita.</p>
+  </div>
+  <div class="rodape">
+    <button type="button" class="btn btn--acao" data-ir="a4">Cheguei</button>
+    <div class="par">
+      <button type="button" class="btn" data-ir="a3">Está ocupada</button>
+      <button type="button" class="btn" data-ir="a3">Não cabe</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="ecra" data-ecra="a3" data-fluxo="Arrumar uma palete" data-nome="06 · A 1 estava ocupada" data-refs="RF-35 · RF-116" hidden>
+<div class="pda">
+  <div class="faixa"><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede">● ligado</span></div>
+  <div class="passos">
+    <div class="passos__linha"><span class="passos__titulo">Arrumar palete</span><span class="passos__conta">Passo 2 de 4</span></div>
+    <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i><i class="passos__traco"></i></div>
+  </div>
+  <div class="corpo">
+    <div class="alerta alerta--aviso"><b class="alerta__titulo">C02-E03-N01 ficou registada como ocupada</b>O gestor vai ver porque é que o sistema a julgava livre.</div>
+    <div class="proposta"><span class="txt-corpo">Vai a</span><span class="selo selo--acento">Proposta 2 de 3</span></div>
+    <p class="codigo">C02-E04-N01</p>
+    <div class="cartao cartao--acento">
+      <span class="rotulo rotulo--acento">Porquê aqui</span>
+      <span class="porque-aqui">É a seguinte mais perto do cais que aguenta o peso.</span>
+    </div>
+    <p class="txt-legenda">Só podes escolher outra posição se a 3.ª também estiver ocupada.</p>
+  </div>
+  <div class="rodape">
+    <button type="button" class="btn btn--acao" data-ir="a4">Cheguei</button>
+  </div>
+</div>
+</div>
+
+<div class="ecra" data-ecra="a4" data-fluxo="Arrumar uma palete" data-nome="07 · Lê a posição" data-refs="RF-33 · RF-34 · ADR-0011" hidden>
+<div class="pda">
+  <div class="faixa"><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede">● ligado</span></div>
+  <div class="passos">
+    <div class="passos__linha"><span class="passos__titulo">Arrumar palete</span><span class="passos__conta">Passo 3 de 4</span></div>
+    <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i></div>
+  </div>
+  <div class="corpo">
+    <h1 class="ordem">Lê a POSIÇÃO</h1>
+    <p class="txt-corpo">A etiqueta na prateleira onde pousaste a palete</p>
+    <div class="cartao">
+      <span class="rotulo">Deve ser</span>
+      <span class="codigo codigo--menor">C02-E04-N01</span>
+    </div>
+    <div class="leitor" data-ir="a5"><span class="leitor__icone"><i></i><i></i><i></i><i></i><i></i></span>O sistema confirma de novo, ao ler, que a posição ainda serve</div>
+  </div>
+  <div class="rodape">
+    <button type="button" class="btn btn--secundario">Não consigo ler — escrever</button>
+  </div>
+</div>
+</div>
+
+<div class="ecra" data-ecra="a5" data-fluxo="Arrumar uma palete" data-nome="08 · Arrumada" data-refs="RF-74 · RN-32" hidden>
+<div class="pda">
+  <div class="faixa"><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede">● ligado</span></div>
+  <div class="passos">
+    <div class="passos__linha"><span class="passos__titulo">Arrumar palete</span><span class="passos__conta">Passo 4 de 4</span></div>
+    <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i></div>
+  </div>
+  <div class="corpo">
+    <div class="alerta alerta--bom"><b class="alerta__titulo">Arrumada em C02-E04-N01</b>40 × Óleo 5W30 · registado com o teu nome às 10h14</div>
+    <div class="cartao">
+      <span class="rotulo">Estado do stock</span>
+      <div class="linha">Antes<span class="linha__valor">A aguardar arrumação · cais</span></div>
+      <div class="linha">Agora<span class="linha__valor">Armazenado · C02-E04-N01</span></div>
+    </div>
+    <p class="txt-legenda">Seguinte na fila: Contar C02-E03-N02 — porque houve uma rutura aqui.</p>
+  </div>
+  <div class="rodape">
+    <button type="button" class="btn btn--acao" data-ir="e3">Próxima tarefa</button>
+  </div>
+</div>
+</div>
+
+<!-- ================= 3 · RECOLHER UMA GUIA ================= -->
+
+<div class="ecra" data-ecra="s1" data-fluxo="Recolher uma guia" data-nome="09 · O lote, já cheio" data-refs="CU-10 · RF-40 · RF-41 · RF-44" hidden>
+<div class="pda">
+  <div class="faixa"><span class="faixa__perfil">Separação</span><span class="faixa__nome">Rui Costa</span><span class="faixa__rede">● ligado</span></div>
+  <header class="barra"><h1 class="barra__titulo">O teu lote</h1><p class="barra__sub">3 guias · 18 linhas · 3 corredores</p></header>
+  <div class="corpo">
+    <div class="tarefa tarefa--seguinte">
+      <span class="selo selo--erro">Camião DPD · fecha 11h30</span>
+      <span class="tarefa__titulo">G-24187 · Auto Peças Norte</span>
+      <span class="tarefa__porque">9 linhas · apertado: faltam 27 min de trabalho</span>
+    </div>
+    <div class="tarefa">
+      <span class="selo">Camião GLS · 14h00</span>
+      <span class="tarefa__titulo">G-24190 · Oficina Ribeiro</span>
+      <span class="tarefa__porque">6 linhas</span>
+    </div>
+    <div class="tarefa">
+      <span class="selo">Camião GLS · 14h00</span>
+      <span class="tarefa__titulo">G-24193 · Lubrificantes Sá</span>
+      <span class="tarefa__porque">3 linhas</span>
+    </div>
+  </div>
+  <div class="rodape">
+    <button type="button" class="btn btn--acao" data-ir="s2">Começar a volta</button>
+  </div>
+</div>
+</div>
+
+<div class="ecra" data-ecra="s2" data-fluxo="Recolher uma guia" data-nome="10 · Paragem: lê a posição" data-refs="RF-43 · RF-44 · RF-45" hidden>
+<div class="pda">
+  <div class="faixa"><span class="faixa__perfil">Separação</span><span class="faixa__nome">Rui Costa</span><span class="faixa__rede">● ligado</span></div>
+  <div class="passos">
+    <div class="passos__linha"><span class="passos__titulo">Paragem 4 de 18</span><span class="passos__conta">G-24187</span></div>
+    <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i><i class="passos__traco"></i><i class="passos__traco"></i></div>
+  </div>
+  <div class="corpo">
+    <p class="txt-sec">Vai a</p>
+    <p class="codigo">C01-E02-N01</p>
+    <div class="cartao">
+      <span class="rotulo">Tira</span>
+      <span class="txt-lead">6 × Filtro de óleo W712</span>
+      <span class="txt-sec">Para G-24187 · o stock já está reservado para ti</span>
+    </div>
+    <div class="linha">A seguir<span class="linha__valor">C01-E05-N02 · 5 m</span></div>
+    <div class="leitor" data-ir="s3"><span class="leitor__icone"><i></i><i></i><i></i><i></i><i></i></span>Lê a POSIÇÃO, depois o ARTIGO</div>
+  </div>
+  <div class="rodape">
+    <button type="button" class="btn btn--secundario" data-ir="s3">Falta quantidade</button>
+  </div>
+</div>
+</div>
+
+<div class="ecra" data-ecra="s3" data-fluxo="Recolher uma guia" data-nome="11 · Falta quantidade" data-refs="RF-46 · RF-114 · RF-121" hidden>
+<div class="pda">
+  <div class="faixa"><span class="faixa__perfil">Separação</span><span class="faixa__nome">Rui Costa</span><span class="faixa__rede">● ligado</span></div>
+  <div class="passos">
+    <div class="passos__linha"><span class="passos__titulo">Paragem 5 de 18</span><span class="passos__conta">G-24190</span></div>
+    <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i><i class="passos__traco"></i></div>
+  </div>
+  <div class="corpo">
+    <div class="alerta alerta--erro"><b class="alerta__titulo">Aqui há 2 das 6</b>Regista o que tiraste. A guia fica incompleta e não sai sem o resto.</div>
+    <p class="codigo codigo--menor">C01-E05-N02</p>
+    <div class="cartao falta">
+      <div class="linha">Pedidas<span class="linha__valor">6</span></div>
+      <div class="linha">Tiraste<span class="linha__valor">2</span></div>
+      <div class="linha">Faltam<span class="linha__valor linha__valor--erro">4</span></div>
+    </div>
+    <p class="txt-legenda">Vai nascer uma tarefa para contar esta posição.</p>
+  </div>
+  <div class="rodape">
+    <button type="button" class="btn btn--acao" data-ir="s4">Registar e seguir</button>
+  </div>
+</div>
+</div>
+
+<div class="ecra" data-ecra="s4" data-fluxo="Recolher uma guia" data-nome="12 · Leva à prateleira de preparados" data-refs="CU-11 · RF-115 · RF-117 · RN-33" hidden>
+<div class="pda">
+  <div class="faixa"><span class="faixa__perfil">Separação</span><span class="faixa__nome">Rui Costa</span><span class="faixa__rede">● ligado</span></div>
+  <div class="passos">
+    <div class="passos__linha"><span class="passos__titulo">Fim da volta</span><span class="passos__conta">18 de 18</span></div>
+    <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i></div>
+  </div>
+  <div class="corpo">
+    <h1 class="ordem ordem--frase">Leva à prateleira de preparados</h1>
+    <p class="codigo">PP-DPD-03</p>
+    <p class="txt-sec">Parte do camião DPD · 11h30 · junto ao cais de saída</p>
+    <div class="cartao"><div class="linha">G-24187<span class="linha__valor">completa · 9 volumes</span></div></div>
+    <div class="alerta alerta--aviso"><b class="alerta__titulo">G-24190 fica marcada como incompleta</b>Vai para PP-GLS-01 e não entra na fila da expedição.</div>
+    <div class="leitor" data-ir="x1"><span class="leitor__icone"><i></i><i></i><i></i><i></i><i></i></span>Lê a posição da prateleira onde a pousas</div>
+  </div>
+</div>
+</div>
+
+<!-- ================= 4 · DA PRATELEIRA DE PREPARADOS AO CAMIÃO ================= -->
+
+<div class="ecra" data-ecra="x1" data-fluxo="Da prateleira ao camião" data-nome="13 · Os camiões de hoje" data-refs="CU-13 · RF-50 · RF-51 · RF-56" hidden>
+<div class="pda">
+  <div class="faixa"><span class="faixa__perfil">Expedição</span><span class="faixa__nome">Ana Lopes</span><span class="faixa__rede">● ligado</span></div>
+  <header class="barra"><h1 class="barra__titulo">Camiões de hoje</h1><p class="barra__sub">Por ordem de fecho</p></header>
+  <div class="corpo">
+    <button type="button" class="camiao" data-ir="x2">
+      <span class="camiao__nome">DPD</span><span class="camiao__hora camiao__hora--erro">11h30</span>
+      <span class="camiao__estado">1 guia na prateleira · 0 no cais · <b>Apertado</b></span>
+      <span class="camiao__barra"><i class="camiao__cheio camiao__cheio--erro" style="width:82%"></i></span>
+    </button>
+    <div class="camiao">
+      <span class="camiao__nome">GLS</span><span class="camiao__hora">14h00</span>
+      <span class="camiao__estado">1 completa · 1 incompleta na prateleira</span>
+      <span class="camiao__barra"><i class="camiao__cheio camiao__cheio--aviso" style="width:40%"></i></span>
+    </div>
+    <div class="camiao">
+      <span class="camiao__nome">Transportes Vilar</span><span class="camiao__hora">17h30</span>
+      <span class="camiao__estado">4 guias por recolher</span>
+      <span class="camiao__barra"><i class="camiao__cheio camiao__cheio--bom" style="width:12%"></i></span>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="ecra" data-ecra="x2" data-fluxo="Da prateleira ao camião" data-nome="14 · Confere volume a volume" data-refs="CU-38 · RF-118 · RF-119" hidden>
+<div class="pda">
+  <div class="faixa"><span class="faixa__perfil">Expedição</span><span class="faixa__nome">Ana Lopes</span><span class="faixa__rede">● ligado</span></div>
+  <div class="passos">
+    <div class="passos__linha"><span class="passos__titulo">G-24187 · DPD</span><span class="passos__conta">Passo 2 de 4</span></div>
+    <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i><i class="passos__traco"></i></div>
+  </div>
+  <div class="corpo">
+    <div class="linha">Na prateleira<span class="linha__valor linha__valor--mono">PP-DPD-03 ✓</span></div>
+    <h1 class="ordem ordem--menor">Lê cada VOLUME</h1>
+    <div class="volumes">
+      <div class="volume volume--lido"><span class="volume__visto"></span>Caixa 1 · filtros<code class="volume__codigo">V1/9</code></div>
+      <div class="volume volume--lido"><span class="volume__visto"></span>Caixa 2 · óleos<code class="volume__codigo">V2/9</code></div>
+      <div class="volume volume--lido"><span class="volume__visto"></span>Caixa 3 · óleos<code class="volume__codigo">V3/9</code></div>
+      <div class="volume"><span class="volume__visto"></span>Caixa 4 · pastilhas<code class="volume__codigo">V4/9</code></div>
+      <div class="volume"><span class="volume__visto"></span>… mais 5 volumes<code class="volume__codigo">V5–V9</code></div>
+    </div>
+    <div class="leitor" data-ir="x3"><span class="leitor__icone"><i></i><i></i><i></i><i></i><i></i></span>3 de 9 lidos</div>
+  </div>
+  <div class="rodape">
+    <button type="button" class="btn btn--secundario">Falta um volume</button>
+  </div>
+</div>
+</div>
+
+<div class="ecra" data-ecra="x3" data-fluxo="Da prateleira ao camião" data-nome="15 · Leva ao cais" data-refs="RF-119 · RF-113" hidden>
+<div class="pda">
+  <div class="faixa"><span class="faixa__perfil">Expedição</span><span class="faixa__nome">Ana Lopes</span><span class="faixa__rede">● ligado</span></div>
+  <div class="passos">
+    <div class="passos__linha"><span class="passos__titulo">G-24187 · DPD</span><span class="passos__conta">Passo 3 de 4</span></div>
+    <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i></div>
+  </div>
+  <div class="corpo">
+    <div class="alerta alerta--bom"><b class="alerta__titulo">9 de 9 volumes conferidos</b>A guia está completa.</div>
+    <h1 class="ordem ordem--menor">Leva ao cais</h1>
+    <p class="codigo">CAIS-2</p>
+    <p class="txt-sec">Onde o camião DPD está a encostar</p>
+    <div class="leitor" data-ir="x4"><span class="leitor__icone"><i></i><i></i><i></i><i></i><i></i></span>Lê a etiqueta do cais onde pousas</div>
+  </div>
+</div>
+</div>
+
+<div class="ecra" data-ecra="x4" data-fluxo="Da prateleira ao camião" data-nome="16 · Carregar e fechar a saída" data-refs="CU-15 · RF-54 · RF-120 · RF-122" hidden>
+<div class="pda">
+  <div class="faixa"><span class="faixa__perfil">Expedição</span><span class="faixa__nome">Ana Lopes</span><span class="faixa__rede">● ligado</span></div>
+  <div class="passos">
+    <div class="passos__linha"><span class="passos__titulo">Saída DPD · 11h30</span><span class="passos__conta">Passo 4 de 4</span></div>
+    <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i></div>
+  </div>
+  <div class="corpo">
+    <h1 class="ordem ordem--menor">Lê ao carregar</h1>
+    <div class="cartao">
+      <div class="linha">G-24187<span class="linha__valor linha__valor--bom">9/9 carregados</span></div>
+      <div class="linha">G-24181<span class="linha__valor linha__valor--bom">4/4 carregados</span></div>
+      <div class="linha">G-24185<span class="linha__valor">1/3</span></div>
+    </div>
+    <div class="leitor"><span class="leitor__icone"><i></i><i></i><i></i><i></i><i></i></span>Lê cada volume quando sobe ao camião</div>
+    <p class="txt-legenda">Documentos de transporte e observações longas: no computador da expedição.</p>
+  </div>
+  <div class="rodape">
+    <button type="button" class="btn btn--acao" disabled>Fechar saída — faltam 2 volumes</button>
+  </div>
+</div>
+</div>
+
+<!-- ================= 5 · O GESTOR E AS EXCEÇÕES ================= -->
+
+<div class="ecra" data-ecra="g1" data-fluxo="O gestor e as exceções" data-nome="17 · Relatório do turno" data-refs="CU-16 · RF-60 · RF-61 · RF-116" hidden>
+<div class="pda">
+  <div class="faixa"><span class="faixa__perfil">Gestor</span><span class="faixa__nome">Paulo Mendes</span><span class="faixa__rede">● ligado</span></div>
+  <header class="barra"><h1 class="barra__titulo">Turno das 8h</h1><p class="barra__sub">Até agora · 10h20</p></header>
+  <div class="corpo">
+    <div class="numeros">
+      <div class="numero"><b class="numero__valor">47</b><span class="numero__nome">tarefas feitas</span></div>
+      <div class="numero"><b class="numero__valor">6%</b><span class="numero__nome">leituras à mão</span></div>
+      <div class="numero"><b class="numero__valor">3</b><span class="numero__nome">posições ocupadas</span></div>
+      <div class="numero"><b class="numero__valor">1</b><span class="numero__nome">guia incompleta</span></div>
+    </div>
+    <p class="rotulo">Sinais</p>
+    <div class="tarefa">
+      <span class="selo selo--aviso">Mapa</span>
+      <span class="tarefa__titulo">C02-E03-N01 recusada 3 vezes</span>
+      <span class="tarefa__porque">O sistema julgava-a livre. Mandar contar?</span>
+    </div>
+    <div class="tarefa">
+      <span class="selo selo--erro">Stock</span>
+      <span class="tarefa__titulo">C01-E05-N02 diverge há 2 contagens</span>
+      <span class="tarefa__porque">Pode sair stock sem registo</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="ecra" data-ecra="g2" data-fluxo="O gestor e as exceções" data-nome="18 · O que se passa?" data-refs="CU-22 · RF-83 · RF-85" hidden>
+<div class="pda">
+  <div class="faixa"><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede">● ligado</span></div>
+  <div class="passos">
+    <div class="passos__linha"><span class="passos__titulo">Arrumar palete</span><span class="passos__conta">Passo 2 de 4</span></div>
+    <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i><i class="passos__traco"></i></div>
+  </div>
+  <div class="corpo">
+    <p class="codigo por-baixo">C02-E03-N01</p>
+  </div>
+  <div class="folha">
+    <div class="folha__caixa">
+      <h1 class="txt-lead">O que se passa?</h1>
+      <button type="button" class="folha__opcao" data-ir="a3">Posição ocupada</button>
+      <button type="button" class="folha__opcao">Não cabe</button>
+      <button type="button" class="folha__opcao">Posição inacessível</button>
+      <button type="button" class="folha__opcao">Artigo danificado</button>
+      <button type="button" class="folha__opcao">Etiqueta ilegível</button>
+      <button type="button" class="folha__opcao">Outro motivo — escrever</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="ecra" data-ecra="g3" data-fluxo="O gestor e as exceções" data-nome="19 · Sem ligação" data-refs="RNF-01 · RNF-02 · RF-53" hidden>
+<div class="pda">
+  <div class="faixa"><span class="faixa__perfil">Separação</span><span class="faixa__nome">Rui Costa</span><span class="faixa__rede faixa__rede--sem">Sem ligação</span></div>
+  <header class="barra"><h1 class="barra__titulo">Sem ligação</h1><p class="barra__sub">Desde as 10h22</p></header>
+  <div class="corpo">
+    <div class="alerta alerta--erro"><b class="alerta__titulo">O PDA não está ligado ao servidor</b>Não podes começar nem fechar operações até a ligação voltar.</div>
+    <div class="cartao">
+      <span class="rotulo">Ficou gravado</span>
+      <div class="linha">Paragem 3 de 18<span class="linha__valor linha__valor--bom">confirmada às 10h21</span></div>
+      <div class="linha">Paragem 4 de 18<span class="linha__valor linha__valor--aviso">por confirmar</span></div>
+    </div>
+    <p class="txt-sec">Aproxima-te do corredor principal. Quando a ligação voltar, retomas na paragem 4.</p>
+    <p class="txt-legenda">Números do lote: da última ligação, às 10h21.</p>
+  </div>
+  <div class="rodape">
+    <button type="button" class="btn btn--secundario">Tentar de novo</button>
+  </div>
+</div>
+</div>
+
+</main>
+
+<script src="assets/js/ecras.js"></script>
+<script src="assets/js/pecas.js"></script>
+<script src="assets/js/editor.js"></script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sistema de design do PDA — Armazém Inteligente</title>
+<meta name="description" content="Cor, tipografia, espaço, alvos de toque e componentes dos ecrãs do PDA, com exemplos vivos e o código de cada peça.">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/documentacao.css">
+</head>
+<body>
+
+<a class="skip-link" href="#conteudo">Saltar para o conteúdo</a>
+
+<header class="doc-topo">
+  <div>
+    <h1 class="doc-topo__titulo">Armazém Inteligente · PDA</h1>
+    <p class="doc-topo__sub">Sistema de design dos ecrãs</p>
+  </div>
+  <nav class="doc-topo__nav" aria-label="Páginas">
+    <a href="index.html">Ecrãs</a>
+    <a href="como-funciona.html">Como funciona</a>
+  </nav>
+</header>
+
+<div class="doc-corpo">
+
+  <nav class="doc-indice" aria-label="Índice">
+    <ol>
+      <li><a href="#origem">De onde vem</a></li>
+      <li><a href="#aparelho">O aparelho</a></li>
+      <li><a href="#cor">Cor</a></li>
+      <li><a href="#tipografia">Tipografia</a></li>
+      <li><a href="#espaco">Espaço, forma e alvos</a></li>
+      <li><a href="#faixa">Faixa, barra e passos</a></li>
+      <li><a href="#botoes">Botões</a></li>
+      <li><a href="#estado">Selo e alertas</a></li>
+      <li><a href="#blocos">Cartão, tarefa e leitor</a></li>
+      <li><a href="#vazio">Vazio e folha de exceção</a></li>
+      <li><a href="#kotlin">Do CSS ao Kotlin</a></li>
+    </ol>
+  </nav>
+
+  <main class="doc-conteudo" id="conteudo">
+
+    <section class="seccao" id="origem">
+      <h2>De onde vem</h2>
+      <p>
+        Todos os valores desta página vêm de <code>pda-docs/05-design/03-sistema-de-design</code>,
+        que os tira de <code>core/design/Theme.kt</code>. Nenhuma cor, tamanho ou folga foi
+        escolhido aqui. Quando um ecrã precisou de algo que o sistema não tem, ficou marcado
+        como acréscimo no fim de <code>tokens.css</code> — são dois, e nenhum é uma cor nova.
+      </p>
+      <pre><code>&lt;link rel="stylesheet" href="assets/css/tokens.css"&gt;   &lt;!-- os valores --&gt;
+&lt;link rel="stylesheet" href="assets/css/base.css"&gt;     &lt;!-- as peças --&gt;
+&lt;link rel="stylesheet" href="assets/css/arrumar.css"&gt;  &lt;!-- só um fluxo --&gt;</code></pre>
+      <p class="nota">
+        Ao contrário do sistema da entrada da ROMAFE, o PDA não tem tema escuro nem inglês. O
+        sistema de design só define um jogo de cores, e o armazém fala português. Por isso
+        não há <code>tema.js</code> nem <code>traducao.js</code>.
+      </p>
+    </section>
+
+    <section class="seccao" id="aparelho">
+      <h2>O aparelho</h2>
+      <p>
+        Honeywell EDA61K, Android 11. O ecrã tem 480 × 800 píxeis a 240 dpi, que dão
+        <strong>320 × 533 dp</strong>. Em CSS, 1 px é 1 dp: um ecrã é
+        <code>width: var(--ecra-l); height: var(--ecra-a)</code>, e as capturas de
+        <code>importar/</code> saem a 1,5× para dar os píxeis reais.
+      </p>
+      <p>
+        O que se lê com o gatilho não tem botão no ecrã. Onde a pessoa tem de ler, aparece o
+        <em>leitor</em>, e o botão secundário é a saída para quando a etiqueta não se lê.
+      </p>
+    </section>
+
+    <section class="seccao" id="cor">
+      <h2>Cor</h2>
+      <p>Clica numa cor para copiar o token.</p>
+      <h3>Marca</h3>
+      <div class="grelha-cores" data-cores="marca"></div>
+      <h3>Superfície e texto</h3>
+      <div class="grelha-cores" data-cores="superficie"></div>
+      <h3>Estado</h3>
+      <div class="grelha-cores" data-cores="estado"></div>
+      <p class="nota">
+        O estado nunca se diz só pela cor. Cada um tem cor, palavra e posição: um selo
+        «Apertado» a vermelho diz «Apertado». É também por isso que, sem rede, a faixa não
+        fica vermelha — escreve <em>Sem ligação</em>.
+      </p>
+      <p class="nota">
+        O laranja de ação não serve de texto: sobre branco dá 2,6:1. É fundo do botão
+        principal e moldura da tarefa seguinte, e mais nada.
+      </p>
+    </section>
+
+    <section class="seccao" id="tipografia">
+      <h2>Tipografia</h2>
+      <p>
+        Roboto, a letra do Android, em woff2 dentro de <code>assets/fonts/</code> — as páginas
+        abrem sem rede. Nove tamanhos: a distância entre <code>body</code> e
+        <code>giant</code> é o que separa ler de ver.
+      </p>
+      <div class="escala" data-escala="tipo"></div>
+    </section>
+
+    <section class="seccao" id="espaco">
+      <h2>Espaço, forma e alvos</h2>
+      <div class="escala" data-escala="espaco"></div>
+      <div class="rolo">
+        <table class="tabela">
+          <thead><tr><th>Token</th><th>Valor</th><th>Para quê</th></tr></thead>
+          <tbody>
+            <tr><td><code>--r-sm</code></td><td>6 dp</td><td>Volumes, opções da folha, teclas</td></tr>
+            <tr><td><code>--r-md</code></td><td>10 dp</td><td>Cartões, botões, alertas</td></tr>
+            <tr><td><code>--r-lg</code></td><td>14 dp</td><td>A folha de exceção</td></tr>
+            <tr><td><code>--r-pill</code></td><td>999 dp</td><td>Selos e barras de progresso</td></tr>
+            <tr><td><code>--alvo</code></td><td>48 dp</td><td>O mínimo de qualquer toque — e o das WCAG</td></tr>
+            <tr><td><code>--alvo-lg</code></td><td>62 dp</td><td>A ação principal de cada ecrã</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="seccao" id="faixa">
+      <h2>Faixa, barra e passos</h2>
+      <p>
+        A <strong>faixa</strong> diz quem está a trabalhar e se há rede, sempre no mesmo sítio.
+        Por baixo, ou a <strong>barra de topo</strong> — nas listas — ou os
+        <strong>passos</strong> — dentro de uma missão.
+      </p>
+      <div class="demo">
+        <div class="demo__coluna">
+          <div class="faixa"><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede">● ligado</span></div>
+          <header class="barra"><p class="barra__titulo">O teu trabalho</p><p class="barra__sub">Por ordem. A de cima é a seguinte.</p></header>
+        </div>
+        <div class="demo__coluna">
+          <div class="faixa"><span class="faixa__perfil">Separação</span><span class="faixa__nome">Rui Costa</span><span class="faixa__rede faixa__rede--sem">Sem ligação</span></div>
+          <div class="passos">
+            <div class="passos__linha"><span class="passos__titulo">Arrumar palete</span><span class="passos__conta">Passo 2 de 4</span></div>
+            <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i><i class="passos__traco"></i></div>
+          </div>
+        </div>
+      </div>
+      <pre><code>&lt;div class="faixa"&gt;
+  &lt;span class="faixa__perfil"&gt;Arrumação&lt;/span&gt;
+  &lt;span class="faixa__nome"&gt;Marta Silva&lt;/span&gt;
+  &lt;span class="faixa__rede"&gt;● ligado&lt;/span&gt;   &lt;!-- sem rede: faixa__rede--sem --&gt;
+&lt;/div&gt;</code></pre>
+    </section>
+
+    <section class="seccao" id="botoes">
+      <h2>Botões</h2>
+      <p>
+        Três variantes, e a variante vem do papel da ação. A <strong>ação principal</strong> é uma
+        por ecrã, laranja e com 62 dp. A <strong>secundária</strong> é a saída — «não consigo
+        ler», «falta quantidade». A <strong>neutra</strong> é uma escolha entre iguais.
+      </p>
+      <div class="demo">
+        <div class="demo__coluna">
+          <button type="button" class="btn btn--acao">Cheguei</button>
+          <button type="button" class="btn btn--secundario">Não consigo ler — escrever</button>
+          <div class="par"><button type="button" class="btn">Está ocupada</button><button type="button" class="btn">Não cabe</button></div>
+          <button type="button" class="btn btn--acao" disabled>Fechar saída — faltam 2 volumes</button>
+        </div>
+      </div>
+      <pre><code>&lt;button type="button" class="btn btn--acao"&gt;Cheguei&lt;/button&gt;
+&lt;button type="button" class="btn btn--secundario"&gt;Não consigo ler — escrever&lt;/button&gt;
+&lt;button type="button" class="btn"&gt;Está ocupada&lt;/button&gt;</code></pre>
+      <p class="nota">Desativado, o botão diz porquê no próprio rótulo. Um botão cinzento mudo lê-se como avaria.</p>
+    </section>
+
+    <section class="seccao" id="estado">
+      <h2>Selo e alertas</h2>
+      <div class="demo">
+        <div class="demo__coluna">
+          <div class="par" style="flex-wrap:wrap">
+            <span class="selo">Contagem</span><span class="selo selo--bom">Seguinte</span>
+            <span class="selo selo--aviso">Palete vazia</span><span class="selo selo--erro">Apertado</span>
+            <span class="selo selo--acento">Proposta 1 de 3</span>
+          </div>
+          <div class="alerta alerta--bom"><b class="alerta__titulo">Arrumada em C02-E04-N01</b>Registado com o teu nome às 10h14</div>
+          <div class="alerta alerta--aviso"><b class="alerta__titulo">C02-E03-N01 ficou registada como ocupada</b>O gestor vai ver porquê.</div>
+          <div class="alerta alerta--erro"><b class="alerta__titulo">Aqui há 2 das 6</b>A guia fica incompleta.</div>
+        </div>
+      </div>
+      <pre><code>&lt;span class="selo selo--bom"&gt;Seguinte&lt;/span&gt;
+&lt;div class="alerta alerta--aviso"&gt;&lt;b class="alerta__titulo"&gt;Título&lt;/b&gt;Explicação&lt;/div&gt;</code></pre>
+    </section>
+
+    <section class="seccao" id="blocos">
+      <h2>Cartão, tarefa e leitor</h2>
+      <div class="demo">
+        <div class="demo__coluna">
+          <div class="cartao"><span class="rotulo">Esperado</span><span class="txt-lead">Óleo 5W30 · 5 L</span><span class="txt-sec">40 unidades · do cais de entrada</span></div>
+          <div class="cartao cartao--acento"><span class="rotulo rotulo--acento">Porquê aqui</span><span class="porque-aqui">É a seguinte mais perto do cais que aguenta o peso.</span></div>
+          <div class="leitor"><span class="leitor__icone"><i></i><i></i><i></i><i></i><i></i></span>Aponta e carrega no gatilho</div>
+        </div>
+        <div class="demo__coluna">
+          <div class="tarefa tarefa--seguinte"><span class="selo selo--bom">Seguinte</span><span class="tarefa__titulo">Arrumar palete · Óleo 5W30</span><span class="tarefa__porque">Porquê: espera há 2h10</span></div>
+          <div class="tarefa"><span class="selo">Contagem</span><span class="tarefa__titulo">Contar C02-E03-N02</span><span class="tarefa__porque">Porquê: houve uma rutura aqui às 9h40</span></div>
+          <div class="cartao"><div class="linha">Pedidas<span class="linha__valor">6</span></div><div class="linha">Faltam<span class="linha__valor linha__valor--erro">4</span></div></div>
+        </div>
+      </div>
+      <p class="nota">Cada tarefa da fila diz porquê está naquela posição. É o que faz a pessoa confiar na ordem em vez de escolher.</p>
+    </section>
+
+    <section class="seccao" id="vazio">
+      <h2>Vazio e folha de exceção</h2>
+      <p>
+        O <strong>vazio</strong> é um componente e não um cuidado: se mostrar um vazio explicado
+        custar mais do que não mostrar nada, alguém não mostra nada. A <strong>folha</strong>
+        abre por cima do passo, com o passo ainda à vista, e nunca é obrigatória para avançar.
+      </p>
+      <div class="demo">
+        <div class="demo__coluna">
+          <div class="cartao"><div class="vazio"><p class="vazio__titulo">Não há nada na tua fila</p><p class="vazio__texto">Quando entrar trabalho para a arrumação, aparece aqui.</p></div></div>
+        </div>
+        <div class="demo__coluna">
+          <div class="folha__caixa" style="border:1px solid var(--c-cinzento)">
+            <p class="txt-lead">O que se passa?</p>
+            <button type="button" class="folha__opcao">Posição ocupada</button>
+            <button type="button" class="folha__opcao">Etiqueta ilegível</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="seccao" id="kotlin">
+      <h2>Do CSS ao Kotlin</h2>
+      <p>O PDA é Compose e não HTML. O que se afina aqui leva-se para lá pelo nome, que é o mesmo dos dois lados.</p>
+      <div class="rolo">
+        <table class="tabela">
+          <thead><tr><th>Aqui</th><th>Em core/design</th></tr></thead>
+          <tbody>
+            <tr><td><code>var(--c-acento)</code></td><td>cor <em>Acento</em></td></tr>
+            <tr><td><code>var(--t-giant)</code></td><td>tipo <em>giant</em>, 40 sp</td></tr>
+            <tr><td><code>var(--e-lg)</code></td><td>espaço <em>lg</em>, 12 dp</td></tr>
+            <tr><td><code>.btn--acao</code></td><td><em>AcaoPrincipal</em></td></tr>
+            <tr><td><code>.cartao</code></td><td><em>Cartao</em></td></tr>
+            <tr><td><code>.selo</code></td><td><em>Selo</em></td></tr>
+            <tr><td><code>.faixa</code></td><td><em>Faixa</em></td></tr>
+            <tr><td><code>.barra</code></td><td><em>BarraDeTopo</em></td></tr>
+            <tr><td><code>.vazio</code></td><td><em>Vazio</em></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="nota">
+        As outras peças — passos, leitor, alerta, tarefa, linha, folha — ainda não são
+        componentes no sistema de design. Se ficarem nos ecrãs, é lá que têm de entrar.
+      </p>
+    </section>
+
+  </main>
+</div>
+
+<script src="assets/js/documentacao.js"></script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+/* =========================================================
+   ARMAZÉM INTELIGENTE — peças do PDA
+   Os seis componentes do sistema (03 §5) e as peças pequenas que
+   os ecrãs repetem. Nenhuma escreve uma cor: todas apontam para
+   um valor de tokens.css.
+   ========================================================= */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+body { font-family: var(--f-base); color: var(--c-texto); }
+p, h1, h2, h3 { margin: 0; }
+code { font-family: var(--f-mono); }
+
+.skip-link { position: absolute; left: -9999px; }
+.skip-link:focus { left: var(--e-lg); top: var(--e-lg); z-index: 99; background: var(--c-cartao); padding: var(--e-md); }
+
+/* ---------- o ecrã do aparelho ---------- */
+.pda {
+  position: relative;
+  width: var(--ecra-l); height: var(--ecra-a);
+  display: flex; flex-direction: column; overflow: hidden;
+  background: var(--c-fundo); color: var(--c-texto);
+  font-family: var(--f-base); font-size: var(--t-body); line-height: 1.3;
+}
+
+.corpo  { flex: 1; min-height: 0; padding: var(--e-lg); display: flex; flex-direction: column; gap: var(--e-md); overflow: hidden; }
+.rodape { padding: var(--e-sm) var(--e-lg) var(--e-lg); display: flex; flex-direction: column; gap: var(--e-md); }
+
+/* ---------- Faixa: quem é e se há rede, sempre no mesmo sítio ---------- */
+.faixa {
+  display: flex; align-items: center; gap: var(--e-md);
+  padding: var(--e-sm) var(--e-lg);
+  background: var(--c-invertido); color: var(--c-sobre-marca);
+  font-size: var(--t-tiny); font-weight: 500;
+}
+.faixa__perfil { font-size: var(--t-micro); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.faixa__nome   { margin-left: auto; }
+.faixa__rede   { font-size: var(--t-micro); }
+/* Sem rede, a faixa não muda de cor: muda de palavra. Vermelho sobre o
+   invertido não se lê, e a cor sozinha não diz estado — 03 §2.3. */
+.faixa__rede--sem { font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+
+/* ---------- BarraDeTopo ---------- */
+.barra { padding: var(--e-md) var(--e-lg); background: var(--c-cartao); border-bottom: 1px solid var(--c-cinzento); }
+.barra__titulo { font-size: var(--t-lead); font-weight: 700; }
+.barra__sub    { font-size: var(--t-tiny); color: var(--c-texto-3); margin-top: var(--e-xs); }
+
+/* ---------- Passos da missão ---------- */
+.passos { padding: var(--e-md) var(--e-lg); background: var(--c-cartao); border-bottom: 1px solid var(--c-cinzento); }
+.passos__linha  { display: flex; justify-content: space-between; align-items: baseline; }
+.passos__titulo { font-size: var(--t-small); font-weight: 500; color: var(--c-texto-2); }
+.passos__conta  { font-size: var(--t-tiny); font-weight: 500; color: var(--c-texto-3); }
+.passos__barra  { display: flex; gap: var(--e-xs); margin-top: var(--e-sm); }
+.passos__traco  { flex: 1; height: var(--espessura-progresso); border-radius: var(--r-pill); background: var(--c-cinzento); }
+.passos__traco--feito { background: var(--c-acento); }
+
+/* ---------- texto ---------- */
+.ordem  { font-size: var(--t-giant); font-weight: 700; line-height: 1.05; letter-spacing: -.01em; }
+.ordem--menor { font-size: var(--t-huge); }
+.codigo {
+  font-size: var(--t-colossal); font-weight: 700; line-height: 1.05; letter-spacing: -.02em;
+  color: var(--c-acento); font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+.codigo--menor { font-size: var(--t-huge); }
+.codigo--apagado { color: var(--c-cinzento); }
+
+.txt-lead    { font-size: var(--t-lead); font-weight: 700; }
+.txt-corpo   { font-size: var(--t-body); color: var(--c-texto-2); }
+.txt-sec     { font-size: var(--t-small); color: var(--c-texto-2); }
+.txt-legenda { font-size: var(--t-tiny); color: var(--c-texto-3); }
+
+/* ---------- Cartao ---------- */
+.cartao {
+  display: flex; flex-direction: column; gap: var(--e-xs);
+  padding: var(--e-md) var(--e-lg);
+  background: var(--c-cartao); border: 1px solid var(--c-cinzento); border-radius: var(--r-md);
+}
+.cartao--acento { border-color: var(--c-acento); }
+
+.rotulo { font-size: var(--t-micro); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--c-texto-3); }
+.rotulo--acento { color: var(--c-acento); }
+
+/* ---------- Selo: estado com cor e palavra ---------- */
+.selo {
+  align-self: flex-start;
+  padding: var(--e-xs) var(--e-md); border-radius: var(--r-pill);
+  font-size: var(--t-micro); font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+  background: var(--c-neutro-suave); color: var(--c-neutro);
+}
+.selo--bom    { background: var(--c-bom-suave);   color: var(--c-bom); }
+.selo--aviso  { background: var(--c-aviso-suave); color: var(--c-aviso); }
+.selo--erro   { background: var(--c-erro-suave);  color: var(--c-erro); }
+.selo--acento { background: var(--c-neutro-suave); color: var(--c-acento); }
+
+/* ---------- Botões ----------
+   A variante vem do papel da ação, não de uma cor solta. A AcaoPrincipal é
+   uma por ecrã e tem 62 dp; as outras ficam nos 48 dp do mínimo. */
+.btn {
+  display: flex; align-items: center; justify-content: center; width: 100%;
+  min-height: var(--alvo); padding: 0 var(--e-lg);
+  border: 1px solid var(--c-cinzento); border-radius: var(--r-md);
+  background: var(--c-cartao); color: var(--c-texto);
+  font: 500 var(--t-body)/1.2 var(--f-base); text-align: center; cursor: pointer;
+}
+.btn--acao {
+  min-height: var(--alvo-lg); border-color: transparent;
+  background: var(--c-acao); color: var(--c-sobre-marca);
+  font-size: var(--t-lead); font-weight: 700;
+}
+.btn--acao:active { background: var(--c-acao-premido); }
+.btn--secundario { border: 2px solid var(--c-acento); color: var(--c-acento); font-weight: 700; }
+.btn:disabled { background: var(--c-neutro-suave); border-color: transparent; color: var(--c-texto-3); cursor: not-allowed; }
+.btn:focus-visible { outline: 3px solid var(--c-acento); outline-offset: 2px; }
+
+.par { display: flex; gap: var(--e-md); }
+.par > * { flex: 1; }
+
+/* ---------- Leitor: onde a pessoa tem de ler com o gatilho ---------- */
+.leitor {
+  display: flex; align-items: center; gap: var(--e-lg);
+  padding: var(--e-md) var(--e-lg); border-radius: var(--r-md);
+  background: var(--c-neutro-suave); color: var(--c-texto-2);
+  font-size: var(--t-small); font-weight: 500;
+}
+.leitor__icone { display: flex; align-items: flex-end; gap: var(--e-xs); flex: none; }
+.leitor__icone i { display: block; width: 3px; height: 16px; background: var(--c-acento); }
+.leitor__icone i:nth-child(2n) { width: 2px; height: 12px; }
+
+/* ---------- Alertas ---------- */
+.alerta { padding: var(--e-md) var(--e-lg); border-radius: var(--r-md); font-size: var(--t-tiny); }
+.alerta__titulo { display: block; font-size: var(--t-small); font-weight: 700; }
+.alerta--bom   { background: var(--c-bom-suave);   color: var(--c-bom); }
+.alerta--aviso { background: var(--c-aviso-suave); color: var(--c-aviso); }
+.alerta--erro  { background: var(--c-erro-suave);  color: var(--c-erro); }
+
+/* ---------- Tarefa na fila: o quê, e porquê ---------- */
+.tarefa {
+  display: flex; flex-direction: column; gap: var(--e-xs); width: 100%;
+  padding: var(--e-md) var(--e-lg); text-align: left;
+  background: var(--c-cartao); border: 1px solid var(--c-cinzento); border-radius: var(--r-md);
+  font: inherit; color: inherit;
+}
+.tarefa--seguinte { border: 2px solid var(--c-acao); }
+.tarefa__titulo { font-size: var(--t-body); font-weight: 700; }
+.tarefa__porque { font-size: var(--t-tiny); color: var(--c-texto-2); }
+
+/* ---------- Linha: rótulo à esquerda, valor à direita ---------- */
+.linha { display: flex; justify-content: space-between; gap: var(--e-md); font-size: var(--t-small); color: var(--c-texto-2); }
+.linha__valor { color: var(--c-texto); font-weight: 500; text-align: right; font-variant-numeric: tabular-nums; }
+.linha__valor--bom   { color: var(--c-bom); }
+.linha__valor--aviso { color: var(--c-aviso); }
+.linha__valor--erro  { color: var(--c-erro); }
+.linha__valor--mono  { font-family: var(--f-mono); }
+
+/* ---------- Vazio: nunca um ecrã em branco ---------- */
+.vazio { display: flex; flex-direction: column; align-items: center; gap: var(--e-sm); padding: var(--e-xxl) var(--e-lg); text-align: center; }
+.vazio__titulo { font-size: var(--t-lead); font-weight: 700; }
+.vazio__texto  { font-size: var(--t-small); color: var(--c-texto-2); }
+
+/* ---------- Folha de exceção: abre por cima do passo ---------- */
+.folha { position: absolute; inset: 0; display: flex; align-items: flex-end; background: var(--c-veu); }
+.folha__caixa {
+  width: 100%; display: flex; flex-direction: column; gap: var(--e-sm);
+  padding: var(--e-lg) var(--e-lg) var(--e-lg);
+  background: var(--c-cartao); border-radius: var(--r-lg) var(--r-lg) 0 0;
+}
+.folha__opcao {
+  display: flex; align-items: center; min-height: var(--alvo) ; padding: 0 var(--e-lg);
+  border: 1px solid var(--c-cinzento); border-radius: var(--r-sm);
+  background: var(--c-cartao); font: inherit; font-size: var(--t-body); color: var(--c-texto); text-align: left;
+}

@@ -1,0 +1,11 @@
+/* =========================================================
+   ARMAZÉM INTELIGENTE — recolher uma guia
+   Só arrumação: o que fica onde nos ecrãs s1 a s4.
+   ========================================================= */
+
+/* A contagem da falta: o número que falta é o único a vermelho, e diz
+   «Faltam» ao lado — a cor não chega sozinha. */
+.falta .linha { font-size: var(--t-body); }
+
+/* a prateleira de preparados: o título é uma ordem, mas mais comprida */
+.ordem--frase { font-size: var(--t-huge); line-height: 1.1; }

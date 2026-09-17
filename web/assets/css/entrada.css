@@ -1,0 +1,38 @@
+/* =========================================================
+   ARMAZÉM INTELIGENTE — entrar e começar o turno
+   Só arrumação: o que fica onde nos ecrãs e1, e2 e e3.
+   ========================================================= */
+
+/* a marca, no ecrã de entrar — o único sem faixa */
+.marca-app { padding: var(--e-xl) var(--e-lg) var(--e-lg); background: var(--c-invertido); color: var(--c-sobre-marca); }
+.marca-app__casa { font-size: var(--t-micro); font-weight: 700; letter-spacing: .12em; }
+.marca-app__nome { font-size: var(--t-big); font-weight: 700; }
+
+.campo { padding: var(--e-md) var(--e-lg); background: var(--c-cartao); border: 2px solid var(--c-acento); border-radius: var(--r-md); }
+.campo__rotulo { font-size: var(--t-tiny); font-weight: 500; color: var(--c-texto-3); }
+.campo__valor  { font-size: var(--t-big); font-weight: 700; }
+
+.pin { display: flex; gap: var(--e-lg); }
+.pin__ponto { width: 18px; height: 18px; border-radius: var(--r-pill); border: 2px solid var(--c-acento); }
+.pin__ponto--cheio { background: var(--c-acento); }
+
+/* O teclado é o do ecrã e não o do Android: o do Android tapa metade do ecrã
+   e muda de disposição conforme o campo. */
+.teclado { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--e-sm); }
+.tecla {
+  display: flex; align-items: center; justify-content: center; min-height: 38px;
+  background: var(--c-cartao); border: 1px solid var(--c-cinzento); border-radius: var(--r-sm);
+  font-size: var(--t-lead); font-weight: 500;
+}
+
+/* o menu: as tarefas da função em cima, as consultas em baixo */
+.mosaicos { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-md); }
+.mosaico {
+  display: flex; flex-direction: column; gap: var(--e-xs); min-height: 74px; padding: var(--e-md) var(--e-lg);
+  background: var(--c-cartao); border: 1px solid var(--c-cinzento); border-radius: var(--r-md);
+  font: inherit; color: var(--c-texto); text-align: left;
+}
+.mosaico__nome { font-size: var(--t-body); font-weight: 700; }
+.mosaico__conta { font-size: var(--t-tiny); font-weight: 500; color: var(--c-texto-3); }
+.mosaico--tarefa { background: var(--c-acento); border-color: var(--c-acento); color: var(--c-sobre-marca); }
+.mosaico--tarefa .mosaico__conta { color: var(--c-sobre-marca); }

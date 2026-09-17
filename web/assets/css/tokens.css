@@ -1,0 +1,105 @@
+/* =========================================================
+   ARMAZÉM INTELIGENTE — tokens do PDA
+   Copiados sem alterar do sistema de design do dossiê
+   (pda-docs/05-design/03-sistema-de-design, que os tira de
+   core/design/Theme.kt). Este ficheiro é a única fonte da verdade:
+   nenhum ecrã escreve uma cor, um tamanho ou uma folga à mão.
+
+   O PDA não tem tema escuro. O EDA61K trabalha num armazém com a luz
+   do armazém, e o sistema de design só define um jogo de cores — por
+   isso aqui não há [data-theme], nem regra prefers-color-scheme.
+   ========================================================= */
+
+/* Roboto é a letra do Android, e é a que o EDA61K já traz. Vem em woff2
+   variável — um ficheiro serve os três pesos. */
+@font-face { font-family:'Roboto'; font-style:normal; font-weight:400 700; font-display:swap;
+  src:url('../fonts/roboto-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family:'Roboto'; font-style:normal; font-weight:400 700; font-display:swap;
+  src:url('../fonts/roboto-latin-ext.woff2') format('woff2');
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family:'Roboto Mono'; font-style:normal; font-weight:500; font-display:swap;
+  src:url('../fonts/roboto-mono-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2122,U+FEFF,U+FFFD; }
+@font-face { font-family:'Roboto Mono'; font-style:normal; font-weight:500; font-display:swap;
+  src:url('../fonts/roboto-mono-latin-ext.woff2') format('woff2');
+  unicode-range:U+0100-02BA,U+1E00-1E9F,U+20A0-20C0; }
+
+
+:root {
+  /* ---------- cor — marca (03 §2.1) ---------- */
+  --c-acento:        #00537e;   /* cabeçalhos, ligações, seleção */
+  --c-acao:          #ef7b10;   /* o botão principal — um por ecrã */
+  --c-acao-premido:  #d26c0e;
+  --c-cinzento:      #bfc0c2;   /* separadores, molduras */
+  --c-invertido:     #012338;   /* faixas e barras */
+
+  /* ---------- cor — superfície e texto (03 §2.2) ---------- */
+  --c-fundo:         #f4f5f7;
+  --c-cartao:        #ffffff;
+  --c-texto:         #222428;
+  --c-texto-2:       #52514e;   /* texto secundário */
+  --c-texto-3:       #6b6e74;   /* texto ténue */
+  --c-sobre-marca:   #ffffff;
+
+  /* ---------- cor — estado (03 §2.3) ----------
+     O estado nunca se diz só pela cor: cada um tem cor, palavra e posição. */
+  --c-bom:           #367c2b;
+  --c-bom-suave:     #e7efe6;
+  --c-aviso:         #876c0d;
+  --c-aviso-suave:   #fdf5d5;
+  --c-serio:         #a2451c;
+  --c-erro:          #cf372d;
+  --c-erro-suave:    #f9e7e6;
+  --c-neutro:        #52514e;
+  --c-neutro-suave:  #eceff3;
+
+  /* ---------- tipografia (03 §3) — nove tamanhos, em sp ---------- */
+  --f-base: 'Roboto', system-ui, "Segoe UI", Arial, sans-serif;
+  --f-mono: 'Roboto Mono', ui-monospace, Consolas, monospace;
+  --t-micro:    10px;   /* etiquetas de canto */
+  --t-tiny:     12px;   /* legendas */
+  --t-small:    13px;   /* texto secundário */
+  --t-body:     15px;   /* texto corrente */
+  --t-lead:     17px;   /* primeira linha de um cartão */
+  --t-big:      22px;   /* títulos de secção */
+  --t-huge:     30px;   /* números do relatório */
+  --t-giant:    40px;   /* a ordem do passo da missão */
+  --t-colossal: 46px;   /* só o que se lê com o braço esticado */
+
+  /* ---------- espaço e forma (03 §4), em dp ---------- */
+  --e-xs:  2px;
+  --e-sm:  6px;
+  --e-md:  8px;
+  --e-lg:  12px;
+  --e-xl:  18px;
+  --e-xxl: 26px;
+
+  --r-sm:   6px;
+  --r-md:   10px;
+  --r-lg:   14px;
+  --r-pill: 999px;
+
+  /* ---------- alvos de toque (03 §4) ---------- */
+  --alvo:    48px;   /* o mínimo — e o mínimo das WCAG */
+  --alvo-lg: 62px;   /* a ação principal de cada ecrã */
+
+  /* ---------- o aparelho ----------
+     Honeywell EDA61K: 480 × 800 px a 240 dpi, que dão 320 × 533 dp. */
+  --ecra-l: 320px;
+  --ecra-a: 533px;
+}
+
+
+/* ---------- ACRESCENTOS ----------
+   Nenhuma cor nova. O que está aqui é uma cor do sistema usada de outra
+   maneira, e está marcado para se poder levar ao Theme.kt ou tirar. */
+:root {
+  /* O véu da folha de exceção: o invertido a 45%. A folha tem de deixar ver
+     o passo que está por baixo, senão quem a abre perde o sítio onde estava. */
+  --c-veu: rgba(1, 35, 56, .45);
+
+  /* A barra de progresso dos passos: 4 dp, fora da escala de espaço porque
+     é uma espessura e não uma folga. */
+  --espessura-progresso: 4px;
+}

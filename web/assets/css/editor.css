@@ -1,0 +1,343 @@
+/* =========================================================
+   ARMAZÉM INTELIGENTE — camada de edição
+   A moldura é escura e fixa para se distinguir do ecrã que está a
+   editar. Não usa tokens do PDA de propósito: o que é da ferramenta
+   não se confunde com o que é do produto.
+
+   A seleção é azul e não laranja, ao contrário do editor da entrada.
+   No PDA o laranja é a ação principal e a moldura da tarefa seguinte,
+   e um contorno laranja de seleção lia-se como mais uma dessas.
+   ========================================================= */
+
+:root {
+  --ed-fundo:   #2c2c2a;
+  --ed-painel:  #333331;
+  --ed-painel-2:#393937;
+  --ed-borda:   rgba(255,255,255,.12);
+  --ed-tinta:   #ffffff;
+  --ed-tinta-2: #cdccc1;
+  --ed-tinta-3: #adaca1;
+  --ed-accao:   #0d99ff;
+  --ed-erro:    #e8695d;
+  --ed-marca:   #a8caee;
+  --ed-tela:    #d9dce1;
+  --ed-aro:     #1b1f24;
+  --ed-larg:    264px;
+}
+
+/* ---------- a tela ----------
+   O aparelho ao centro, à escala de 1 px por dp, com o aro do EDA61K à
+   volta. O aro é da tela e não do ecrã: não entra nas camadas nem no CSS. */
+html, body { background: var(--ed-tela); }
+.tela { min-height: 100vh; display: flex; justify-content: center; align-items: flex-start; padding: 48px 24px; }
+.ecra { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.ecra[hidden] { display: none; }
+.ecra > .pda {
+  border-radius: 6px;
+  box-shadow: 0 0 0 10px var(--ed-aro), 0 0 0 11px #3a4048, 0 18px 40px rgba(0,0,0,.28);
+  margin: 11px;
+}
+
+/* #so=<ecrã>: só o aparelho, colado ao canto, para as capturas */
+html:has(.so-ecra), .so-ecra { background: #f4f5f7; }
+.so-ecra .tela { padding: 0; min-height: 0; display: block; }
+.so-ecra .ecra > .pda { box-shadow: none; border-radius: 0; margin: 0; }
+
+.ed-ligacoes { margin: 0; font-size: 11px; color: var(--ed-tinta-3); }
+.ed-ligacoes a { color: var(--ed-marca); }
+.ed-select optgroup { color: var(--ed-tinta-3); font-style: normal; }
+.ed-select option { color: var(--ed-tinta); }
+
+/* ---------- escolha do ecrã ---------- */
+.ed-ecras {
+  display: grid; grid-template-columns: 34px 1fr; align-items: center; gap: 8px;
+  padding: 8px 12px; border-bottom: 1px solid var(--ed-borda);
+  background: var(--ed-painel-2);
+}
+.ed-ecras > label { color: var(--ed-tinta-3); font-size: 10px; text-transform: uppercase; letter-spacing: .08em; }
+
+/* ---------- rótulo que segue o rato ---------- */
+.ed-dica-flutuante {
+  position: fixed; z-index: 80; pointer-events: none;
+  background: var(--ed-fundo); color: var(--ed-tinta);
+  border: 1px solid var(--ed-borda); border-radius: 6px;
+  padding: 5px 8px; font-size: 11px; white-space: nowrap;
+  box-shadow: 0 6px 18px rgba(0,0,0,.45);
+}
+.ed-dica-flutuante[hidden] { display: none; }
+
+/* ---------- a tela encolhe para os painéis ---------- */
+.editando { padding-left: var(--ed-larg); padding-right: var(--ed-larg); }
+.editando.ed-sem-esq { padding-left: 0; }
+.editando.ed-sem-dir { padding-right: 0; }
+.editando.ed-sem-esq .ed-painel--esq,
+.editando.ed-sem-dir .ed-painel--dir { display: none; }
+
+/* botão de fechar, na cabeça de cada painel */
+.ed-fechar {
+  font: inherit; font-size: 16px; line-height: 1;
+  width: 24px; height: 24px; flex: none;
+  border: 1px solid var(--ed-borda); border-radius: 6px;
+  background: var(--ed-painel-2); color: var(--ed-tinta-2); cursor: pointer;
+}
+.ed-fechar:hover { background: rgba(255,255,255,.10); color: var(--ed-tinta); }
+
+/* botão de abrir, encostado à margem, só quando o painel está fechado */
+.ed-abrir {
+  position: fixed; top: 10px; z-index: 61; display: none;
+  width: 26px; height: 34px; padding: 0;
+  font: inherit; font-size: 16px; line-height: 1;
+  border: 1px solid var(--ed-borda); background: var(--ed-painel); color: var(--ed-tinta);
+  cursor: pointer;
+}
+.ed-abrir--esq { left: 0; border-left: 0; border-radius: 0 6px 6px 0; }
+.ed-abrir--dir { right: 0; border-right: 0; border-radius: 6px 0 0 6px; }
+.ed-sem-esq .ed-abrir--esq, .ed-sem-dir .ed-abrir--dir { display: block; }
+
+/* ---------- alvos na tela ---------- */
+/* O realce vai só à peça que o clique escolheria. Com :hover puro,
+   todos os pais do rato ficavam marcados ao mesmo tempo. */
+.editando [data-ed-alvo] { cursor: default; }
+.editando [data-ed-sel] { cursor: move; }
+.editando [data-ed-hover] { outline: 1px solid var(--ed-accao); outline-offset: 1px; }
+.editando [data-ed-sel] { outline: 2px solid var(--ed-accao) !important; outline-offset: 1px; }
+.editando [contenteditable="true"] { outline: 2px solid var(--ed-marca) !important; cursor: text; }
+
+/* ---------- painéis ---------- */
+.ed-painel {
+  position: fixed; top: 0; bottom: 0; width: var(--ed-larg); z-index: 60;
+  display: none; flex-direction: column;
+  background: var(--ed-painel); color: var(--ed-tinta);
+  font-family: var(--f-base); font-size: 12px; line-height: 1.5;
+}
+.editando .ed-painel { display: flex; }
+.ed-painel--esq { left: 0; border-right: 1px solid var(--ed-borda); }
+.ed-painel--dir { right: 0; border-left: 1px solid var(--ed-borda); }
+
+.ed-cabeca {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  height: 44px; padding: 0 12px;
+  border-bottom: 1px solid var(--ed-borda); background: var(--ed-fundo);
+}
+.ed-cabeca h2 { font-family: var(--f-base); font-size: 14px; font-weight: 600; margin: 0; }
+.ed-cabeca__marca { font-family: var(--f-base); font-size: 16px; }
+
+.ed-corpo { flex: 1; overflow-y: auto; }
+.ed-pe { border-top: 1px solid var(--ed-borda); padding: 12px; display: grid; gap: 8px; }
+
+/* ---------- camadas ---------- */
+.ed-camada {
+  display: flex; align-items: center; gap: 8px; width: 100%;
+  font: inherit; text-align: left; cursor: pointer;
+  padding: 5px 12px; border: 0; background: none; color: var(--ed-tinta-2);
+}
+.ed-camada:hover { background: var(--ed-painel-2); color: var(--ed-tinta); }
+.ed-camada[aria-current="true"] { background: rgba(13,153,255,.22); color: var(--ed-tinta); }
+.ed-camada__icone { width: 12px; color: var(--ed-tinta-3); flex: none; }
+.ed-camada__nome { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---------- secções de propriedades ---------- */
+.ed-seccao { border-bottom: 1px solid var(--ed-borda); padding: 12px; display: grid; gap: 8px; }
+.ed-seccao__titulo {
+  font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--ed-tinta-3); margin: 0;
+}
+.ed-linha { display: grid; grid-template-columns: 72px 1fr; align-items: center; gap: 8px; }
+.ed-linha > label { color: var(--ed-tinta-3); }
+
+.ed-select, .ed-texto {
+  width: 100%; font: inherit; font-size: 12px; color: var(--ed-tinta);
+  background: var(--ed-painel-2); border: 1px solid var(--ed-borda);
+  border-radius: 6px; padding: 5px 8px;
+}
+.ed-texto { resize: vertical; min-height: 56px; }
+.ed-select:focus, .ed-texto:focus { outline: 2px solid var(--ed-marca); outline-offset: -1px; }
+
+/* tokens de cor: a paleta é a do manual, não há selecionador livre */
+.ed-tokens { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; }
+.ed-token {
+  aspect-ratio: 1; border-radius: 4px; border: 1px solid var(--ed-borda);
+  padding: 0; cursor: pointer; background-clip: padding-box;
+}
+.ed-token[aria-pressed="true"] { outline: 2px solid var(--ed-accao); outline-offset: 1px; }
+
+/* DUAS MARCAS, E A DIFERENÇA IMPORTA.
+   O traço cheio é o que TU mudaste, e é o que sai no CSS exportado.
+   O traço interrompido é o que a peça JÁ TINHA, e não sai em lado nenhum —
+   serve para se saber onde ela está antes de se lhe tocar. Se fossem iguais,
+   quem olhasse para o painel não saberia o que ia levar daqui. */
+.ed-token[data-ed-actual] { outline: 2px dashed var(--ed-marca); outline-offset: 1px; }
+.ed-token--nenhum { position: relative; background: var(--ed-painel-2); }
+.ed-token--nenhum::after {
+  content: ""; position: absolute; inset: 2px;
+  background: linear-gradient(to top right, transparent 45%, #f49791 45%, #f49791 55%, transparent 55%);
+}
+
+/* escalas: só os degraus que o manual tem */
+.ed-degraus { display: flex; flex-wrap: wrap; gap: 4px; }
+.ed-degrau {
+  font: inherit; font-size: 10px; font-weight: 700;
+  padding: 4px 7px; border-radius: 6px;
+  border: 1px solid var(--ed-borda); background: var(--ed-painel-2); color: var(--ed-tinta-2);
+  cursor: pointer;
+}
+.ed-degrau[aria-pressed="true"] { background: var(--ed-accao); border-color: transparent; color: #ffffff; }
+
+/* Ver a nota em `.ed-token[data-ed-actual]`: o que a peça já tinha marca-se,
+   mas não se confunde com o que mudaste. */
+.ed-degrau[data-ed-actual] { border-color: var(--ed-marca); color: var(--ed-tinta); }
+.ed-degrau[data-ed-actual][aria-pressed="true"] { border-color: transparent; }
+
+.ed-botao {
+  font: inherit; font-size: 12px; font-weight: 600;
+  padding: 7px 12px; border-radius: 6px;
+  border: 1px solid var(--ed-borda); background: var(--ed-painel-2); color: var(--ed-tinta);
+  cursor: pointer;
+}
+.ed-botao:hover { background: rgba(255,255,255,.10); }
+.ed-botao--accao { background: var(--ed-accao); border-color: transparent; color: #ffffff; font-weight: 700; }
+.ed-botao:disabled { opacity: .4; cursor: not-allowed; }
+
+.ed-vazio { padding: 16px; color: var(--ed-tinta-3); }
+.ed-dica { color: var(--ed-tinta-3); font-size: 10px; margin: 0; }
+
+/* ---------- diálogo do CSS ---------- */
+.ed-dialogo {
+  border: 1px solid var(--ed-borda); border-radius: 10px; padding: 0;
+  width: min(680px, 92vw); background: var(--ed-painel); color: var(--ed-tinta);
+  font-family: var(--f-base);
+}
+.ed-dialogo::backdrop { background: rgba(0,0,0,.55); }
+.ed-dialogo__topo { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid var(--ed-borda); }
+.ed-dialogo h2 { font-family: var(--f-base); font-size: 16px; margin: 0; }
+.ed-dialogo pre { margin: 0; padding: 16px; max-height: 50vh; overflow: auto; background: var(--ed-fundo); font-size: 11px; line-height: 1.7; color: var(--ed-tinta-2); }
+.ed-dialogo__accoes { display: flex; gap: 8px; justify-content: flex-end; padding: 12px 16px; }
+
+.ed-aviso {
+  position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 70;
+  background: var(--ed-fundo); color: var(--ed-tinta); border: 1px solid var(--ed-borda);
+  padding: 8px 16px; border-radius: 999px; font-size: 12px;
+}
+
+@media (max-width: 1100px) {
+  .editando { padding: 0; }
+  .ed-painel--esq { display: none !important; }
+  .ed-painel--dir { width: 100%; top: auto; height: 52vh; border-top: 1px solid var(--ed-borda); }
+}
+
+/* ---------- coordenadas ---------- */
+.ed-coords { display: flex; gap: 8px; align-items: center; }
+.ed-coord { display: flex; align-items: center; gap: 4px; flex: 1; }
+.ed-coord > span { color: var(--ed-tinta-3); font-size: 10px; font-weight: 700; }
+.ed-coord input { width: 100%; }
+
+/* ---------- o CSS da peça ---------- */
+.ed-css {
+  margin: 0; padding: 8px; max-height: 260px; overflow: auto;
+  background: var(--ed-fundo); border: 1px solid var(--ed-borda); border-radius: 6px;
+  font-family: var(--f-mono); font-size: 10px; line-height: 1.6; color: var(--ed-tinta-2);
+  white-space: pre; tab-size: 2;
+}
+
+/* =========================================================
+   A PALETA DE PEÇAS
+
+   Vive no painel das camadas, por baixo da árvore. Ali e não no painel das
+   propriedades: o da direita fala da peça escolhida, e acrescentar não é uma
+   propriedade de nada — é uma ação sobre o ecrã.
+   ========================================================= */
+
+.ed-pecas {
+  /* `flex: none` e altura própria: sem isto a paleta empurrava a árvore das
+     camadas até ela ficar cortada a meio de um nome, e quem estava a mexer no
+     ecrã deixava de conseguir escolher pela lista. As duas repartem a altura,
+     e cada uma rola dentro do seu bocado. */
+  flex: none;
+  max-height: 44%;
+  overflow-y: auto;
+  border-top: 1px solid var(--ed-borda);
+  padding: 12px 12px 16px;
+}
+
+/* A árvore nunca desce abaixo disto. Uma lista de camadas com duas linhas não
+   serve para nada, e é preferível a paleta rolar. */
+.ed-painel--esq .ed-corpo { min-height: 150px; }
+
+.ed-pecas__grupo {
+  margin: 12px 0 8px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ed-tinta-3);
+}
+
+/* Duas colunas e não três: os nomes são palavras inteiras — «Caixa de
+   verificação» — e cortados a meio deixam de dizer o que a peça é. */
+.ed-pecas__grelha {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.ed-peca {
+  min-height: 34px;
+  padding: 6px 8px;
+  border: 1px solid var(--ed-borda);
+  border-radius: 6px;
+  background: var(--ed-painel-2);
+  color: var(--ed-tinta);
+  font: inherit;
+  font-size: 11.5px;
+  line-height: 1.25;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ed-peca:hover { border-color: var(--ed-accao); color: var(--ed-accao); }
+.ed-peca:focus-visible { outline: 2px solid var(--ed-marca); outline-offset: 1px; }
+
+.ed-pecas__lista { margin-top: 12px; }
+
+.ed-pecas__linha {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ed-pecas__nome {
+  flex: 1;
+  min-width: 0;
+  padding: 5px 6px;
+  border: 0;
+  background: none;
+  color: var(--ed-tinta-2);
+  font: inherit;
+  font-size: 11px;
+  text-align: left;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.ed-pecas__nome:hover { color: var(--ed-accao); }
+
+.ed-pecas__apagar {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--ed-borda);
+  border-radius: 6px;
+  background: none;
+  color: var(--ed-tinta-3);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.ed-pecas__apagar:hover { border-color: var(--ed-erro); color: var(--ed-erro); }
+
+/* #so=todos: os dezanove seguidos, um por página */
+.so-ecra--todos .ecra { display: block; gap: 0; break-after: page; }
+.so-ecra--todos .ecra:last-child { break-after: auto; }

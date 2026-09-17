@@ -1,0 +1,73 @@
+/* =========================================================
+   ARMAZÉM INTELIGENTE — folha das páginas de documentação
+   Só estas páginas. Não entra no PDA.
+   ========================================================= */
+
+body { background: var(--c-fundo); font-size: var(--t-body); line-height: 1.55; }
+a { color: var(--c-acento); }
+
+.doc-topo {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--e-lg); flex-wrap: wrap;
+  padding: var(--e-lg) var(--e-xxl);
+  background: var(--c-invertido); color: var(--c-sobre-marca);
+}
+.doc-topo a { color: var(--c-sobre-marca); }
+.doc-topo__titulo { font-size: var(--t-big); font-weight: 700; line-height: 1.1; }
+.doc-topo__sub { font-size: var(--t-small); opacity: .85; }
+.doc-topo__nav { display: flex; gap: var(--e-lg); font-size: var(--t-small); }
+
+.doc-corpo {
+  display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: var(--e-xxl); align-items: start;
+  max-width: 1180px; margin: 0 auto; padding: var(--e-xxl);
+}
+.doc-corpo--simples { grid-template-columns: minmax(0, 1fr); max-width: 900px; }
+.doc-indice { position: sticky; top: 84px; font-size: var(--t-small); }
+.doc-indice ol { margin: 0; padding-left: var(--e-xl); display: grid; gap: var(--e-sm); color: var(--c-texto-3); }
+.doc-indice a { text-decoration: none; }
+.doc-indice a:hover { text-decoration: underline; }
+
+.seccao {
+  background: var(--c-cartao); border: 1px solid var(--c-cinzento); border-radius: var(--r-lg);
+  padding: var(--e-xxl); margin-bottom: var(--e-xl); scroll-margin-top: 90px;
+}
+.seccao h2 { font-size: var(--t-big); margin-bottom: var(--e-lg); }
+.seccao h3 { font-size: var(--t-lead); margin: var(--e-xl) 0 var(--e-sm); }
+.seccao > p { max-width: 68ch; margin-bottom: var(--e-md); }
+
+.nota {
+  border-left: 3px solid var(--c-acento); background: var(--c-neutro-suave);
+  padding: var(--e-md) var(--e-lg); border-radius: var(--r-sm); font-size: var(--t-small); max-width: 68ch;
+}
+pre { background: var(--c-neutro-suave); border-radius: var(--r-md); padding: var(--e-lg); overflow-x: auto; margin: var(--e-md) 0; }
+pre code { font-size: var(--t-tiny); line-height: 1.7; }
+
+.grelha-cores { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: var(--e-md); margin: var(--e-md) 0 var(--e-xl); }
+.cor { text-align: left; font: inherit; cursor: pointer; border: 1px solid var(--c-cinzento); border-radius: var(--r-md); background: var(--c-cartao); padding: 0; overflow: hidden; }
+.cor:hover { border-color: var(--c-acento); }
+.cor__amostra { display: block; height: 52px; border-bottom: 1px solid var(--c-cinzento); }
+.cor__texto { display: block; padding: var(--e-sm) var(--e-md); }
+.cor__nome { display: block; font-size: var(--t-tiny); font-weight: 700; }
+.cor__valor { display: block; font-family: var(--f-mono); font-size: 11px; color: var(--c-texto-2); }
+.cor__uso { display: block; font-size: 11px; color: var(--c-texto-3); }
+
+.tabela { width: 100%; border-collapse: collapse; font-size: var(--t-small); margin: var(--e-md) 0; }
+.tabela th, .tabela td { text-align: left; padding: var(--e-sm) var(--e-md); border-bottom: 1px solid var(--c-cinzento); vertical-align: top; }
+.tabela th { background: var(--c-fundo); }
+.rolo { overflow-x: auto; }
+
+.escala { display: grid; gap: var(--e-sm); margin: var(--e-md) 0; }
+.degrau { display: grid; grid-template-columns: 120px 1fr; align-items: baseline; gap: var(--e-lg); }
+.degrau__nome { font-family: var(--f-mono); font-size: var(--t-tiny); color: var(--c-texto-2); }
+.degrau__barra { height: 14px; background: var(--c-acento); border-radius: 2px; align-self: center; }
+.degrau__amostra { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.15; }
+
+/* os exemplos vivos dentro de uma moldura do tamanho do aparelho */
+.demo { display: flex; flex-wrap: wrap; gap: var(--e-lg); align-items: flex-start; padding: var(--e-lg); background: var(--c-fundo); border-radius: var(--r-md); margin: var(--e-md) 0; }
+.demo__coluna { width: var(--ecra-l); max-width: 100%; display: flex; flex-direction: column; gap: var(--e-md); }
+
+@media (max-width: 860px) {
+  .doc-corpo { grid-template-columns: 1fr; padding: var(--e-lg); }
+  .doc-indice { position: static; }
+  .seccao { padding: var(--e-lg); }
+}

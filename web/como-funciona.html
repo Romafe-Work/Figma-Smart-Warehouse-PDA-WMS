@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Como funciona — Ecrãs do PDA</title>
+<meta name="description" content="O que é a tela de desenho dos ecrãs do PDA, porque não é o Figma, e como está construída.">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/documentacao.css">
+</head>
+<body>
+
+<a class="skip-link" href="#conteudo">Saltar para o conteúdo</a>
+
+<header class="doc-topo">
+  <div>
+    <h1 class="doc-topo__titulo">Armazém Inteligente · PDA</h1>
+    <p class="doc-topo__sub">Como funciona</p>
+  </div>
+  <nav class="doc-topo__nav" aria-label="Páginas">
+    <a href="index.html">Ecrãs</a>
+    <a href="documentacao.html">Documentação</a>
+  </nav>
+</header>
+
+<div class="doc-corpo doc-corpo--simples">
+  <main class="doc-conteudo" id="conteudo">
+
+    <section class="seccao" id="ideia">
+      <h2>A ideia numa frase</h2>
+      <p>
+        Os dezanove ecrãs do PDA estão escritos em HTML e CSS com os valores do sistema de
+        design, e a página abre como uma tela de desenho: escolhe-se uma peça e muda-se-lhe a
+        cor, o tamanho, a folga, a posição ou o texto — só com os valores que o sistema tem.
+      </p>
+      <p class="nota">
+        É a mesma ferramenta da entrada da ROMAFE (<code>Figma-WebShop-GoParts</code>),
+        apontada ao PDA. O que muda está na última secção.
+      </p>
+    </section>
+
+    <section class="seccao" id="diferenca">
+      <h2>Porque não é o Figma</h2>
+      <div class="rolo">
+        <table class="tabela">
+          <thead><tr><th></th><th>No Figma</th><th>Aqui</th></tr></thead>
+          <tbody>
+            <tr><td>Cores disponíveis</td><td>Todas</td><td>As 20 do sistema de design</td></tr>
+            <tr><td>Tamanhos de letra</td><td>Qualquer número</td><td>Os nove, de 10 a 46 sp</td></tr>
+            <tr><td>Folgas</td><td>Qualquer número</td><td>Seis degraus, de 2 a 26 dp</td></tr>
+            <tr><td>O que sai</td><td>Uma imagem para alguém medir</td><td>O CSS com os nomes dos tokens, que são os do Kotlin</td></tr>
+            <tr><td>Quem precisa de licença</td><td>Quem desenha — e o plano grátis só deixa 20 pedidos por mês</td><td>Ninguém. Abre num navegador, sem servidor e sem rede</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        O PDA em si é Kotlin com Compose, por isso aqui o código não vai direto para o produto
+        como na entrada da ROMAFE. O que viaja são as decisões, já com o nome do token certo.
+      </p>
+    </section>
+
+    <section class="seccao" id="camadas">
+      <h2>As três camadas</h2>
+      <div class="rolo">
+        <table class="tabela">
+          <thead><tr><th>Camada</th><th>O que é</th><th>Exemplo</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Os valores</strong><br><code>tokens.css</code></td><td>Cores, nove tamanhos de letra, seis folgas, quatro raios e os dois alvos de toque. Copiados de 05-design/03</td><td><code>--c-acao: #ef7b10</code></td></tr>
+            <tr><td><strong>As peças</strong><br><code>base.css</code></td><td>Faixa, barra, passos, cartão, selo, botões, leitor, alerta, tarefa, linha, vazio, folha. Nenhuma escreve uma cor</td><td><code>background: var(--c-acao)</code></td></tr>
+            <tr><td><strong>Os fluxos</strong><br>um ficheiro cada</td><td>Só o que é de um fluxo: o teclado da entrada, os volumes da expedição, os números do gestor</td><td><code>expedir.css</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="seccao" id="usar">
+      <h2>Como se usa</h2>
+      <p><strong>Escolher o ecrã.</strong> Em cima, à esquerda. Os ecrãs estão agrupados pelos cinco fluxos: entrar, arrumar, separar, expedir, e o gestor com as exceções.</p>
+      <p><strong>Escolher uma peça.</strong> Clicar no ecrã ou na lista de camadas. O primeiro clique escolhe a peça inteira — o botão, o cartão — e o seguinte entra lá dentro.</p>
+      <p><strong>Mudar.</strong> O painel da direita abre a dizer como a peça está: traço interrompido é o valor que já tem, traço cheio é o que mudaste e é o que sai no CSS. Duplo clique escreve no sítio; as setas movem um píxel, com Shift oito.</p>
+      <p><strong>Seguir o protótipo.</strong> Na tela um clique escolhe e não navega. Uma peça que no aparelho leva a outro ecrã mostra, no painel, <em>Ir para…</em>; Alt + clique faz o mesmo.</p>
+      <p><strong>Acrescentar.</strong> Por baixo das camadas há uma paleta: textos, selos, alertas, cartão, tarefa, leitor, vazio e os três botões. A peça entra no fim do bloco escolhido, nunca a meio, para não empurrar as regras já guardadas para os irmãos.</p>
+      <p><strong>Levar.</strong> <em>Ver o CSS</em> dá tudo o que mudaste, e o HTML das peças acrescentadas. O que se muda fica guardado neste navegador; <em>Repor tudo</em> volta ao ficheiro.</p>
+    </section>
+
+    <section class="seccao" id="importar">
+      <h2>Imagens e PDF</h2>
+      <p>
+        <code>importar/gerar.sh</code> abre <code>index.html#so=&lt;ecrã&gt;</code> num Chromium sem
+        janela e tira uma captura de cada ecrã a 480 × 800, o tamanho real. Com
+        <code>#so=todos</code> imprime os dezanove num PDF de uma página por ecrã, em vetor e com
+        o texto editável — é esse que se importa no Figma ou no Canva.
+      </p>
+    </section>
+
+    <section class="seccao" id="mudou">
+      <h2>O que mudou em relação ao editor da entrada</h2>
+      <div class="rolo">
+        <table class="tabela">
+          <thead><tr><th>Na entrada</th><th>No PDA</th><th>Porquê</th></tr></thead>
+          <tbody>
+            <tr><td>Tema claro, escuro e auto</td><td>Só um</td><td>O sistema de design do PDA só tem um jogo de cores</td></tr>
+            <tr><td>Português e inglês</td><td>Só português</td><td>O armazém fala português</td></tr>
+            <tr><td>Seleção a laranja</td><td>Seleção a azul</td><td>No PDA o laranja é a ação principal e a tarefa seguinte</td></tr>
+            <tr><td>Fotografia de fundo e sombras</td><td>Sem</td><td>O PDA não tem nenhuma das duas</td></tr>
+            <tr><td>Cinco ecrãs soltos</td><td>Dezanove, por fluxo, ligados</td><td>O PDA é uma sequência de passos, e o protótipo tem de se poder seguir</td></tr>
+            <tr><td>Paleta de campos de formulário</td><td>Paleta de peças do PDA</td><td>No PDA quase nada se escreve: lê-se com o gatilho</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+</div>
+</body>
+</html>
