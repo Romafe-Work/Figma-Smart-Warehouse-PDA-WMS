@@ -7,7 +7,10 @@ Feito como o `Figma-WebShop-GoParts`: o mesmo editor, apontado ao PDA.
 | `importar/01-ecras.pdf` | **Importar no Figma ou no Canva.** Os 19 ecrãs, uma página de 320 × 533 cada, em vetor e com o texto editável |
 | `importar/02-ecras-com-titulo.pdf` | Para ler e mostrar: cada ecrã com o nome por cima |
 | `importar/ecras/*.png` | Cada ecrã a 480 × 800, o tamanho real do EDA61K |
-| `importar/gerar.sh` | Gera os três. Mudar um token ou um ecrã e voltar a correr |
+| `importar/*-en.pdf`, `importar/ecras-en/` | O mesmo, em inglês |
+| `importar/icone/*.png` | O ícone da app: o inteiro a 512 e 1024 para a loja, o símbolo nas cinco densidades do Android (48 a 192) |
+| `importar/icone.py` | Gera os dois SVG do ícone em `web/assets/img/` |
+| `importar/gerar.sh` | Gera tudo, nas duas línguas. Mudar um token, um ecrã ou uma tradução e voltar a correr |
 
 ## O código: `web/`
 
@@ -28,11 +31,42 @@ web/
   assets/js/ecras.js         que ecrã se vê, e os modos #so= das capturas
   assets/js/editor.js        o editor
   assets/js/pecas.js         a paleta: acrescentar peças ao ecrã
+  assets/js/traducao.js      português e inglês, por dicionário
   assets/js/documentacao.js  constrói as grelhas a partir dos tokens
-  assets/fonts/              Roboto e Roboto Mono em woff2
+  assets/fonts/              Roboto, Roboto Mono e Motor (a letra da marca) em woff2
 ```
 
-Abre `web/index.html` no navegador.
+Abre `web/index.html` no navegador. A documentação e o como funciona abrem
+dentro dele, nas abas do topo do painel esquerdo — `index.html#doc=documentacao`
+vai direto. As duas páginas também abrem sozinhas.
+
+## Português e inglês
+
+O ecrã lê-se nas duas línguas, e o painel do editor muda com ele: camadas,
+propriedades e paleta. Os botões *Português* e *English* estão por baixo de
+*Repor tudo*. O que fica em português é o CSS do diálogo, que se cola num projeto
+escrito em português.
+
+O HTML continua em português e o inglês é um dicionário por cima, como no GoParts.
+Uma peça acrescentada na paleta aparece traduzida sem se lhe mexer, e
+`PdaTraducao.porTraduzir()`, na consola e com a página em português, diz o que
+falta. Não se traduzem nomes de pessoas, códigos de posição e de guia,
+transportadoras nem a marca.
+
+`index.html#so=a2&lingua=en` mostra um ecrã só, em inglês.
+
+| Português | Inglês |
+| --- | --- |
+| arrumação | put-away |
+| separação | picking |
+| expedição | shipping |
+| guia | order |
+| posição | location |
+| volume | parcel |
+| cais | dock |
+| lote | batch |
+| prateleira de preparados | staging shelf |
+| ler (com o gatilho) | scan |
 
 ## Os ecrãs
 
@@ -60,14 +94,62 @@ Os nomes, as posições e as horas são de exemplo.
 | «Sem ligação» na faixa | Vermelho claro | Palavra em maiúsculas | Vermelho sobre o invertido não se lê, e a cor não diz estado sozinha |
 | Cores do aro e do fundo | Dentro da página | Só no `editor.css` | O aro é da tela, não do ecrã |
 
-## Dois acréscimos ao sistema de design
+## O ecrã de entrar
+
+Segue o desenho de 17 de setembro (segunda versão): fotografia do armazém,
+«Bem-vindo», cartão de sessão com utilizador e palavra-passe, e as três áreas.
+
+Levado a 320 × 533 dp, o desenho dava letra de 8 sp e campos de 30 dp. Aqui
+ficam no mínimo do sistema — 10 sp e 48 dp — e o que se apertou foram as folgas.
+A fotografia é um corte de `armazem.png` do GoParts, até haver uma do armazém.
+A marca é a do GoParts: ROMAFE em Motor, o risco laranja e o subtítulo.
+
+**Não bate certo com os requisitos.** O RF-01 diz «entrar com código de utilizador
+e PIN», e o RF-03 «não guardar a palavra-passe no dispositivo». O desenho pede
+utilizador e palavra-passe. Ou muda o RF-01, ou muda o ecrã.
+
+## O ícone da app
+
+Desenho de 17 de setembro: o armazém em traço branco, a caixa e a palete a
+laranja, ROMAFE e «Armazém Inteligente» por baixo, num quadrado azul.
+
+| Ficheiro | Onde |
+| --- | --- |
+| `web/assets/img/icone-app.svg` | O inteiro, com o nome — loja, documentos, apresentações |
+| `web/assets/img/simbolo-app.svg` | Sem o nome — ícone no Android, favicon e a faixa dos ecrãs |
+
+Na tela, o ícone é mais um «ecrã» no seletor — grupo *Marca*, *Ícone da app* —
+montado com peças (símbolo, nome, subtítulo) para se afinar como os outros. Não
+entra nos PDF dos ecrãs. Se se mudar ali, leva-se a mudança para `importar/icone.py`.
+
+Abaixo de uns 100 px as letras deixam de se ler, e o Android já escreve o nome da
+app por baixo do ícone; daí o símbolo. As letras vão embutidas no SVG, senão
+num `<img>` o nome saía em Arial. O fundo vai do invertido ao azul da palavra
+ROMAFE, e a caixa é o laranja de ação.
+
+## O menu da arrumação
+
+Segue o desenho de 17 de setembro: a saudação, *Prioridades de hoje* (as quatro
+tarefas da função, com a contagem), *Ações rápidas* (as consultas) e a barra do
+fundo com *Fila*, *Início* e *Sair*. No protótipo, *Arrumar* e *Fila* levam à fila,
+e *Sair* volta a entrar.
+
+Com 145 dp por mosaico, «3 paletes no cais» e «Corrigir posição» partem em duas
+linhas a 12 e 13 sp — o desenho só cabia numa linha com letra de 10 sp.
+
+**A faixa mudou em todos os ecrãs**, porque é a mesma peça: ganhou o ícone do
+armazém, o divisor laranja e o ponto verde antes de «ligado». Sem rede, o ponto
+fica cinzento e a palavra diz SEM LIGAÇÃO.
+
+## Três acréscimos ao sistema de design
 
 | Token | Valor | Onde |
 | --- | --- | --- |
-| `--c-veu` | o invertido a 45% | O fundo da folha de exceção |
+| `--c-logotipo` | `#2762a8` | A palavra ROMAFE, o azul do GoParts |
+| `--c-veu` | o invertido a 45% | O fundo da folha de exceção e o escuro sobre a fotografia |
 | `--espessura-progresso` | 4 dp | Os traços dos passos |
 
-Nenhum é uma cor nova. Ou entram no `Theme.kt`, ou saem daqui.
+O azul da marca sobre escuro vem do manual de UI da ROMAFE e não do sistema do PDA. Ou entram no `Theme.kt`, ou saem daqui.
 
 ## O que falta
 

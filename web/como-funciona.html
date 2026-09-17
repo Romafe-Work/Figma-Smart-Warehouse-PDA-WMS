@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Como funciona — Ecrãs do PDA</title>
 <meta name="description" content="O que é a tela de desenho dos ecrãs do PDA, porque não é o Figma, e como está construída.">
+<link rel="icon" href="assets/img/simbolo-app.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/css/tokens.css">
 <link rel="stylesheet" href="assets/css/base.css">
 <link rel="stylesheet" href="assets/css/documentacao.css">
@@ -21,6 +22,7 @@
   <nav class="doc-topo__nav" aria-label="Páginas">
     <a href="index.html">Ecrãs</a>
     <a href="documentacao.html">Documentação</a>
+    <a href="como-funciona.html">Como funciona</a>
   </nav>
 </header>
 
@@ -68,7 +70,7 @@
           <tbody>
             <tr><td><strong>Os valores</strong><br><code>tokens.css</code></td><td>Cores, nove tamanhos de letra, seis folgas, quatro raios e os dois alvos de toque. Copiados de 05-design/03</td><td><code>--c-acao: #ef7b10</code></td></tr>
             <tr><td><strong>As peças</strong><br><code>base.css</code></td><td>Faixa, barra, passos, cartão, selo, botões, leitor, alerta, tarefa, linha, vazio, folha. Nenhuma escreve uma cor</td><td><code>background: var(--c-acao)</code></td></tr>
-            <tr><td><strong>Os fluxos</strong><br>um ficheiro cada</td><td>Só o que é de um fluxo: o teclado da entrada, os volumes da expedição, os números do gestor</td><td><code>expedir.css</code></td></tr>
+            <tr><td><strong>Os fluxos</strong><br>um ficheiro cada</td><td>Só o que é de um fluxo: o cartão de sessão da entrada, os volumes da expedição, os números do gestor</td><td><code>expedir.css</code></td></tr>
           </tbody>
         </table>
       </div>
@@ -76,11 +78,13 @@
 
     <section class="seccao" id="usar">
       <h2>Como se usa</h2>
+      <p><strong>Ecrãs, documentação e como funciona.</strong> São as três abas no topo do painel esquerdo, e abrem todas na mesma tela — a documentação não obriga a sair do editor. Escolher um ecrã fecha a documentação.</p>
       <p><strong>Escolher o ecrã.</strong> Em cima, à esquerda. Os ecrãs estão agrupados pelos cinco fluxos: entrar, arrumar, separar, expedir, e o gestor com as exceções.</p>
       <p><strong>Escolher uma peça.</strong> Clicar no ecrã ou na lista de camadas. O primeiro clique escolhe a peça inteira — o botão, o cartão — e o seguinte entra lá dentro.</p>
       <p><strong>Mudar.</strong> O painel da direita abre a dizer como a peça está: traço interrompido é o valor que já tem, traço cheio é o que mudaste e é o que sai no CSS. Duplo clique escreve no sítio; as setas movem um píxel, com Shift oito.</p>
       <p><strong>Seguir o protótipo.</strong> Na tela um clique escolhe e não navega. Uma peça que no aparelho leva a outro ecrã mostra, no painel, <em>Ir para…</em>; Alt + clique faz o mesmo.</p>
       <p><strong>Acrescentar.</strong> Por baixo das camadas há uma paleta: textos, selos, alertas, cartão, tarefa, leitor, vazio e os três botões. A peça entra no fim do bloco escolhido, nunca a meio, para não empurrar as regras já guardadas para os irmãos.</p>
+      <p><strong>Mudar de língua.</strong> Por baixo dos botões do painel esquerdo há <em>Português</em> e <em>English</em>. O HTML continua em português e o inglês é um dicionário por cima, em <code>traducao.js</code> — por isso uma peça acrescentada sai traduzida sem se lhe mexer. Na consola, <code>PdaTraducao.porTraduzir()</code> diz o que falta, com a página em português.</p>
       <p><strong>Levar.</strong> <em>Ver o CSS</em> dá tudo o que mudaste, e o HTML das peças acrescentadas. O que se muda fica guardado neste navegador; <em>Repor tudo</em> volta ao ficheiro.</p>
     </section>
 
@@ -90,7 +94,8 @@
         <code>importar/gerar.sh</code> abre <code>index.html#so=&lt;ecrã&gt;</code> num Chromium sem
         janela e tira uma captura de cada ecrã a 480 × 800, o tamanho real. Com
         <code>#so=todos</code> imprime os dezanove num PDF de uma página por ecrã, em vetor e com
-        o texto editável — é esse que se importa no Figma ou no Canva.
+        o texto editável — é esse que se importa no Figma ou no Canva. Com
+        <code>&amp;lingua=en</code> sai tudo em inglês, e o guião gera as duas versões.
       </p>
     </section>
 
@@ -101,9 +106,9 @@
           <thead><tr><th>Na entrada</th><th>No PDA</th><th>Porquê</th></tr></thead>
           <tbody>
             <tr><td>Tema claro, escuro e auto</td><td>Só um</td><td>O sistema de design do PDA só tem um jogo de cores</td></tr>
-            <tr><td>Português e inglês</td><td>Só português</td><td>O armazém fala português</td></tr>
+            <tr><td>Português e inglês, com o globo na barra de topo</td><td>Português e inglês, só no painel do editor</td><td>O desenho do ecrã de entrar não tem botão de idioma</td></tr>
             <tr><td>Seleção a laranja</td><td>Seleção a azul</td><td>No PDA o laranja é a ação principal e a tarefa seguinte</td></tr>
-            <tr><td>Fotografia de fundo e sombras</td><td>Sem</td><td>O PDA não tem nenhuma das duas</td></tr>
+            <tr><td>Fotografia de fundo e sombras</td><td>Fotografia só no ecrã de entrar, e sem sombras</td><td>O resto do turno é trabalho; a fotografia é só na porta</td></tr>
             <tr><td>Cinco ecrãs soltos</td><td>Dezanove, por fluxo, ligados</td><td>O PDA é uma sequência de passos, e o protótipo tem de se poder seguir</td></tr>
             <tr><td>Paleta de campos de formulário</td><td>Paleta de peças do PDA</td><td>No PDA quase nada se escreve: lê-se com o gatilho</td></tr>
           </tbody>
@@ -113,5 +118,17 @@
 
   </main>
 </div>
+<script>
+/* Dentro do editor (index.html), estas ligações trocam a aba em vez de navegar. */
+if (window.top !== window) {
+  document.querySelectorAll('.doc-topo__nav a').forEach(function (a) {
+    a.addEventListener('click', function (ev) {
+      ev.preventDefault();
+      var qual = a.getAttribute('href').replace('.html', '');
+      window.parent.postMessage({ pda: 'aba', qual: qual === 'index' ? '' : qual }, '*');
+    });
+  });
+}
+</script>
 </body>
 </html>

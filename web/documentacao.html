@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sistema de design do PDA — Armazém Inteligente</title>
 <meta name="description" content="Cor, tipografia, espaço, alvos de toque e componentes dos ecrãs do PDA, com exemplos vivos e o código de cada peça.">
+<link rel="icon" href="assets/img/simbolo-app.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/css/tokens.css">
 <link rel="stylesheet" href="assets/css/base.css">
 <link rel="stylesheet" href="assets/css/documentacao.css">
@@ -20,6 +21,7 @@
   </div>
   <nav class="doc-topo__nav" aria-label="Páginas">
     <a href="index.html">Ecrãs</a>
+    <a href="documentacao.html">Documentação</a>
     <a href="como-funciona.html">Como funciona</a>
   </nav>
 </header>
@@ -30,6 +32,7 @@
     <ol>
       <li><a href="#origem">De onde vem</a></li>
       <li><a href="#aparelho">O aparelho</a></li>
+      <li><a href="#icone">O ícone da app</a></li>
       <li><a href="#cor">Cor</a></li>
       <li><a href="#tipografia">Tipografia</a></li>
       <li><a href="#espaco">Espaço, forma e alvos</a></li>
@@ -50,15 +53,15 @@
         Todos os valores desta página vêm de <code>pda-docs/05-design/03-sistema-de-design</code>,
         que os tira de <code>core/design/Theme.kt</code>. Nenhuma cor, tamanho ou folga foi
         escolhido aqui. Quando um ecrã precisou de algo que o sistema não tem, ficou marcado
-        como acréscimo no fim de <code>tokens.css</code> — são dois, e nenhum é uma cor nova.
+        como acréscimo no fim de <code>tokens.css</code> — são três, e a única cor é o azul da palavra ROMAFE, que vem do GoParts.
       </p>
       <pre><code>&lt;link rel="stylesheet" href="assets/css/tokens.css"&gt;   &lt;!-- os valores --&gt;
 &lt;link rel="stylesheet" href="assets/css/base.css"&gt;     &lt;!-- as peças --&gt;
 &lt;link rel="stylesheet" href="assets/css/arrumar.css"&gt;  &lt;!-- só um fluxo --&gt;</code></pre>
       <p class="nota">
-        Ao contrário do sistema da entrada da ROMAFE, o PDA não tem tema escuro nem inglês. O
-        sistema de design só define um jogo de cores, e o armazém fala português. Por isso
-        não há <code>tema.js</code> nem <code>traducao.js</code>.
+        Ao contrário do sistema da entrada da ROMAFE, o PDA não tem tema escuro: o sistema de
+        design só define um jogo de cores, e por isso não há <code>tema.js</code>. Tem
+        português e inglês, com o <code>traducao.js</code> do GoParts.
       </p>
     </section>
 
@@ -73,6 +76,35 @@
       <p>
         O que se lê com o gatilho não tem botão no ecrã. Onde a pessoa tem de ler, aparece o
         <em>leitor</em>, e o botão secundário é a saída para quando a etiqueta não se lê.
+      </p>
+    </section>
+
+    <section class="seccao" id="icone">
+      <h2>O ícone da app</h2>
+      <p>
+        O armazém em traço branco, a caixa e a palete a laranja, e o nome por baixo. Há duas
+        versões, e a diferença é o tamanho a que se vê: abaixo de uns 100 px as letras deixam
+        de se ler, e o Android já escreve o nome da app por baixo do ícone.
+      </p>
+      <div class="demo" style="align-items:flex-end">
+        <img src="assets/img/icone-app.svg" width="160" height="160" alt="Ícone da app com o nome">
+        <img src="assets/img/simbolo-app.svg" width="96" height="96" alt="Símbolo da app">
+        <img src="assets/img/simbolo-app.svg" width="48" height="48" alt="">
+        <img src="assets/img/simbolo-app.svg" width="24" height="24" alt="">
+      </div>
+      <div class="rolo">
+        <table class="tabela">
+          <thead><tr><th>Ficheiro</th><th>Onde</th></tr></thead>
+          <tbody>
+            <tr><td><code>img/icone-app.svg</code></td><td>Loja de aplicações, documentos, apresentações — sempre em tamanho grande</td></tr>
+            <tr><td><code>img/simbolo-app.svg</code></td><td>Ícone no Android, favicon destas páginas, e a faixa de cada ecrã</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="nota">
+        As cores são as de <code>tokens.css</code>: o fundo vai do invertido ao azul da palavra
+        ROMAFE, e a caixa e a palete são o laranja de ação. Os dois SVG saem de
+        <code>importar/icone.py</code>, e os PNG de <code>importar/gerar.sh</code>.
       </p>
     </section>
 
@@ -133,11 +165,11 @@
       </p>
       <div class="demo">
         <div class="demo__coluna">
-          <div class="faixa"><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede">● ligado</span></div>
+          <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
           <header class="barra"><p class="barra__titulo">O teu trabalho</p><p class="barra__sub">Por ordem. A de cima é a seguinte.</p></header>
         </div>
         <div class="demo__coluna">
-          <div class="faixa"><span class="faixa__perfil">Separação</span><span class="faixa__nome">Rui Costa</span><span class="faixa__rede faixa__rede--sem">Sem ligação</span></div>
+          <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Separação</span><span class="faixa__nome">Rui Costa</span><span class="faixa__rede faixa__rede--sem"><span class="faixa__ponto" aria-hidden="true"></span>Sem ligação</span></div>
           <div class="passos">
             <div class="passos__linha"><span class="passos__titulo">Arrumar palete</span><span class="passos__conta">Passo 2 de 4</span></div>
             <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i><i class="passos__traco"></i></div>
@@ -147,7 +179,7 @@
       <pre><code>&lt;div class="faixa"&gt;
   &lt;span class="faixa__perfil"&gt;Arrumação&lt;/span&gt;
   &lt;span class="faixa__nome"&gt;Marta Silva&lt;/span&gt;
-  &lt;span class="faixa__rede"&gt;● ligado&lt;/span&gt;   &lt;!-- sem rede: faixa__rede--sem --&gt;
+  &lt;span class="faixa__rede"&gt;&lt;span class="faixa__ponto"&gt;&lt;/span&gt;ligado&lt;/span&gt;   &lt;!-- sem rede: faixa__rede--sem --&gt;
 &lt;/div&gt;</code></pre>
     </section>
 
@@ -257,5 +289,17 @@
 </div>
 
 <script src="assets/js/documentacao.js"></script>
+<script>
+/* Dentro do editor (index.html), estas ligações trocam a aba em vez de navegar. */
+if (window.top !== window) {
+  document.querySelectorAll('.doc-topo__nav a').forEach(function (a) {
+    a.addEventListener('click', function (ev) {
+      ev.preventDefault();
+      var qual = a.getAttribute('href').replace('.html', '');
+      window.parent.postMessage({ pda: 'aba', qual: qual === 'index' ? '' : qual }, '*');
+    });
+  });
+}
+</script>
 </body>
 </html>

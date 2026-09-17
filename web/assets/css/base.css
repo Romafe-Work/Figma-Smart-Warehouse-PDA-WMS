@@ -28,17 +28,26 @@ code { font-family: var(--f-mono); }
 
 /* ---------- Faixa: quem é e se há rede, sempre no mesmo sítio ---------- */
 .faixa {
-  display: flex; align-items: center; gap: var(--e-md);
-  padding: var(--e-sm) var(--e-lg);
+  display: flex; align-items: center; gap: var(--e-md); flex: none;
+  padding: var(--e-md) var(--e-lg);
   background: var(--c-invertido); color: var(--c-sobre-marca);
-  font-size: var(--t-tiny); font-weight: 500;
+  font-size: var(--t-small);
 }
-.faixa__perfil { font-size: var(--t-micro); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-.faixa__nome   { margin-left: auto; }
-.faixa__rede   { font-size: var(--t-micro); }
-/* Sem rede, a faixa não muda de cor: muda de palavra. Vermelho sobre o
-   invertido não se lê, e a cor sozinha não diz estado — 03 §2.3. */
-.faixa__rede--sem { font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+.faixa__icone   { width: 20px; height: 18px; flex: none; }   /* o símbolo da app, ver img/simbolo-app.svg */
+.faixa__divisor { width: 2px; height: 16px; background: var(--c-acao); flex: none; }
+.faixa__perfil  { font-size: var(--t-tiny); font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.faixa__nome    { margin-left: auto; font-weight: 700; }
+.faixa__rede    { display: flex; align-items: center; gap: var(--e-sm); }
+.faixa__ponto   { width: 8px; height: 8px; border-radius: var(--r-pill); background: var(--c-bom); }
+/* Sem rede, a faixa não muda de cor: muda de palavra, e o ponto apaga-se.
+   Vermelho sobre o invertido não se lê, e a cor sozinha não diz estado — 03 §2.3. */
+.faixa__rede--sem { font-weight: 700; text-transform: uppercase; letter-spacing: .04em; font-size: var(--t-tiny); }
+.faixa__rede--sem .faixa__ponto { background: var(--c-cinzento); }
+
+/* Ícones a duas cores: o traço é currentColor, e o realce é o laranja de
+   ação. Num atributo de SVG um var() não se resolve; numa classe, sim. */
+.tinta-acao { fill: var(--c-acao); }
+.traco-acao { stroke: var(--c-acao); }
 
 /* ---------- BarraDeTopo ---------- */
 .barra { padding: var(--e-md) var(--e-lg); background: var(--c-cartao); border-bottom: 1px solid var(--c-cinzento); }
@@ -169,3 +178,12 @@ code { font-family: var(--f-mono); }
   border: 1px solid var(--c-cinzento); border-radius: var(--r-sm);
   background: var(--c-cartao); font: inherit; font-size: var(--t-body); color: var(--c-texto); text-align: left;
 }
+
+/* ---------- a marca ----------
+   Igual ao GoParts: ROMAFE nunca aparece sozinho. É o nome, o risco laranja
+   e o subtítulo, sempre por esta ordem e sempre com o mesmo desenho. */
+.lockup { display: inline-grid; justify-items: start; gap: 3px; }
+.lockup__nome { font-family: var(--f-marca); font-size: var(--t-big); line-height: 1; color: var(--c-logotipo); margin: 0; }
+.lockup__risco { width: 100%; height: 3px; background: var(--c-acao); border-radius: 2px; }
+.lockup__sub { font-size: var(--t-small); color: var(--c-texto-2); margin: 0; line-height: 1.2; }
+.lockup--invertido .lockup__sub { color: var(--c-sobre-marca); }

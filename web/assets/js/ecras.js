@@ -41,7 +41,8 @@
 
   if (so === 'todos') {
     document.body.classList.add('so-ecra', 'so-ecra--todos');
-    var todos = document.querySelectorAll('.ecra');
+    // o ícone não é um ecrã do aparelho, e não entra no PDF dos ecrãs
+    var todos = document.querySelectorAll('.ecra:not(.ecra--marca)');
     for (var i = 0; i < todos.length; i++) todos[i].hidden = false;
     paginaDoAparelho();
   } else if (existe(so)) {

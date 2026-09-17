@@ -68,7 +68,7 @@
   /* nomes legíveis para o painel de camadas */
   var NOMES = {
     'pda': 'Ecrã do PDA', 'faixa': 'Faixa', 'faixa__perfil': 'Perfil', 'faixa__nome': 'Nome',
-    'faixa__rede': 'Rede', 'barra': 'Barra de topo', 'barra__titulo': 'Título', 'barra__sub': 'Subtítulo',
+    'faixa__rede': 'Rede', 'faixa__icone': 'Ícone', 'faixa__divisor': 'Divisor', 'faixa__ponto': 'Ponto', 'barra': 'Barra de topo', 'barra__titulo': 'Título', 'barra__sub': 'Subtítulo',
     'passos': 'Passos', 'passos__linha': 'Linha dos passos', 'passos__barra': 'Progresso',
     'passos__traco': 'Traço', 'corpo': 'Corpo', 'rodape': 'Rodapé', 'cartao': 'Cartão',
     'rotulo': 'Rótulo', 'selo': 'Selo', 'btn': 'Botão', 'par': 'Par de botões',
@@ -77,10 +77,24 @@
     'linha__valor': 'Valor', 'vazio': 'Vazio', 'folha': 'Folha', 'folha__caixa': 'Caixa da folha',
     'folha__opcao': 'Opção', 'ordem': 'Ordem', 'codigo': 'Código', 'marca-app': 'Marca',
     'campo': 'Campo', 'pin': 'PIN', 'teclado': 'Teclado', 'tecla': 'Tecla',
-    'mosaicos': 'Menu', 'mosaico': 'Mosaico', 'proposta': 'Proposta', 'camiao': 'Camião',
+    'mosaicos': 'Menu', 'mosaico': 'Mosaico', 'saudacao': 'Saudação', 'saudacao__titulo': 'Título',
+    'saudacao__sub': 'Subtítulo', 'seccao-menu': 'Secção', 'seccao-menu__cabeca': 'Cabeça da secção',
+    'seccao-menu__titulo': 'Título da secção', 'seccao-menu__traco': 'Traço', 'seccao-menu__ver': 'Ver todas',
+    'atalhos': 'Atalhos', 'atalho': 'Atalho', 'atalho__circulo': 'Círculo', 'atalho__texto': 'Texto',
+    'atalho__nome': 'Nome', 'atalho__conta': 'Contagem', 'atalho__seta': 'Seta', 'navegacao': 'Navegação',
+    'navegacao__botao': 'Botão', 'navegacao__contador': 'Contador', 'proposta': 'Proposta', 'camiao': 'Camião',
     'volumes': 'Volumes', 'volume': 'Volume', 'numeros': 'Números', 'numero': 'Número',
     'txt-lead': 'Texto de destaque', 'txt-corpo': 'Texto', 'txt-sec': 'Texto secundário',
-    'txt-legenda': 'Legenda'
+    'txt-legenda': 'Legenda', 'entrar__foto': 'Fotografia', 'entrar__topo': 'Topo',
+    'lockup': 'Marca ROMAFE', 'lockup__nome': 'ROMAFE', 'lockup__risco': 'Risco', 'lockup__sub': 'Subtítulo',
+    'aparelho': 'Aparelho', 'aparelho__estado': 'Rede e bateria', 'entrar__boas-vindas': 'Boas-vindas',
+    'entrar__titulo': 'Título', 'entrar__lema': 'Lema', 'entrar__risco': 'Risco laranja',
+    'sessao': 'Cartão de sessão', 'sessao__titulo': 'Título', 'sessao__sub': 'Subtítulo',
+    'entrada-texto': 'Campo', 'entrada-texto__rotulo': 'Rótulo', 'entrada-texto__caixa': 'Caixa',
+    'entrada-texto__campo': 'Caixa de texto', 'entrada-texto__ver': 'Mostrar palavra-passe',
+    'areas': 'Áreas', 'area': 'Área', 'versao': 'Versão',
+    'icone-app': 'Ícone da app', 'icone-app__simbolo': 'Símbolo', 'icone-app__nome': 'Nome',
+    'icone-app__sub': 'Subtítulo', 'icone-app__tamanhos': 'Tamanhos', 'icone-app__tamanho': 'Tamanho'
   };
 
   /* o texto de um botão diz mais do que a palavra "Botão" */
@@ -95,7 +109,7 @@
      clique seguinte entra lá dentro. Sem isto, clicar num botão escolhia
      o texto do botão e a variante não aparecia. */
   var COMPONENTES = '.faixa, .barra, .passos, .cartao, .selo, .btn, .leitor, .alerta, .tarefa, ' +
-    '.linha, .mosaico, .campo, .pin, .teclado, .camiao, .volume, .numero, .vazio, .folha__opcao, .proposta';
+    '.linha, .atalho, .navegacao__botao, .saudacao, .seccao-menu__cabeca, .lockup, .aparelho, .sessao, .entrada-texto, .area, .camiao, .volume, .numero, .vazio, .folha__opcao, .proposta';
 
   var estilos = {};   // seletor -> { propriedade: valor }
   var textos  = {};   // seletor -> texto
@@ -173,6 +187,17 @@
 
   /* ---------------- utilitários ---------------- */
 
+  /* A tradução é um extra: o editor tem de funcionar sem ela, e uma exceção
+     lá dentro não pode deixar o painel das propriedades a meio. */
+  function traduzirRamo(raiz) {
+    if (!window.PdaTraducao || typeof window.PdaTraducao.traduzirRamo !== 'function') return;
+    try {
+      window.PdaTraducao.traduzirRamo(raiz);
+    } catch (e) {
+      if (window.console) console.warn('A tradução falhou neste ramo:', e);
+    }
+  }
+
   function el(tag, classe, texto) {
     var n = document.createElement(tag);
     if (classe) n.className = classe;
@@ -225,6 +250,7 @@
     avisoEl = el('p', 'ed-aviso', texto);
     avisoEl.setAttribute('role', 'status');
     document.body.appendChild(avisoEl);
+    traduzirRamo(avisoEl);
     window.setTimeout(function () { if (avisoEl) { avisoEl.remove(); avisoEl = null; } }, 1800);
   }
 
@@ -521,6 +547,8 @@
       }
     })(raiz, 0);
 
+    traduzirRamo(listaCamadas);
+
   }
 
   function ecraVisivel() {
@@ -536,6 +564,10 @@
     seleccionar(null);
     construirCamadas();
     if (window.PdaEcras) window.PdaEcras.lembrar(nome);
+    // escolher um ecrã é querer vê-lo: a documentação, se estiver aberta, sai
+    abrirLeitura('');
+    // uma peça acrescentada num ecrã escondido ainda não passou pela tradução
+    if (window.PdaTraducao) window.PdaTraducao.aplicar();
     window.scrollTo(0, 0);
   }
 
@@ -618,6 +650,7 @@
     if (!seleccionado) {
       if (alvoEl) alvoEl.textContent = '—';
       corpoProps.appendChild(el('p', 'ed-vazio', 'Clica numa peça do ecrã, ou escolhe-a nas camadas à esquerda.'));
+      traduzirRamo(painelDir);
       return;
     }
 
@@ -800,6 +833,10 @@
     });
     sr.appendChild(br);
     corpoProps.appendChild(sr);
+
+    /* O painel nasceu em português. Em inglês, traduz-se só ele, e não a
+       página toda a cada clique. */
+    traduzirRamo(painelDir);
   }
 
   /* ---------------- o protótipo ----------------
@@ -1006,10 +1043,29 @@
     var cabecaE = el('div', 'ed-cabeca');
     var marca = el('p', 'ed-cabeca__marca', 'PDA');
     marca.style.margin = '0';
+    var simbolo = el('img', 'ed-cabeca__simbolo');
+    simbolo.src = 'assets/img/simbolo-app.svg';
+    simbolo.alt = '';
+    marca.insertBefore(simbolo, marca.firstChild);
     cabecaE.appendChild(marca);
     cabecaE.appendChild(el('h2', null, 'Camadas'));
     cabecaE.appendChild(botaoFechar('esq', '‹'));
     painelEsq.appendChild(cabecaE);
+
+    /* Os ecrãs, a documentação e o como funciona vivem na mesma tela. A
+       documentação abre ao lado das camadas, e não noutra página: quem está a
+       afinar um ecrã quer ver a regra sem perder o sítio onde estava. */
+    var abas = el('div', 'ed-abas');
+    abas.setAttribute('role', 'tablist');
+    ABAS.forEach(function (par) {
+      var b = el('button', 'ed-aba', par[1]);
+      b.type = 'button';
+      b.setAttribute('role', 'tab');
+      b.dataset.edAba = par[0];
+      b.addEventListener('click', function () { abrirLeitura(par[0]); });
+      abas.appendChild(b);
+    });
+    painelEsq.appendChild(abas);
 
     var barraEcras = el('div', 'ed-ecras');
     barraEcras.appendChild(el('label', null, 'Ecrã'));
@@ -1057,18 +1113,21 @@
     bRepor.addEventListener('click', reporTudo);
     peE.appendChild(bCss); peE.appendChild(bAnular); peE.appendChild(bRepor);
 
-    /* O PDA não tem tema escuro nem inglês — 03 §2 só define um jogo de cores
-       e o armazém fala português. Por isso aqui não há as barras do tema e
-       do idioma que o editor da entrada tinha. Há as duas páginas que
-       explicam o que se está a ver. */
-    var ligacoes = el('p', 'ed-ligacoes');
-    [['documentacao.html', 'Documentação'], ['como-funciona.html', 'Como funciona']].forEach(function (par, k) {
-      if (k) ligacoes.appendChild(document.createTextNode(' · '));
-      var a = el('a', null, par[1]);
-      a.href = par[0];
-      ligacoes.appendChild(a);
+    /* O PDA não tem tema escuro — 03 §2 só define um jogo de cores —, por
+       isso aqui não há a barra do tema que o editor da entrada tinha. Há a do
+       idioma, e as duas páginas que explicam o que se está a ver. */
+    var idiomaBarra = el('div', 'ed-degraus');
+    [['pt', 'Português'], ['en', 'English']].forEach(function (par) {
+      var b = el('button', 'ed-degrau', par[1]);
+      b.type = 'button';
+      b.dataset.edIdioma = par[0];
+      /* quem marca o degrau é a tradução, que também aplica a língua guardada */
+      b.addEventListener('click', function () {
+        if (window.PdaTraducao) window.PdaTraducao.aplicar(par[0]);
+      });
+      idiomaBarra.appendChild(b);
     });
-    peE.appendChild(ligacoes);
+    peE.appendChild(idiomaBarra);
 
     painelEsq.appendChild(peE);
 
@@ -1118,6 +1177,44 @@
     document.body.appendChild(dialogo);
   }
 
+  /* ---------------- documentação dentro da tela ---------------- */
+  var ABAS = [['', 'Ecrãs'], ['documentacao', 'Documentação'], ['como-funciona', 'Como funciona']];
+  var leitura = null;
+
+  function abrirLeitura(qual) {
+    if (qual && !ABAS.some(function (par) { return par[0] === qual; })) qual = '';
+
+    if (!qual) {
+      if (leitura) { leitura.remove(); leitura = null; }
+    } else {
+      if (!leitura) {
+        leitura = el('div', 'ed-leitura');
+        var moldura = el('iframe');
+        moldura.title = 'Documentação';
+        leitura.appendChild(moldura);
+        document.body.appendChild(leitura);
+      }
+      var alvo = qual + '.html';
+      var frame = leitura.querySelector('iframe');
+      if ((frame.getAttribute('src') || '') !== alvo) frame.setAttribute('src', alvo);
+    }
+    document.body.classList.toggle('ed-lendo', !!qual);
+
+    var botoes = document.querySelectorAll('[data-ed-aba]');
+    for (var i = 0; i < botoes.length; i++) {
+      botoes[i].setAttribute('aria-selected', String(botoes[i].dataset.edAba === qual));
+    }
+
+    // fica no endereço, para voltar ao mesmo sítio ao recarregar
+    try { history.replaceState(null, '', qual ? '#doc=' + qual : location.pathname); } catch (e) {}
+  }
+
+  /* As páginas de documentação, dentro da moldura, pedem para trocar de aba
+     em vez de navegarem sozinhas — senão o editor abria-se dentro de si mesmo. */
+  window.addEventListener('message', function (ev) {
+    if (ev.data && ev.data.pda === 'aba') abrirLeitura(ev.data.qual || '');
+  });
+
   function abrirDialogo() {
     dialogo.codigo.textContent = cssFinal();
     dialogo.showModal();
@@ -1130,7 +1227,7 @@
      engolia o clique antes de ele chegar lá. */
   function ehMoldura(no) {
     return !!(no && no.closest && (no.closest('.ed-painel') || no.closest('.ed-dialogo') ||
-              no.closest('.ed-abrir') || no.closest('.ed-aviso') || no.closest('.ed-dica-flutuante')));
+              no.closest('.ed-abrir') || no.closest('.ed-leitura') || no.closest('.ed-aviso') || no.closest('.ed-dica-flutuante')));
   }
 
   /* a peça que um clique aqui escolheria */
@@ -1187,6 +1284,7 @@
     carregar();
     construirCamadas();
     pintarProps();
+    abrirLeitura((location.hash.match(/doc=([a-z-]+)/) || [])[1] || '');
 
     document.addEventListener('click', interceptar, true);
     document.addEventListener('mouseover', realcar, true);

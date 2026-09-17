@@ -18,6 +18,10 @@
 @font-face { font-family:'Roboto'; font-style:normal; font-weight:400 700; font-display:swap;
   src:url('../fonts/roboto-latin-ext.woff2') format('woff2');
   unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+/* Motor é a letra da marca, e só da marca: a palavra ROMAFE. Vem do
+   Figma-WebShop-GoParts, onde a marca tem o mesmo desenho. */
+@font-face { font-family:'Motor'; font-style:normal; font-weight:400 700; font-display:swap;
+  src:url('../fonts/motor-latin.woff2') format('woff2'); }
 @font-face { font-family:'Roboto Mono'; font-style:normal; font-weight:500; font-display:swap;
   src:url('../fonts/roboto-mono-latin.woff2') format('woff2');
   unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2122,U+FEFF,U+FFFD; }
@@ -57,6 +61,7 @@
   /* ---------- tipografia (03 §3) — nove tamanhos, em sp ---------- */
   --f-base: 'Roboto', system-ui, "Segoe UI", Arial, sans-serif;
   --f-mono: 'Roboto Mono', ui-monospace, Consolas, monospace;
+  --f-marca: 'Motor', 'Roboto', sans-serif;
   --t-micro:    10px;   /* etiquetas de canto */
   --t-tiny:     12px;   /* legendas */
   --t-small:    13px;   /* texto secundário */
@@ -92,12 +97,16 @@
 
 
 /* ---------- ACRESCENTOS ----------
-   Nenhuma cor nova. O que está aqui é uma cor do sistema usada de outra
-   maneira, e está marcado para se poder levar ao Theme.kt ou tirar. */
+   O que o sistema de design do PDA ainda não tem. Está marcado para se
+   poder levar ao Theme.kt ou tirar. */
 :root {
-  /* O véu da folha de exceção: o invertido a 45%. A folha tem de deixar ver
-     o passo que está por baixo, senão quem a abre perde o sítio onde estava. */
+  /* O invertido a 45%: o véu da folha de exceção, que tem de deixar ver o
+     passo por baixo, e o escuro por cima da fotografia do ecrã de entrar. */
   --c-veu: rgba(1, 35, 56, .45);
+
+  /* O azul da palavra ROMAFE, o mesmo do GoParts em qualquer fundo. Não
+     é o acento do PDA (#00537e): é a cor do nome, e não muda. */
+  --c-logotipo: #2762a8;
 
   /* A barra de progresso dos passos: 4 dp, fora da escala de espaço porque
      é uma espessura e não uma folga. */

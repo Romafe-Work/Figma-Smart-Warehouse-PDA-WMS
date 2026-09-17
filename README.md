@@ -6,7 +6,7 @@ Os dezanove ecrãs do PDA, desenhados com os tokens do sistema de design
 ## Abrir
 
 `web/index.html` abre em modo de edição: camadas à esquerda, o aparelho ao
-centro, propriedades à direita. Não precisa de servidor, nem de build, nem de rede.
+centro, propriedades à direita. Lê-se em português e em inglês. Não precisa de servidor, nem de build, nem de rede.
 
 `web/documentacao.html` documenta o sistema — cor, tipografia, espaço, alvos de
 toque e componentes — com exemplos vivos.

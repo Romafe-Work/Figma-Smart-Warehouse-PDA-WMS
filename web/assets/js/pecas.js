@@ -31,6 +31,12 @@
 
   var CHAVE = 'pda:editor:pecas';
 
+  /* Igual ao do editor: a paleta tem de funcionar mesmo que a tradução falhe. */
+  function traduzirRamo(raiz) {
+    if (!window.PdaTraducao || typeof window.PdaTraducao.traduzirRamo !== 'function') return;
+    try { window.PdaTraducao.traduzirRamo(raiz); } catch (e) {}
+  }
+
   /* As peças acrescentadas, por ordem de entrada. A ordem importa: uma peça
      posta dentro de outra peça acrescentada só se repõe depois dela. */
   var pecas = [];
@@ -101,7 +107,7 @@
   /* Blocos que já são feitos para levar peças lá dentro. Procura-se um destes
      a subir a partir do que está escolhido: quem clica num selo quer o selo
      novo ao lado, e não dentro do selo antigo. */
-  var RECIPIENTES = '.corpo, .rodape, .cartao, .folha__caixa, .volumes, .mosaicos, .numeros';
+  var RECIPIENTES = '.corpo, .rodape, .cartao, .folha__caixa, .volumes, .atalhos, .numeros';
 
   function ecraActual() {
     return document.querySelector('.ecra:not([hidden])') || document.querySelector('.ecra');
@@ -144,6 +150,7 @@
     });
     guardar();
 
+    if (window.PdaTraducao) window.PdaTraducao.aplicar();
     if (ed && ed.seleccionar) ed.seleccionar(novo);
     if (ed && ed.refrescar) ed.refrescar();
     if (ed && ed.aviso) ed.aviso('Peça acrescentada no fim do bloco');
@@ -255,6 +262,7 @@
 
     onde.appendChild(caixa);
     pintarLista();
+    traduzirRamo(caixa);
   }
 
   function pintarLista() {
@@ -294,6 +302,7 @@
       linha.appendChild(fora);
       lista.appendChild(linha);
     });
+    traduzirRamo(lista);
 
   }
 

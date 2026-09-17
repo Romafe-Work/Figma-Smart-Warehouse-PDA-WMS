@@ -3,36 +3,146 @@
    Só arrumação: o que fica onde nos ecrãs e1, e2 e e3.
    ========================================================= */
 
-/* a marca, no ecrã de entrar — o único sem faixa */
-.marca-app { padding: var(--e-xl) var(--e-lg) var(--e-lg); background: var(--c-invertido); color: var(--c-sobre-marca); }
-.marca-app__casa { font-size: var(--t-micro); font-weight: 700; letter-spacing: .12em; }
-.marca-app__nome { font-size: var(--t-big); font-weight: 700; }
+/* ---------- entrar ----------
+   Desenho de 17 de setembro (segunda versão). É o único ecrã do PDA com
+   fotografia e com a marca: o resto do turno é trabalho, e ali é a porta.
 
-.campo { padding: var(--e-md) var(--e-lg); background: var(--c-cartao); border: 2px solid var(--c-acento); border-radius: var(--r-md); }
-.campo__rotulo { font-size: var(--t-tiny); font-weight: 500; color: var(--c-texto-3); }
-.campo__valor  { font-size: var(--t-big); font-weight: 700; }
+   As medidas do desenho, levadas a 320 × 533 dp, davam letra de 8 sp e
+   campos de 30 dp. Aqui ficam no mínimo do sistema — 10 sp e 48 dp — e o
+   que se ajustou para caber foram as folgas. */
 
-.pin { display: flex; gap: var(--e-lg); }
-.pin__ponto { width: 18px; height: 18px; border-radius: var(--r-pill); border: 2px solid var(--c-acento); }
-.pin__ponto--cheio { background: var(--c-acento); }
+.entrar { background: var(--c-fundo); }
 
-/* O teclado é o do ecrã e não o do Android: o do Android tapa metade do ecrã
-   e muda de disposição conforme o campo. */
-.teclado { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--e-sm); }
-.tecla {
-  display: flex; align-items: center; justify-content: center; min-height: 38px;
-  background: var(--c-cartao); border: 1px solid var(--c-cinzento); border-radius: var(--r-sm);
-  font-size: var(--t-lead); font-weight: 500;
+/* A fotografia ocupa o topo e desvanece para o fundo cinzento. O véu escuro
+   em cima é o que deixa ler o branco sobre as prateleiras claras. */
+.entrar__foto {
+  position: absolute; inset: 0 0 auto 0; height: 330px;
+  background:
+    linear-gradient(180deg, var(--c-veu) 0%, transparent 45%, var(--c-fundo) 100%),
+    url('../img/armazem.png') center top / cover;
+}
+.entrar__topo, .entrar__boas-vindas, .sessao, .areas, .versao { position: relative; }
+
+.entrar__topo {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: var(--e-lg) var(--e-lg) 0 var(--e-xl); color: var(--c-sobre-marca);
 }
 
-/* o menu: as tarefas da função em cima, as consultas em baixo */
-.mosaicos { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-md); }
-.mosaico {
-  display: flex; flex-direction: column; gap: var(--e-xs); min-height: 74px; padding: var(--e-md) var(--e-lg);
+.aparelho { text-align: right; }
+.aparelho__nome { font-size: var(--t-small); font-weight: 500; }
+.aparelho__estado { display: flex; align-items: center; gap: var(--e-sm); font-size: var(--t-tiny); }
+.aparelho__estado svg { height: 11px; width: auto; }
+
+.entrar__boas-vindas { padding: var(--e-md) var(--e-xl) 0; color: var(--c-sobre-marca); }
+.entrar__titulo { font-size: var(--t-huge); font-weight: 700; line-height: 1.1; }
+.entrar__lema   { font-size: var(--t-small); }
+.entrar__risco  { display: block; width: 30px; height: 3px; margin-top: var(--e-md); background: var(--c-acao); }
+
+.sessao {
+  margin: var(--e-lg) var(--e-md) 0; padding: var(--e-lg);
+  display: flex; flex-direction: column; gap: var(--e-md);
+  background: var(--c-cartao); border-radius: var(--r-lg);
+}
+.sessao__titulo { font-size: var(--t-big); font-weight: 700; line-height: 1.15; }
+.sessao__sub    { font-size: var(--t-small); color: var(--c-texto-2); margin-top: calc(-1 * var(--e-md)); }
+
+.entrada-texto { display: flex; flex-direction: column; gap: var(--e-xs); }
+.entrada-texto__rotulo { font-size: var(--t-small); font-weight: 700; }
+.entrada-texto__caixa {
+  display: flex; align-items: center; gap: var(--e-sm); min-height: var(--alvo);
+  padding-left: var(--e-md); background: var(--c-fundo);
+  border: 1px solid var(--c-cinzento); border-radius: var(--r-md);
+}
+.entrada-texto__caixa:focus-within { border-color: var(--c-acento); }
+.entrada-texto__icone { width: 18px; height: 18px; flex: none; color: var(--c-invertido); }
+.entrada-texto__campo {
+  flex: 1; min-width: 0; align-self: stretch; padding: 0 var(--e-md) 0 0;
+  border: 0; background: none; outline: none;
+  font: 400 var(--t-body) var(--f-base); color: var(--c-texto);
+}
+.entrada-texto__campo::placeholder { color: var(--c-texto-3); }
+.entrada-texto__ver {
+  display: flex; align-items: center; justify-content: center; flex: none;
+  width: 36px; align-self: stretch; border: 0; background: none; color: var(--c-texto-2);
+}
+.entrada-texto__ver svg { width: 20px; height: 20px; }
+
+.sessao__entrar { position: relative; margin-top: var(--e-sm); }
+.sessao__seta { position: absolute; right: var(--e-lg); width: 22px; height: 22px; }
+
+/* as três áreas: o que o sistema faz, dito antes de entrar */
+.areas {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  margin: var(--e-xl) var(--e-lg) 0; padding: 0; list-style: none;
+}
+.area { display: flex; flex-direction: column; align-items: center; gap: var(--e-xs); color: var(--c-invertido); }
+.area + .area { border-left: 1px solid var(--c-cinzento); }
+.area__icone { width: 22px; height: 22px; }
+.area__nome  { font-size: var(--t-tiny); font-weight: 500; }
+
+.versao { margin-top: auto; padding-bottom: var(--e-md); text-align: center; font-size: var(--t-micro); color: var(--c-texto-3); letter-spacing: .03em; }
+
+/* ---------- o menu da função ----------
+   Desenho de 17 de setembro. Em cima, as tarefas da função com a contagem —
+   são o trabalho; em baixo, as consultas — são ajuda. A barra do fundo é a
+   mesma em todos os menus: a fila, o início e sair. */
+
+.menu { background: var(--c-cartao); }
+.menu__corpo { gap: var(--e-lg); padding-top: var(--e-md); }
+
+.saudacao__titulo { font-size: var(--t-big); font-weight: 700; line-height: 1.2; }
+.saudacao__sub    { font-size: var(--t-small); color: var(--c-texto-2); }
+
+.seccao-menu { display: flex; flex-direction: column; gap: var(--e-sm); }
+.seccao-menu--separada { padding-top: var(--e-lg); border-top: 1px solid var(--c-neutro-suave); }
+.seccao-menu__cabeca { display: flex; align-items: center; gap: var(--e-md); }
+.seccao-menu__titulo { font-size: var(--t-lead); font-weight: 700; white-space: nowrap; }
+.seccao-menu__traco  { flex: 1; height: 1px; background: var(--c-neutro-suave); }
+.seccao-menu__ver {
+  display: flex; align-items: center; gap: var(--e-xs); white-space: nowrap;
+  font-size: var(--t-tiny); color: var(--c-texto-2); text-decoration: none;
+}
+.seccao-menu__ver svg { width: 12px; height: 12px; }
+
+.atalhos { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-sm); }
+.atalho {
+  display: flex; align-items: center; gap: var(--e-sm); min-height: var(--alvo); width: 100%;
+  padding: var(--e-sm); text-align: left;
   background: var(--c-cartao); border: 1px solid var(--c-cinzento); border-radius: var(--r-md);
-  font: inherit; color: var(--c-texto); text-align: left;
+  font: inherit; color: var(--c-texto);
 }
-.mosaico__nome { font-size: var(--t-body); font-weight: 700; }
-.mosaico__conta { font-size: var(--t-tiny); font-weight: 500; color: var(--c-texto-3); }
-.mosaico--tarefa { background: var(--c-acento); border-color: var(--c-acento); color: var(--c-sobre-marca); }
-.mosaico--tarefa .mosaico__conta { color: var(--c-sobre-marca); }
+.atalho__circulo {
+  display: flex; align-items: center; justify-content: center; flex: none;
+  width: 32px; height: 32px; border-radius: var(--r-pill);
+  background: var(--c-neutro-suave); color: var(--c-invertido);
+}
+.atalho__circulo svg { width: 18px; height: 18px; }
+.atalho__texto { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.atalho__nome  { font-size: var(--t-small); font-weight: 700; line-height: 1.2; }
+.atalho__conta { font-size: var(--t-tiny); line-height: 1.25; }
+.atalho__seta  { width: 12px; height: 12px; flex: none; }
+
+/* As tarefas da função: fundo de acento e um círculo invertido por trás do
+   ícone. Têm o alvo grande porque são o caminho do turno. */
+.atalho--tarefa {
+  min-height: var(--alvo-lg); border-color: transparent;
+  background: var(--c-acento); color: var(--c-sobre-marca);
+}
+.atalho--tarefa .atalho__circulo { width: 36px; height: 36px; background: var(--c-invertido); color: var(--c-sobre-marca); }
+.atalho--tarefa .atalho__circulo svg { width: 20px; height: 20px; }
+
+.navegacao {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--e-sm); flex: none;
+  padding: var(--e-md) var(--e-lg) var(--e-lg); background: var(--c-fundo);
+}
+.navegacao__botao {
+  display: flex; align-items: center; justify-content: center; gap: var(--e-sm); min-height: var(--alvo);
+  border: 0; border-radius: var(--r-md); background: var(--c-acento); color: var(--c-sobre-marca);
+  font: 700 var(--t-small) var(--f-base);
+}
+.navegacao__botao svg { width: 18px; height: 18px; flex: none; }
+.navegacao__contador {
+  display: flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; padding: 0 var(--e-sm);
+  border-radius: var(--r-pill); background: var(--c-acao); color: var(--c-sobre-marca);
+  font-size: var(--t-tiny); font-weight: 700;
+}
