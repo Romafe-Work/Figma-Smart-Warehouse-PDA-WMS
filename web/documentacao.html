@@ -186,21 +186,22 @@
     <section class="seccao" id="botoes">
       <h2>Botões</h2>
       <p>
-        Três variantes, e a variante vem do papel da ação. A <strong>ação principal</strong> é uma
-        por ecrã, laranja e com 62 dp. A <strong>secundária</strong> é a saída — «não consigo
-        ler», «falta quantidade». A <strong>neutra</strong> é uma escolha entre iguais.
+        Três temas, e o tema vem do papel da ação. A <strong>ação principal</strong> é uma
+        por ecrã, laranja e com 62 dp. A <strong>alternativa</strong> é azul — «está ocupada»,
+        «outro problema». O <strong>recurso</strong> é transparente, com contorno azul — a saída:
+        «não consigo ler», «já não está lá». Todos têm ícone, à esquerda do texto.
       </p>
       <div class="demo">
         <div class="demo__coluna">
-          <button type="button" class="btn btn--acao">Cheguei</button>
-          <button type="button" class="btn btn--secundario">Não consigo ler — escrever</button>
-          <div class="par"><button type="button" class="btn">Está ocupada</button><button type="button" class="btn">Não cabe</button></div>
-          <button type="button" class="btn btn--acao" disabled>Fechar saída — faltam 2 volumes</button>
+          <button type="button" class="btn btn--acao"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8V4.5A1.5 1.5 0 0 1 4.5 3H8M16 3h3.5A1.5 1.5 0 0 1 21 4.5V8M21 16v3.5a1.5 1.5 0 0 1-1.5 1.5H16M8 21H4.5A1.5 1.5 0 0 1 3 19.5V16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M7.5 8v8M10.5 8v8M13.5 8v8M16.5 8v8" stroke="currentColor" stroke-width="2"/></svg>Ler a posição</button>
+          <div class="par"><button type="button" class="btn"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="m5.7 5.7 12.6 12.6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Está ocupada</button><button type="button" class="btn"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 2.5 20h19Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 10v4.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="17.2" r="1.2" fill="currentColor"/></svg>Outro problema</button></div>
+          <button type="button" class="btn btn--secundario"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1-4.5L15.5 5a2.1 2.1 0 0 1 3 3L8 18.5Z M13.5 7l3 3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Não consigo ler — escrever</button>
+          <button type="button" class="btn btn--acao" disabled><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 6h11v10h-11ZM13.5 9h4l3.5 3.5V16h-7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="17.5" r="1.8" fill="currentColor"/><circle cx="17" cy="17.5" r="1.8" fill="currentColor"/></svg>Fechar saída — faltam 2 volumes</button>
         </div>
       </div>
-      <pre><code>&lt;button type="button" class="btn btn--acao"&gt;Cheguei&lt;/button&gt;
-&lt;button type="button" class="btn btn--secundario"&gt;Não consigo ler — escrever&lt;/button&gt;
-&lt;button type="button" class="btn"&gt;Está ocupada&lt;/button&gt;</code></pre>
+      <pre><code>&lt;button type="button" class="btn btn--acao"&gt;&lt;svg class="btn__icone" …&gt;&lt;/svg&gt;Ler a posição&lt;/button&gt;
+&lt;button type="button" class="btn"&gt;&lt;svg class="btn__icone" …&gt;&lt;/svg&gt;Está ocupada&lt;/button&gt;
+&lt;button type="button" class="btn btn--secundario"&gt;&lt;svg class="btn__icone" …&gt;&lt;/svg&gt;Não consigo ler — escrever&lt;/button&gt;</code></pre>
       <p class="nota">Desativado, o botão diz porquê no próprio rótulo. Um botão cinzento mudo lê-se como avaria.</p>
     </section>
 
@@ -209,13 +210,13 @@
       <div class="demo">
         <div class="demo__coluna">
           <div class="par" style="flex-wrap:wrap">
-            <span class="selo">Contagem</span><span class="selo selo--bom">Seguinte</span>
+            <span class="selo selo--erro">Correção</span><span class="selo selo--bom">Seguinte</span>
             <span class="selo selo--aviso">Palete vazia</span><span class="selo selo--erro">Apertado</span>
             <span class="selo selo--acento">Proposta 1 de 3</span>
           </div>
-          <div class="alerta alerta--bom"><b class="alerta__titulo">Arrumada em C02-E04-N01</b>Registado com o teu nome às 10h14</div>
-          <div class="alerta alerta--aviso"><b class="alerta__titulo">C02-E03-N01 ficou registada como ocupada</b>O gestor vai ver porquê.</div>
-          <div class="alerta alerta--erro"><b class="alerta__titulo">Aqui há 2 das 6</b>A guia fica incompleta.</div>
+          <div class="alerta alerta--bom"><svg class="alerta__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="m7 12.5 3.3 3.3L17 9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><b class="alerta__titulo">Arrumada em 60300401</b><span class="alerta__texto">Registado com o teu nome às 10h14</span></div>
+          <div class="alerta alerta--aviso"><svg class="alerta__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.3 3.2a2 2 0 0 1 3.4 0l8.4 15a2 2 0 0 1-1.7 3H3.6a2 2 0 0 1-1.7-3Z" fill="currentColor"/><path d="M12 9v5" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="17.3" r="1.4" fill="#fff"/></svg><b class="alerta__titulo">60300301 ficou registada como ocupada</b><span class="alerta__texto">O gestor vai ver porquê.</span></div>
+          <div class="alerta alerta--erro"><svg class="alerta__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M12 6.5v7" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="17" r="1.4" fill="#fff"/></svg><b class="alerta__titulo">Aqui há 2 das 6</b><span class="alerta__texto">A guia fica incompleta.</span></div>
         </div>
       </div>
       <pre><code>&lt;span class="selo selo--bom"&gt;Seguinte&lt;/span&gt;
@@ -226,13 +227,13 @@
       <h2>Cartão, tarefa e leitor</h2>
       <div class="demo">
         <div class="demo__coluna">
-          <div class="cartao"><span class="rotulo">Esperado</span><span class="txt-lead">Óleo 5W30 · 5 L</span><span class="txt-sec">40 unidades · do cais de entrada</span></div>
+          <div class="cartao"><span class="selo selo--acento">Esperado</span><span class="cartao__titulo">Óleo 5W30 · 5 L</span><span class="txt-sec">40 unidades · do cais de entrada</span></div>
           <div class="cartao cartao--acento"><span class="rotulo rotulo--acento">Porquê aqui</span><span class="porque-aqui">É a seguinte mais perto do cais que aguenta o peso.</span></div>
-          <div class="leitor"><span class="leitor__icone"><i></i><i></i><i></i><i></i><i></i></span>Aponta e carrega no gatilho</div>
+          <div class="leitor"><svg class="leitor__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8V4.5A1.5 1.5 0 0 1 4.5 3H8M16 3h3.5A1.5 1.5 0 0 1 21 4.5V8M21 16v3.5a1.5 1.5 0 0 1-1.5 1.5H16M8 21H4.5A1.5 1.5 0 0 1 3 19.5V16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 7.5v9M10 7.5v9M13 7.5v9M16.5 7.5v9" stroke="currentColor" stroke-width="2"/></svg><span class="leitor__traco" aria-hidden="true"></span>Aponta e carrega no gatilho</div>
         </div>
         <div class="demo__coluna">
           <div class="tarefa tarefa--seguinte"><span class="selo selo--bom">Seguinte</span><span class="tarefa__titulo">Arrumar palete · Óleo 5W30</span><span class="tarefa__porque">Porquê: espera há 2h10</span></div>
-          <div class="tarefa"><span class="selo">Contagem</span><span class="tarefa__titulo">Contar C02-E03-N02</span><span class="tarefa__porque">Porquê: houve uma rutura aqui às 9h40</span></div>
+          <div class="tarefa"><span class="selo selo--erro">Correção</span><span class="tarefa__titulo">Corrigir 60300302</span><span class="tarefa__porque">Porquê: 6 un. de Óleo 5W30 estão fora do sítio</span></div>
           <div class="cartao"><div class="linha">Pedidas<span class="linha__valor">6</span></div><div class="linha">Faltam<span class="linha__valor linha__valor--erro">4</span></div></div>
         </div>
       </div>

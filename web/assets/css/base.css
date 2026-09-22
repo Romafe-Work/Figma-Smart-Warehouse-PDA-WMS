@@ -55,13 +55,31 @@ code { font-family: var(--f-mono); }
 .barra__sub    { font-size: var(--t-tiny); color: var(--c-texto-3); margin-top: var(--e-xs); }
 
 /* ---------- Passos da missão ---------- */
-.passos { padding: var(--e-md) var(--e-lg); background: var(--c-cartao); border-bottom: 1px solid var(--c-cinzento); }
+/* Os passos: um cartão com os números ligados por uma linha. O passo em que
+   se está é o círculo cheio de acento; os feitos ficam ligados a acento. */
+.passos {
+  margin: var(--e-sm) var(--e-sm) 0; padding: var(--e-md) var(--e-lg);
+  background: var(--c-cartao); border-radius: var(--r-md);
+}
 .passos__linha  { display: flex; justify-content: space-between; align-items: baseline; }
-.passos__titulo { font-size: var(--t-small); font-weight: 500; color: var(--c-texto-2); }
-.passos__conta  { font-size: var(--t-tiny); font-weight: 500; color: var(--c-texto-3); }
-.passos__barra  { display: flex; gap: var(--e-xs); margin-top: var(--e-sm); }
-.passos__traco  { flex: 1; height: var(--espessura-progresso); border-radius: var(--r-pill); background: var(--c-cinzento); }
-.passos__traco--feito { background: var(--c-acento); }
+.passos__titulo { font-size: var(--t-body); font-weight: 700; color: var(--c-texto); }
+.passos__conta  { font-size: var(--t-small); font-weight: 500; color: var(--c-texto-2); }
+.passos__barra  { display: flex; align-items: center; margin-top: var(--e-sm); counter-reset: passo; }
+.passos__traco  { flex: 1; display: flex; align-items: center; counter-increment: passo; }
+.passos__traco:last-child { flex: none; }
+.passos__traco::before {
+  content: counter(passo); display: flex; align-items: center; justify-content: center; flex: none;
+  width: 26px; height: 26px; border-radius: var(--r-pill);
+  background: var(--c-neutro-suave); color: var(--c-texto-2);
+  font: 700 var(--t-small) var(--f-base); font-style: normal;
+}
+.passos__traco:not(:last-child)::after {
+  content: ""; flex: 1; height: var(--espessura-progresso); margin: 0 var(--e-xs);
+  border-radius: var(--r-pill); background: var(--c-neutro-suave);
+}
+.passos__traco--feito:has(+ .passos__traco--feito)::after { background: var(--c-acento); }
+/* o passo em que se está: o último feito */
+.passos__traco--feito:not(:has(+ .passos__traco--feito))::before { background: var(--c-acento); color: var(--c-sobre-marca); }
 
 /* ---------- texto ---------- */
 .ordem  { font-size: var(--t-giant); font-weight: 700; line-height: 1.05; letter-spacing: -.01em; }
@@ -85,6 +103,25 @@ code { font-family: var(--f-mono); }
   background: var(--c-cartao); border: 1px solid var(--c-cinzento); border-radius: var(--r-md);
 }
 .cartao--acento { border-color: var(--c-acento); }
+/* com ícone de informação: o «porquê aqui» — azul claro, o ícone à esquerda */
+.cartao--info {
+  display: grid; grid-template-columns: auto 1fr; column-gap: var(--e-md); align-items: start;
+  background: var(--c-neutro-suave);
+}
+.cartao--info > :not(.cartao__icone) { grid-column: 2; }
+.cartao__icone { grid-row: 1 / span 2; width: 28px; height: 28px; color: var(--c-acento); }
+/* o destino: «vai a», o código, porquê e o caminho, num cartão branco */
+.destino {
+  display: flex; flex-direction: column; gap: var(--e-sm);
+  padding: var(--e-md) var(--e-lg); background: var(--c-cartao); border-radius: var(--r-md);
+}
+.caminho {
+  display: flex; align-items: flex-start; gap: var(--e-md);
+  padding-top: var(--e-sm); border-top: 1px solid var(--c-neutro-suave);
+  font-size: var(--t-small); color: var(--c-texto-2);
+}
+.caminho b { color: var(--c-texto); }
+.caminho__icone { width: 24px; height: 24px; flex: none; color: var(--c-texto-3); }
 
 .rotulo { font-size: var(--t-micro); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--c-texto-3); }
 .rotulo--acento { color: var(--c-acento); }
@@ -105,19 +142,30 @@ code { font-family: var(--f-mono); }
    A variante vem do papel da ação, não de uma cor solta. A AcaoPrincipal é
    uma por ecrã e tem 62 dp; as outras ficam nos 48 dp do mínimo. */
 .btn {
-  display: flex; align-items: center; justify-content: center; width: 100%;
+  display: flex; align-items: center; justify-content: center; gap: var(--e-sm); width: 100%;
   min-height: var(--alvo); padding: 0 var(--e-lg);
-  border: 1px solid var(--c-cinzento); border-radius: var(--r-md);
-  background: var(--c-cartao); color: var(--c-texto);
-  font: 500 var(--t-body)/1.2 var(--f-base); text-align: center; cursor: pointer;
+  border: 2px solid transparent; border-radius: var(--r-md);
+  background: var(--c-acento); color: var(--c-sobre-marca);
+  font: 700 var(--t-body)/1.2 var(--f-base); text-align: center; cursor: pointer;
 }
+/* Três temas, e cada botão tem o seu ícone:
+     laranja      a ação principal — uma por ecrã, 62 dp
+     azul         as alternativas com peso (está ocupada, outro problema)
+     transparente as saídas de recurso (não consigo ler, já não está lá) */
+.btn__icone { width: 20px; height: 20px; flex: none; }
 .btn--acao {
-  min-height: var(--alvo-lg); border-color: transparent;
+  min-height: var(--alvo-lg);
   background: var(--c-acao); color: var(--c-sobre-marca);
   font-size: var(--t-lead); font-weight: 700;
 }
+.btn--acao .btn__icone { width: 24px; height: 24px; }
 .btn--acao:active { background: var(--c-acao-premido); }
-.btn--secundario { border: 2px solid var(--c-acento); color: var(--c-acento); font-weight: 700; }
+/* a seta diz que o botão leva a outro ecrã; fica encostada à direita */
+.btn--com-seta { position: relative; }
+.btn__seta { position: absolute; right: var(--e-lg); width: 22px; height: 22px; }
+/* a seta de avançar vai colada ao texto, como parte da frase */
+.btn__seta--junto { position: static; margin-left: var(--e-md); }
+.btn--secundario { border-color: var(--c-acento); background: transparent; color: var(--c-acento); }
 .btn:disabled { background: var(--c-neutro-suave); border-color: transparent; color: var(--c-texto-3); cursor: not-allowed; }
 .btn:focus-visible { outline: 3px solid var(--c-acento); outline-offset: 2px; }
 
@@ -126,18 +174,24 @@ code { font-family: var(--f-mono); }
 
 /* ---------- Leitor: onde a pessoa tem de ler com o gatilho ---------- */
 .leitor {
-  display: flex; align-items: center; gap: var(--e-lg);
+  display: flex; align-items: center; gap: var(--e-lg); min-height: var(--alvo-lg);
   padding: var(--e-md) var(--e-lg); border-radius: var(--r-md);
-  background: var(--c-neutro-suave); color: var(--c-texto-2);
-  font-size: var(--t-small); font-weight: 500;
+  background: var(--c-acento); color: var(--c-sobre-marca);
+  font-size: var(--t-body); font-weight: 700; line-height: 1.25;
 }
-.leitor__icone { display: flex; align-items: flex-end; gap: var(--e-xs); flex: none; }
-.leitor__icone i { display: block; width: 3px; height: 16px; background: var(--c-acento); }
-.leitor__icone i:nth-child(2n) { width: 2px; height: 12px; }
+/* o leitor: a moldura com as barras, um traço, e o que fazer */
+.leitor__icone { width: 36px; height: 36px; flex: none; }
+.leitor__traco { align-self: stretch; width: 1px; flex: none; background: var(--c-sobre-marca); opacity: .35; }
 
 /* ---------- Alertas ---------- */
-.alerta { padding: var(--e-md) var(--e-lg); border-radius: var(--r-md); font-size: var(--t-tiny); }
-.alerta__titulo { display: block; font-size: var(--t-small); font-weight: 700; }
+/* O ícone à esquerda diz o tom antes de se ler: visto, aviso, erro. */
+.alerta {
+  display: grid; grid-template-columns: auto 1fr; column-gap: var(--e-md); row-gap: var(--e-xs); align-items: center;
+  padding: var(--e-md) var(--e-lg); border-radius: var(--r-md); font-size: var(--t-small); line-height: 1.3;
+}
+.alerta__icone { grid-row: 1 / span 2; width: 28px; height: 28px; }
+.alerta__titulo { font-size: var(--t-body); font-weight: 700; }
+.alerta__texto { grid-column: 2; }
 .alerta--bom   { background: var(--c-bom-suave);   color: var(--c-bom); }
 .alerta--aviso { background: var(--c-aviso-suave); color: var(--c-aviso); }
 .alerta--erro  { background: var(--c-erro-suave);  color: var(--c-erro); }
@@ -152,6 +206,47 @@ code { font-family: var(--f-mono); }
 .tarefa--seguinte { border: 2px solid var(--c-acao); }
 .tarefa__titulo { font-size: var(--t-body); font-weight: 700; }
 .tarefa__porque { font-size: var(--t-tiny); color: var(--c-texto-2); }
+/* Uma regra que a pessoa tem de saber, sem ser aviso: caixa azul clara. */
+.nota {
+  padding: var(--e-md) var(--e-lg); border: 1px solid var(--c-acento); border-radius: var(--r-md);
+  background: var(--c-neutro-suave); font-size: var(--t-small); color: var(--c-texto-2);
+}
+.linha__valor--forte { font-weight: 700; }
+.cartao__titulo { font-size: var(--t-big); font-weight: 700; line-height: 1.15; }
+
+/* A seguinte, em destaque: contorno e fundo de acento, como o selo. */
+.tarefa--destaque { border: 2px solid var(--c-acento); background: var(--c-neutro-suave); }
+.tarefa--destaque .selo { background: var(--c-cartao); }
+
+/* ---------- Topo: voltar, onde se está, e a rede ----------
+   Nos ecrãs que se abrem a partir do início. A rede fica, porque sem rede o
+   PDA não trabalha e isso tem de se ver em todos os ecrãs. */
+.topo {
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; flex: none;
+  min-height: var(--alvo); padding: 0 var(--e-md);
+  background: var(--c-invertido); color: var(--c-sobre-marca);
+}
+.topo__voltar {
+  justify-self: start; display: flex; align-items: center; gap: var(--e-xs);
+  min-height: var(--alvo); padding: 0; border: 0; background: none;
+  font: 500 var(--t-body) var(--f-base); color: inherit;
+}
+.topo__voltar svg { width: 20px; height: 20px; }
+.topo__titulo { font-size: var(--t-body); font-weight: 700; }
+.topo__rede { justify-self: end; font-size: var(--t-small); }
+
+/* ---------- Cabeça da fila: o título e quantas são ---------- */
+.cabeca-fila { display: flex; align-items: center; justify-content: space-between; gap: var(--e-md); }
+.cabeca-fila__titulo { font-size: var(--t-big); font-weight: 700; line-height: 1.2; }
+.cabeca-fila__conta {
+  flex: none; padding: var(--e-xs) var(--e-md); border-radius: var(--r-sm);
+  background: var(--c-neutro-suave); font-size: var(--t-small); color: var(--c-texto);
+}
+.cabeca-fila__sub { margin-top: calc(-1 * var(--e-sm)); font-size: var(--t-small); color: var(--c-texto-2); }
+.total-fila {
+  padding: var(--e-md) var(--e-lg); border-radius: var(--r-md);
+  background: var(--c-neutro-suave); font-size: var(--t-small); color: var(--c-texto);
+}
 
 /* ---------- Linha: rótulo à esquerda, valor à direita ---------- */
 .linha { display: flex; justify-content: space-between; gap: var(--e-md); font-size: var(--t-small); color: var(--c-texto-2); }

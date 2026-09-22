@@ -51,7 +51,7 @@
     return prefixo + '-' + contador;
   }
 
-  var LEITOR = '<span class="leitor__icone"><i></i><i></i><i></i><i></i><i></i></span>';
+  var LEITOR = '<svg class="leitor__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8V4.5A1.5 1.5 0 0 1 4.5 3H8M16 3h3.5A1.5 1.5 0 0 1 21 4.5V8M21 16v3.5a1.5 1.5 0 0 1-1.5 1.5H16M8 21H4.5A1.5 1.5 0 0 1 3 19.5V16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 7.5v9M10 7.5v9M13 7.5v9M16.5 7.5v9" stroke="currentColor" stroke-width="2"/></svg><span class="leitor__traco" aria-hidden="true"></span>';
 
   function peca(tag, classe, dentro) {
     return '<' + tag + ' class="' + classe + '" id="' + idNovo('peca') + '">' + dentro + '</' + tag + '>';
@@ -77,9 +77,9 @@
         ['Selo bom', function () { return peca('span', 'selo selo--bom', 'Seguinte'); }],
         ['Selo aviso', function () { return peca('span', 'selo selo--aviso', 'Atenção'); }],
         ['Selo erro', function () { return peca('span', 'selo selo--erro', 'Apertado'); }],
-        ['Alerta bom', function () { return peca('div', 'alerta alerta--bom', '<b class="alerta__titulo">Feito</b>O que ficou registado.'); }],
-        ['Alerta aviso', function () { return peca('div', 'alerta alerta--aviso', '<b class="alerta__titulo">Atenção</b>O que a pessoa tem de saber.'); }],
-        ['Alerta erro', function () { return peca('div', 'alerta alerta--erro', '<b class="alerta__titulo">Não deu</b>O que correu mal e o que fazer.'); }]
+        ['Alerta bom', function () { return peca('div', 'alerta alerta--bom', '<svg class="alerta__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="m7 12.5 3.3 3.3L17 9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><b class="alerta__titulo">Feito</b><span class="alerta__texto">O que ficou registado.</span>'); }],
+        ['Alerta aviso', function () { return peca('div', 'alerta alerta--aviso', '<svg class="alerta__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.3 3.2a2 2 0 0 1 3.4 0l8.4 15a2 2 0 0 1-1.7 3H3.6a2 2 0 0 1-1.7-3Z" fill="currentColor"/><path d="M12 9v5" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="17.3" r="1.4" fill="#fff"/></svg><b class="alerta__titulo">Atenção</b><span class="alerta__texto">O que a pessoa tem de saber.</span>'); }],
+        ['Alerta erro', function () { return peca('div', 'alerta alerta--erro', '<svg class="alerta__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M12 6.5v7" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="17" r="1.4" fill="#fff"/></svg><b class="alerta__titulo">Não deu</b><span class="alerta__texto">O que correu mal e o que fazer.</span>'); }]
       ]
     },
     {
@@ -110,6 +110,9 @@
   var RECIPIENTES = '.corpo, .rodape, .cartao, .folha__caixa, .volumes, .atalhos, .numeros';
 
   function ecraActual() {
+    // no fluxo estão todos à vista: vale o que o editor tem nas camadas
+    var ed = window.PdaEditor;
+    if (ed && ed.ecra && window.PdaFluxo && window.PdaFluxo.activo()) return ed.ecra();
     return document.querySelector('.ecra:not([hidden])') || document.querySelector('.ecra');
   }
 

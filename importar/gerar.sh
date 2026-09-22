@@ -7,10 +7,13 @@
 #
 #   ecras/NN-nome.png            cada ecrã a 480 × 800 px, o tamanho real do EDA61K
 #   ecras-en/NN-nome.png         o mesmo, em inglês
-#   01-ecras.pdf                 os 19 ecrãs, uma página de 320 × 533 cada, em vetor
+#   01-ecras.pdf                 os 36 ecrãs, uma página de 320 × 533 cada, em vetor
 #   01-ecras-en.pdf              o mesmo, em inglês
 #   02-ecras-com-titulo.pdf      os 19 com o nome por cima, para ler e mostrar
 #   02-ecras-com-titulo-en.pdf   o mesmo, em inglês
+#   03-fluxo.png, 03-fluxo.pdf   o mapa de navegação: os ecrãs por fluxo, com as setas
+#   03-fluxo-arrumacao.*         só os ecrãs da arrumação, com as setas
+#   03-fluxo-en.*, …-arrumacao-en.*  o mesmo, em inglês
 #   icone/                       o ícone da app em PNG, para o Android e a loja
 # =========================================================
 set -euo pipefail
@@ -24,24 +27,41 @@ correr() { "$CH" --no-sandbox --disable-gpu --hide-scrollbars --virtual-time-bud
 # id|ficheiro — o título vem do data-nome de cada ecrã
 ECRAS=$(cat <<'L'
 e1|01-entrar
-e2|02-menu-arrumacao
+e2|02-inicio-arrumacao
 e3|03-fila-arrumacao
-a1|04-arrumar-le-artigo
-a2|05-arrumar-proposta-1
-a3|06-arrumar-proposta-ocupada
-a4|07-arrumar-le-posicao
-a5|08-arrumar-concluida
-s1|09-separacao-lote
-s2|10-separacao-paragem
-s3|11-separacao-falta-quantidade
-s4|12-separacao-prateleira-preparados
-x1|13-expedicao-camioes
-x2|14-expedicao-conferir-volumes
-x3|15-expedicao-levar-ao-cais
-x4|16-expedicao-carregar
-g1|17-gestor-relatorio
-g2|18-excecao-o-que-se-passa
-g3|19-sem-ligacao
+r1|04-receber-le-guia
+r2|05-receber-confere
+r3|06-receber-diferenca
+r4|07-receber-recebido
+a1|08-arrumar-le-artigo
+a2|09-arrumar-proposta-1
+a3|10-arrumar-proposta-ocupada
+a4|11-arrumar-le-posicao
+a5|12-arrumar-concluida
+g2|13-arrumar-o-que-se-passa
+a6|14-arrumar-escreve-artigo
+a7|15-arrumar-escreve-posicao
+a8|16-arrumar-problema-registado
+k1|17-corrigir-tira-origem
+k2|18-corrigir-poe-destino
+k3|19-corrigir-concluida
+k4|20-acertar-le-posicao
+k5|21-acertar-o-que-esta-la
+k6|22-acertar-registado
+p1|23-palete-vazia-leva
+p2|24-palete-vazia-no-parque
+q1|25-consultar-artigo
+q2|26-consultar-posicao
+s1|27-separacao-lote
+s2|28-separacao-paragem
+s3|29-separacao-falta-quantidade
+s4|30-separacao-prateleira-preparados
+x1|31-expedicao-camioes
+x2|32-expedicao-conferir-volumes
+x3|33-expedicao-levar-ao-cais
+x4|34-expedicao-carregar
+g1|35-gestor-relatorio
+g3|36-sem-ligacao
 L
 )
 
@@ -87,6 +107,20 @@ H
   correr --no-pdf-header-footer --print-to-pdf="$PWD/02-ecras-com-titulo$sufixo.pdf" "file://$PWD/.titulos.html"
   rm -f .titulos.html
   echo "  02-ecras-com-titulo$sufixo.pdf"
+
+  # O mapa mede-se a si próprio (fluxo.js escreve o @page); a janela da captura
+  # tem de ter esse tamanho, senão o PNG corta ou sobra.
+  # 03-fluxo: todos os ecrãs; 03-fluxo-arrumacao: só os que a arrumação vê
+  local funcao nome url medida
+  for funcao in todas arrumacao; do
+    nome=03-fluxo; [ "$funcao" = todas ] || nome=03-fluxo-$funcao
+    url="file://$INDEX#so=fluxo&funcao=$funcao&lingua=$lingua"
+    medida=$("$CH" --no-sandbox --disable-gpu --virtual-time-budget=5000 --window-size=6000,6000 --dump-dom "$url" 2>/dev/null \
+      | grep -o 'size: [0-9]*px [0-9]*px' | head -1 | tr -dc '0-9 ' | awk '{print $1","$2}')
+    correr --window-size="$medida" --screenshot="$PWD/$nome$sufixo.png" "$url"
+    correr --no-pdf-header-footer --print-to-pdf="$PWD/$nome$sufixo.pdf" "$url"
+    echo "  $nome$sufixo.png ($medida) e $nome$sufixo.pdf"
+  done
 }
 
 gerar pt ecras ""

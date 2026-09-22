@@ -21,7 +21,7 @@
     linear-gradient(180deg, var(--c-veu) 0%, transparent 45%, var(--c-fundo) 100%),
     url('../img/armazem.png') center top / cover;
 }
-.entrar__topo, .entrar__boas-vindas, .sessao, .areas, .versao { position: relative; }
+.entrar__topo, .entrar__boas-vindas, .sessao, .versao { position: relative; }
 
 .entrar__topo {
   display: flex; justify-content: space-between; align-items: flex-start;
@@ -70,25 +70,87 @@
 .sessao__entrar { position: relative; margin-top: var(--e-sm); }
 .sessao__seta { position: absolute; right: var(--e-lg); width: 22px; height: 22px; }
 
-/* as três áreas: o que o sistema faz, dito antes de entrar */
-.areas {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  margin: var(--e-xl) var(--e-lg) 0; padding: 0; list-style: none;
-}
-.area { display: flex; flex-direction: column; align-items: center; gap: var(--e-xs); color: var(--c-invertido); }
-.area + .area { border-left: 1px solid var(--c-cinzento); }
-.area__icone { width: 22px; height: 22px; }
-.area__nome  { font-size: var(--t-tiny); font-weight: 500; }
-
 .versao { margin-top: auto; padding-bottom: var(--e-md); text-align: center; font-size: var(--t-micro); color: var(--c-texto-3); letter-spacing: .03em; }
 
-/* ---------- o menu da função ----------
-   Desenho de 17 de setembro. Em cima, as tarefas da função com a contagem —
-   são o trabalho; em baixo, as consultas — são ajuda. A barra do fundo é a
-   mesma em todos os menus: a fila, o início e sair. */
-
+/* ---------- o início da função ----------
+   Desenho de 22 de setembro. «Trabalho»: uma opção só, começar as
+   tarefas. Arrumar e corrigir posição não são menus — são tarefas, e vêm
+   pela fila. Por baixo, as «Operações», em quatro quadrados: o que a
+   função faz por iniciativa própria. Em baixo, a barra de abas. */
 .menu { background: var(--c-cartao); }
-.menu__corpo { gap: var(--e-lg); padding-top: var(--e-md); }
+.menu__corpo { gap: var(--e-md); padding-top: var(--e-md); }
+
+/* Trabalho: o cartão grande que começa as tarefas, com o contorno de
+   acento e o círculo cheio. O .fazer__opcao sem --primeira fica para um
+   cartão secundário, se voltar a haver. */
+.fazer { display: flex; flex-direction: column; gap: var(--e-sm); }
+.fazer--outras { padding-top: var(--e-md); border-top: 1px solid var(--c-neutro-suave); }
+
+/* As operações: quatro quadrados, 2 × 2, a toda a largura do corpo.
+   Ícone por cima do nome, como os mosaicos de um telemóvel. */
+.quadrados { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-sm); }
+.quadrados--tres { grid-template-columns: repeat(3, 1fr); }
+.quadrados--tres .quadrado { aspect-ratio: auto; min-height: 96px; }
+.quadrado {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--e-sm);
+  min-height: var(--alvo-lg); aspect-ratio: 1.6; padding: var(--e-sm); text-align: center;
+  background: var(--c-cartao); border: 1px solid var(--c-cinzento); border-radius: var(--r-md);
+  font: 700 var(--t-small) var(--f-base); color: var(--c-texto); line-height: 1.2;
+}
+.quadrado__circulo {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: var(--r-pill);
+  background: var(--c-neutro-suave); color: var(--c-invertido);
+}
+.quadrado__circulo svg { width: 22px; height: 22px; }
+.fazer__titulo { font-size: var(--t-lead); font-weight: 700; }
+.fazer__opcao {
+  display: flex; align-items: center; gap: var(--e-lg); width: 100%; min-height: var(--alvo-lg);
+  padding: var(--e-lg); text-align: left; font: inherit; color: var(--c-texto);
+  background: var(--c-cartao); border: 1px solid var(--c-cinzento); border-radius: var(--r-md);
+}
+.fazer__opcao--primeira { background: var(--c-neutro-suave); border: 2px solid var(--c-acento); }
+.fazer__circulo {
+  display: flex; align-items: center; justify-content: center; flex: none;
+  width: 48px; height: 48px; border-radius: var(--r-pill);
+  background: var(--c-neutro-suave); color: var(--c-invertido);
+}
+.fazer__opcao--primeira .fazer__circulo { background: var(--c-acento); color: var(--c-sobre-marca); }
+.fazer__circulo svg { width: 26px; height: 26px; }
+.fazer__texto { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--e-xs); }
+.fazer__nome  { font-size: var(--t-lead); font-weight: 700; line-height: 1.2; }
+.fazer__conta { font-size: var(--t-body); color: var(--c-texto-2); }
+.fazer__opcao .atalho__seta { width: 16px; height: 16px; }
+.fazer__opcao--primeira .atalho__seta { color: var(--c-acento); }
+
+/* A barra de abas: ícone por cima do nome. A aba em que se está leva a cor
+   de acento, um círculo por trás do ícone e um traço por baixo. */
+.abas-fundo {
+  display: grid; grid-template-columns: repeat(3, 1fr); flex: none;
+  padding: var(--e-sm) var(--e-lg) var(--e-md);
+  background: var(--c-cartao); border-top: 1px solid var(--c-neutro-suave);
+}
+.abas-fundo__aba {
+  position: relative; display: flex; flex-direction: column; align-items: center; gap: var(--e-xs);
+  min-height: var(--alvo); padding: var(--e-xs) 0 var(--e-sm); border: 0; background: none;
+  font: 500 var(--t-tiny) var(--f-base); color: var(--c-texto-2);
+}
+.abas-fundo__icone {
+  position: relative; display: flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border-radius: var(--r-pill);
+}
+.abas-fundo__icone svg { width: 22px; height: 22px; }
+.abas-fundo__aba[aria-current="page"] { color: var(--c-acento); font-weight: 700; }
+.abas-fundo__aba[aria-current="page"] .abas-fundo__icone { background: var(--c-neutro-suave); }
+.abas-fundo__aba[aria-current="page"]::after {
+  content: ""; position: absolute; bottom: 0; width: 24px; height: 3px;
+  border-radius: var(--r-pill); background: var(--c-acento);
+}
+.abas-fundo__contador {
+  position: absolute; top: 0; right: -4px; display: flex; align-items: center; justify-content: center;
+  min-width: 20px; height: 20px; padding: 0 var(--e-xs); border-radius: var(--r-pill);
+  background: var(--c-acao); color: var(--c-sobre-marca); font-size: var(--t-micro); font-weight: 700;
+}
 
 .saudacao__titulo { font-size: var(--t-big); font-weight: 700; line-height: 1.2; }
 .saudacao__sub    { font-size: var(--t-small); color: var(--c-texto-2); }
@@ -105,6 +167,8 @@
 .seccao-menu__ver svg { width: 12px; height: 12px; }
 
 .atalhos { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-sm); }
+/* poucos atalhos: um por linha, a toda a largura, que se acertam melhor com o polegar */
+.atalhos--lista { grid-template-columns: 1fr; }
 .atalho {
   display: flex; align-items: center; gap: var(--e-sm); min-height: var(--alvo); width: 100%;
   padding: var(--e-sm); text-align: left;
@@ -135,6 +199,7 @@
   display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--e-sm); flex: none;
   padding: var(--e-md) var(--e-lg) var(--e-lg); background: var(--c-fundo);
 }
+.navegacao--duas { grid-template-columns: repeat(2, 1fr); }
 .navegacao__botao {
   display: flex; align-items: center; justify-content: center; gap: var(--e-sm); min-height: var(--alvo);
   border: 0; border-radius: var(--r-md); background: var(--c-acento); color: var(--c-sobre-marca);

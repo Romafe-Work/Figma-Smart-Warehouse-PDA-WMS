@@ -4,7 +4,7 @@
 
    Veio do editor da entrada da ROMAFE (Figma-WebShop-GoParts) e muda
    só no que o PDA tem de diferente: os tokens, as peças e o facto de
-   haver dezanove ecrãs ligados uns aos outros.
+   haver dezenas de ecrãs ligados uns aos outros.
 
    A regra que manda: o editor só oferece o que o sistema de design tem.
    Não há selecionador de cor livre, não há caixa para escrever um
@@ -60,8 +60,8 @@
      classe, e a cor e a altura vêm atrás. */
   var VARIANTES = [
     ['btn--acao',       'Ação principal (laranja, 62 dp)'],
-    ['btn--secundario', 'Secundária (contorno azul, 48 dp)'],
-    ['',                'Neutra (48 dp)']
+    ['',                'Alternativa (azul, 48 dp)'],
+    ['btn--secundario', 'Recurso (transparente, contorno azul, 48 dp)']
   ];
   var CLASSES_VARIANTE = ['btn--acao', 'btn--secundario'];
 
@@ -92,7 +92,7 @@
     'sessao': 'Cartão de sessão', 'sessao__titulo': 'Título', 'sessao__sub': 'Subtítulo',
     'entrada-texto': 'Campo', 'entrada-texto__rotulo': 'Rótulo', 'entrada-texto__caixa': 'Caixa',
     'entrada-texto__campo': 'Caixa de texto', 'entrada-texto__ver': 'Mostrar palavra-passe',
-    'areas': 'Áreas', 'area': 'Área', 'versao': 'Versão',
+    'versao': 'Versão',
     'icone-app': 'Ícone da app', 'icone-app__simbolo': 'Símbolo', 'icone-app__nome': 'Nome',
     'icone-app__sub': 'Subtítulo', 'icone-app__tamanhos': 'Tamanhos', 'icone-app__tamanho': 'Tamanho'
   };
@@ -109,16 +109,17 @@
      clique seguinte entra lá dentro. Sem isto, clicar num botão escolhia
      o texto do botão e a variante não aparecia. */
   var COMPONENTES = '.faixa, .barra, .passos, .cartao, .selo, .btn, .leitor, .alerta, .tarefa, ' +
-    '.linha, .atalho, .navegacao__botao, .saudacao, .seccao-menu__cabeca, .lockup, .aparelho, .sessao, .entrada-texto, .area, .camiao, .volume, .numero, .vazio, .folha__opcao, .proposta';
+    '.linha, .atalho, .navegacao__botao, .saudacao, .seccao-menu__cabeca, .lockup, .aparelho, .sessao, .entrada-texto, .camiao, .volume, .numero, .vazio, .folha__opcao, .proposta';
 
   var estilos = {};   // seletor -> { propriedade: valor }
   var textos  = {};   // seletor -> texto
   var classes = {};   // seletor -> lista de classes (a variante do botão)
   var historico = [];
+  var ligacoes = {};  // seletor -> ecrã para onde a peça leva ('' = já não leva)
   /* O que a página era antes de o editor lhe tocar. Fica só em memória, e é
      apanhado antes de qualquer alteração, incluindo as que vêm guardadas do
      navegador — senão "repor tudo" repunha o estado guardado e não o original. */
-  var originais = { textos: {}, classes: {} };
+  var originais = { textos: {}, classes: {}, ligacoes: {} };
 
   function lembrar(tipo, sel, valor) {
     if (originais[tipo][sel] === undefined) originais[tipo][sel] = valor;
@@ -354,7 +355,7 @@
   }
 
   function guardar() {
-    try { localStorage.setItem(CHAVE, JSON.stringify({ estilos: estilos, textos: textos, classes: classes })); } catch (e) {}
+    try { localStorage.setItem(CHAVE, JSON.stringify({ estilos: estilos, textos: textos, classes: classes, ligacoes: ligacoes })); } catch (e) {}
   }
 
   function carregar() {
@@ -368,7 +369,15 @@
       estilos = g.estilos || {};
       textos  = g.textos  || {};
       classes = g.classes || {};
-    } catch (e) { estilos = {}; textos = {}; classes = {}; }
+      ligacoes = g.ligacoes || {};
+    } catch (e) { estilos = {}; textos = {}; classes = {}; ligacoes = {}; }
+
+    Object.keys(ligacoes).forEach(function (s) {
+      try {
+        var n = document.querySelector(s);
+        if (n) { lembrar('ligacoes', s, n.getAttribute('data-ir') || ''); ligar(n, ligacoes[s]); }
+      } catch (e) {}
+    });
 
     Object.keys(classes).forEach(function (s) {
       try {
@@ -412,6 +421,12 @@
       if (passo.antes === undefined) delete textos[passo.seletor];
       else textos[passo.seletor] = passo.antes;
       guardar();
+    } else if (passo.tipo === 'ligacao') {
+      var l = document.querySelector(passo.seletor);
+      if (l) ligar(l, passo.antes || '');
+      if (passo.antes === undefined) delete ligacoes[passo.seletor];
+      else ligacoes[passo.seletor] = passo.antes;
+      guardar();
     } else if (passo.tipo === 'classe') {
       var m = document.querySelector(passo.seletor);
       if (m) m.className = passo.antes;
@@ -430,11 +445,14 @@
     Object.keys(originais.classes).forEach(function (s) {
       try { var n = document.querySelector(s); if (n) n.className = originais.classes[s]; } catch (e) {}
     });
+    Object.keys(originais.ligacoes).forEach(function (s) {
+      try { var n = document.querySelector(s); if (n) ligar(n, originais.ligacoes[s]); } catch (e) {}
+    });
 
     if (window.PdaPecas) window.PdaPecas.limpar();
 
-    estilos = {}; textos = {}; classes = {};
-    originais = { textos: {}, classes: {} };
+    estilos = {}; textos = {}; classes = {}; ligacoes = {};
+    originais = { textos: {}, classes: {}, ligacoes: {} };
     historico = [];
     try { localStorage.removeItem(CHAVE); } catch (e) {}
 
@@ -461,6 +479,11 @@
 
   var arrasto = null, engoleClique = false, mudouNoMousedown = false;
 
+  /* No fluxo a tela tem zoom: um px do rato não é um dp do ecrã. */
+  function escalaTela() {
+    return emFluxo() ? window.PdaFluxo.escala() : 1;
+  }
+
   function comecarArrasto(ev) {
     if (!ligado || ev.button !== 0) return;
     if (ehMoldura(ev.target)) return;
@@ -482,7 +505,8 @@
 
   function durante(ev) {
     if (!arrasto) return;
-    var dx = ev.clientX - arrasto.x0, dy = ev.clientY - arrasto.y0;
+    var k = escalaTela();
+    var dx = (ev.clientX - arrasto.x0) / k, dy = (ev.clientY - arrasto.y0) / k;
     if (Math.abs(dx) > 2 || Math.abs(dy) > 2) arrasto.moveu = true;
     /* enquanto se arrasta é estilo em linha: é mais rápido do que reescrever
        a folha a cada pixel, e no fim apaga-se */
@@ -495,7 +519,8 @@
     a.alvo.style.transform = '';
     if (!a.moveu) return;
     engoleClique = true;
-    mover(a.alvo, a.bx + (ev.clientX - a.x0), a.by + (ev.clientY - a.y0));
+    var k = escalaTela();
+    mover(a.alvo, a.bx + (ev.clientX - a.x0) / k, a.by + (ev.clientY - a.y0) / k);
     pintarProps();
   }
 
@@ -504,6 +529,14 @@
     if (seleccionado) seleccionado.removeAttribute('data-ed-sel');
     seleccionado = alvo || null;
     if (seleccionado) seleccionado.setAttribute('data-ed-sel', '');
+    /* No fluxo estão os ecrãs todos à vista: as camadas seguem o da peça escolhida. */
+    var dela = seleccionado && seleccionado.closest('.ecra');
+    if (emFluxo() && dela && dela !== ecraFluxo) {
+      ecraFluxo = dela;
+      construirCamadas();
+      var picker = painelEsq && painelEsq.querySelector('.ed-ecras select');
+      if (picker) picker.value = dela.dataset.ecra;
+    }
     marcarCamada();
     pintarProps();
   }
@@ -549,14 +582,33 @@
 
     traduzirRamo(listaCamadas);
 
+    /* No fluxo escolhe-se em qualquer ecrã, e não só no das camadas. */
+    if (emFluxo()) {
+      [].slice.call(document.querySelectorAll('.ecra > .pda *')).forEach(function (f) {
+        if (!IGNORAR[f.tagName] && !f.closest('svg:not(:scope)')) f.setAttribute('data-ed-alvo', '');
+      });
+    }
   }
 
+  var ecraFluxo = null;
+  function emFluxo() { return !!(window.PdaFluxo && window.PdaFluxo.activo()); }
+
   function ecraVisivel() {
+    if (emFluxo()) return ecraFluxo || document.querySelector('.fluxo .ecra');
     var e = document.querySelector('.ecra:not([hidden])');
     return e || document.querySelector('.ecra');
   }
 
   function trocarEcra(nome) {
+    /* No fluxo os ecrãs estão todos à vista: escolher um é ir até ele. */
+    if (emFluxo()) {
+      seleccionar(null);
+      ecraFluxo = document.querySelector('.ecra[data-ecra="' + nome + '"]');
+      construirCamadas();
+      window.PdaFluxo.mostrar(nome);
+      if (window.PdaEcras) window.PdaEcras.lembrar(nome);
+      return;
+    }
     var ecras = document.querySelectorAll('.ecra');
     for (var i = 0; i < ecras.length; i++) {
       ecras[i].hidden = ecras[i].dataset.ecra !== nome;
@@ -814,8 +866,8 @@
 
     corpoProps.appendChild(sp);
 
-    var ligada = seleccionado.closest('[data-ir]');
-    if (ligada) corpoProps.insertBefore(seccaoPrototipo(ligada), corpoProps.firstChild);
+    var ligada = seleccionado.closest('[data-ir]') || seleccionado;
+    corpoProps.insertBefore(seccaoPrototipo(ligada), corpoProps.firstChild);
 
     corpoProps.appendChild(seccaoCss());
 
@@ -847,14 +899,63 @@
     return e ? (e.dataset.nome || id) : id;
   }
 
-  function seccaoPrototipo(ligada) {
+  /* Pôr ou tirar o data-ir. Um botão que deixa de levar a algum lado perde
+     o atributo, e não fica com um data-ir vazio a fingir que leva. */
+  function ligar(peca, destino) {
+    if (destino) peca.setAttribute('data-ir', destino);
+    else peca.removeAttribute('data-ir');
+  }
+
+  /* Mudar para onde a peça leva: pelo painel, ou arrastando uma seta no fluxo.
+     Uma coisa só, para ficar no histórico, no navegador e no CSS exportado. */
+  function mudarLigacao(peca, destino) {
+    var sl = seletor(peca);
+    var antes = peca.getAttribute('data-ir') || '';
+    if (antes === (destino || '')) return;
+    lembrar('ligacoes', sl, antes);
+    historico.push({ tipo: 'ligacao', seletor: sl, antes: ligacoes[sl] === undefined ? undefined : antes });
+    ligacoes[sl] = destino || '';
+    ligar(peca, destino);
+    guardar();
+    pintarProps();
+    aviso(destino ? 'Agora leva a ' + nomeDoEcra(destino) : 'Já não leva a lado nenhum');
+  }
+
+  /* A peça que leva: a escolhida, ou a de fora se a escolhida está dentro de
+     um botão que já leva a algum lado — o ícone de um atalho não é o atalho. */
+  function seccaoPrototipo(peca) {
     var s = seccao('Protótipo');
-    var destino = ligada.dataset.ir;
-    var b = el('button', 'ed-botao ed-botao--accao', 'Ir para ' + nomeDoEcra(destino));
-    b.type = 'button';
-    b.addEventListener('click', function () { irPara(destino); });
-    s.appendChild(b);
-    s.appendChild(el('p', 'ed-dica', 'Alt + clique numa peça destas faz o mesmo sem a escolher.'));
+    var destino = peca.dataset.ir || '';
+
+    var rot = el('div', 'ed-linha');
+    rot.appendChild(el('label', null, 'Leva a'));
+    var sel = el('select', 'ed-select');
+    var nada = el('option', null, '— não leva a lado nenhum —');
+    nada.value = '';
+    sel.appendChild(nada);
+    var grupo = null;
+    [].slice.call(document.querySelectorAll('.ecra:not(.ecra--marca)')).forEach(function (e) {
+      if (!grupo || grupo.label !== e.dataset.fluxo) {
+        grupo = el('optgroup');
+        grupo.label = e.dataset.fluxo || '';
+        sel.appendChild(grupo);
+      }
+      var o = el('option', null, e.dataset.nome || e.dataset.ecra);
+      o.value = e.dataset.ecra;
+      grupo.appendChild(o);
+    });
+    sel.value = destino;
+    sel.addEventListener('change', function () { mudarLigacao(peca, sel.value); });
+    rot.appendChild(sel);
+    s.appendChild(rot);
+
+    if (destino) {
+      var b = el('button', 'ed-botao ed-botao--accao', 'Ir para ' + nomeDoEcra(destino));
+      b.type = 'button';
+      b.addEventListener('click', function () { irPara(destino); });
+      s.appendChild(b);
+      s.appendChild(el('p', 'ed-dica', 'Alt + clique numa peça destas faz o mesmo sem a escolher.'));
+    }
     return s;
   }
 
@@ -985,6 +1086,15 @@
     if (chavesClasse.length) {
       partes.push('/* Variante trocada — isto muda a classe no HTML, não o CSS:');
       chavesClasse.forEach(function (s) { partes.push('   ' + s + '  →  class="' + classes[s] + '"'); });
+      partes.push('*/', '');
+    }
+
+    var chavesLigacao = Object.keys(ligacoes);
+    if (chavesLigacao.length) {
+      partes.push('/* Ligação do protótipo — isto muda o data-ir no HTML, não o CSS:');
+      chavesLigacao.forEach(function (s) {
+        partes.push('   ' + s + '  →  ' + (ligacoes[s] ? 'data-ir="' + ligacoes[s] + '"' : 'sem data-ir'));
+      });
       partes.push('*/', '');
     }
 
@@ -1178,13 +1288,46 @@
   }
 
   /* ---------------- documentação dentro da tela ---------------- */
-  var ABAS = [['', 'Ecrãs'], ['documentacao', 'Documentação'], ['como-funciona', 'Como funciona']];
-  var leitura = null;
+  var ABAS = [['', 'Ecrãs'], ['fluxo', 'Fluxo'], ['texto', 'Texto'], ['documentacao', 'Documentação'], ['como-funciona', 'Como funciona']];
+  var leitura = null, textoEl = null;
 
   function abrirLeitura(qual) {
     if (qual && !ABAS.some(function (par) { return par[0] === qual; })) qual = '';
 
-    if (!qual) {
+    /* O fluxo não é uma página à parte: é esta tela, com os ecrãs todos à
+       vista, e edita-se como a dos ecrãs. */
+    var paraFluxo = qual === 'fluxo';
+    if (paraFluxo !== emFluxo() && window.PdaFluxo) {
+      seleccionar(null);
+      if (paraFluxo) {
+        window.PdaFluxo.ligar(true);
+        ecraFluxo = null;
+        if (window.PdaTraducao) window.PdaTraducao.aplicar();
+      } else {
+        window.PdaFluxo.desligar();
+      }
+      construirCamadas();
+      window.scrollTo(0, 0);
+    }
+    document.body.classList.toggle('ed-fluxo', paraFluxo);
+
+    /* O texto do fluxo é gerado aqui, a partir dos ecrãs: não é uma página
+       à parte, porque tem de ler os data-ir tal como estão agora. */
+    if (textoEl) { textoEl.remove(); textoEl = null; }
+    if (qual === 'texto') {
+      if (leitura) { leitura.remove(); leitura = null; }
+      textoEl = el('div', 'ed-leitura ed-leitura--texto');
+      if (window.PdaFluxo && window.PdaFluxo.texto) textoEl.appendChild(window.PdaFluxo.texto());
+      textoEl.addEventListener('click', function (ev) {
+        var b = ev.target.closest('[data-ir-ecra]');
+        if (!b) return;
+        var id = b.dataset.irEcra;
+        abrirLeitura('');
+        irPara(id);
+      });
+      document.body.appendChild(textoEl);
+      if (window.PdaTraducao) window.PdaTraducao.aplicar();
+    } else if (!qual || paraFluxo) {
       if (leitura) { leitura.remove(); leitura = null; }
     } else {
       if (!leitura) {
@@ -1198,7 +1341,7 @@
       var frame = leitura.querySelector('iframe');
       if ((frame.getAttribute('src') || '') !== alvo) frame.setAttribute('src', alvo);
     }
-    document.body.classList.toggle('ed-lendo', !!qual);
+    document.body.classList.toggle('ed-lendo', !!qual && !paraFluxo);
 
     var botoes = document.querySelectorAll('[data-ed-aba]');
     for (var i = 0; i < botoes.length; i++) {
@@ -1227,7 +1370,7 @@
      engolia o clique antes de ele chegar lá. */
   function ehMoldura(no) {
     return !!(no && no.closest && (no.closest('.ed-painel') || no.closest('.ed-dialogo') ||
-              no.closest('.ed-abrir') || no.closest('.ed-leitura') || no.closest('.ed-aviso') || no.closest('.ed-dica-flutuante')));
+              no.closest('.ed-abrir') || no.closest('.ed-leitura') || no.closest('.fluxo__zoom') || no.closest('.fluxo__filtro') || no.closest('.ed-aviso') || no.closest('.ed-dica-flutuante')));
   }
 
   /* a peça que um clique aqui escolheria */
@@ -1323,7 +1466,9 @@
       refrescar: function () { construirCamadas(); pintarProps(); },
       aviso: aviso,
 
-      irPara: irPara
+      irPara: irPara,
+      mudarLigacao: mudarLigacao,
+      ecra: function () { return ecraVisivel(); }
     };
 
     document.addEventListener('keydown', function (ev) {

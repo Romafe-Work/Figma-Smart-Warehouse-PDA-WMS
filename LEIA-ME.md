@@ -4,9 +4,11 @@ Feito como o `Figma-WebShop-GoParts`: o mesmo editor, apontado ao PDA.
 
 | Ficheiro | Para quê |
 | --- | --- |
-| `importar/01-ecras.pdf` | **Importar no Figma ou no Canva.** Os 19 ecrãs, uma página de 320 × 533 cada, em vetor e com o texto editável |
+| `importar/01-ecras.pdf` | **Importar no Figma ou no Canva.** Os 36 ecrãs, uma página de 320 × 533 cada, em vetor e com o texto editável |
 | `importar/02-ecras-com-titulo.pdf` | Para ler e mostrar: cada ecrã com o nome por cima |
 | `importar/ecras/*.png` | Cada ecrã a 480 × 800, o tamanho real do EDA61K |
+| `importar/03-fluxo.png`, `importar/03-fluxo.pdf` | **O mapa de navegação.** Os 36 ecrãs numa folha, uma linha por fluxo, com uma seta de cada botão ou leitura para o ecrã a que leva |
+| `importar/03-fluxo-arrumacao.*` | O mesmo mapa, só com o que a arrumação vê, de ponta a ponta |
 | `importar/*-en.pdf`, `importar/ecras-en/` | O mesmo, em inglês |
 | `importar/icone/*.png` | O ícone da app: o inteiro a 512 e 1024 para a loja, o símbolo nas cinco densidades do Android (48 a 192) |
 | `importar/icone.py` | Gera os dois SVG do ícone em `web/assets/img/` |
@@ -16,7 +18,7 @@ Feito como o `Figma-WebShop-GoParts`: o mesmo editor, apontado ao PDA.
 
 ```
 web/
-  index.html                 os 19 ecrãs, em modo de edição
+  index.html                 os 36 ecrãs, em modo de edição
   documentacao.html          o sistema documentado, com exemplos vivos
   como-funciona.html         o que é e como está montado
   assets/css/tokens.css      os valores, copiados de 05-design/03 sem alterar
@@ -29,6 +31,8 @@ web/
   assets/css/editor.css      a moldura do editor e a tela
   assets/css/documentacao.css só as duas páginas de documentação
   assets/js/ecras.js         que ecrã se vê, e os modos #so= das capturas
+  assets/js/fluxo.js         o mapa de navegação (#so=fluxo, as abas «Fluxo» e «Texto»)
+  assets/js/vendor/          o Mermaid, que desenha os diagramas da aba «Texto»
   assets/js/editor.js        o editor
   assets/js/pecas.js         a paleta: acrescentar peças ao ecrã
   assets/js/traducao.js      português e inglês, por dicionário
@@ -72,16 +76,59 @@ transportadoras nem a marca.
 
 | Fluxo | Ecrãs | De onde vêm |
 | --- | --- | --- |
-| Entrar e começar o turno | 01 Entrar · 02 Menu da arrumação · 03 A fila, com o porquê | CU-01 · RF-01 · RF-20 · RF-95 |
-| Arrumar uma palete | 04 Lê o artigo · 05 Proposta 1 de 3 · 06 A 1 estava ocupada · 07 Lê a posição · 08 Arrumada | CU-07 · RF-31 a RF-35 |
-| Recolher uma guia | 09 O lote · 10 Paragem · 11 Falta quantidade · 12 Prateleira de preparados | CU-10 · CU-11 · RF-44 · RF-115 |
-| Da prateleira ao camião | 13 Camiões de hoje · 14 Confere volumes · 15 Leva ao cais · 16 Carregar | CU-13 · CU-38 · CU-15 · RF-118 a RF-120 |
-| O gestor e as exceções | 17 Relatório do turno · 18 O que se passa? · 19 Sem ligação | CU-16 · CU-22 · RNF-01 |
+| Entrar e começar o turno | 01 Entrar · 02 Início da arrumação · 03 A fila, com o porquê | CU-01 · RF-01 · RF-20 · RF-95 |
+| Receber o que chega (tarefa da fila) | 04 Lê a guia do fornecedor · 05 Confere o que chegou · 06 A quantidade não bate · 07 Recebido | CU-06 · RF-30 · CU-22 |
+| Arrumar uma palete | 08 Lê o artigo · 09 Proposta 1 de 3 · 10 A 1 estava ocupada · 11 Lê a posição · 12 Arrumada | CU-07 · RF-31 a RF-35 |
+| Quando a arrumação não corre bem | 13 O que se passa? · 14 Escreve o artigo · 15 Escreve a posição · 16 Problema registado | CU-22 · CU-02 · RF-92 |
+| Corrigir uma posição (tarefa) | 17 Tira da origem · 18 Põe no destino · 19 Corrigida | CU-09 · RF-38 · RF-39 |
+| Corrigir o que está numa posição | 20 Lê a posição do erro · 21 O que está lá? · 22 Correção registada | RF-114 · RF-121 |
+| Levar a palete vazia | 23 Leva ao parque · 24 No parque | CU-36 |
+| Consultar | 25 Consultar artigo · 26 Consultar posição | CU-03 |
+| Recolher uma guia | 27 O lote · 28 Paragem · 29 Falta quantidade · 30 Prateleira de preparados | CU-10 · CU-11 · RF-44 · RF-115 |
+| Da prateleira ao camião | 31 Camiões de hoje · 32 Confere volumes · 33 Leva ao cais · 34 Carregar | CU-13 · CU-38 · CU-15 · RF-118 a RF-120 |
+| O gestor e as exceções | 35 Relatório do turno · 36 Sem ligação | CU-16 · RNF-01 |
+
+O mapa do *Fluxo* mostra, por baixo de cada ecrã, o nome e **para que serve**
+(`data-objetivo` no `index.html`), e ao lado de cada linha **o que é o fluxo**
+(`<template id="fluxos">`, no início do `index.html`). Mudar o texto é mudar lá;
+o inglês está no `traducao.js`.
+
+A aba **Texto** (`index.html#doc=texto`) escreve o fluxo todo: cada fluxo com o que
+é, cada ecrã com o objetivo e para onde leva cada botão ou leitura. É gerada no
+momento a partir dos ecrãs (`PdaFluxo.texto()` no `fluxo.js`): não há texto para manter.
+Tem também os **diagramas de fluxo**: uma visão geral dos fluxos no topo, e em cada
+fluxo o seu diagrama com todas as situações (cada ecrã, cada botão e leitura; as
+caixas tracejadas são ecrãs de outro fluxo). Clicar numa caixa abre o ecrã. São
+desenhados pelo Mermaid 11 (MIT), guardado em `web/assets/js/vendor/` para abrir
+sem rede, e só carregado quando a aba *Texto* abre.
+
+No fim da aba *Texto* estão os **casos de uso**: o diagrama (os atores ligados aos
+casos que fazem) e a lista, com os atores, os ecrãs de cada um (tirados do
+`data-refs` dos ecrãs) e uma nota quando uma decisão o mudou. A lista está no
+`<template id="casos-de-uso">` do `index.html`: é o dossiê com as decisões já
+aplicadas (CU-08 e CU-29 fora, CU-04 na v2, CU-35 do gestor, …).
+
+Cada ecrã tem `data-funcao` (`arrumacao`, `separacao`, `expedicao`, `gestor` ou `todas`):
+é o que o filtro do *Fluxo* usa, e o que o `gerar.sh` usa para o `03-fluxo-arrumacao`.
+As posições escrevem-se com oito algarismos — armazém · zona · coluna · prateleira
+(`60300401`); não há corredor nem nível.
 
 Acrescentar um ecrã é acrescentar um `<div class="ecra" data-ecra="…"
 data-fluxo="…" data-nome="…">` ao `index.html`, com um `<div class="pda">` lá
 dentro, e uma linha em `importar/gerar.sh`. Um `data-ir="…"` num botão diz para
 que ecrã ele leva no protótipo.
+
+As setas do mapa de navegação saem destes `data-ir`. A aba *Fluxo* do editor
+mostra os ecrãs todos de uma vez e edita-se como a dos ecrãs; no painel da
+direita, *Protótipo › Leva a* muda o destino de qualquer peça, e a seta vai
+atrás. O zoom é o do Figma: Ctrl + roda (ou pinça), Ctrl + = e Ctrl + −,
+Ctrl + 0 para 100 %, Shift + 1 para ajustar, e espaço + arrastar (ou a roda do
+meio) para andar pela tela; a barra em baixo ao centro faz o mesmo. As setas
+arrastam-se pelo meio (o corredor e a faixa por onde passam; as pontas ficam
+presas), e um duplo clique devolve-as ao traçado automático. Para criar uma seta, escolhe-se a peça e
+arrasta-se a bolinha azul que lhe aparece à direita para um ecrã; para a mudar
+de ecrã, arrasta-se a ponta. Grava-se como o *Leva a* do painel (Ctrl + Z desfaz). Como o resto do editor, isto fica no navegador e sai em *Ver o CSS*:
+para entrar no `index.html` (e no `03-fluxo` do `gerar.sh`) passa-se à mão.
 
 Os nomes, as posições e as horas são de exemplo.
 
@@ -97,7 +144,9 @@ Os nomes, as posições e as horas são de exemplo.
 ## O ecrã de entrar
 
 Segue o desenho de 17 de setembro (segunda versão): fotografia do armazém,
-«Bem-vindo», cartão de sessão com utilizador e palavra-passe, e as três áreas.
+«Bem-vindo» e cartão de sessão com utilizador e palavra-passe. A linha das três
+áreas (Receção, Armazenamento, Expedição) que vinha por baixo foi tirada a 21 de
+setembro.
 
 Levado a 320 × 533 dp, o desenho dava letra de 8 sp e campos de 30 dp. Aqui
 ficam no mínimo do sistema — 10 sp e 48 dp — e o que se apertou foram as folgas.

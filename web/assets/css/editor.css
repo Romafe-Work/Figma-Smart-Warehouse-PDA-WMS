@@ -375,3 +375,162 @@ html:has(.so-ecra), .so-ecra { background: #f4f5f7; }
 .so-ecra--todos .ecra + .ecra { break-before: page; }
 /* o ícone não é um ecrã do aparelho */
 .so-ecra--todos .ecra--marca { display: none; }
+
+/* O mapa de navegação, montado pelo fluxo.js: na aba «Fluxo» do editor
+   (.ed-fluxo) e sozinho em #so=fluxo, que é o que o gerar.sh fotografa. */
+html:has(.so-fluxo), .so-fluxo { background: #eef0f3; }
+.com-fluxo .tela { display: block; min-height: 0; padding: 0; }
+.ed-fluxo .tela { background: #eef0f3; height: 100vh; overflow: auto; }
+.fluxo { position: relative; width: max-content; padding: 40px 56px 56px; font-family: var(--f-base); color: #1c1d1f; }
+.fluxo__cabeca { margin-bottom: 0; }  /* espaço para as faixas das setas que sobem à primeira linha */
+.fluxo__titulo { margin: 0 0 6px; font-size: 28px; font-weight: 700; color: var(--c-logotipo); }
+.fluxo__legenda { margin: 0; font-size: 15px; color: #52514e; display: flex; align-items: center; gap: 10px; }
+.fluxo__amostra { width: 28px; height: 16px; border: 2px solid #1a73e8; border-radius: 4px; }
+.fluxo__filtro { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.fluxo__filtro button {
+  font: 600 14px var(--f-base); padding: 8px 16px; border-radius: 999px; cursor: pointer;
+  border: 1px solid #c5cad1; background: #ffffff; color: #3a3b3d;
+}
+.fluxo__filtro button[aria-pressed="true"] { background: var(--c-logotipo); border-color: transparent; color: #ffffff; }
+.fluxo .fluxo--fora { display: none; }
+.so-fluxo .fluxo__filtro { display: none; }
+.fluxo__funcao:not(:empty)::before { content: " · "; }
+.fluxo__linha { display: grid; grid-template-columns: 240px auto; align-items: start; padding: 150px 0 40px; }
+.fluxo__linha + .fluxo__linha { border-top: 1px solid #d5d8dd; }
+.fluxo__cabeca-linha { padding-right: 32px; }
+.fluxo__rotulo { margin: 0 0 8px; font-size: 18px; font-weight: 700; line-height: 1.3; color: var(--c-logotipo); }
+.fluxo__descricao { margin: 0; font-size: 14px; line-height: 1.45; color: #52514e; }
+.fluxo__fila { display: flex; gap: 150px; }
+.fluxo .ecra { gap: 10px; align-items: flex-start; }
+.fluxo__nome { margin: 46px 0 0; font-size: 14px; font-weight: 700; color: #3a3b3d; }  /* os 46 px por cima são das setas que saem por baixo */
+/* o objetivo: à largura do ecrã, duas ou três linhas; a altura fica igual em toda a linha */
+.fluxo__objetivo { width: 320px; min-height: 3.9em; margin: 0; font-size: 13px; line-height: 1.3; color: #52514e; }
+.fluxo .ecra > .pda { margin: 0; box-shadow: 0 1px 3px rgba(0,0,0,.14), 0 6px 18px rgba(0,0,0,.08); border-radius: 12px; }
+.fluxo__setas { position: absolute; top: 0; left: 0; pointer-events: none; overflow: visible; color: #1a73e8; }
+.fluxo__setas path { fill: none; stroke: currentColor; stroke-width: 2; }
+.fluxo__alvo { fill: rgba(26,115,232,.08); stroke: #1a73e8; stroke-width: 2; }
+/* mover as setas: agarra-se por uma linha larga e invisível por cima da seta */
+.fluxo__toque { fill: none; stroke: transparent; stroke-width: 14; pointer-events: stroke; cursor: move; }
+.fluxo__toque:hover { stroke: rgba(26,115,232,.18); }
+.fluxo__setas path.fluxo__seta--agarrada { stroke-width: 3; }
+.fluxo-a-mover, .fluxo-a-mover * { cursor: move !important; user-select: none; }
+/* criar e mudar setas: a bolinha da peça escolhida, a ponta de cada seta,
+   a linha que segue o rato e o ecrã onde vai cair */
+.fluxo__nova, .fluxo__ponta { pointer-events: all; cursor: crosshair; stroke: #ffffff; stroke-width: 2; }
+.fluxo__nova { fill: #1a73e8; }
+.fluxo__ponta { fill: transparent; stroke: transparent; }
+.fluxo__ponta:hover { fill: #1a73e8; stroke: #ffffff; }
+.fluxo__setas path.fluxo__provisoria { stroke-dasharray: 6 4; }
+.fluxo .ecra--alvo-seta > .pda { outline: 3px solid #1a73e8; outline-offset: 4px; }
+.fluxo-a-ligar, .fluxo-a-ligar * { cursor: crosshair !important; user-select: none; }
+@media print { .fluxo__linha { break-inside: avoid; } }
+
+/* o zoom da tela, em baixo ao centro, como no Figma */
+.fluxo__zoom {
+  position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 70;
+  display: flex; align-items: center; gap: 2px; padding: 4px;
+  background: var(--ed-painel); border: 1px solid var(--ed-borda); border-radius: 8px;
+  font: 600 12px system-ui, sans-serif; color: var(--ed-tinta);
+  box-shadow: 0 6px 18px rgba(0,0,0,.25);
+}
+.fluxo__zoom button {
+  font: inherit; color: inherit; background: transparent; border: 0; border-radius: 6px;
+  min-width: 28px; height: 28px; padding: 0 8px; cursor: pointer;
+}
+.fluxo__zoom button:hover { background: var(--ed-painel-2); }
+.fluxo__zoom .fluxo__zoom-valor { min-width: 52px; text-align: center; color: var(--ed-tinta-2); }
+/* espaço carregado: a mão do Figma */
+.fluxo-mao .tela, .fluxo-mao .tela * { cursor: grab !important; }
+.fluxo-agarrado .tela, .fluxo-agarrado .tela * { cursor: grabbing !important; user-select: none; }
+.fluxo-a-ligar .fluxo__setas * { pointer-events: none !important; }
+
+/* ---------- o contexto do ecrã, por cima do aparelho ----------
+   De que fluxo é, o que é o fluxo, e para que serve o ecrã. Só na aba dos
+   ecrãs: no mapa do Fluxo o nome e o objetivo já estão por baixo de cada um. */
+.ecra__contexto {
+  width: 342px; padding: 14px 16px; border-radius: 10px;
+  background: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,.12);
+  font-family: var(--f-base); color: #3a3b3d;
+}
+.ecra__contexto p { margin: 0; }
+.ecra__contexto-rotulo {
+  display: block; margin-bottom: 2px;
+  font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #6b6e74;
+}
+.ecra__contexto-fluxo b { font-size: 15px; color: var(--c-logotipo); }
+.ecra__contexto-descricao { margin-top: 4px !important; font-size: 13px; line-height: 1.4; color: #52514e; }
+.ecra__contexto-nome { margin-top: 12px !important; padding-top: 10px; border-top: 1px solid #e3e5e8; font-size: 15px; font-weight: 700; color: #1c1d1f; }
+.ecra__contexto-objetivo { margin-top: 6px !important; font-size: 13px; line-height: 1.4; }
+.fluxo .ecra__contexto, .so-ecra .ecra__contexto { display: none; }
+
+/* ---------- a aba «Texto»: o fluxo por escrito ---------- */
+.ed-leitura--texto { overflow: auto; background: #f4f5f7; }
+.texto-fluxo { max-width: 760px; margin: 0 auto; padding: 40px 32px 80px; font-family: var(--f-base); color: #1c1d1f; }
+.texto-fluxo__titulo { margin: 0 0 8px; font-size: 28px; color: var(--c-logotipo); }
+.texto-fluxo__intro { margin: 0 0 16px; font-size: 15px; color: #52514e; }
+.texto-fluxo__filtro { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.texto-fluxo__filtro button {
+  font: 600 14px var(--f-base); padding: 8px 16px; border-radius: 999px; cursor: pointer;
+  border: 1px solid #c5cad1; background: #ffffff; color: #3a3b3d;
+}
+.texto-fluxo__filtro button[aria-pressed="true"] { background: var(--c-logotipo); border-color: transparent; color: #ffffff; }
+.texto-fluxo__seccao { margin-top: 32px; padding-top: 24px; border-top: 1px solid #d5d8dd; }
+.texto-fluxo__seccao h2 { margin: 0 0 6px; font-size: 21px; color: var(--c-logotipo); }
+.texto-fluxo__descricao { margin: 0 0 16px; font-size: 15px; line-height: 1.5; color: #3a3b3d; }
+.texto-fluxo__bloco { margin: 12px 0; padding: 14px 16px; background: #ffffff; border-radius: 10px; box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+.texto-fluxo__bloco h3 { margin: 0 0 6px; font-size: 16px; }
+.texto-fluxo__ecra {
+  padding: 0; border: 0; background: none; cursor: pointer;
+  font: inherit; font-weight: 700; color: var(--c-logotipo); text-decoration: underline; text-underline-offset: 2px;
+}
+.texto-fluxo__objetivo { margin: 0 0 8px; font-size: 14px; line-height: 1.45; }
+.texto-fluxo__rotulo, .texto-fluxo__leitura {
+  display: inline-block; margin-right: 8px; padding: 1px 8px; border-radius: 999px;
+  font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+  background: #eceff3; color: #52514e;
+}
+.texto-fluxo__leitura { background: #e3edf5; color: var(--c-acento); }
+.texto-fluxo__saidas { margin: 0; padding: 0; list-style: none; font-size: 14px; }
+.texto-fluxo__saidas li { padding: 4px 0; border-top: 1px dashed #e3e5e8; }
+.texto-fluxo__botao::before { content: "«"; } .texto-fluxo__botao::after { content: "»"; }
+.texto-fluxo__seta { margin: 0 8px; color: #6b6e74; }
+.texto-fluxo__sem { margin: 0; font-size: 13px; color: #6b6e74; font-style: italic; }
+.texto-fluxo [hidden] { display: none; }
+
+/* o diagrama de fluxo: largo, desliza para os lados se for preciso */
+.texto-fluxo__diagrama h2 { margin: 0 0 6px; font-size: 21px; color: var(--c-logotipo); }
+.texto-fluxo__tela {
+  overflow: auto; padding: 16px; background: #ffffff;
+  border-radius: 10px; box-shadow: 0 1px 2px rgba(0,0,0,.08);
+}
+.texto-fluxo__tela svg { display: block; margin: 0 auto; }
+.ed-leitura--texto .texto-fluxo { max-width: 1100px; }
+.texto-fluxo__tela--fluxo { margin-bottom: 16px; }
+
+/* os casos de uso, no fim da aba «Texto» */
+.texto-fluxo__sub { margin: 16px 0 4px; font-size: 17px; color: var(--c-logotipo); }
+.texto-fluxo__caso h3 { display: flex; align-items: baseline; gap: 10px; }
+.texto-fluxo__cu { font-variant-numeric: tabular-nums; color: var(--c-logotipo); }
+.texto-fluxo__estado {
+  padding: 1px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; text-transform: uppercase;
+  background: #eceff3; color: #52514e;
+}
+.texto-fluxo__caso--fora { background: #f7f8fa; box-shadow: none; border: 1px dashed #c5cad1; }
+.texto-fluxo__caso--fora h3 > span:nth-child(2) { color: #6b6e74; text-decoration: line-through; }
+.texto-fluxo__caso .texto-fluxo__ecra { margin-right: 4px; font-size: 14px; }
+
+/* O deslizar dos diagramas: a barra fica sempre à vista (o Windows esconde-a
+   até se passar o rato) e o diagrama não passa de 80 % da janela, para a barra
+   de baixo não ficar fora do ecrã. */
+.texto-fluxo__tela {
+  max-height: 80vh; overflow: scroll; scrollbar-width: auto; scrollbar-color: #00537e #e3e5e8;
+  cursor: grab;
+}
+.texto-fluxo__tela.a-arrastar { cursor: grabbing; user-select: none; }
+.texto-fluxo__tela::-webkit-scrollbar { width: 14px; height: 14px; }
+.texto-fluxo__tela::-webkit-scrollbar-track { background: #e3e5e8; border-radius: 7px; }
+.texto-fluxo__tela::-webkit-scrollbar-thumb { background: #00537e; border-radius: 7px; border: 3px solid #e3e5e8; }
+.texto-fluxo__tela::-webkit-scrollbar-corner { background: transparent; }
+.texto-fluxo__deslizar {
+  display: flex; justify-content: flex-end; margin: 0 0 6px; font-size: 13px; font-weight: 600; color: #00537e;
+}
