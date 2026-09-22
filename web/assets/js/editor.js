@@ -1428,6 +1428,12 @@
     construirCamadas();
     pintarProps();
     abrirLeitura((location.hash.match(/doc=([a-z-]+)/) || [])[1] || '');
+    // um link para outra aba, aberto no mesmo separador, muda só o #: segue-se
+    window.addEventListener('hashchange', function () {
+      var pedida = (location.hash.match(/doc=([a-z-]+)/) || [])[1] || '';
+      var atual = (document.querySelector('[data-ed-aba][aria-selected="true"]') || {}).dataset;
+      if (!atual || atual.edAba !== pedida) abrirLeitura(pedida);
+    });
 
     document.addEventListener('click', interceptar, true);
     document.addEventListener('mouseover', realcar, true);
