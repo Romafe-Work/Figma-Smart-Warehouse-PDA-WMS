@@ -1,6 +1,6 @@
 # Armazém Inteligente — ecrãs do PDA
 
-Os sessenta e três ecrãs do PDA, desenhados com os tokens do sistema de design
+Os sessenta e dois ecrãs do PDA, desenhados com os tokens do sistema de design
 (`pda-docs/05-design/03`), e uma tela para os editar.
 
 ## Abrir

@@ -93,6 +93,12 @@
 /* Uma por linha, a toda a largura: o ícone à esquerda e o nome a seguir.
    Lê-se de cima para baixo e o alvo é a linha inteira. */
 .quadrados--linhas { grid-template-columns: 1fr; }
+/* Três por linha, quando são poucos e o nome é curto — o menu do gestor. */
+.quadrados--tres { grid-template-columns: repeat(3, 1fr); gap: var(--e-xs); }
+.quadrados--tres .quadrado { aspect-ratio: auto; min-height: 72px; gap: var(--e-xs); padding: var(--e-xs); }
+.quadrados--tres .quadrado__circulo { width: 30px; height: 30px; }
+.quadrados--tres .quadrado__circulo svg { width: 18px; height: 18px; }
+.quadrados--tres .quadrado__nome { font-size: var(--t-tiny); }
 .quadrados--linhas .quadrado {
   flex-direction: row; justify-content: flex-start; gap: var(--e-md);
   aspect-ratio: auto; min-height: var(--alvo); padding: var(--e-xs) var(--e-md); text-align: left;
