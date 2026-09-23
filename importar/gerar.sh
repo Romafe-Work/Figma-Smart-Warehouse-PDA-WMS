@@ -7,7 +7,7 @@
 #
 #   ecras/NN-nome.png            cada ecrã a 480 × 800 px, o tamanho real do EDA61K
 #   ecras-en/NN-nome.png         o mesmo, em inglês
-#   01-ecras.pdf                 os 38 ecrãs, uma página de 320 × 533 cada, em vetor
+#   01-ecras.pdf                 os 47 ecrãs, uma página de 320 × 533 cada, em vetor
 #   01-ecras-en.pdf              o mesmo, em inglês
 #   02-ecras-com-titulo.pdf      os 19 com o nome por cima, para ler e mostrar
 #   02-ecras-com-titulo-en.pdf   o mesmo, em inglês
@@ -54,16 +54,25 @@ p1|25-palete-vazia-leva
 p2|26-palete-vazia-no-parque
 q1|27-consultar-artigo
 q2|28-consultar-posicao
-s1|29-separacao-lote
-s2|30-separacao-paragem
-s3|31-separacao-falta-quantidade
-s4|32-separacao-prateleira-preparados
-x1|33-expedicao-camioes
-x2|34-expedicao-conferir-volumes
-x3|35-expedicao-levar-ao-cais
-x4|36-expedicao-carregar
-g1|37-gestor-relatorio
-g3|38-sem-ligacao
+sp0|29-separacao-inicio
+sp1|30-separacao-fila
+s1|31-separacao-lote
+s2|32-separacao-paragem
+s3|33-separacao-falta-quantidade
+s4|34-separacao-prateleira-preparados
+s7|35-separacao-volta-fechada
+s5|36-separacao-o-que-se-passa
+s6|37-separacao-escreve-posicao
+s8|38-separacao-sair-com-guias
+s9|39-separacao-consultar-guia
+sq1|40-separacao-consultar-artigo
+sq2|41-separacao-consultar-posicao
+x1|42-expedicao-camioes
+x2|43-expedicao-conferir-volumes
+x3|44-expedicao-levar-ao-cais
+x4|45-expedicao-carregar
+g1|46-gestor-relatorio
+g3|47-sem-ligacao
 L
 )
 

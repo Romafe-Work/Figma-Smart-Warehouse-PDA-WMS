@@ -4,10 +4,10 @@ Feito como o `Figma-WebShop-GoParts`: o mesmo editor, apontado ao PDA.
 
 | Ficheiro | Para quê |
 | --- | --- |
-| `importar/01-ecras.pdf` | **Importar no Figma ou no Canva.** Os 36 ecrãs, uma página de 320 × 533 cada, em vetor e com o texto editável |
+| `importar/01-ecras.pdf` | **Importar no Figma ou no Canva.** Os 47 ecrãs, uma página de 320 × 533 cada, em vetor e com o texto editável |
 | `importar/02-ecras-com-titulo.pdf` | Para ler e mostrar: cada ecrã com o nome por cima |
 | `importar/ecras/*.png` | Cada ecrã a 480 × 800, o tamanho real do EDA61K |
-| `importar/03-fluxo.png`, `importar/03-fluxo.pdf` | **O mapa de navegação.** Os 36 ecrãs numa folha, uma linha por fluxo, com uma seta de cada botão ou leitura para o ecrã a que leva |
+| `importar/03-fluxo.png`, `importar/03-fluxo.pdf` | **O mapa de navegação.** Os 47 ecrãs numa folha, uma linha por fluxo, com uma seta de cada botão ou leitura para o ecrã a que leva |
 | `importar/03-fluxo-arrumacao.*` | O mesmo mapa, só com o que a arrumação vê, de ponta a ponta |
 | `importar/*-en.pdf`, `importar/ecras-en/` | O mesmo, em inglês |
 | `importar/icone/*.png` | O ícone da app: o inteiro a 512 e 1024 para a loja, o símbolo nas cinco densidades do Android (48 a 192) |
@@ -18,7 +18,7 @@ Feito como o `Figma-WebShop-GoParts`: o mesmo editor, apontado ao PDA.
 
 ```
 web/
-  index.html                 os 36 ecrãs, em modo de edição
+  index.html                 os 47 ecrãs, em modo de edição
   documentacao.html          o sistema documentado, com exemplos vivos
   como-funciona.html         o que é e como está montado
   assets/css/tokens.css      os valores, copiados de 05-design/03 sem alterar
@@ -77,16 +77,19 @@ transportadoras nem a marca.
 | Fluxo | Ecrãs | De onde vêm |
 | --- | --- | --- |
 | Entrar e começar o turno | 01 Entrar · 02 Início da arrumação · 03 A fila, com o porquê | CU-01 · RF-01 · RF-20 · RF-95 |
-| Receber o que chega (tarefa da fila) | 04 Lê a guia do fornecedor · 05 Confere o que chegou · 06 A quantidade não bate · 07 Recebido | CU-06 · RF-30 · CU-22 |
-| Arrumar uma palete | 08 Lê o artigo · 09 Proposta 1 de 3 · 10 A 1 estava ocupada · 11 Lê a posição · 12 Arrumada | CU-07 · RF-31 a RF-35 |
-| Quando a arrumação não corre bem | 13 O que se passa? · 14 Escreve o artigo · 15 Escreve a posição · 16 Problema registado | CU-22 · CU-02 · RF-92 |
-| Corrigir uma posição (tarefa) | 17 Tira da origem · 18 Põe no destino · 19 Corrigida | CU-09 · RF-38 · RF-39 |
-| Corrigir o que está numa posição | 20 Lê a posição do erro · 21 O que está lá? · 22 Correção registada | RF-114 · RF-121 |
-| Levar a palete vazia | 23 Leva ao parque · 24 No parque | CU-36 |
-| Consultar | 25 Consultar artigo · 26 Consultar posição | CU-03 |
-| Recolher uma guia | 27 O lote · 28 Paragem · 29 Falta quantidade · 30 Prateleira de preparados | CU-10 · CU-11 · RF-44 · RF-115 |
-| Da prateleira ao camião | 31 Camiões de hoje · 32 Confere volumes · 33 Leva ao cais · 34 Carregar | CU-13 · CU-38 · CU-15 · RF-118 a RF-120 |
-| O gestor e as exceções | 35 Relatório do turno · 36 Sem ligação | CU-16 · RNF-01 |
+| Receber o que chega | 04 Picar a chegada · 05 Chegada registada · 06 Lê a guia · 07 Confere o que chegou · 08 A quantidade não bate · 09 Recebido | CU-40 · CU-06 · RF-30 |
+| Arrumar uma palete | 10 Lê o artigo · 11 Proposta 1 de 3 · 12 A 1 estava ocupada · 13 Lê a posição · 14 Arrumada | CU-07 · RF-31 a RF-35 |
+| Quando a arrumação não corre bem | 15 O que se passa? · 16 Escreve o artigo · 17 Escreve a posição · 18 Problema registado | CU-22 · CU-02 · RF-92 |
+| Corrigir uma posição (tarefa) | 19 Tira da origem · 20 Põe no destino · 21 Corrigida | CU-09 · RF-38 · RF-39 |
+| Corrigir o que está numa posição | 22 Lê a posição do erro · 23 O que está lá? · 24 Correção registada | RF-114 · RF-121 |
+| Levar a palete vazia (arrumação e separação) | 25 Leva ao parque · 26 No parque | CU-36 |
+| Consultar (arrumação) | 27 Consultar artigo · 28 Consultar posição | CU-03 |
+| Começar o turno na separação | 29 Início da separação · 30 A tua fila | CU-39 · CU-10 · CU-21 |
+| Recolher uma guia | 31 O lote · 32 Paragem · 33 Falta quantidade · 34 Prateleira de preparados · 35 Volta fechada | CU-10 · CU-11 · CU-14 · RF-44 · RF-115 |
+| Quando a separação não corre bem | 36 O que se passa? · 37 Escreve a posição · 38 Sair com guias por fechar | CU-22 · CU-12 · RF-92 |
+| Consultar na separação | 39 Consultar guia · 40 Consultar artigo · 41 Consultar posição | CU-03 · CU-23 |
+| Da prateleira ao camião | 42 Camiões de hoje · 43 Confere volumes · 44 Leva ao cais · 45 Carregar | CU-13 · CU-38 · CU-15 · RF-118 a RF-120 |
+| O gestor e as exceções | 46 Relatório do turno · 47 Sem ligação | CU-16 · RNF-01 |
 
 O mapa do *Fluxo* mostra, por baixo de cada ecrã, o nome e **para que serve**
 (`data-objetivo` no `index.html`), e ao lado de cada linha **o que é o fluxo**
