@@ -31,6 +31,24 @@
   Os nomes, as posições e as horas são de exemplo.
 -->
 
+<!-- Os percursos: o caminho escrito de cada caso, do login ao fim. Aparecem na aba Texto. -->
+<template id="percursos">
+  <p data-funcao="arrumacao" data-ecras="e1 e2 e3 a1 a2 a4 a5 e3">Um turno normal</p>
+  <p data-funcao="arrumacao" data-ecras="e2 n1 n2 e3 r1 r2 r4 e3">Chega mercadoria ao cais</p>
+  <p data-funcao="arrumacao" data-ecras="a2 g2 a3 a4 a5">A posição proposta está ocupada</p>
+  <p data-funcao="arrumacao" data-ecras="a4 a7 a5">A etiqueta não se lê</p>
+  <p data-funcao="arrumacao" data-ecras="e3 k1 k2 k3 e3">O motor manda corrigir uma posição</p>
+  <p data-funcao="arrumacao" data-ecras="e2 k4 k5 k6 e2">Dar com um erro e corrigir</p>
+  <p data-funcao="arrumacao" data-ecras="e3 p1 p2 e3">Levar a palete vazia</p>
+  <p data-funcao="arrumacao" data-ecras="e2 e1">Sair do turno</p>
+  <p data-funcao="separacao" data-ecras="e1 sp0 sp1 s1 s2 s3 s4 s7 sp1">Um turno normal</p>
+  <p data-funcao="separacao" data-ecras="s2 s5 s3 s4">Na paragem falta quantidade</p>
+  <p data-funcao="separacao" data-ecras="s2 s6 s3">A etiqueta não se lê</p>
+  <p data-funcao="separacao" data-ecras="sp0 s9 sp0">Ver como está uma guia</p>
+  <p data-funcao="separacao" data-ecras="sp1 p1 p2 sp1">Levar a palete vazia</p>
+  <p data-funcao="separacao" data-ecras="sp0 s8 e1">Sair com guias por fechar</p>
+</template>
+
 <!-- Os casos de uso do dossiê, com as decisões tomadas: aparecem no fim da aba Texto.
      data-atores: as funções (e o motor); data-estado: fora ou v2, quando não entram. -->
 <template id="casos-de-uso">

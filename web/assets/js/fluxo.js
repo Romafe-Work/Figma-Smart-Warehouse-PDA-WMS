@@ -725,6 +725,10 @@
       seccao.appendChild(bloco);
     });
 
+    // ---- os percursos: o caminho escrito de cada caso
+    var percursos = percursosDe(el, ligacao);
+    if (percursos) art.insertBefore(percursos.seccao, diagrama);
+
     // ---- no fim: os casos de uso, com o diagrama e quem faz o quê
     var casos = casosDeUso(ecras, el, ligacao);
     if (casos) art.appendChild(casos.seccao);
@@ -734,6 +738,7 @@
       if (!b) return;
       var f = b.dataset.funcao;
       if (casos) casos.filtrar(f);
+      if (percursos) percursos.filtrar(f);
       [].slice.call(filtro.children).forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
       desenharDiagrama(tela, ecras, f);
       // as secções da função escolhida primeiro, as de toda a gente no fim
@@ -763,6 +768,44 @@
     });
     desenharDiagrama(tela, ecras, 'todas');
     return art;
+  }
+
+  /* ---------- os percursos ----------
+     O caminho escrito de cada caso, do login ao fim: «01 Entrar → 02 Início
+     → …». Vem do <template id="percursos">; os nomes são links para o ecrã. */
+  function percursosDe(el, ligacao) {
+    var t = document.getElementById('percursos');
+    if (!t) return null;
+    var linhas = [].slice.call(t.content.querySelectorAll('p'));
+    if (!linhas.length) return null;
+    var seccao = el('section', 'texto-fluxo__seccao texto-fluxo__percursos');
+    seccao.appendChild(el('h2', null, 'Percursos'));
+    seccao.appendChild(el('p', 'texto-fluxo__descricao', 'O caminho de cada caso, do login ao fim. Clica num ecrã para o abrir.'));
+    var blocos = [];
+    linhas.forEach(function (q) {
+      var b = el('div', 'texto-fluxo__bloco texto-fluxo__percurso');
+      b.dataset.funcao = q.dataset.funcao || 'todas';
+      b.appendChild(el('h3', null, q.textContent));
+      var caminho = el('p', 'texto-fluxo__caminho');
+      (q.dataset.ecras || '').split(/\s+/).filter(Boolean).forEach(function (id, i) {
+        if (i) caminho.appendChild(el('span', 'texto-fluxo__seta', '→'));
+        caminho.appendChild(ligacao(id));
+      });
+      b.appendChild(caminho);
+      blocos.push(b);
+      seccao.appendChild(b);
+    });
+    function filtrar(funcao) {
+      var algum = false;
+      blocos.forEach(function (b) {
+        var fica = funcao === 'todas' || b.dataset.funcao === 'todas' || b.dataset.funcao === funcao;
+        b.hidden = !fica;
+        algum = algum || fica;
+      });
+      seccao.hidden = !algum;
+    }
+    filtrar('todas');
+    return { seccao: seccao, filtrar: filtrar };
   }
 
   /* ---------- os casos de uso ----------

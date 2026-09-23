@@ -534,3 +534,8 @@ html:has(.so-fluxo), .so-fluxo { background: #eef0f3; }
 .texto-fluxo__deslizar {
   display: flex; justify-content: flex-end; margin: 0 0 6px; font-size: 13px; font-weight: 600; color: #00537e;
 }
+
+/* os percursos: o caminho de cada caso, numa linha */
+.texto-fluxo__percurso h3 { margin: 0 0 4px; font-size: 15px; }
+.texto-fluxo__caminho { margin: 0; font-size: 14px; line-height: 2; }
+.texto-fluxo__caminho .texto-fluxo__ecra { font-weight: 500; }
