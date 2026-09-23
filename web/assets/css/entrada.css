@@ -78,7 +78,7 @@
    pela fila. Por baixo, as «Operações», em quatro quadrados: o que a
    função faz por iniciativa própria. Em baixo, a barra de abas. */
 .menu { background: var(--c-cartao); }
-.menu__corpo { gap: var(--e-md); padding-top: var(--e-md); }
+.menu__corpo { gap: var(--e-sm); padding-top: var(--e-sm); }
 
 /* Trabalho: o cartão grande que começa as tarefas, com o contorno de
    acento e o círculo cheio. O .fazer__opcao sem --primeira fica para um
@@ -89,8 +89,14 @@
 /* As operações: quatro quadrados, 2 × 2, a toda a largura do corpo.
    Ícone por cima do nome, como os mosaicos de um telemóvel. */
 .quadrados { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-sm); }
-.quadrados--tres { grid-template-columns: repeat(3, 1fr); }
-.quadrados--tres .quadrado { aspect-ratio: auto; min-height: 96px; }
+.quadrados--linhas { gap: var(--e-xs); }
+/* Uma por linha, a toda a largura: o ícone à esquerda e o nome a seguir.
+   Lê-se de cima para baixo e o alvo é a linha inteira. */
+.quadrados--linhas { grid-template-columns: 1fr; }
+.quadrados--linhas .quadrado {
+  flex-direction: row; justify-content: flex-start; gap: var(--e-md);
+  aspect-ratio: auto; min-height: var(--alvo); padding: var(--e-xs) var(--e-md); text-align: left;
+}
 .quadrado {
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--e-sm);
   min-height: var(--alvo-lg); aspect-ratio: 1.6; padding: var(--e-sm); text-align: center;
@@ -99,7 +105,7 @@
 }
 .quadrado__circulo {
   display: flex; align-items: center; justify-content: center;
-  width: 36px; height: 36px; border-radius: var(--r-pill);
+  width: 34px; height: 34px; border-radius: var(--r-pill);
   background: var(--c-neutro-suave); color: var(--c-invertido);
 }
 .quadrado__circulo svg { width: 22px; height: 22px; }

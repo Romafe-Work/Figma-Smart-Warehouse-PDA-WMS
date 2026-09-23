@@ -7,7 +7,7 @@
 #
 #   ecras/NN-nome.png            cada ecrã a 480 × 800 px, o tamanho real do EDA61K
 #   ecras-en/NN-nome.png         o mesmo, em inglês
-#   01-ecras.pdf                 os 36 ecrãs, uma página de 320 × 533 cada, em vetor
+#   01-ecras.pdf                 os 38 ecrãs, uma página de 320 × 533 cada, em vetor
 #   01-ecras-en.pdf              o mesmo, em inglês
 #   02-ecras-com-titulo.pdf      os 19 com o nome por cima, para ler e mostrar
 #   02-ecras-com-titulo-en.pdf   o mesmo, em inglês
@@ -29,39 +29,41 @@ ECRAS=$(cat <<'L'
 e1|01-entrar
 e2|02-inicio-arrumacao
 e3|03-fila-arrumacao
-r1|04-receber-le-guia
-r2|05-receber-confere
-r3|06-receber-diferenca
-r4|07-receber-recebido
-a1|08-arrumar-le-artigo
-a2|09-arrumar-proposta-1
-a3|10-arrumar-proposta-ocupada
-a4|11-arrumar-le-posicao
-a5|12-arrumar-concluida
-g2|13-arrumar-o-que-se-passa
-a6|14-arrumar-escreve-artigo
-a7|15-arrumar-escreve-posicao
-a8|16-arrumar-problema-registado
-k1|17-corrigir-tira-origem
-k2|18-corrigir-poe-destino
-k3|19-corrigir-concluida
-k4|20-acertar-le-posicao
-k5|21-acertar-o-que-esta-la
-k6|22-acertar-registado
-p1|23-palete-vazia-leva
-p2|24-palete-vazia-no-parque
-q1|25-consultar-artigo
-q2|26-consultar-posicao
-s1|27-separacao-lote
-s2|28-separacao-paragem
-s3|29-separacao-falta-quantidade
-s4|30-separacao-prateleira-preparados
-x1|31-expedicao-camioes
-x2|32-expedicao-conferir-volumes
-x3|33-expedicao-levar-ao-cais
-x4|34-expedicao-carregar
-g1|35-gestor-relatorio
-g3|36-sem-ligacao
+n1|04-receber-picar-chegada
+n2|05-receber-chegada-registada
+r1|06-receber-le-guia
+r2|07-receber-confere
+r3|08-receber-diferenca
+r4|09-receber-recebido
+a1|10-arrumar-le-artigo
+a2|11-arrumar-proposta-1
+a3|12-arrumar-proposta-ocupada
+a4|13-arrumar-le-posicao
+a5|14-arrumar-concluida
+g2|15-arrumar-o-que-se-passa
+a6|16-arrumar-escreve-artigo
+a7|17-arrumar-escreve-posicao
+a8|18-arrumar-problema-registado
+k1|19-corrigir-tira-origem
+k2|20-corrigir-poe-destino
+k3|21-corrigir-concluida
+k4|22-acertar-le-posicao
+k5|23-acertar-o-que-esta-la
+k6|24-acertar-registado
+p1|25-palete-vazia-leva
+p2|26-palete-vazia-no-parque
+q1|27-consultar-artigo
+q2|28-consultar-posicao
+s1|29-separacao-lote
+s2|30-separacao-paragem
+s3|31-separacao-falta-quantidade
+s4|32-separacao-prateleira-preparados
+x1|33-expedicao-camioes
+x2|34-expedicao-conferir-volumes
+x3|35-expedicao-levar-ao-cais
+x4|36-expedicao-carregar
+g1|37-gestor-relatorio
+g3|38-sem-ligacao
 L
 )
 

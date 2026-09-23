@@ -39,7 +39,7 @@
   <p data-cu="CU-03" data-atores="todas">Consultar um artigo</p>
   <p data-cu="CU-04" data-atores="todas" data-estado="v2" data-nota="Precisa do mapa, que é da v2.">Ver onde fica uma posição</p>
   <p data-cu="CU-05" data-atores="separacao expedicao gestor" data-nota="A arrumação não bloqueia: diz «Artigo danificado» no «O que se passa?», e o gestor decide (22 set.).">Bloquear um artigo danificado</p>
-  <p data-cu="CU-06" data-atores="arrumacao" data-nota="É uma tarefa: vem pela fila, na ordem do motor. Quem dá a chegada do camião ainda está em aberto.">Receber o que chega</p>
+  <p data-cu="CU-06" data-atores="arrumacao" data-nota="É uma tarefa: vem pela fila, na ordem do motor. Nasce quando a arrumação pica a chegada (CU-40).">Receber o que chega</p>
   <p data-cu="CU-07" data-atores="arrumacao">Arrumar uma palete</p>
   <p data-cu="CU-08" data-atores="" data-estado="fora" data-nota="Ninguém conta: a falta de quantidade corrige-se na posição, no PDA (18 set.).">Contar uma posição</p>
   <p data-cu="CU-09" data-atores="arrumacao motor">Corrigir uma posição errada</p>
@@ -73,12 +73,13 @@
   <p data-cu="CU-37" data-atores="gestor" data-nota="Saiu das operações da arrumação (22 set.). Falta decidir quem recebe; o gestor valida.">Receber uma devolução</p>
   <p data-cu="CU-38" data-atores="expedicao">Levar uma guia preparada ao cais</p>
   <p data-cu="CU-39" data-atores="arrumacao separacao expedicao motor" data-nota="Novo — não está no dossiê. A pessoa carrega em «Começar» e o motor entrega a tarefa seguinte da fila; ao acabar uma, entrega a seguinte (22 set.).">Começar as tarefas</p>
+  <p data-cu="CU-40" data-atores="arrumacao" data-nota="O sistema não sabe o que vem a caminho (23 set.): a arrumação pica a chegada no PDA e é daí que nasce a tarefa de receção. Só as paletes da SKF são picadas noutro PDA.">Registar a chegada de uma encomenda</p>
 </template>
 
 <!-- O que é cada fluxo: aparece no mapa do Fluxo, ao lado do nome da linha. -->
 <template id="fluxos">
   <p data-fluxo="Entrar e começar o turno">A pessoa entra, vê o que tem para fazer e começa. O motor já escolheu a tarefa seguinte.</p>
-  <p data-fluxo="Receber o que chega">Quando chega mercadoria ao cais, nasce uma tarefa de receção, e o motor põe-na na fila pela prioridade. Confere-se com a guia do fornecedor, entra no stock, e as tarefas de arrumar voltam ao motor.</p>
+  <p data-fluxo="Receber o que chega">O sistema não sabe o que vem a caminho: quando chega mercadoria ao cais, a arrumação pica a chegada. Daí nasce a tarefa de receção, que o motor põe na fila pela prioridade. Confere-se com a guia do fornecedor, entra no stock, e as tarefas de arrumar voltam ao motor.</p>
   <p data-fluxo="Arrumar uma palete">Levar a palete do cais à posição que o motor propõe, e confirmar lendo o artigo e a posição.</p>
   <p data-fluxo="Quando a arrumação não corre bem">Os desvios — posição ocupada, não cabe, artigo danificado, etiqueta que não se lê. Tudo fica registado e o gestor vê.</p>
   <p data-fluxo="Corrigir uma posição (tarefa)">O motor encontrou stock fora do sítio e manda-o mudar. Tira-se da origem e põe-se no destino, num só registo.</p>
@@ -160,8 +161,9 @@
   <!-- Desenho de 22 de setembro. Uma opção só para começar: arrumar e
        corrigir posição são tarefas, e vêm pela fila, na ordem do motor.
        As operações são o que a arrumação faz por iniciativa própria:
-       corrigir uma posição (CU-09), consultar um artigo (CU-03) e consultar
-       uma posição. Receber não: é uma tarefa, e vem pela fila (CU-06).
+       uma por linha: picar a chegada (CU-40), corrigir uma posição (CU-09),
+       consultar um artigo (CU-03) e consultar uma posição. Receber não: é uma
+       tarefa, e vem pela fila (CU-06), depois de a chegada estar picada.
        A etiqueta não se pede: o sistema aconselha a renová-la (sinal do
        gestor, ecrã 17). O mapa fica para a v2. -->
   <div class="corpo menu__corpo">
@@ -181,7 +183,11 @@
 
     <section class="fazer fazer--outras" aria-labelledby="e2-outras">
       <h2 class="fazer__titulo" id="e2-outras">Operações</h2>
-      <div class="quadrados quadrados--tres">
+      <div class="quadrados quadrados--linhas">
+      <button type="button" class="quadrado" data-ir="n1">
+        <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2.5 6.5h10v9h-10Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path class="tinta-acao" d="M12.5 9h4.2l3.3 3.3v3.2h-7.5Z"/><circle cx="7" cy="17.5" r="1.8" fill="currentColor"/><circle cx="17" cy="17.5" r="1.8" fill="currentColor"/></svg></span>
+        <span class="quadrado__nome">Chegada</span>
+      </button>
       <button type="button" class="quadrado" data-ir="k4">
         <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.5 11a7.5 7.5 0 0 1 13.2-4.6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M18.5 3v4.3h-4.3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path class="traco-acao" d="M19.5 13a7.5 7.5 0 0 1-13.2 4.6M5.5 21v-4.3h4.3" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         <span class="quadrado__nome">Corrigir posição</span>
@@ -259,7 +265,59 @@
 
 <!-- ================= RECEBER O QUE CHEGA (CU-06) ================= -->
 
-<div class="ecra" data-ecra="r1" data-objetivo="Começar a tarefa de receção: identificar a entrega pela guia do fornecedor." data-fluxo="Receber o que chega" data-funcao="arrumacao" data-nome="04 · Lê a guia do fornecedor" data-refs="CU-06 · RF-30" hidden>
+<div class="ecra" data-ecra="n1" data-objetivo="Picar a chegada: o sistema não sabe o que vem a caminho, por isso é aqui que a mercadoria entra no sistema." data-fluxo="Receber o que chega" data-funcao="arrumacao" data-nome="04 · Picar a chegada" data-refs="CU-40 · CU-06 · RF-30" hidden>
+<div class="pda">
+  <header class="topo">
+    <button type="button" class="topo__voltar" data-ir="e2"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar</button>
+    <p class="topo__titulo">Chegada</p>
+    <span class="faixa__rede topo__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span>
+  </header>
+  <div class="corpo">
+    <h1 class="ordem ordem--menor">Chegou o quê?</h1>
+    <p class="txt-corpo">O sistema não sabe o que vem a caminho. Diz quem trouxe e quantas paletes.</p>
+    <div class="leitor" data-ir="n2"><svg class="leitor__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8V4.5A1.5 1.5 0 0 1 4.5 3H8M16 3h3.5A1.5 1.5 0 0 1 21 4.5V8M21 16v3.5a1.5 1.5 0 0 1-1.5 1.5H16M8 21H4.5A1.5 1.5 0 0 1 3 19.5V16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 7.5v9M10 7.5v9M13 7.5v9M16.5 7.5v9" stroke="currentColor" stroke-width="2"/></svg><span class="leitor__traco" aria-hidden="true"></span>Lê a guia, se ela tiver código de barras</div>
+    <div class="entrada-texto">
+      <label class="entrada-texto__rotulo" for="n1-fornecedor">Fornecedor</label>
+      <div class="entrada-texto__caixa"><input class="entrada-texto__campo" id="n1-fornecedor" type="text" value="Castrol Portugal"></div>
+    </div>
+    <p class="rotulo">Paletes</p>
+    <div class="quantidade">
+      <button type="button" class="quantidade__botao" aria-label="Menos">−</button>
+      <span class="quantidade__valor">2</span>
+      <button type="button" class="quantidade__botao" aria-label="Mais">+</button>
+    </div>
+    <p class="txt-legenda">As paletes da SKF continuam a ser picadas no PDA antigo.</p>
+  </div>
+  <div class="rodape">
+    <button type="button" class="btn btn--acao" data-ir="n2"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.5 5 5 10-11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Registar chegada</button>
+  </div>
+</div>
+</div>
+
+<div class="ecra" data-ecra="n2" data-objetivo="Confirmar que a chegada ficou registada e que a tarefa de receção foi para o motor." data-fluxo="Receber o que chega" data-funcao="arrumacao" data-nome="05 · Chegada registada" data-refs="CU-40 · CU-06" hidden>
+<div class="pda">
+  <header class="topo">
+    <button type="button" class="topo__voltar" data-ir="e2"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar</button>
+    <p class="topo__titulo">Chegada</p>
+    <span class="faixa__rede topo__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span>
+  </header>
+  <div class="corpo">
+    <div class="alerta alerta--bom"><svg class="alerta__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.3 3.2a2 2 0 0 1 3.4 0l8.4 15a2 2 0 0 1-1.7 3H3.6a2 2 0 0 1-1.7-3Z" fill="currentColor"/><path d="M12 9v5" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="17.3" r="1.4" fill="#fff"/></svg><b class="alerta__titulo">Chegada registada às 10h05</b><span class="alerta__texto">Castrol Portugal · 2 paletes no cais</span></div>
+    <div class="cartao">
+      <span class="rotulo">Passou ao motor</span>
+      <div class="linha">Tarefa de receção<span class="linha__valor linha__valor--bom">1 nova</span></div>
+      <div class="linha">Onde está<span class="linha__valor">Cais de entrada</span></div>
+    </div>
+    <p class="nota">O motor põe-na na fila pela prioridade. Enquanto ninguém a começa, a mercadoria fica no cais.</p>
+  </div>
+  <div class="rodape">
+    <button type="button" class="btn btn--acao" data-ir="e3"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Ver a fila</button>
+    <button type="button" class="btn" data-ir="e2"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11 12 3.5l8.5 7.5M6 9v11h12V9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar ao início</button>
+  </div>
+</div>
+</div>
+
+<div class="ecra" data-ecra="r1" data-objetivo="Começar a tarefa de receção: identificar a entrega pela guia do fornecedor." data-fluxo="Receber o que chega" data-funcao="arrumacao" data-nome="06 · Lê a guia do fornecedor" data-refs="CU-06 · RF-30" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <div class="passos">
@@ -282,7 +340,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="r2" data-objetivo="Comparar o que era esperado com o que chegou." data-fluxo="Receber o que chega" data-funcao="arrumacao" data-nome="05 · Confere o que chegou" data-refs="CU-06 · RF-30" hidden>
+<div class="ecra" data-ecra="r2" data-objetivo="Comparar o que era esperado com o que chegou." data-fluxo="Receber o que chega" data-funcao="arrumacao" data-nome="07 · Confere o que chegou" data-refs="CU-06 · RF-30" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <div class="passos">
@@ -306,7 +364,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="r3" data-objetivo="Registar quanto chegou de facto, quando não é o esperado." data-fluxo="Receber o que chega" data-funcao="arrumacao" data-nome="06 · A quantidade não bate" data-refs="CU-06 · CU-22" hidden>
+<div class="ecra" data-ecra="r3" data-objetivo="Registar quanto chegou de facto, quando não é o esperado." data-fluxo="Receber o que chega" data-funcao="arrumacao" data-nome="08 · A quantidade não bate" data-refs="CU-06 · CU-22" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <div class="passos">
@@ -330,7 +388,101 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="r4" data-objetivo="Confirmar que entrou no stock, e que as tarefas de arrumar foram para o motor, que lhes dá a prioridade na fila." data-fluxo="Receber o que chega" data-funcao="arrumacao" data-nome="07 · Recebido" data-refs="CU-06 · RF-30" hidden>
+<div class="ecra" data-ecra="r4" data-objetivo="Confirmar que entrou no stock, e que as tarefas de arrumar foram para o motor, que lhes dá a prioridade na fila." data-fluxo="Receber o que chega" data-funcao="arrumacao" data-nome="09 · Recebido" data-refs="CU-06 · RF-30" hidden>
+<div class="pda">
+  <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
+  <div class="passos">
+    <div class="passos__linha"><span class="passos__titulo">Receber</span><span class="passos__conta">Passo 3 de 3</span></div>
+    <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i></div>
+  </div>
+  <div class="corpo">
+    <div class="alerta alerta--bom"><svg class="alerta__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="m7 12.5 3.3 3.3L17 9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><b class="alerta__titulo">Chegada registada às 10h05</b><span class="alerta__texto">Castrol Portugal · 2 paletes no cais</span></div>
+    <div class="cartao">
+      <span class="rotulo">Passou ao motor</span>
+      <div class="linha">Tarefa de receção<span class="linha__valor linha__valor--bom">1 nova</span></div>
+      <div class="linha">Onde está<span class="linha__valor">Cais de entrada</span></div>
+    </div>
+    <p class="nota">O motor põe-na na fila pela prioridade. Enquanto ninguém a começa, a mercadoria fica no cais.</p>
+  </div>
+  <div class="rodape">
+    <button type="button" class="btn btn--acao" data-ir="e3"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Ver a fila</button>
+    <button type="button" class="btn" data-ir="e2"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11 12 3.5l8.5 7.5M6 9v11h12V9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar ao início</button>
+  </div>
+</div>
+</div>
+
+<div class="ecra" data-ecra="r1" data-objetivo="Começar a tarefa de receção: identificar a entrega pela guia do fornecedor." data-fluxo="Receber o que chega" data-funcao="arrumacao" data-nome="06 · Lê a guia do fornecedor" data-refs="CU-06 · RF-30" hidden>
+<div class="pda">
+  <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
+  <div class="passos">
+    <div class="passos__linha"><span class="passos__titulo">Receber</span><span class="passos__conta">Passo 1 de 3</span></div>
+    <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i><i class="passos__traco"></i></div>
+  </div>
+  <div class="corpo">
+    <h1 class="ordem ordem--menor">Lê a GUIA</h1>
+    <p class="txt-corpo">O documento que veio com a mercadoria, ou a referência do fornecedor</p>
+    <div class="cartao">
+      <span class="rotulo">No cais de entrada</span>
+      <span class="txt-lead">2 paletes · Castrol Portugal</span>
+      <span class="txt-sec">Chegaram às 10h05</span>
+    </div>
+    <div class="leitor" data-ir="r2"><svg class="leitor__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8V4.5A1.5 1.5 0 0 1 4.5 3H8M16 3h3.5A1.5 1.5 0 0 1 21 4.5V8M21 16v3.5a1.5 1.5 0 0 1-1.5 1.5H16M8 21H4.5A1.5 1.5 0 0 1 3 19.5V16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 7.5v9M10 7.5v9M13 7.5v9M16.5 7.5v9" stroke="currentColor" stroke-width="2"/></svg><span class="leitor__traco" aria-hidden="true"></span>Aponta à guia e carrega no gatilho</div>
+  </div>
+  <div class="rodape">
+    <button type="button" class="btn btn--secundario"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1-4.5L15.5 5a2.1 2.1 0 0 1 3 3L8 18.5Z M13.5 7l3 3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Não consigo ler — escrever</button>
+  </div>
+</div>
+</div>
+
+<div class="ecra" data-ecra="r2" data-objetivo="Comparar o que era esperado com o que chegou." data-fluxo="Receber o que chega" data-funcao="arrumacao" data-nome="07 · Confere o que chegou" data-refs="CU-06 · RF-30" hidden>
+<div class="pda">
+  <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
+  <div class="passos">
+    <div class="passos__linha"><span class="passos__titulo">Receber</span><span class="passos__conta">Passo 2 de 3</span></div>
+    <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i></div>
+  </div>
+  <div class="corpo">
+    <p class="txt-sec">Guia GR-58213 · Castrol Portugal</p>
+    <h1 class="txt-lead">Confere o que chegou</h1>
+    <div class="cartao">
+      <span class="rotulo">Esperado</span>
+      <div class="linha">Óleo 5W30 · 5 L<span class="linha__valor">40 un.</span></div>
+      <div class="linha">Filtro de óleo W712<span class="linha__valor">24 un.</span></div>
+    </div>
+    <p class="txt-legenda">Se bate certo, confirma. Se não, diz quanto chegou.</p>
+  </div>
+  <div class="rodape">
+    <button type="button" class="btn btn--acao" data-ir="r4"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.5 5 5 10-11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Está tudo — confirmar</button>
+    <button type="button" class="btn" data-ir="r3"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9.5h14M5 14.5h14M15 5 9 19" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>A quantidade não bate</button>
+  </div>
+</div>
+</div>
+
+<div class="ecra" data-ecra="r3" data-objetivo="Registar quanto chegou de facto, quando não é o esperado." data-fluxo="Receber o que chega" data-funcao="arrumacao" data-nome="08 · A quantidade não bate" data-refs="CU-06 · CU-22" hidden>
+<div class="pda">
+  <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
+  <div class="passos">
+    <div class="passos__linha"><span class="passos__titulo">Receber</span><span class="passos__conta">Passo 2 de 3</span></div>
+    <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i></div>
+  </div>
+  <div class="corpo">
+    <p class="txt-sec">Óleo 5W30 · 5 L · esperadas 40</p>
+    <h1 class="txt-lead">Quantas chegaram?</h1>
+    <div class="quantidade">
+      <button type="button" class="quantidade__botao" aria-label="Menos">−</button>
+      <span class="quantidade__valor">36</span>
+      <button type="button" class="quantidade__botao" aria-label="Mais">+</button>
+    </div>
+    <div class="alerta alerta--aviso"><svg class="alerta__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.3 3.2a2 2 0 0 1 3.4 0l8.4 15a2 2 0 0 1-1.7 3H3.6a2 2 0 0 1-1.7-3Z" fill="currentColor"/><path d="M12 9v5" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="17.3" r="1.4" fill="#fff"/></svg><b class="alerta__titulo">Faltam 4 unidades</b><span class="alerta__texto">Fica registado como divergência da receção. A receção segue.</span></div>
+    <p class="txt-legenda">Só entra no stock o que chegou.</p>
+  </div>
+  <div class="rodape">
+    <button type="button" class="btn btn--acao" data-ir="r4"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.5 5 5 10-11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Registar e seguir</button>
+  </div>
+</div>
+</div>
+
+<div class="ecra" data-ecra="r4" data-objetivo="Confirmar que entrou no stock, e que as tarefas de arrumar foram para o motor, que lhes dá a prioridade na fila." data-fluxo="Receber o que chega" data-funcao="arrumacao" data-nome="09 · Recebido" data-refs="CU-06 · RF-30" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <div class="passos">
@@ -355,7 +507,7 @@
 
 <!-- ================= 2 · ARRUMAR UMA PALETE ================= -->
 
-<div class="ecra" data-ecra="a1" data-objetivo="Confirmar que a palete que a pessoa tem à frente é a da tarefa." data-funcao="arrumacao" data-fluxo="Arrumar uma palete" data-nome="08 · Lê o artigo" data-refs="CU-07 · RF-33" hidden>
+<div class="ecra" data-ecra="a1" data-objetivo="Confirmar que a palete que a pessoa tem à frente é a da tarefa." data-funcao="arrumacao" data-fluxo="Arrumar uma palete" data-nome="10 · Lê o artigo" data-refs="CU-07 · RF-33" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <div class="passos">
@@ -378,7 +530,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="a2" data-objetivo="Dizer para onde levar a palete, e porquê." data-funcao="arrumacao" data-fluxo="Arrumar uma palete" data-nome="09 · Vai à proposta 1 de 3" data-refs="RF-31 · RF-32 · RF-35" hidden>
+<div class="ecra" data-ecra="a2" data-objetivo="Dizer para onde levar a palete, e porquê." data-funcao="arrumacao" data-fluxo="Arrumar uma palete" data-nome="11 · Vai à proposta 1 de 3" data-refs="RF-31 · RF-32 · RF-35" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <div class="passos">
@@ -408,7 +560,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="a3" data-objetivo="Registar a posição ocupada e passar à proposta seguinte." data-funcao="arrumacao" data-fluxo="Arrumar uma palete" data-nome="10 · A 1 estava ocupada" data-refs="RF-35 · RF-116" hidden>
+<div class="ecra" data-ecra="a3" data-objetivo="Registar a posição ocupada e passar à proposta seguinte." data-funcao="arrumacao" data-fluxo="Arrumar uma palete" data-nome="12 · A 1 estava ocupada" data-refs="RF-35 · RF-116" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <div class="passos">
@@ -432,7 +584,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="a4" data-objetivo="Confirmar, pela leitura, que a palete ficou na posição certa." data-funcao="arrumacao" data-fluxo="Arrumar uma palete" data-nome="11 · Lê a posição" data-refs="RF-33 · RF-34 · ADR-0011" hidden>
+<div class="ecra" data-ecra="a4" data-objetivo="Confirmar, pela leitura, que a palete ficou na posição certa." data-funcao="arrumacao" data-fluxo="Arrumar uma palete" data-nome="13 · Lê a posição" data-refs="RF-33 · RF-34 · ADR-0011" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <div class="passos">
@@ -454,7 +606,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="a5" data-objetivo="Confirmar o registo e passar à tarefa seguinte." data-funcao="arrumacao" data-fluxo="Arrumar uma palete" data-nome="12 · Arrumada" data-refs="RF-74 · RN-32" hidden>
+<div class="ecra" data-ecra="a5" data-objetivo="Confirmar o registo e passar à tarefa seguinte." data-funcao="arrumacao" data-fluxo="Arrumar uma palete" data-nome="14 · Arrumada" data-refs="RF-74 · RN-32" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <div class="passos">
@@ -478,7 +630,7 @@
 
 <!-- ================= QUANDO A ARRUMAÇÃO NÃO CORRE BEM (CU-22) ================= -->
 
-<div class="ecra" data-ecra="g2" data-objetivo="Dizer, com um toque, o que impede a arrumação." data-funcao="arrumacao" data-fluxo="Quando a arrumação não corre bem" data-nome="13 · O que se passa?" data-refs="CU-22 · RF-83 · RF-85" hidden>
+<div class="ecra" data-ecra="g2" data-objetivo="Dizer, com um toque, o que impede a arrumação." data-funcao="arrumacao" data-fluxo="Quando a arrumação não corre bem" data-nome="15 · O que se passa?" data-refs="CU-22 · RF-83 · RF-85" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <div class="passos">
@@ -502,7 +654,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="a6" data-objetivo="Identificar o artigo quando a etiqueta não se lê." data-fluxo="Quando a arrumação não corre bem" data-funcao="arrumacao" data-nome="14 · Escreve o artigo" data-refs="CU-02 · RF-33" hidden>
+<div class="ecra" data-ecra="a6" data-objetivo="Identificar o artigo quando a etiqueta não se lê." data-fluxo="Quando a arrumação não corre bem" data-funcao="arrumacao" data-nome="16 · Escreve o artigo" data-refs="CU-02 · RF-33" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <div class="passos">
@@ -524,7 +676,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="a7" data-objetivo="Identificar a posição quando a etiqueta não se lê; conta para aconselhar a renovar a etiqueta." data-fluxo="Quando a arrumação não corre bem" data-funcao="arrumacao" data-nome="15 · Escreve a posição" data-refs="CU-02 · RF-92" hidden>
+<div class="ecra" data-ecra="a7" data-objetivo="Identificar a posição quando a etiqueta não se lê; conta para aconselhar a renovar a etiqueta." data-fluxo="Quando a arrumação não corre bem" data-funcao="arrumacao" data-nome="17 · Escreve a posição" data-refs="CU-02 · RF-92" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <div class="passos">
@@ -546,7 +698,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="a8" data-objetivo="Confirmar que o problema ficou registado e que o gestor foi avisado." data-fluxo="Quando a arrumação não corre bem" data-funcao="arrumacao" data-nome="16 · Problema registado" data-refs="CU-22 · RF-83" hidden>
+<div class="ecra" data-ecra="a8" data-objetivo="Confirmar que o problema ficou registado e que o gestor foi avisado." data-fluxo="Quando a arrumação não corre bem" data-funcao="arrumacao" data-nome="18 · Problema registado" data-refs="CU-22 · RF-83" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <div class="passos">
@@ -566,7 +718,7 @@
 
 <!-- ================= CORRIGIR UMA POSIÇÃO — A TAREFA DO MOTOR (CU-09) ================= -->
 
-<div class="ecra" data-ecra="k1" data-objetivo="Confirmar a posição e o artigo que saem." data-fluxo="Corrigir uma posição (tarefa)" data-funcao="arrumacao" data-nome="17 · Tira da origem" data-refs="CU-09 · RF-38" hidden>
+<div class="ecra" data-ecra="k1" data-objetivo="Confirmar a posição e o artigo que saem." data-fluxo="Corrigir uma posição (tarefa)" data-funcao="arrumacao" data-nome="19 · Tira da origem" data-refs="CU-09 · RF-38" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <div class="passos">
@@ -592,7 +744,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="k2" data-objetivo="Dizer para onde vai o stock, e confirmar pela leitura." data-fluxo="Corrigir uma posição (tarefa)" data-funcao="arrumacao" data-nome="18 · Põe no destino" data-refs="CU-09 · RF-39" hidden>
+<div class="ecra" data-ecra="k2" data-objetivo="Dizer para onde vai o stock, e confirmar pela leitura." data-fluxo="Corrigir uma posição (tarefa)" data-funcao="arrumacao" data-nome="20 · Põe no destino" data-refs="CU-09 · RF-39" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <div class="passos">
@@ -613,7 +765,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="k3" data-objetivo="Confirmar que o stock mudou de sítio, num só registo." data-fluxo="Corrigir uma posição (tarefa)" data-funcao="arrumacao" data-nome="19 · Corrigida" data-refs="CU-09 · RN-08" hidden>
+<div class="ecra" data-ecra="k3" data-objetivo="Confirmar que o stock mudou de sítio, num só registo." data-fluxo="Corrigir uma posição (tarefa)" data-funcao="arrumacao" data-nome="21 · Corrigida" data-refs="CU-09 · RN-08" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <div class="passos">
@@ -632,7 +784,7 @@
 
 <!-- ================= CORRIGIR O QUE ESTÁ NUMA POSIÇÃO — POR INICIATIVA (RF-114) ================= -->
 
-<div class="ecra" data-ecra="k4" data-objetivo="Identificar a posição que não bate com o sistema." data-fluxo="Corrigir o que está numa posição" data-funcao="arrumacao" data-nome="20 · Lê a posição do erro" data-refs="CU-09 · RF-114" hidden>
+<div class="ecra" data-ecra="k4" data-objetivo="Identificar a posição que não bate com o sistema." data-fluxo="Corrigir o que está numa posição" data-funcao="arrumacao" data-nome="22 · Lê a posição do erro" data-refs="CU-09 · RF-114" hidden>
 <div class="pda">
   <header class="topo">
     <button type="button" class="topo__voltar" data-ir="e2"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar</button>
@@ -650,7 +802,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="k5" data-objetivo="Dizer quantas unidades estão de facto na posição." data-fluxo="Corrigir o que está numa posição" data-funcao="arrumacao" data-nome="21 · O que está lá?" data-refs="RF-114 · RF-121" hidden>
+<div class="ecra" data-ecra="k5" data-objetivo="Dizer quantas unidades estão de facto na posição." data-fluxo="Corrigir o que está numa posição" data-funcao="arrumacao" data-nome="23 · O que está lá?" data-refs="RF-114 · RF-121" hidden>
 <div class="pda">
   <header class="topo">
     <button type="button" class="topo__voltar" data-ir="e2"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar</button>
@@ -677,7 +829,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="k6" data-objetivo="Confirmar a correção; o gestor vê a diferença." data-fluxo="Corrigir o que está numa posição" data-funcao="arrumacao" data-nome="22 · Correção registada" data-refs="RF-114 · RN-23" hidden>
+<div class="ecra" data-ecra="k6" data-objetivo="Confirmar a correção; o gestor vê a diferença." data-fluxo="Corrigir o que está numa posição" data-funcao="arrumacao" data-nome="24 · Correção registada" data-refs="RF-114 · RN-23" hidden>
 <div class="pda">
   <header class="topo">
     <button type="button" class="topo__voltar" data-ir="e2"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar</button>
@@ -696,7 +848,7 @@
 
 <!-- ================= LEVAR A PALETE VAZIA (CU-36) ================= -->
 
-<div class="ecra" data-ecra="p1" data-objetivo="Levar a palete vazia ao parque, e confirmar lendo a etiqueta." data-fluxo="Levar a palete vazia" data-funcao="arrumacao" data-nome="23 · Leva ao parque" data-refs="CU-36" hidden>
+<div class="ecra" data-ecra="p1" data-objetivo="Levar a palete vazia ao parque, e confirmar lendo a etiqueta." data-fluxo="Levar a palete vazia" data-funcao="arrumacao" data-nome="25 · Leva ao parque" data-refs="CU-36" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <div class="passos">
@@ -715,7 +867,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="p2" data-objetivo="Confirmar que a posição ficou livre." data-fluxo="Levar a palete vazia" data-funcao="arrumacao" data-nome="24 · No parque" data-refs="CU-36" hidden>
+<div class="ecra" data-ecra="p2" data-objetivo="Confirmar que a posição ficou livre." data-fluxo="Levar a palete vazia" data-funcao="arrumacao" data-nome="26 · No parque" data-refs="CU-36" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <div class="passos">
@@ -733,7 +885,7 @@
 
 <!-- ================= CONSULTAR (CU-03) ================= -->
 
-<div class="ecra" data-ecra="q1" data-objetivo="Ver onde está um artigo, e quanto há em cada sítio." data-fluxo="Consultar" data-funcao="arrumacao" data-nome="25 · Consultar artigo" data-refs="CU-03" hidden>
+<div class="ecra" data-ecra="q1" data-objetivo="Ver onde está um artigo, e quanto há em cada sítio." data-fluxo="Consultar" data-funcao="arrumacao" data-nome="27 · Consultar artigo" data-refs="CU-03" hidden>
 <div class="pda">
   <header class="topo">
     <button type="button" class="topo__voltar" data-ir="e2"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar</button>
@@ -756,7 +908,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="q2" data-objetivo="Ver o que está numa posição e, se não bater, corrigir." data-fluxo="Consultar" data-funcao="arrumacao" data-nome="26 · Consultar posição" data-refs="CU-03 · CU-23" hidden>
+<div class="ecra" data-ecra="q2" data-objetivo="Ver o que está numa posição e, se não bater, corrigir." data-fluxo="Consultar" data-funcao="arrumacao" data-nome="28 · Consultar posição" data-refs="CU-03 · CU-23" hidden>
 <div class="pda">
   <header class="topo">
     <button type="button" class="topo__voltar" data-ir="e2"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar</button>
@@ -782,7 +934,7 @@
 
 <!-- ================= 3 · RECOLHER UMA GUIA ================= -->
 
-<div class="ecra" data-ecra="s1" data-objetivo="Mostrar as guias da volta, já escolhidas pelo motor." data-funcao="separacao" data-fluxo="Recolher uma guia" data-nome="27 · O lote, já cheio" data-refs="CU-10 · RF-40 · RF-41 · RF-44" hidden>
+<div class="ecra" data-ecra="s1" data-objetivo="Mostrar as guias da volta, já escolhidas pelo motor." data-funcao="separacao" data-fluxo="Recolher uma guia" data-nome="29 · O lote, já cheio" data-refs="CU-10 · RF-40 · RF-41 · RF-44" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Separação</span><span class="faixa__nome">Rui Costa</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <header class="barra"><h1 class="barra__titulo">O teu lote</h1><p class="barra__sub">3 guias · 18 linhas · 3 colunas</p></header>
@@ -809,7 +961,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="s2" data-objetivo="Levar a pessoa à posição e dizer o que tirar." data-funcao="separacao" data-fluxo="Recolher uma guia" data-nome="28 · Paragem: lê a posição" data-refs="RF-43 · RF-44 · RF-45" hidden>
+<div class="ecra" data-ecra="s2" data-objetivo="Levar a pessoa à posição e dizer o que tirar." data-funcao="separacao" data-fluxo="Recolher uma guia" data-nome="30 · Paragem: lê a posição" data-refs="RF-43 · RF-44 · RF-45" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Separação</span><span class="faixa__nome">Rui Costa</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <div class="passos">
@@ -833,7 +985,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="s3" data-objetivo="Registar o que falta e corrigir o stock ali mesmo." data-funcao="separacao" data-fluxo="Recolher uma guia" data-nome="29 · Falta quantidade" data-refs="RF-46 · RF-114 · RF-121" hidden>
+<div class="ecra" data-ecra="s3" data-objetivo="Registar o que falta e corrigir o stock ali mesmo." data-funcao="separacao" data-fluxo="Recolher uma guia" data-nome="31 · Falta quantidade" data-refs="RF-46 · RF-114 · RF-121" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Separação</span><span class="faixa__nome">Rui Costa</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <div class="passos">
@@ -856,7 +1008,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="s4" data-objetivo="Deixar as guias na prateleira de preparados, e dizer onde ficaram." data-funcao="separacao" data-fluxo="Recolher uma guia" data-nome="30 · Leva à prateleira de preparados" data-refs="CU-11 · RF-115 · RF-117 · RN-33" hidden>
+<div class="ecra" data-ecra="s4" data-objetivo="Deixar as guias na prateleira de preparados, e dizer onde ficaram." data-funcao="separacao" data-fluxo="Recolher uma guia" data-nome="32 · Leva à prateleira de preparados" data-refs="CU-11 · RF-115 · RF-117 · RN-33" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Separação</span><span class="faixa__nome">Rui Costa</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <div class="passos">
@@ -876,7 +1028,7 @@
 
 <!-- ================= 4 · DA PRATELEIRA DE PREPARADOS AO CAMIÃO ================= -->
 
-<div class="ecra" data-ecra="x1" data-objetivo="Mostrar os camiões por hora de fecho, e o que está pronto." data-funcao="expedicao" data-fluxo="Da prateleira ao camião" data-nome="31 · Os camiões de hoje" data-refs="CU-13 · RF-50 · RF-51 · RF-56" hidden>
+<div class="ecra" data-ecra="x1" data-objetivo="Mostrar os camiões por hora de fecho, e o que está pronto." data-funcao="expedicao" data-fluxo="Da prateleira ao camião" data-nome="33 · Os camiões de hoje" data-refs="CU-13 · RF-50 · RF-51 · RF-56" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Expedição</span><span class="faixa__nome">Ana Lopes</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <header class="barra"><h1 class="barra__titulo">Camiões de hoje</h1><p class="barra__sub">Por ordem de fecho</p></header>
@@ -900,7 +1052,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="x2" data-objetivo="Confirmar cada volume antes de sair da prateleira." data-funcao="expedicao" data-fluxo="Da prateleira ao camião" data-nome="32 · Confere volume a volume" data-refs="CU-38 · RF-118 · RF-119" hidden>
+<div class="ecra" data-ecra="x2" data-objetivo="Confirmar cada volume antes de sair da prateleira." data-funcao="expedicao" data-fluxo="Da prateleira ao camião" data-nome="34 · Confere volume a volume" data-refs="CU-38 · RF-118 · RF-119" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Expedição</span><span class="faixa__nome">Ana Lopes</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <div class="passos">
@@ -925,7 +1077,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="x3" data-objetivo="Levar os volumes ao cais do camião." data-funcao="expedicao" data-fluxo="Da prateleira ao camião" data-nome="33 · Leva ao cais" data-refs="RF-119 · RF-113" hidden>
+<div class="ecra" data-ecra="x3" data-objetivo="Levar os volumes ao cais do camião." data-funcao="expedicao" data-fluxo="Da prateleira ao camião" data-nome="35 · Leva ao cais" data-refs="RF-119 · RF-113" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Expedição</span><span class="faixa__nome">Ana Lopes</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <div class="passos">
@@ -942,7 +1094,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="x4" data-objetivo="Confirmar cada volume que sobe, e fechar a saída." data-funcao="expedicao" data-fluxo="Da prateleira ao camião" data-nome="34 · Carregar e fechar a saída" data-refs="CU-15 · RF-54 · RF-120 · RF-122" hidden>
+<div class="ecra" data-ecra="x4" data-objetivo="Confirmar cada volume que sobe, e fechar a saída." data-funcao="expedicao" data-fluxo="Da prateleira ao camião" data-nome="36 · Carregar e fechar a saída" data-refs="CU-15 · RF-54 · RF-120 · RF-122" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Expedição</span><span class="faixa__nome">Ana Lopes</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <div class="passos">
@@ -967,7 +1119,7 @@
 
 <!-- ================= 5 · O GESTOR E AS EXCEÇÕES ================= -->
 
-<div class="ecra" data-ecra="g1" data-objetivo="Mostrar ao gestor os números do turno e os sinais que pedem atenção." data-funcao="gestor" data-fluxo="O gestor e as exceções" data-nome="35 · Relatório do turno" data-refs="CU-17 · CU-16 · RF-60 · RF-61 · RF-116" hidden>
+<div class="ecra" data-ecra="g1" data-objetivo="Mostrar ao gestor os números do turno e os sinais que pedem atenção." data-funcao="gestor" data-fluxo="O gestor e as exceções" data-nome="37 · Relatório do turno" data-refs="CU-17 · CU-16 · RF-60 · RF-61 · RF-116" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Gestor</span><span class="faixa__nome">Paulo Mendes</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span></div>
   <header class="barra"><h1 class="barra__titulo">Turno das 8h</h1><p class="barra__sub">Até agora · 10h20</p></header>
@@ -998,7 +1150,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="g3" data-objetivo="Dizer que o PDA não está ligado, e o que ficou gravado." data-funcao="todas" data-fluxo="O gestor e as exceções" data-nome="36 · Sem ligação" data-refs="CU-27 · RNF-01 · RNF-02 · RF-53" hidden>
+<div class="ecra" data-ecra="g3" data-objetivo="Dizer que o PDA não está ligado, e o que ficou gravado." data-funcao="todas" data-fluxo="O gestor e as exceções" data-nome="38 · Sem ligação" data-refs="CU-27 · RNF-01 · RNF-02 · RF-53" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Separação</span><span class="faixa__nome">Rui Costa</span><span class="faixa__rede faixa__rede--sem"><span class="faixa__ponto" aria-hidden="true"></span>Sem ligação</span></div>
   <header class="barra"><h1 class="barra__titulo">Sem ligação</h1><p class="barra__sub">Desde as 10h22</p></header>
