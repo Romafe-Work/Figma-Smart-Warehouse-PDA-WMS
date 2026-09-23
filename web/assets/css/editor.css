@@ -652,3 +652,23 @@ html, body { background: var(--ed-tela); }
 /* o cabeçalho do mapa vive na tela, fora do zoom */
 .ed-fluxo .tela > .fluxo__cabeca { position: sticky; top: 0; z-index: 3; margin: 12px 12px 0; }
 .com-fluxo .fluxo { padding-top: 12px; }
+
+/* o cabeçalho do mapa, mais baixo: cabe numa linha e não rouba tela */
+.fluxo__cabeca { align-items: center; gap: 10px; padding: 10px 14px; margin-bottom: 14px; }
+.fluxo__cabeca::before { width: 32px; height: 32px; border-radius: 8px; background-size: 18px; }
+.fluxo__titulo { font-size: 16px; line-height: 1.2; }
+.fluxo__legenda { font-size: 12px; line-height: 1.3; gap: 6px; }
+.fluxo__amostra { width: 20px; height: 12px; }
+.fluxo__filtro { flex-wrap: nowrap; gap: 6px; margin-top: 0; }
+.fluxo__filtro button { padding: 6px 12px; font-size: 12px; }
+.ed-fluxo .tela > .fluxo__cabeca { margin: 10px 10px 0; }
+
+/* o título do mapa numa linha; se não couber, corta-se com reticências */
+.fluxo__titulo { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fluxo__cabeca > div, .fluxo__cabeca { min-width: 0; }
+.fluxo__legenda { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; max-width: 320px; }
+@media (max-width: 1400px) { .fluxo__legenda { display: none; } }
+/* o título cede espaço; os filtros ficam sempre inteiros */
+.fluxo__cabeca { flex-wrap: nowrap; }
+.fluxo__titulo { flex: 1 1 0; min-width: 80px; }
+.fluxo__filtro { flex: none; }

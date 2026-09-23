@@ -26,11 +26,10 @@
   var MIN = 0.1, MAX = 3;
 
   var CHAVE_SETAS = 'pda:fluxo:setas';
-  /* Um filtro por função; não há «todas» para escolher, porque o mapa inteiro
-     não se lê. O #so=fluxo&funcao=todas continua a valer, para o gerar.sh. */
-  var FUNCOES = [['arrumacao', 'Arrumação'], ['separacao', 'Separação'],
-                 ['expedicao', 'Expedição'], ['gestor', 'Gestor']];
+  /* Um filtro por função, e «Todas» para ver o mapa inteiro. */
   var TODAS = ['todas', 'Todas'];
+  var FUNCOES = [TODAS, ['arrumacao', 'Arrumação'], ['separacao', 'Separação'],
+                 ['expedicao', 'Expedição'], ['gestor', 'Gestor']];
 
   var mapa = null, svg = null, observador = null, pedido = 0, ordemLinhas = null;
   var editavel = false;   // no editor as setas arrastam-se; na captura, não
@@ -197,7 +196,7 @@
       linha.classList.toggle('fluxo--fora', !algum);
     });
     ordenarLinhas(funcao);
-    var nome = (FUNCOES.concat([TODAS]).filter(function (par) { return par[0] === funcao; })[0] || TODAS)[1];
+    var nome = (FUNCOES.filter(function (par) { return par[0] === funcao; })[0] || TODAS)[1];
     var etiqueta = document.querySelector('.fluxo__funcao');
     if (etiqueta) etiqueta.textContent = funcao === 'todas' ? '' : nome;
     if (window.PdaTraducao) window.PdaTraducao.aplicar();
