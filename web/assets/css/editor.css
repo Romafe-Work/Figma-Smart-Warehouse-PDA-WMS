@@ -10,19 +10,21 @@
    ========================================================= */
 
 :root {
-  --ed-fundo:   #2c2c2a;
-  --ed-painel:  #333331;
-  --ed-painel-2:#393937;
-  --ed-borda:   rgba(255,255,255,.12);
-  --ed-tinta:   #ffffff;
-  --ed-tinta-2: #cdccc1;
-  --ed-tinta-3: #adaca1;
-  --ed-accao:   #0d99ff;
-  --ed-erro:    #e8695d;
-  --ed-marca:   #a8caee;
-  --ed-tela:    #d9dce1;
+  /* Desenho de 23 de setembro: claro, com o azul da marca e o laranja só
+     onde há ação. O escuro ficou nos ecrãs do PDA, que são o produto. */
+  --ed-fundo:   #eef3fa;
+  --ed-painel:  #ffffff;
+  --ed-painel-2:#f4f7fb;
+  --ed-borda:   #e2e8f0;
+  --ed-tinta:   #17212e;
+  --ed-tinta-2: #4a5568;
+  --ed-tinta-3: #7a8699;
+  --ed-accao:   #1a6fd6;
+  --ed-erro:    #cf372d;
+  --ed-marca:   #00537e;
+  --ed-tela:    #eef3fa;
   --ed-aro:     #1b1f24;
-  --ed-larg:    264px;
+  --ed-larg:    300px;
 }
 
 /* ---------- a tela ----------
@@ -539,3 +541,114 @@ html:has(.so-fluxo), .so-fluxo { background: #eef0f3; }
 .texto-fluxo__percurso h3 { margin: 0 0 4px; font-size: 15px; }
 .texto-fluxo__caminho { margin: 0; font-size: 14px; line-height: 2; }
 .texto-fluxo__caminho .texto-fluxo__ecra { font-weight: 500; }
+
+
+/* ---------- Desenho de 23 de setembro: a moldura clara ---------- */
+.ed-painel {
+  background: var(--ed-painel); color: var(--ed-tinta);
+  border-color: var(--ed-borda); box-shadow: 0 1px 2px rgba(23,33,46,.06);
+}
+.ed-cabeca { border-bottom: 1px solid var(--ed-borda); padding: 14px 16px; }
+.ed-cabeca h2 { font-size: 15px; font-weight: 700; color: var(--ed-tinta); }
+.ed-cabeca__marca { display: flex; align-items: center; gap: 8px; font: 700 18px var(--f-marca); color: var(--c-acao); }
+.ed-cabeca__marca::after { content: "PDA"; font: 700 13px var(--f-base); color: var(--ed-tinta-3); letter-spacing: .12em; }
+.ed-cabeca__simbolo { width: 26px; height: 26px; }
+
+/* as abas: cartões com ícone */
+.ed-abas { grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 14px 16px; border-bottom: 1px solid var(--ed-borda); }
+.ed-aba {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 10px 6px; border: 1px solid var(--ed-borda); border-radius: 12px;
+  background: var(--ed-painel-2); color: var(--ed-tinta-2); font-size: 12px; font-weight: 600;
+}
+.ed-aba svg { width: 18px; height: 18px; }
+.ed-aba[aria-selected="true"] { background: var(--ed-accao); border-color: transparent; color: #fff; }
+.ed-aba--larga { grid-column: span 3; flex-direction: row; justify-content: flex-start; gap: 10px; padding: 10px 14px; }
+@media (min-width: 1px) { .ed-aba--larga { grid-column: span 3; } }
+
+.ed-ecras { padding: 12px 16px 6px; }
+.ed-ecras label, .ed-seccao__titulo, .ed-pecas h3 {
+  display: block; margin-bottom: 6px; font-size: 11px; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--ed-tinta-3);
+}
+.ed-select, .ed-texto {
+  background: var(--ed-painel); border: 1px solid var(--ed-borda); color: var(--ed-tinta); border-radius: 10px;
+}
+.ed-select optgroup { color: var(--ed-tinta-3); }
+.ed-select option { color: var(--ed-tinta); }
+
+.ed-corpo { padding: 6px 10px 12px; }
+.ed-camada { border-radius: 8px; color: var(--ed-tinta-2); font-size: 13px; }
+.ed-camada:hover { background: var(--ed-painel-2); }
+.ed-camada[aria-current="true"] { background: #e7f0fb; color: var(--ed-accao); font-weight: 700; }
+.ed-camada__icone { color: var(--ed-tinta-3); }
+
+/* a paleta de peças: dois cartões por linha */
+.ed-pecas { border-top: 1px solid var(--ed-borda); padding: 12px 16px; }
+.ed-pecas__grelha { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.ed-pecas button, .ed-peca {
+  border: 1px solid var(--ed-borda); border-radius: 10px; background: var(--ed-painel);
+  color: var(--ed-tinta); font-size: 12px; font-weight: 600; padding: 10px;
+}
+.ed-pecas button:hover { border-color: var(--ed-accao); color: var(--ed-accao); }
+
+.ed-pe { border-top: 1px solid var(--ed-borda); padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; }
+.ed-botao {
+  border: 1px solid var(--ed-borda); border-radius: 10px; background: var(--ed-painel);
+  color: var(--ed-tinta); font-size: 13px; font-weight: 600; min-height: 40px;
+}
+.ed-botao--accao { background: var(--ed-accao); border-color: transparent; color: #fff; }
+.ed-linha > label { color: var(--ed-tinta-3); }
+.ed-vazio { color: var(--ed-tinta-3); }
+
+/* o painel das propriedades, quando não há nada escolhido */
+.ed-vazio-figura {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  padding: 48px 24px; text-align: center; color: var(--ed-tinta-3);
+}
+.ed-vazio-figura__circulo {
+  display: flex; align-items: center; justify-content: center; width: 72px; height: 72px;
+  border-radius: 999px; border: 2px dashed var(--ed-borda); color: var(--ed-tinta-3);
+}
+.ed-vazio-figura__circulo svg { width: 28px; height: 28px; }
+.ed-vazio-figura b { font-size: 15px; color: var(--ed-tinta); }
+.ed-dica-cartao {
+  display: flex; gap: 10px; margin: 16px; padding: 12px 14px;
+  background: #eef5ff; border-radius: 12px; color: var(--ed-tinta-2); font-size: 13px;
+}
+.ed-dica-cartao svg { width: 18px; height: 18px; flex: none; color: var(--ed-accao); }
+.ed-dica-cartao b { display: block; color: var(--ed-tinta); }
+
+/* a tela e o mapa */
+html, body { background: var(--ed-tela); }
+.ed-fluxo .tela { background: var(--ed-tela); }
+.fluxo__cabeca {
+  display: flex; align-items: flex-start; gap: 14px; margin-bottom: 24px;
+  padding: 16px 20px; background: #fff; border-radius: 14px; box-shadow: 0 1px 2px rgba(23,33,46,.06);
+}
+.fluxo__cabeca::before {
+  content: ""; flex: none; width: 40px; height: 40px; border-radius: 10px;
+  background: #e7f0fb url("../img/simbolo-app.svg") center/22px no-repeat;
+}
+.fluxo__titulo { margin: 0; font-size: 19px; }
+.fluxo__legenda { margin-top: 2px; font-size: 13px; }
+.fluxo__filtro { margin: 0 0 0 auto; align-self: center; }
+.fluxo__filtro button { border-radius: 999px; border-color: var(--ed-borda); background: var(--ed-painel-2); }
+.fluxo__filtro button[aria-pressed="true"] { background: var(--c-acao); color: #fff; }
+.fluxo__linha {
+  background: #f7fafe; border: 1px solid #e6eefb; border-radius: 16px;
+  margin-bottom: 20px; padding: 130px 20px 28px;
+}
+.fluxo__linha + .fluxo__linha { border-top: 1px solid #e6eefb; }
+.fluxo__rotulo { font-size: 16px; }
+.fluxo__zoom {
+  background: #17212e; border: 0; border-radius: 999px; padding: 6px;
+  box-shadow: 0 10px 24px rgba(23,33,46,.25);
+}
+.fluxo__zoom button { color: #fff; }
+.fluxo__zoom button:hover { background: rgba(255,255,255,.12); }
+.fluxo__zoom-valor { color: rgba(255,255,255,.85); }
+
+/* o cabeçalho do mapa vive na tela, fora do zoom */
+.ed-fluxo .tela > .fluxo__cabeca { position: sticky; top: 0; z-index: 3; margin: 12px 12px 0; }
+.com-fluxo .fluxo { padding-top: 12px; }

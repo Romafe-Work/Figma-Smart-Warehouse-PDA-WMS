@@ -236,7 +236,7 @@
 
     var titulo = document.createElement('p');
     titulo.className = 'ed-seccao__titulo';
-    titulo.textContent = 'Acrescentar';
+    titulo.textContent = 'Adicionar elemento';
     caixa.appendChild(titulo);
 
     CATALOGO.forEach(function (grupo) {

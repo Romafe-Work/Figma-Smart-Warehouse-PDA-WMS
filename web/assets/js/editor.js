@@ -701,7 +701,20 @@
 
     if (!seleccionado) {
       if (alvoEl) alvoEl.textContent = '—';
-      corpoProps.appendChild(el('p', 'ed-vazio', 'Clica numa peça do ecrã, ou escolhe-a nas camadas à esquerda.'));
+      var figura = el('div', 'ed-vazio-figura');
+      var circulo = el('div', 'ed-vazio-figura__circulo');
+      circulo.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 3 14 8-6 1.6L9.6 19Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';
+      figura.appendChild(circulo);
+      figura.appendChild(el('b', null, 'Escolhe uma peça'));
+      figura.appendChild(el('span', null, 'Clica numa peça do ecrã, ou escolhe-a nas camadas à esquerda, para ver e mudar o que ela tem.'));
+      corpoProps.appendChild(figura);
+      var dica = el('div', 'ed-dica-cartao');
+      dica.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 1 3.5 10.9c-.6.4-.9 1-.9 1.6H9.4c0-.6-.3-1.2-.9-1.6A6 6 0 0 1 12 3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';
+      var texto = el('div');
+      texto.appendChild(el('b', null, 'Dica'));
+      texto.appendChild(document.createTextNode('As camadas à esquerda são o caminho mais rápido para chegar a uma peça pequena.'));
+      dica.appendChild(texto);
+      corpoProps.appendChild(dica);
       traduzirRamo(painelDir);
       return;
     }
@@ -1151,7 +1164,7 @@
     /* painel esquerdo: ecrãs e camadas */
     painelEsq = el('aside', 'ed-painel ed-painel--esq');
     var cabecaE = el('div', 'ed-cabeca');
-    var marca = el('p', 'ed-cabeca__marca', 'PDA');
+    var marca = el('p', 'ed-cabeca__marca', 'ROMAFE');
     marca.style.margin = '0';
     var simbolo = el('img', 'ed-cabeca__simbolo');
     simbolo.src = 'assets/img/simbolo-app.svg';
@@ -1168,8 +1181,12 @@
     var abas = el('div', 'ed-abas');
     abas.setAttribute('role', 'tablist');
     ABAS.forEach(function (par) {
-      var b = el('button', 'ed-aba', par[1]);
+      var b = el('button', 'ed-aba' + (par[0] === 'documentacao' || par[0] === 'como-funciona' ? ' ed-aba--larga' : ''));
       b.type = 'button';
+      if (IC_ABA[par[0]]) {
+        b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true">' + IC_ABA[par[0]] + '</svg>';
+      }
+      b.appendChild(document.createTextNode(par[1]));
       b.setAttribute('role', 'tab');
       b.dataset.edAba = par[0];
       b.addEventListener('click', function () { abrirLeitura(par[0]); });
@@ -1200,6 +1217,9 @@
     barraEcras.appendChild(selEcras);
     painelEsq.appendChild(barraEcras);
 
+    var tituloCamadas = el('p', 'ed-seccao__titulo', 'Camadas');
+    tituloCamadas.style.margin = '12px 16px 0';
+    painelEsq.appendChild(tituloCamadas);
     listaCamadas = el('div', 'ed-corpo');
     painelEsq.appendChild(listaCamadas);
 
@@ -1288,6 +1308,13 @@
   }
 
   /* ---------------- documentação dentro da tela ---------------- */
+  var IC_ABA = {
+    '': '<path d="M7 2.5h10a2 2 0 0 1 2 2v15a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-15a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 18.5h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
+    'fluxo': '<circle cx="6" cy="6" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="6" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="18" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7.6 7.8 11 15.6M16.4 7.8 13 15.6" stroke="currentColor" stroke-width="1.8"/>',
+    'texto': '<path d="M5 5h14M5 5v2M19 5v2M12 5v14M9.5 19h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
+    'documentacao': '<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v18H6.5A2.5 2.5 0 0 1 4 18.5ZM20 5.5A2.5 2.5 0 0 0 17.5 3H13v18h4.5a2.5 2.5 0 0 0 2.5-2.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>',
+    'como-funciona': '<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9.6 9.2a2.5 2.5 0 1 1 3.3 2.4c-.6.2-.9.7-.9 1.3v.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1.1" fill="currentColor"/>'
+  };
   var ABAS = [['', 'Ecrãs'], ['fluxo', 'Fluxo'], ['texto', 'Texto'], ['documentacao', 'Documentação'], ['como-funciona', 'Como funciona']];
   var leitura = null, textoEl = null;
 

@@ -72,7 +72,8 @@
       if (b) filtrar(b.dataset.funcao);
     });
     cabeca.appendChild(filtro);
-    mapa.appendChild(cabeca);
+    // o cabeçalho fica fora do mapa: o zoom é para os ecrãs, não para o título
+    tela.appendChild(cabeca);
 
     /* As linhas, pela ordem dos fluxos no index.html. O ícone é a marca, e
        não um ecrã do aparelho: fica de fora, onde estava. */
@@ -131,7 +132,7 @@
       '<path d="M0 0L10 5L0 10z" fill="currentColor"/></marker></defs>';
     mapa.appendChild(svg);
 
-    tela.insertBefore(mapa, tela.firstChild);
+    tela.appendChild(mapa);
 
     // o link abre com todos os ecrãs; uma função só com #…&funcao=arrumacao
     filtrar((location.hash.match(/funcao=([a-z]+)/) || [])[1] || 'arrumacao');
@@ -182,7 +183,7 @@
 
   function filtrar(funcao) {
     if (funcao !== 'todas' && !FUNCOES.some(function (par) { return par[0] === funcao; })) funcao = 'arrumacao';
-    [].slice.call(mapa.querySelectorAll('.fluxo__filtro button')).forEach(function (b) {
+    [].slice.call(document.querySelectorAll('.fluxo__filtro button')).forEach(function (b) {
       b.setAttribute('aria-pressed', String(b.dataset.funcao === funcao));
     });
     [].slice.call(mapa.querySelectorAll('.fluxo__linha')).forEach(function (linha) {
@@ -197,7 +198,8 @@
     });
     ordenarLinhas(funcao);
     var nome = (FUNCOES.concat([TODAS]).filter(function (par) { return par[0] === funcao; })[0] || TODAS)[1];
-    mapa.querySelector('.fluxo__funcao').textContent = funcao === 'todas' ? '' : nome;
+    var etiqueta = document.querySelector('.fluxo__funcao');
+    if (etiqueta) etiqueta.textContent = funcao === 'todas' ? '' : nome;
     if (window.PdaTraducao) window.PdaTraducao.aplicar();
 
     agendar();
@@ -216,6 +218,8 @@
       delete ecra.dataset.fluxoEscondido;
       tela.appendChild(ecra);
     });
+    var cab = document.querySelector('.tela > .fluxo__cabeca');
+    if (cab) cab.remove();
     mapa.remove(); mapa = null; svg = null; ordemLinhas = null;
     var z = document.querySelector('.fluxo__zoom');
     if (z) z.remove();
