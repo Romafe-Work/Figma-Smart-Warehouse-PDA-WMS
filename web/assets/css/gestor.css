@@ -10,3 +10,11 @@
 
 /* o passo que ficou por baixo da folha — está lá, mas não é para ler */
 .por-baixo { opacity: .35; }
+
+/* Barras de dados: o nome, a barra e o número. Só para o gestor, onde se
+   comparam coisas — nos ecrãs de trabalho não há gráficos. */
+.barras { display: flex; flex-direction: column; gap: var(--e-sm); }
+.barra-dado { display: grid; grid-template-columns: 70px 1fr 28px; align-items: center; gap: var(--e-sm); font-size: var(--t-small); }
+.barra-dado__risco { height: 10px; border-radius: var(--r-pill); background: var(--c-neutro-suave); overflow: hidden; }
+.barra-dado__cheio { display: block; height: 100%; border-radius: var(--r-pill); background: var(--c-acento); }
+.barra-dado__valor { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }

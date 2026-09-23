@@ -1550,7 +1550,7 @@
       <h2 class="fazer__titulo" id="gp0-agora">Trabalho</h2>
       <button type="button" class="fazer__opcao fazer__opcao--primeira" data-ir="g1">
         <span class="fazer__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20V9M10 20V4M16 20v-7M22 20H2" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><rect class="tinta-acao" x="8.5" y="4" width="3" height="16" rx="1"/></svg></span>
-        <span class="fazer__texto"><span class="fazer__nome">Ver o turno</span><span class="fazer__conta">Como vão os números e os sinais</span></span>
+        <span class="fazer__texto"><span class="fazer__nome">Ver o turno</span><span class="fazer__conta">Números e sinais</span></span>
         <svg class="atalho__seta" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
     </section>
@@ -1561,13 +1561,17 @@
           <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3.5 2.5 20h19Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path class="traco-acao" d="M12 10v4.5" stroke-width="2.4" stroke-linecap="round"/><circle class="tinta-acao" cx="12" cy="17.2" r="1.3"/></svg></span>
           <span class="quadrado__nome">Sinais</span>
         </button>
+        <button type="button" class="quadrado" data-ir="g10">
+          <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 20h18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><rect x="4.5" y="11" width="3.5" height="6" fill="currentColor"/><rect class="tinta-acao" x="10.2" y="6" width="3.5" height="11"/><rect x="15.9" y="13" width="3.5" height="4" fill="currentColor"/></svg></span>
+          <span class="quadrado__nome">Insights</span>
+        </button>
         <button type="button" class="quadrado" data-ir="g5">
           <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path class="traco-acao" d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6" fill="none" stroke-width="2.4" stroke-linecap="round"/></svg></span>
           <span class="quadrado__nome">Atribuir uma tarefa</span>
         </button>
-        <button type="button" class="quadrado" data-ir="g6">
-          <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 20V9l9-5.5L21 9v11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><rect class="tinta-acao" x="8" y="12" width="8" height="8"/></svg></span>
-          <span class="quadrado__nome">O que está a acontecer</span>
+        <button type="button" class="quadrado" data-ir="g9">
+          <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8.5 6h13M8.5 12h13M8.5 18h13" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle class="tinta-acao" cx="3.5" cy="6" r="1.8"/><circle class="tinta-acao" cx="3.5" cy="12" r="1.8"/><circle class="tinta-acao" cx="3.5" cy="18" r="1.8"/></svg></span>
+          <span class="quadrado__nome">Todas as operações</span>
         </button>
       </div>
     </section>
@@ -1725,7 +1729,90 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="g3" data-objetivo="Dizer que o PDA não está ligado, e o que ficou gravado." data-funcao="todas" data-fluxo="Quando falta a ligação" data-nome="61 · Sem ligação" data-refs="CU-27 · RNF-01 · RNF-02 · RF-53" hidden>
+<div class="ecra" data-ecra="g9" data-objetivo="Dar ao gestor tudo o que as funções fazem, num sítio só." data-fluxo="O gestor" data-funcao="gestor" data-nome="61 · Todas as operações" data-refs="CU-32 · CU-03 · CU-06 · CU-09" hidden>
+<div class="pda">
+  <header class="topo">
+    <button type="button" class="topo__voltar" data-ir="gp0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar</button>
+    <p class="topo__titulo">Todas as operações</p>
+    <span class="faixa__rede topo__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span>
+  </header>
+  <div class="corpo">
+    <p class="rotulo">Arrumação</p>
+    <div class="quadrados quadrados--linhas">
+      <button type="button" class="quadrado" data-ir="n1">
+        <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2.5 6h11v10h-11Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path class="tinta-acao" d="M13.5 9h4.2l3.3 3.3v3.7h-7.5Z"/><circle cx="7" cy="18" r="1.8" fill="currentColor"/><circle cx="17" cy="18" r="1.8" fill="currentColor"/></svg></span>
+        <span class="quadrado__nome">Picar a chegada</span>
+      </button>
+      <button type="button" class="quadrado" data-ir="k4">
+        <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.5 11a7.5 7.5 0 0 1 13.2-4.6M18.5 3v4.3h-4.3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path class="traco-acao" d="M19.5 13a7.5 7.5 0 0 1-13.2 4.6M5.5 21v-4.3h4.3" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="quadrado__nome">Corrigir posição</span>
+      </button>
+      <button type="button" class="quadrado" data-ir="q1">
+        <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><circle class="traco-acao" cx="10.5" cy="10.5" r="6.5" fill="none" stroke-width="2.6"/><path class="traco-acao" d="m15.5 15.5 5 5" stroke-width="2.8" stroke-linecap="round"/></svg></span>
+        <span class="quadrado__nome">Consultar artigo</span>
+      </button>
+      <button type="button" class="quadrado" data-ir="q2">
+        <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.5 2.5v19M20.5 2.5v19M3.5 11.5h17M3.5 20h17" fill="none" stroke="currentColor" stroke-width="2.2"/><rect class="tinta-acao" x="6" y="13.5" width="5" height="4.5"/><circle class="traco-acao" cx="14.5" cy="6.5" r="2.6" fill="none" stroke-width="2"/></svg></span>
+        <span class="quadrado__nome">Consultar posição</span>
+      </button>
+    </div>
+    <p class="rotulo">Separação e expedição</p>
+    <div class="quadrados quadrados--linhas">
+      <button type="button" class="quadrado" data-ir="s9">
+        <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4.5" y="2.5" width="15" height="19" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path class="traco-acao" d="M8 8h8M8 12h8M8 16h5" stroke-width="2" stroke-linecap="round"/></svg></span>
+        <span class="quadrado__nome">Consultar guia</span>
+      </button>
+      <button type="button" class="quadrado" data-ir="xq2">
+        <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.5 3v18M20.5 3v18M3.5 12h17M3.5 20.5h17" fill="none" stroke="currentColor" stroke-width="2.2"/><rect class="tinta-acao" x="6.5" y="5.5" width="4.5" height="4.5"/><rect class="tinta-acao" x="13" y="14" width="4.5" height="4.5"/></svg></span>
+        <span class="quadrado__nome">Ver a prateleira de preparados</span>
+      </button>
+    </div>
+    <p class="txt-legenda">O gestor faz tudo o que as funções fazem. Fica registado com o nome dele.</p>
+  </div>
+</div>
+</div>
+
+<div class="ecra" data-ecra="g10" data-objetivo="Mostrar o que os dados dizem: onde se perde tempo, o que falha e o que o motor aprendeu." data-fluxo="O gestor" data-funcao="gestor" data-nome="62 · Insights" data-refs="CU-16 · CU-17 · RF-61" hidden>
+<div class="pda">
+  <header class="topo">
+    <button type="button" class="topo__voltar" data-ir="gp0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar</button>
+    <p class="topo__titulo">Insights</p>
+    <span class="faixa__rede topo__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span>
+  </header>
+  <div class="corpo">
+    <div class="numeros">
+      <div class="numero"><b class="numero__valor">6%</b><span class="numero__nome">leituras à mão</span></div>
+      <div class="numero"><b class="numero__valor">12 min</b><span class="numero__nome">por arrumação</span></div>
+    </div>
+    <p class="rotulo">Posições recusadas, por zona</p>
+    <div class="barras">
+      <div class="barra-dado">
+        <span class="barra-dado__nome">Zona 30</span>
+        <span class="barra-dado__risco"><i class="barra-dado__cheio" style="width:100%"></i></span>
+        <span class="barra-dado__valor">7</span>
+      </div>
+      <div class="barra-dado">
+        <span class="barra-dado__nome">Zona 20</span>
+        <span class="barra-dado__risco"><i class="barra-dado__cheio" style="width:43%"></i></span>
+        <span class="barra-dado__valor">3</span>
+      </div>
+      <div class="barra-dado">
+        <span class="barra-dado__nome">Zona 10</span>
+        <span class="barra-dado__risco"><i class="barra-dado__cheio" style="width:14%"></i></span>
+        <span class="barra-dado__valor">1</span>
+      </div>
+    </div>
+    <p class="rotulo">O que o motor aprendeu</p>
+    <div class="cartao">
+      <div class="linha">Atribuições do gestor<span class="linha__valor">4 esta semana</span></div>
+      <div class="linha">Padrão<span class="linha__valor linha__valor--aviso">óleos ao fim da manhã</span></div>
+    </div>
+    <p class="nota">O motor propõe mudar a ordem dos óleos. Quem muda a régua é a direção.</p>
+  </div>
+</div>
+</div>
+
+<div class="ecra" data-ecra="g3" data-objetivo="Dizer que o PDA não está ligado, e o que ficou gravado." data-funcao="todas" data-fluxo="Quando falta a ligação" data-nome="63 · Sem ligação" data-refs="CU-27 · RNF-01 · RNF-02 · RF-53" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Separação</span><span class="faixa__nome">Rui Costa</span><span class="faixa__rede faixa__rede--sem"><span class="faixa__ponto" aria-hidden="true"></span>Sem ligação</span></div>
   <header class="barra"><h1 class="barra__titulo">Sem ligação</h1><p class="barra__sub">Desde as 10h22</p></header>

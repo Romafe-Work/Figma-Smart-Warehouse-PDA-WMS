@@ -4,10 +4,10 @@ Feito como o `Figma-WebShop-GoParts`: o mesmo editor, apontado ao PDA.
 
 | Ficheiro | Para quê |
 | --- | --- |
-| `importar/01-ecras.pdf` | **Importar no Figma ou no Canva.** Os 61 ecrãs, uma página de 320 × 533 cada, em vetor e com o texto editável |
+| `importar/01-ecras.pdf` | **Importar no Figma ou no Canva.** Os 63 ecrãs, uma página de 320 × 533 cada, em vetor e com o texto editável |
 | `importar/02-ecras-com-titulo.pdf` | Para ler e mostrar: cada ecrã com o nome por cima |
 | `importar/ecras/*.png` | Cada ecrã a 480 × 800, o tamanho real do EDA61K |
-| `importar/03-fluxo.png`, `importar/03-fluxo.pdf` | **O mapa de navegação.** Os 61 ecrãs numa folha, uma linha por fluxo, com uma seta de cada botão ou leitura para o ecrã a que leva |
+| `importar/03-fluxo.png`, `importar/03-fluxo.pdf` | **O mapa de navegação.** Os 63 ecrãs numa folha, uma linha por fluxo, com uma seta de cada botão ou leitura para o ecrã a que leva |
 | `importar/03-fluxo-arrumacao.*` | O mesmo mapa, só com o que a arrumação vê, de ponta a ponta |
 | `importar/*-en.pdf`, `importar/ecras-en/` | O mesmo, em inglês |
 | `importar/icone/*.png` | O ícone da app: o inteiro a 512 e 1024 para a loja, o símbolo nas cinco densidades do Android (48 a 192) |
@@ -18,7 +18,7 @@ Feito como o `Figma-WebShop-GoParts`: o mesmo editor, apontado ao PDA.
 
 ```
 web/
-  index.html                 os 61 ecrãs, em modo de edição
+  index.html                 os 63 ecrãs, em modo de edição
   documentacao.html          o sistema documentado, com exemplos vivos
   como-funciona.html         o que é e como está montado
   assets/css/tokens.css      os valores, copiados de 05-design/03 sem alterar
@@ -93,8 +93,8 @@ transportadoras nem a marca.
 | Da prateleira ao camião | 44 a 48 | CU-13 · CU-38 · CU-15 |
 | Quando a expedição não corre bem | 49 a 52 | CU-22 · CU-14 · CU-12 |
 | Consultar na expedição | 53 · 54 | CU-03 · RF-115 |
-| O gestor | 55 Início do gestor · 56 Relatório · 57 Sinais · 58 Atribuir · 59 O que está a acontecer · 60 Feito | CU-16 a CU-20 · CU-30 |
-| Quando falta a ligação (todas) | 61 Sem ligação | CU-27 · RNF-01 |
+| O gestor | 55 Início do gestor · 56 Relatório · 57 Sinais · 58 Atribuir · 59 O que está a acontecer · 60 Feito · 61 Todas as operações · 62 Insights | CU-16 a CU-20 · CU-30 · CU-32 |
+| Quando falta a ligação (todas) | 63 Sem ligação | CU-27 · RNF-01 |
 
 Cada ecrã tem `data-funcao` (`arrumacao`, `separacao`, `expedicao`, `gestor` ou `todas`):
 é o que o filtro do *Fluxo* usa, e o que o `gerar.sh` usa para o `03-fluxo-arrumacao`.
