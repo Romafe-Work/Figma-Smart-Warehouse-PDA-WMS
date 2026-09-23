@@ -3,7 +3,7 @@
    Só arrumação: o que fica onde nos ecrãs g1 a g3.
    ========================================================= */
 
-.numeros { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-md); }
+.numeros { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-sm); }
 .numero { padding: var(--e-md) var(--e-lg); background: var(--c-cartao); border: 1px solid var(--c-cinzento); border-radius: var(--r-md); }
 .numero__valor { display: block; font-size: var(--t-huge); font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; }
 .numero__nome  { font-size: var(--t-tiny); color: var(--c-texto-3); }

@@ -23,12 +23,13 @@ code { font-family: var(--f-mono); }
   font-family: var(--f-base); font-size: var(--t-body); line-height: 1.3;
 }
 
-.corpo  { flex: 1; min-height: 0; padding: var(--e-lg); display: flex; flex-direction: column; gap: var(--e-md); overflow: hidden; }
+.corpo  { flex: 1; min-height: 0; padding: var(--e-md) var(--e-lg); display: flex; flex-direction: column; gap: var(--e-sm); overflow: hidden; }
 .rodape { padding: var(--e-sm) var(--e-lg) var(--e-lg); display: flex; flex-direction: column; gap: var(--e-md); }
 
 /* ---------- Faixa: quem é e se há rede, sempre no mesmo sítio ---------- */
 .faixa {
   display: flex; align-items: center; gap: var(--e-md); flex: none;
+  border-radius: 0 0 var(--r-lg) var(--r-lg);
   padding: var(--e-md) var(--e-lg);
   background: var(--c-invertido); color: var(--c-sobre-marca);
   font-size: var(--t-small);
@@ -206,6 +207,10 @@ code { font-family: var(--f-mono); }
 .tarefa--seguinte { border: 2px solid var(--c-acao); }
 .tarefa__titulo { font-size: var(--t-body); font-weight: 700; }
 .tarefa__porque { font-size: var(--t-tiny); color: var(--c-texto-2); }
+.tarefa--sinal .tarefa__porque { font-size: var(--t-micro); }
+.tarefa--sinal .tarefa__titulo { font-size: var(--t-small); }
+.tarefa--sinal .tarefa__circulo { width: 34px; height: 34px; }
+.tarefa--sinal .tarefa__circulo svg { width: 18px; height: 18px; }
 /* Uma regra que a pessoa tem de saber, sem ser aviso: caixa azul clara. */
 .nota {
   padding: var(--e-md) var(--e-lg); border: 1px solid var(--c-acento); border-radius: var(--r-md);
@@ -282,3 +287,84 @@ code { font-family: var(--f-mono); }
 .lockup__risco { width: 100%; height: 3px; background: var(--c-acao); border-radius: 2px; }
 .lockup__sub { font-size: var(--t-small); color: var(--c-texto-2); margin: 0; line-height: 1.2; }
 .lockup--invertido .lockup__sub { color: var(--c-sobre-marca); }
+
+
+/* ---------- Desenho de 23 de setembro: mais ar, cantos redondos ----------
+   O retrato de quem está na sessão, à direita da faixa. */
+.faixa__avatar {
+  display: flex; align-items: center; justify-content: center; flex: none;
+  width: 24px; height: 24px; border-radius: var(--r-pill);
+  background: rgba(255,255,255,.16); color: var(--c-sobre-marca);
+}
+.faixa__avatar svg { width: 14px; height: 14px; }
+.faixa__nome { margin-left: auto; }
+
+/* O cartão de topo: o que é este ecrã, com a fotografia do armazém ao fundo. */
+.heroi {
+  position: relative; overflow: hidden; flex: none;
+  margin: var(--e-sm) var(--e-sm) 0; padding: var(--e-md) var(--e-lg);
+  background: var(--c-cartao); border-radius: var(--r-lg);
+}
+.heroi__foto {
+  position: absolute; inset: 0 0 0 45%;
+  background: linear-gradient(rgba(255,255,255,.45), rgba(255,255,255,.45)), url("../img/armazem.png") center/cover no-repeat;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 35%);
+  mask-image: linear-gradient(90deg, transparent, #000 35%);
+}
+.heroi__risco { display: block; width: 36px; height: 4px; border-radius: var(--r-pill); background: var(--c-acao); }
+.heroi__titulo { position: relative; margin-top: var(--e-xs); font-size: var(--t-big); font-weight: 700; line-height: 1.1; }
+.heroi__sub { position: relative; font-size: var(--t-small); color: var(--c-texto-2); }
+
+/* Título de secção com o risco laranja, e um atalho à direita. */
+.titulo-seccao { display: flex; align-items: center; gap: var(--e-md); }
+.titulo-seccao__risco { flex: none; width: 4px; height: 22px; border-radius: var(--r-pill); background: var(--c-acao); }
+.titulo-seccao__texto { font-size: var(--t-lead); font-weight: 700; }
+.titulo-seccao__ver {
+  margin-left: auto; display: flex; align-items: center; gap: var(--e-xs);
+  padding: var(--e-xs) var(--e-md); border: 0; border-radius: var(--r-pill);
+  background: var(--c-neutro-suave); color: var(--c-acento);
+  font: 700 var(--t-tiny) var(--f-base);
+}
+.titulo-seccao__ver svg { width: 12px; height: 12px; }
+
+/* Sinal: risco de cor à esquerda, fundo tingido, ícone redondo e seta. */
+.tarefa--sinal {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center;
+  column-gap: var(--e-md); row-gap: 2px; padding: var(--e-sm) var(--e-md);
+  border: 0; border-left: 4px solid var(--c-neutro); background: var(--c-neutro-suave);
+}
+.tarefa--sinal > :not(.tarefa__circulo):not(.tarefa__seta) { grid-column: 2; }
+.tarefa--sinal .tarefa__circulo { grid-row: 1 / span 3; }
+.tarefa__seta { grid-row: 1 / span 3; grid-column: 3; width: 16px; height: 16px; color: var(--c-texto-3); }
+.tarefa--mapa     { border-left-color: var(--c-aviso); background: var(--c-aviso-suave); }
+.tarefa--mapa     .tarefa__circulo { background: var(--c-cartao); color: var(--c-aviso); }
+.tarefa--stock    { border-left-color: var(--c-erro);  background: var(--c-erro-suave); }
+.tarefa--stock    .tarefa__circulo { background: var(--c-cartao); color: var(--c-erro); }
+.tarefa--etiqueta { border-left-color: var(--c-acento); background: var(--c-neutro-suave); }
+.tarefa--etiqueta .tarefa__circulo { background: var(--c-cartao); color: var(--c-acento); }
+
+/* Cartão de número: ícone num quadrado de cor, o número, e a seta. */
+.numero {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center;
+  column-gap: var(--e-sm); row-gap: 0; border: 0; text-align: left;
+  padding: var(--e-sm) var(--e-md);
+}
+.numero__icone {
+  grid-column: 1; grid-row: 1 / span 2; display: flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: var(--r-md);
+  background: var(--c-acento); color: var(--c-sobre-marca);
+}
+.numero__icone svg { width: 19px; height: 19px; }
+.numero__icone--acao { background: var(--c-acao); }
+.numero__valor { grid-column: 2; font-size: var(--t-big); }
+.numero__nome  { grid-column: 2; font-size: var(--t-micro); line-height: 1.2; }
+.numero__seta  { grid-column: 3; grid-row: 1 / span 2; width: 12px; height: 12px; color: var(--c-texto-3); }
+
+/* o círculo do ícone, nas tarefas e nos sinais */
+.tarefa__circulo {
+  grid-column: 1; grid-row: 1 / span 3;
+  display: flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border-radius: var(--r-pill);
+  background: var(--c-neutro-suave); color: var(--c-neutro);
+}
+.tarefa__circulo svg { width: 22px; height: 22px; }

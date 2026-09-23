@@ -78,13 +78,13 @@
    pela fila. Por baixo, as «Operações», em quatro quadrados: o que a
    função faz por iniciativa própria. Em baixo, a barra de abas. */
 .menu { background: var(--c-cartao); }
-.menu__corpo { gap: var(--e-sm); padding-top: var(--e-sm); }
+.menu__corpo { gap: var(--e-sm); padding-top: var(--e-xs); }
 
 /* Trabalho: o cartão grande que começa as tarefas, com o contorno de
    acento e o círculo cheio. O .fazer__opcao sem --primeira fica para um
    cartão secundário, se voltar a haver. */
-.fazer { display: flex; flex-direction: column; gap: var(--e-sm); }
-.fazer--outras { padding-top: var(--e-md); border-top: 1px solid var(--c-neutro-suave); }
+.fazer { display: flex; flex-direction: column; gap: var(--e-xs); }
+.fazer--outras { padding-top: var(--e-sm); border-top: 1px solid var(--c-neutro-suave); }
 
 /* As operações: quatro quadrados, 2 × 2, a toda a largura do corpo.
    Ícone por cima do nome, como os mosaicos de um telemóvel. */
@@ -117,8 +117,8 @@
 .quadrado__circulo svg { width: 22px; height: 22px; }
 .fazer__titulo { font-size: var(--t-lead); font-weight: 700; }
 .fazer__opcao {
-  display: flex; align-items: center; gap: var(--e-lg); width: 100%; min-height: var(--alvo-lg);
-  padding: var(--e-lg); text-align: left; font: inherit; color: var(--c-texto);
+  display: flex; align-items: center; gap: var(--e-md); width: 100%; min-height: var(--alvo-lg);
+  padding: var(--e-md); text-align: left; font: inherit; color: var(--c-texto);
   background: var(--c-cartao); border: 1px solid var(--c-cinzento); border-radius: var(--r-md);
 }
 .fazer__opcao--primeira { background: var(--c-neutro-suave); border: 2px solid var(--c-acento); }
@@ -140,23 +140,24 @@
 .abas-fundo {
   display: grid; grid-template-columns: repeat(3, 1fr); flex: none;
   padding: var(--e-sm) var(--e-lg) var(--e-md);
-  background: var(--c-cartao); border-top: 1px solid var(--c-neutro-suave);
+  margin: 0 var(--e-sm) var(--e-sm);
+  background: var(--c-invertido); border-radius: var(--r-lg);
 }
 .abas-fundo__aba {
   position: relative; display: flex; flex-direction: column; align-items: center; gap: var(--e-xs);
   min-height: var(--alvo); padding: var(--e-xs) 0 var(--e-sm); border: 0; background: none;
-  font: 500 var(--t-tiny) var(--f-base); color: var(--c-texto-2);
+  font: 500 var(--t-tiny) var(--f-base); color: rgba(255,255,255,.72);
 }
 .abas-fundo__icone {
   position: relative; display: flex; align-items: center; justify-content: center;
   width: 40px; height: 40px; border-radius: var(--r-pill);
 }
 .abas-fundo__icone svg { width: 22px; height: 22px; }
-.abas-fundo__aba[aria-current="page"] { color: var(--c-acento); font-weight: 700; }
-.abas-fundo__aba[aria-current="page"] .abas-fundo__icone { background: var(--c-neutro-suave); }
+.abas-fundo__aba[aria-current="page"] { color: var(--c-acao); font-weight: 700; }
+.abas-fundo__aba[aria-current="page"] .abas-fundo__icone { background: rgba(255,255,255,.12); }
 .abas-fundo__aba[aria-current="page"]::after {
   content: ""; position: absolute; bottom: 0; width: 24px; height: 3px;
-  border-radius: var(--r-pill); background: var(--c-acento);
+  border-radius: var(--r-pill); background: var(--c-acao);
 }
 .abas-fundo__contador {
   position: absolute; top: 0; right: -4px; display: flex; align-items: center; justify-content: center;
