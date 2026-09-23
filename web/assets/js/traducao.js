@@ -506,7 +506,7 @@
     'Camião GLS · 14h00': 'GLS truck · 14:00',
     '6 linhas': '6 lines',
     '3 linhas': '3 lines',
-    'Começar a volta': 'Start the round',
+    'Começar a recolher': 'Start picking',
     'Tira': 'Take',
     '6 × Filtro de óleo W712': '6 × W712 oil filter',
     'Para G-24187 · o stock já está reservado para ti': 'For G-24187 · the stock is already reserved for you',
