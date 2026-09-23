@@ -625,9 +625,19 @@
     }
   }
 
+  /* Ir até um ecrã no mapa. Se o filtro da função o estiver a esconder, é o
+     filtro que muda — escolher um ecrã na lista é querer vê-lo, e não é a
+     função escolhida que decide quais é que se podem ver. */
   function mostrar(id) {
     var e = mapa && mapa.querySelector('.ecra[data-ecra="' + id + '"]');
-    if (e) e.scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
+    if (!e) return;
+    if (e.classList.contains('fluxo--fora')) filtrar(e.dataset.funcao || 'todas');
+    e.scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
+    e.classList.add('fluxo--encontrado');
+    clearTimeout(mostrar.relogio);
+    mostrar.relogio = setTimeout(function () {
+      e.classList.remove('fluxo--encontrado');
+    }, 1600);
   }
 
   window.addEventListener('resize', agendar);
