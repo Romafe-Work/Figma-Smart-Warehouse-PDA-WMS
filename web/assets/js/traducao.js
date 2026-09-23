@@ -92,6 +92,7 @@
     'Bom dia, Marta': 'Good morning, Marta',
     'Trabalho': 'Work',
     'Começar tarefas': 'Start tasks',
+    'Está na coluna ao lado': 'It is in the next column',
     'Comunicar um problema': 'Report a problem',
     'Qualquer função comunica o que a impede de seguir: fica registado com quem o disse e a que horas, e o gestor é avisado.': 'Any role reports what is stopping them: it is recorded with who said it and when, and the manager is told.',
     '2 paletes por receber': '2 pallets to receive',
