@@ -672,3 +672,12 @@ html, body { background: var(--ed-tela); }
 .fluxo__cabeca { flex-wrap: nowrap; }
 .fluxo__titulo { flex: 1 1 0; min-width: 80px; }
 .fluxo__filtro { flex: none; }
+
+/* As setas ficam discretas; azuis só quando se clica numa. */
+.fluxo__setas { color: #c3cbd6; }
+.fluxo__setas path.fluxo__seta--escolhida { stroke: #1a73e8; stroke-width: 3; }
+.fluxo__setas path.fluxo__seta--escolhida { marker-end: url(#fluxo-ponta); }
+.fluxo__alvo { fill: none; stroke: #c3cbd6; stroke-width: 1.5; }
+.fluxo__alvo[data-escolhida] { fill: rgba(26,115,232,.08); stroke: #1a73e8; stroke-width: 2; }
+.fluxo__toque:hover { stroke: rgba(26,115,232,.12); }
+.fluxo__setas path.fluxo__seta--movida { stroke-dasharray: none; }

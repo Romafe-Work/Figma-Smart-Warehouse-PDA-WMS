@@ -219,7 +219,7 @@
     });
     var cab = document.querySelector('.tela > .fluxo__cabeca');
     if (cab) cab.remove();
-    mapa.remove(); mapa = null; svg = null; ordemLinhas = null;
+    mapa.remove(); mapa = null; svg = null; ordemLinhas = null; setaEscolhida = null;
     var z = document.querySelector('.fluxo__zoom');
     if (z) z.remove();
     document.body.classList.remove('com-fluxo');
@@ -363,8 +363,11 @@
     var p = document.createElementNS(NS, 'path');
     p.setAttribute('d', d);
     p.setAttribute('marker-end', 'url(#fluxo-ponta)');
-    if (desvios[chave]) p.setAttribute('class', 'fluxo__seta--movida');
-    if (chave === aArrastar) p.setAttribute('class', 'fluxo__seta--agarrada');
+    var classes = [];
+    if (desvios[chave]) classes.push('fluxo__seta--movida');
+    if (chave === setaEscolhida) classes.push('fluxo__seta--escolhida');
+    if (chave === aArrastar) classes.push('fluxo__seta--agarrada');
+    if (classes.length) p.setAttribute('class', classes.join(' '));
     svg.appendChild(p);
     if (!editavel) return;
     // a linha tem 2 px; agarra-se por uma mais larga e invisível por cima
@@ -381,7 +384,7 @@
      ecrã do lado). As pontas ficam presas à peça e ao ecrã. Duplo clique
      devolve-a ao traçado automático. Fica no navegador, como o resto do
      editor. */
-  var aArrastar = null, arrasto = null;
+  var aArrastar = null, arrasto = null, setaEscolhida = null;
   var pecas = {};       // chave da seta -> a peça de onde sai (refeito a cada desenho)
   var ligando = null;   // a arrastar uma seta nova, ou a ponta de uma que já existe
 
@@ -493,13 +496,25 @@
     window.addEventListener('mouseup', function (ev) {
       if (!arrasto) return;
       ev.stopPropagation();
-      var moveu = arrasto.moveu;
+      var moveu = arrasto.moveu, chaveClicada = arrasto.chave;
       arrasto = null; aArrastar = null;
-      // um clique sem arrastar não redesenha: senão o duplo clique perdia a seta
-      if (!moveu) return;
+      /* Um clique sem arrastar escolhe a seta: é assim que ela fica azul, e
+         que se vê de onde sai. Outro clique na mesma tira a escolha. */
+      if (!moveu) {
+        setaEscolhida = setaEscolhida === chaveClicada ? null : chaveClicada;
+        agendar();
+        return;
+      }
       document.body.classList.remove('fluxo-a-mover');
       guardarDesvios(); agendar();
       window.addEventListener('click', function (e) { e.stopPropagation(); e.preventDefault(); }, { capture: true, once: true });
+    }, true);
+    // clicar fora das setas tira a escolha
+    window.addEventListener('mousedown', function (ev) {
+      if (!mapa || !setaEscolhida) return;
+      if (ev.target.closest && ev.target.closest('.fluxo__toque')) return;
+      setaEscolhida = null;
+      agendar();
     }, true);
     window.addEventListener('dblclick', function (ev) {
       var t = ev.target.closest && ev.target.closest('.fluxo__toque');
@@ -554,18 +569,20 @@
       if (destino.closest('.fluxo--fora') || origem.closest('.fluxo--fora')) return;
       var p = caixa(peca, m, k), o = caixa(origem, m, k), d = caixa(destino, m, k);
 
-      var alvo = document.createElementNS(NS, 'rect');
-      alvo.setAttribute('x', p.x - 2); alvo.setAttribute('y', p.y - 2);
-      alvo.setAttribute('width', p.l + 4); alvo.setAttribute('height', p.a + 4);
-      alvo.setAttribute('rx', 6);
-      alvo.setAttribute('class', 'fluxo__alvo');
-      svg.appendChild(alvo);
 
       var n = chegadas[peca.dataset.ir] = (chegadas[peca.dataset.ir] || 0) + 1;
       // a chave: de que ecrã, qual das ligações dele, para onde
       var ligacoes = [].slice.call(origem.querySelectorAll('[data-ir]'));
       var chave = origem.parentNode.dataset.ecra + '#' + ligacoes.indexOf(peca) + '>' + peca.dataset.ir;
       var dv = desvios[chave] || { x: 0, y: 0 };
+      // a peça de onde sai a seta só se realça quando a seta está escolhida
+      var alvo = document.createElementNS(NS, 'rect');
+      if (chave === setaEscolhida) alvo.setAttribute('data-escolhida', '');
+      alvo.setAttribute('x', p.x - 2); alvo.setAttribute('y', p.y - 2);
+      alvo.setAttribute('width', p.l + 4); alvo.setAttribute('height', p.a + 4);
+      alvo.setAttribute('rx', 6);
+      alvo.setAttribute('class', 'fluxo__alvo');
+      svg.appendChild(alvo);
       pecas[chave] = peca;
       var x1 = p.x + p.l + 2, y1 = p.y + p.a / 2;
       var mesmaLinha = Math.abs(o.y - d.y) < 4;
