@@ -159,20 +159,21 @@
     agendar();
   }
 
-  /* Ao filtrar por uma função, as linhas dela vêm primeiro — o menu inicial
-     e a fila —, e as que são de toda a gente (entrar, palete vazia) vão para
-     o fim. Sem filtro, volta a ordem do index.html. */
+  /* Ao filtrar por uma função: primeiro a linha do login, que é por onde se
+     começa sempre; depois as linhas da função — o menu inicial e a fila —, e
+     no fim as que são de toda a gente. Sem filtro, volta a ordem do index.html. */
   function ordenarLinhas(funcao) {
     var linhas = [].slice.call(mapa.querySelectorAll('.fluxo__linha'));
     if (!ordemLinhas) ordemLinhas = linhas.slice();
-    var suas = [], comuns = [];
+    var login = null, suas = [], comuns = [];
     ordemLinhas.forEach(function (linha) {
+      if (funcao !== 'todas' && !login && linha.querySelector('.ecra[data-ecra="e1"]')) { login = linha; return; }
       var tem = [].slice.call(linha.querySelectorAll('.ecra')).some(function (e) {
         return (e.dataset.funcao || 'todas') === funcao;
       });
       (funcao !== 'todas' && !tem ? comuns : suas).push(linha);
     });
-    suas.concat(comuns).forEach(function (linha) { mapa.appendChild(linha); });
+    (login ? [login] : []).concat(suas, comuns).forEach(function (linha) { mapa.appendChild(linha); });
     mapa.appendChild(svg);
   }
 
@@ -744,19 +745,20 @@
       // as secções da função escolhida primeiro, as de toda a gente no fim
       if (!art.dataset.ordem) {
         art.dataset.ordem = '1';
-        art.seccoes = [].slice.call(art.querySelectorAll('.texto-fluxo__seccao:not(.texto-fluxo__casos)'));
+        art.seccoes = [].slice.call(art.querySelectorAll('.texto-fluxo__seccao:not(.texto-fluxo__casos):not(.texto-fluxo__percursos)'));
       }
-      var suas = [], comuns = [];
+      var login = null, suas = [], comuns = [];
       art.seccoes.forEach(function (sec) {
+        if (f !== 'todas' && !login && sec.querySelector('h3 > [data-ir-ecra="e1"]')) { login = sec; return; }
         var tem = [].slice.call(sec.querySelectorAll('.texto-fluxo__bloco')).some(function (bl) {
           return bl.dataset.funcao === f;
         });
         (f !== 'todas' && !tem ? comuns : suas).push(sec);
       });
       var casosSec = art.querySelector('.texto-fluxo__casos');
-      suas.concat(comuns).forEach(function (sec) { art.insertBefore(sec, casosSec); });
+      (login ? [login] : []).concat(suas, comuns).forEach(function (sec) { art.insertBefore(sec, casosSec); });
 
-      [].slice.call(art.querySelectorAll('.texto-fluxo__seccao:not(.texto-fluxo__casos)')).forEach(function (sec) {
+      [].slice.call(art.querySelectorAll('.texto-fluxo__seccao:not(.texto-fluxo__casos):not(.texto-fluxo__percursos)')).forEach(function (sec) {
         var algum = false;
         [].slice.call(sec.querySelectorAll('.texto-fluxo__bloco')).forEach(function (bl) {
           var fica = f === 'todas' || bl.dataset.funcao === 'todas' || bl.dataset.funcao === f;
