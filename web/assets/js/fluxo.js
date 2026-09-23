@@ -29,7 +29,7 @@
   var FUNCOES = [['todas', 'Todas'], ['arrumacao', 'Arrumação'], ['separacao', 'Separação'],
                  ['expedicao', 'Expedição'], ['gestor', 'Gestor']];
 
-  var mapa = null, svg = null, observador = null, pedido = 0;
+  var mapa = null, svg = null, observador = null, pedido = 0, ordemLinhas = null;
   var editavel = false;   // no editor as setas arrastam-se; na captura, não
   var desvios = {};       // chave da seta -> { x, y } em px do mapa
   var ordem = [];      // os ecrãs pela ordem do index.html, para os devolver
@@ -159,6 +159,23 @@
     agendar();
   }
 
+  /* Ao filtrar por uma função, as linhas dela vêm primeiro — o menu inicial
+     e a fila —, e as que são de toda a gente (entrar, palete vazia) vão para
+     o fim. Sem filtro, volta a ordem do index.html. */
+  function ordenarLinhas(funcao) {
+    var linhas = [].slice.call(mapa.querySelectorAll('.fluxo__linha'));
+    if (!ordemLinhas) ordemLinhas = linhas.slice();
+    var suas = [], comuns = [];
+    ordemLinhas.forEach(function (linha) {
+      var tem = [].slice.call(linha.querySelectorAll('.ecra')).some(function (e) {
+        return (e.dataset.funcao || 'todas') === funcao;
+      });
+      (funcao !== 'todas' && !tem ? comuns : suas).push(linha);
+    });
+    suas.concat(comuns).forEach(function (linha) { mapa.appendChild(linha); });
+    mapa.appendChild(svg);
+  }
+
   function filtrar(funcao) {
     if (!FUNCOES.some(function (par) { return par[0] === funcao; })) funcao = 'todas';
     [].slice.call(mapa.querySelectorAll('.fluxo__filtro button')).forEach(function (b) {
@@ -174,6 +191,7 @@
       });
       linha.classList.toggle('fluxo--fora', !algum);
     });
+    ordenarLinhas(funcao);
     var nome = FUNCOES.filter(function (par) { return par[0] === funcao; })[0][1];
     mapa.querySelector('.fluxo__funcao').textContent = funcao === 'todas' ? '' : nome;
     if (window.PdaTraducao) window.PdaTraducao.aplicar();
@@ -194,7 +212,7 @@
       delete ecra.dataset.fluxoEscondido;
       tela.appendChild(ecra);
     });
-    mapa.remove(); mapa = null; svg = null;
+    mapa.remove(); mapa = null; svg = null; ordemLinhas = null;
     var z = document.querySelector('.fluxo__zoom');
     if (z) z.remove();
     document.body.classList.remove('com-fluxo');
@@ -718,7 +736,21 @@
       if (casos) casos.filtrar(f);
       [].slice.call(filtro.children).forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
       desenharDiagrama(tela, ecras, f);
-      // as secções dos fluxos; a dos casos de uso filtra-se a si mesma
+      // as secções da função escolhida primeiro, as de toda a gente no fim
+      if (!art.dataset.ordem) {
+        art.dataset.ordem = '1';
+        art.seccoes = [].slice.call(art.querySelectorAll('.texto-fluxo__seccao:not(.texto-fluxo__casos)'));
+      }
+      var suas = [], comuns = [];
+      art.seccoes.forEach(function (sec) {
+        var tem = [].slice.call(sec.querySelectorAll('.texto-fluxo__bloco')).some(function (bl) {
+          return bl.dataset.funcao === f;
+        });
+        (f !== 'todas' && !tem ? comuns : suas).push(sec);
+      });
+      var casosSec = art.querySelector('.texto-fluxo__casos');
+      suas.concat(comuns).forEach(function (sec) { art.insertBefore(sec, casosSec); });
+
       [].slice.call(art.querySelectorAll('.texto-fluxo__seccao:not(.texto-fluxo__casos)')).forEach(function (sec) {
         var algum = false;
         [].slice.call(sec.querySelectorAll('.texto-fluxo__bloco')).forEach(function (bl) {
