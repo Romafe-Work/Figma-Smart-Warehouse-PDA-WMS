@@ -26,8 +26,11 @@
   var MIN = 0.1, MAX = 3;
 
   var CHAVE_SETAS = 'pda:fluxo:setas';
-  var FUNCOES = [['todas', 'Todas'], ['arrumacao', 'Arrumação'], ['separacao', 'Separação'],
+  /* Um filtro por função; não há «todas» para escolher, porque o mapa inteiro
+     não se lê. O #so=fluxo&funcao=todas continua a valer, para o gerar.sh. */
+  var FUNCOES = [['arrumacao', 'Arrumação'], ['separacao', 'Separação'],
                  ['expedicao', 'Expedição'], ['gestor', 'Gestor']];
+  var TODAS = ['todas', 'Todas'];
 
   var mapa = null, svg = null, observador = null, pedido = 0, ordemLinhas = null;
   var editavel = false;   // no editor as setas arrastam-se; na captura, não
@@ -131,7 +134,7 @@
     tela.insertBefore(mapa, tela.firstChild);
 
     // o link abre com todos os ecrãs; uma função só com #…&funcao=arrumacao
-    filtrar((location.hash.match(/funcao=([a-z]+)/) || [])[1] || 'todas');
+    filtrar((location.hash.match(/funcao=([a-z]+)/) || [])[1] || 'arrumacao');
 
     if (comZoom) {
       try { zoom = parseFloat(localStorage.getItem(CHAVE_ZOOM)) || 0; } catch (e) { zoom = 0; }
@@ -178,7 +181,7 @@
   }
 
   function filtrar(funcao) {
-    if (!FUNCOES.some(function (par) { return par[0] === funcao; })) funcao = 'todas';
+    if (funcao !== 'todas' && !FUNCOES.some(function (par) { return par[0] === funcao; })) funcao = 'arrumacao';
     [].slice.call(mapa.querySelectorAll('.fluxo__filtro button')).forEach(function (b) {
       b.setAttribute('aria-pressed', String(b.dataset.funcao === funcao));
     });
@@ -193,7 +196,7 @@
       linha.classList.toggle('fluxo--fora', !algum);
     });
     ordenarLinhas(funcao);
-    var nome = FUNCOES.filter(function (par) { return par[0] === funcao; })[0][1];
+    var nome = (FUNCOES.concat([TODAS]).filter(function (par) { return par[0] === funcao; })[0] || TODAS)[1];
     mapa.querySelector('.fluxo__funcao').textContent = funcao === 'todas' ? '' : nome;
     if (window.PdaTraducao) window.PdaTraducao.aplicar();
 
@@ -666,7 +669,7 @@
       var b = el('button', null, par[1]);
       b.type = 'button';
       b.dataset.funcao = par[0];
-      b.setAttribute('aria-pressed', String(par[0] === 'todas'));
+      b.setAttribute('aria-pressed', String(par[0] === 'arrumacao'));
       filtro.appendChild(b);
     });
     art.appendChild(filtro);
@@ -734,13 +737,11 @@
     var casos = casosDeUso(ecras, el, ligacao);
     if (casos) art.appendChild(casos.seccao);
 
-    filtro.addEventListener('click', function (ev) {
-      var b = ev.target.closest('button');
-      if (!b) return;
-      var f = b.dataset.funcao;
+    function aplicarFiltro(fn) {
+      var f = fn;
       if (casos) casos.filtrar(f);
       if (percursos) percursos.filtrar(f);
-      [].slice.call(filtro.children).forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      [].slice.call(filtro.children).forEach(function (x) { x.setAttribute('aria-pressed', String(x.dataset.funcao === f)); });
       desenharDiagrama(tela, ecras, f);
       // as secções da função escolhida primeiro, as de toda a gente no fim
       if (!art.dataset.ordem) {
@@ -767,8 +768,13 @@
         });
         sec.hidden = !algum;
       });
+    }
+    filtro.addEventListener('click', function (ev) {
+      var b = ev.target.closest('button');
+      if (b) aplicarFiltro(b.dataset.funcao);
     });
-    desenharDiagrama(tela, ecras, 'todas');
+    // o texto abre na arrumação, como o mapa
+    aplicarFiltro('arrumacao');
     return art;
   }
 
@@ -806,7 +812,7 @@
       });
       seccao.hidden = !algum;
     }
-    filtrar('todas');
+    filtrar('arrumacao');
     return { seccao: seccao, filtrar: filtrar };
   }
 
@@ -907,7 +913,7 @@
       blocos.forEach(function (x) { x.el.hidden = !casoServe(x.caso, funcao); });
       desenharEm(tela, codigoCasos(casos, funcao));
     }
-    filtrar('todas');
+    filtrar('arrumacao');
     return { seccao: seccao, filtrar: filtrar };
   }
 

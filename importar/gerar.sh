@@ -7,7 +7,7 @@
 #
 #   ecras/NN-nome.png            cada ecrã a 480 × 800 px, o tamanho real do EDA61K
 #   ecras-en/NN-nome.png         o mesmo, em inglês
-#   01-ecras.pdf                 os 47 ecrãs, uma página de 320 × 533 cada, em vetor
+#   01-ecras.pdf                 os 61 ecrãs, uma página de 320 × 533 cada, em vetor
 #   01-ecras-en.pdf              o mesmo, em inglês
 #   02-ecras-com-titulo.pdf      os 19 com o nome por cima, para ler e mostrar
 #   02-ecras-com-titulo-en.pdf   o mesmo, em inglês
@@ -67,12 +67,26 @@ s8|38-separacao-sair-com-guias
 s9|39-separacao-consultar-guia
 sq1|40-separacao-consultar-artigo
 sq2|41-separacao-consultar-posicao
-x1|42-expedicao-camioes
-x2|43-expedicao-conferir-volumes
-x3|44-expedicao-levar-ao-cais
-x4|45-expedicao-carregar
-g1|46-gestor-relatorio
-g3|47-sem-ligacao
+xp0|42-expedicao-inicio
+xp1|43-expedicao-fila
+x1|44-expedicao-camioes
+x2|45-expedicao-conferir-volumes
+x3|46-expedicao-levar-ao-cais
+x4|47-expedicao-carregar
+x5|48-expedicao-saida-fechada
+x6|49-expedicao-o-que-se-passa
+x7|50-expedicao-falta-volume
+x8|51-expedicao-escreve-cais
+x9|52-expedicao-sair-com-saida
+xq1|53-expedicao-consultar-guia
+xq2|54-expedicao-prateleira
+gp0|55-gestor-inicio
+g1|56-gestor-relatorio
+g4|57-gestor-sinais
+g5|58-gestor-atribuir
+g6|59-gestor-agora
+g8|60-gestor-feito
+g3|61-sem-ligacao
 L
 )
 
