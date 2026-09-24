@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A arrumação, caso a caso — Ecrãs do PDA</title>
+<meta name="description" content="O menu, a forma como o trabalho chega, e os catorze casos da arrumação, com os ecrãs de cada um.">
+<link rel="icon" href="assets/img/simbolo-app.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/documentacao.css">
+<style>
+  /* O resumo lê-se de cima a baixo, como se lê uma mensagem. Só precisa de
+     três coisas que a documentação não tinha: a lista numerada dos casos, o
+     caminho de ecrãs em cada um, e um bloco para o que fica por decidir. */
+  .casos { list-style: none; margin: 0; padding: 0; counter-reset: caso; }
+  .casos > li { counter-increment: caso; margin: 0 0 var(--e-lg); padding-left: 44px; position: relative; }
+  .casos > li::before {
+    content: counter(caso); position: absolute; left: 0; top: 0;
+    width: 30px; height: 30px; display: grid; place-items: center;
+    background: var(--c-acento); color: #fff; border-radius: 50%;
+    font-size: var(--t-small); font-weight: 700;
+  }
+  .casos h3 { margin: 4px 0 6px; font-size: var(--t-lead); }
+  .caminho { margin: 0 0 4px; font-family: var(--f-mono, monospace); font-size: var(--t-small); color: var(--c-acento); line-height: 1.7; }
+  .caminho b { font-weight: 700; }
+  .casos p { margin: 0; }
+  .aberto { border-left: 3px solid var(--c-acao); padding-left: var(--e-lg); }
+  .aberto li { margin-bottom: var(--e-md); }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#conteudo">Saltar para o conteúdo</a>
+
+<header class="doc-topo">
+  <div>
+    <h1 class="doc-topo__titulo">Armazém Inteligente · PDA</h1>
+    <p class="doc-topo__sub">A arrumação, caso a caso</p>
+  </div>
+  <nav class="doc-topo__nav" aria-label="Páginas">
+    <a href="index.html">Ecrãs</a>
+    <a href="resumo-resto.html">O resto</a>
+    <a href="documentacao.html">Documentação</a>
+  </nav>
+</header>
+
+<div class="doc-corpo doc-corpo--simples">
+  <main class="doc-conteudo" id="conteudo">
+
+    <section class="seccao" id="menu">
+      <h2>O menu</h2>
+      <p>
+        <b>Trabalho</b> tem uma opção só — <i>Começar tarefas</i> — e já diz qual é a tarefa
+        (ex.: guia GA-4471, 3 paletes, zona 30, de máquina).
+      </p>
+      <p>
+        <b>Operações</b> tem o que não é tarefa: corrigir uma posição em que se deu por um erro,
+        consultar um artigo e consultar uma posição.
+      </p>
+      <p>Em baixo: Tarefa, Início e Sair.</p>
+      <p>
+        A pessoa não escolhe nem vê a fila. O motor atribui uma tarefa de cada vez, conforme a
+        atividade dos PDA: ao entrar no turno, e outra vez sempre que acaba uma. Uma tarefa é uma
+        guia de arrumação, que pode ter várias paletes.
+      </p>
+    </section>
+
+    <section class="seccao" id="chegada">
+      <h2>A chegada deixa de ser voluntária</h2>
+      <p>
+        Picar a chegada saiu das «Operações» e passou a tarefa: não pode depender de alguém se
+        lembrar. Mas o sistema não sabe o que vem a caminho — enquanto o camião está no cais sem
+        ninguém o registar, não existe para o motor, e nenhuma regra de prioridade resolve isso,
+        porque não há nada para ordenar.
+      </p>
+      <p>
+        A chegada tem de entrar por um registo humano, e o relógio do motor começa aí, não quando
+        o camião encostou. Esse intervalo é tempo cego, e devia ser medido no relatório do turno:
+        se crescer, o problema está no registo, não na arrumação.
+      </p>
+      <p>
+        A partir do registo o peso sobe depressa — é a única tarefa que prende uma coisa física,
+        porque o cais não liberta enquanto a chegada não for recebida. Entra à frente de tudo o
+        que está à espera, mas não interrompe ninguém: vai para a próxima pessoa que acabar a
+        tarefa que tem em mãos. São dois minutos, e evita duas pessoas a irem ao mesmo camião.
+      </p>
+      <p class="nota">
+        O motor não planeia o turno, reage: ordena o que conhece naquele instante e volta a
+        ordenar quando algo entra.
+      </p>
+    </section>
+
+    <section class="seccao" id="casos">
+      <h2>Os catorze casos</h2>
+      <ol class="casos">
+        <li>
+          <h3>Um turno normal</h3>
+          <p class="caminho">02 início › 03 a tarefa › 10 lê o artigo › 11 proposta 1 de 3 › 13 lê a posição › 14 arrumada</p>
+          <p>A guia pode ter várias paletes: o 14 volta ao 10 até à última, e só então vem a guia seguinte.</p>
+        </li>
+        <li>
+          <h3>Chega mercadoria ao cais</h3>
+          <p class="caminho">03 a tarefa › 04 picar a chegada › 05 registada › 06 lê a guia do fornecedor › 07 confere › 09 recebido</p>
+          <p>Pica-se, confere-se e recebe-se tudo seguido. No fim: começar a arrumar o que chegou.</p>
+        </li>
+        <li>
+          <h3>…e a quantidade não bate</h3>
+          <p class="caminho">07 › 08 a quantidade não bate › 09 recebido</p>
+          <p>Regista-se o que chegou de facto, e é isso que entra em stock.</p>
+        </li>
+        <li>
+          <h3>A posição proposta está ocupada</h3>
+          <p class="caminho">11 › 15 o que se passa? › 12 a 1 estava ocupada › 13 › 14</p>
+          <p>A posição fica marcada como ocupada, o sistema propõe logo a seguinte das três, e o gestor vê o sinal.</p>
+        </li>
+        <li>
+          <h3>A etiqueta do artigo não se lê</h3>
+          <p class="caminho">10 › 16 escreve o artigo › 11</p>
+          <p>O sistema conta as leituras à mão.</p>
+        </li>
+        <li>
+          <h3>A etiqueta da posição não se lê</h3>
+          <p class="caminho">13 › 17 escreve a posição › 14</p>
+          <p>À terceira vez na mesma etiqueta, o sistema aconselha o gestor a renová-la.</p>
+        </li>
+        <li>
+          <h3>Um problema que não é da arrumação</h3>
+          <p class="caminho">11 › 15 o que se passa? › 18 problema registado</p>
+          <p>A arrumação não bloqueia nada: diz o que se passa, o gestor decide, e a tarefa deixa de ser dela.</p>
+        </li>
+        <li>
+          <h3>O gestor manda corrigir uma posição</h3>
+          <p class="caminho">19 tira da origem › 20 põe no destino › 21 corrigida</p>
+          <p>Nasce de um sinal no relatório do gestor. O motor não descobre erros sozinho.</p>
+        </li>
+        <li>
+          <h3>Dar com uma posição errada</h3>
+          <p class="caminho">02 › 22 lê a posição do erro › 23 o que está lá? › 64 corrigir o stock? › 24 correção registada</p>
+          <p>Não é uma ronda: é quando se dá de caras com o erro. O PDA pergunta antes, porque mudar stock não se desfaz.</p>
+        </li>
+        <li>
+          <h3>Consultar um artigo</h3>
+          <p class="caminho">02 › 27 consultar artigo</p>
+          <p>Onde está e quanto há. Não muda nada.</p>
+        </li>
+        <li>
+          <h3>Consultar uma posição e corrigi-la</h3>
+          <p class="caminho">02 › 28 › 23 › 64 › 24</p>
+          <p>Se o que lá está não bate, corrige-se sem sair da consulta, com a mesma pergunta antes.</p>
+        </li>
+        <li>
+          <h3>Levar a palete vazia</h3>
+          <p class="caminho">25 leva ao parque › 26 no parque</p>
+          <p>Também é tarefa: o motor dá-a quando uma posição fica vazia.</p>
+        </li>
+        <li>
+          <h3>Chega trabalho a meio de outra coisa</h3>
+          <p class="caminho">65 aviso</p>
+          <p>O motor dá uma tarefa enquanto se está a consultar. O aviso aparece por cima, não pede nada e vai-se embora; a tarefa fica à espera.</p>
+        </li>
+        <li>
+          <h3>Sair com uma guia a meio</h3>
+          <p class="caminho">02 › 66 › 01</p>
+          <p>Cada palete fica registada quando é arrumada, por isso o que já se fez não se perde. As que faltam voltam ao motor e vão para a próxima pessoa. O gestor vê quem saiu com uma guia aberta.</p>
+        </li>
+      </ol>
+      <p class="nota">
+        Fora destes: sem rede o PDA não trabalha (ecrã 62). Guarda o que já leu e não deixa
+        avançar, porque tudo precisa de confirmação do sistema.
+      </p>
+    </section>
+
+    <section class="seccao" id="aberto">
+      <h2>O que fica por decidir</h2>
+      <div class="aberto">
+        <ul>
+          <li>
+            <b>Como se fica a saber que chegou um camião, e quem faz o registo.</b>
+            Sem isto o caso 2 não fecha.
+          </li>
+          <li>
+            <b>Se ninguém conta o armazém</b> e as correções só nascem de alguém tropeçar no erro,
+            o stock afasta-se da realidade devagar e sem aviso. Proposta: à segunda correção
+            aberta na mesma posição, o motor manda reconferi-la.
+          </li>
+          <li>
+            <b>A cobertura de rede já foi medida corredor a corredor?</b> Uma zona morta para a
+            pessoa a meio da tarefa, e não há volta a dar no PDA.
+          </li>
+          <li>
+            <b>O motor passa a estar no caminho crítico:</b> a pessoa espera por ele no fim de
+            cada tarefa. A seguinte tem de ser calculada enquanto a atual decorre.
+          </li>
+          <li>
+            <b>A mercadoria só existe depois de dois registos humanos em série</b> — o do camião e
+            a picagem. Se um falhar, há stock no armazém que o sistema não conhece.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="assets/js/traducao.js"></script>
+</body>
+</html>
