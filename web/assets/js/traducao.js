@@ -226,6 +226,18 @@
     'Na paragem falta quantidade': 'Short quantity at the stop',
     'Ver como está uma guia': 'Checking how an order is doing',
     'Percursos': 'Paths',
+    /* ── sair com a guia a meio (24 set.) ── */
+    'Sair com uma guia a meio': 'Leaving with a note half done',
+    'Tens a guia GA-4471 a meio': 'You have note GA-4471 half done',
+    'Faltam 2 das 3 paletes por arrumar': '2 of the 3 pallets are still to put away',
+    'A palete já arrumada': 'The pallet already put away',
+    'fica feita': 'stays done',
+    'As 2 que faltam': 'The 2 left',
+    'voltam ao motor': 'go back to the engine',
+    'cais de entrada': 'goods-in dock',
+    'Cada palete fica registada assim que é arrumada, por isso não se perde trabalho. O motor dá as que faltam à próxima pessoa, e o gestor vê quem saiu com uma guia aberta.': 'Each pallet is recorded the moment it is put away, so no work is lost. The engine gives the remaining ones to the next person, and the manager sees who left a note open.',
+    'Zona 30 · de máquina · as 3 paletes na mesma zona': 'Zone 30 · machine · all 3 pallets in the same zone',
+    'Cada palete fica registada quando é arrumada: o que já fizeste não se perde. O que falta da guia volta ao motor, e o gestor vê quem saiu com uma guia aberta.': 'Each pallet is recorded when it is put away: what you have done is not lost. What is left of the note goes back to the engine, and the manager sees who left a note open.',
     /* ── diálogos e avisos (24 set.) ── */
     'Fechar a saída do DPD?': 'Close the DPD dispatch?',
     'Faltam 2 volumes da G-24185. Se fechares, esses vão no camião seguinte e a guia fica incompleta.': '2 parcels of G-24185 are missing. If you close it, they go on the next truck and the order stays incomplete.',

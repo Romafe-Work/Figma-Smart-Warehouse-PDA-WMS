@@ -92,6 +92,7 @@ g3|62-sem-ligacao
 d1|63-expedicao-fechar-saida-dialogo
 d2|64-arrumacao-corrigir-stock-dialogo
 t1|65-aviso-tarefa-nova
+d3|66-arrumacao-sair-guia-a-meio
 L
 )
 
