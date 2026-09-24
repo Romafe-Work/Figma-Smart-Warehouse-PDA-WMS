@@ -67,9 +67,10 @@ const NOME_ATOR = { arrumacao: 'Arrumação', separacao: 'Separação', expedica
                     gestor: 'Gestor', motor: 'Motor', todas: 'Todas as funções' };
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-/* ---------- a folha ---------- */
-const dentro = casos.filter((c) => c.ecras.length);
-const fora = casos.filter((c) => !c.ecras.length);
+/* ---------- a folha ----------
+   Todos os casos, por ordem do número. Os que não têm ecrã têm página na
+   mesma, com a decisão que os deixou de fora. */
+casos.sort((a, b) => (parseInt(a.id.slice(3), 10) || 0) - (parseInt(b.id.slice(3), 10) || 0));
 
 /* A página é fixa (1200 × 900): a altura das miniaturas sai do número de
    ecrãs, para caberem sem transbordar para a página seguinte. */
@@ -82,7 +83,7 @@ function medida(c) {
   return Math.floor(Math.min(largura * 800 / 480, espaco));
 }
 
-let paginas = dentro.map((c) => `
+let paginas = casos.map((c) => `
 <section>
   <header class="cabeca">
     <h1>${esc(c.id)} · ${esc(t(c.nome))}</h1>
@@ -91,6 +92,11 @@ let paginas = dentro.map((c) => `
   </header>
   ${c.nota ? `<p class="nota">${esc(t(c.nota))}</p>` : ''}
   <div class="ecras">
+    ${c.ecras.length ? '' : `<p class="sem">${esc(t(c.estado === 'v2'
+      ? 'Não tem ecrã: fica para a v2.'
+      : c.estado
+        ? 'Não tem ecrã: ficou de fora da v1.'
+        : 'Não tem ecrã no PDA: resolve-se noutro lado.'))}</p>`}
     ${c.ecras.map((e) => `<figure>
       <img src="${pasta}/${ficheiro[e.id]}.png" alt="${esc(tNome(e.nome))}" style="height:${medida(c)}px">
       <figcaption>${esc(tNome(e.nome))}</figcaption>
@@ -98,17 +104,7 @@ let paginas = dentro.map((c) => `
   </div>
 </section>`).join('');
 
-paginas += `
-<section>
-  <header class="cabeca">
-    <h1>${esc(t('Sem ecrã'))}</h1>
-    <p class="atores"><span>${esc(t('Os casos que não entram na v1, ou que se resolvem fora do PDA'))}</span></p>
-  </header>
-  <ul class="lista">
-    ${fora.map((c) => `<li><b>${esc(c.id)} · ${esc(t(c.nome))}</b>${
-      c.nota ? `<span>${esc(t(c.nota))}</span>` : ''}</li>`).join('')}
-  </ul>
-</section>`;
+
 
 process.stdout.write(`<!doctype html><meta charset="utf-8">
 <title>${esc(t('Casos de uso e ecrãs'))}</title>
@@ -130,10 +126,7 @@ h1 { font-size: 30px; font-weight: 700; margin: 0 0 8px; color: #00537e }
 figure { margin: 0; text-align: center }
 img { border: 1px solid #e3e5e8; display: block }
 figcaption { font-size: 13px; color: #6b6e74; margin-top: 6px; max-width: 340px }
-.lista { margin: 20px 0 0; padding: 0; list-style: none; columns: 2; column-gap: 40px }
-.lista li { break-inside: avoid; margin: 0 0 14px; font-size: 15px; line-height: 1.45 }
-.lista b { display: block; color: #17212e }
-.lista span { color: #6b6e74 }
+.sem { margin: 0; font-size: 17px; color: #6b6e74; font-style: italic }
 </style>
 ${paginas}
 `);
