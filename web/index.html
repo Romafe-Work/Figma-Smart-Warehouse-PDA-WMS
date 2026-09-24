@@ -50,11 +50,13 @@
      data-nota="A arrumação não bloqueia nada: diz o que se passa e o gestor decide. A tarefa deixa de ser tua.">Um problema que não é da arrumação</p>
   <p data-funcao="arrumacao" data-ecras="k1 k2 k3"
      data-nota="Nasce de um sinal no relatório do gestor: é ele que manda corrigir. O motor não descobre nada sozinho — só dá a tarefa a quem estiver livre.">O gestor manda corrigir uma posição</p>
-  <p data-funcao="arrumacao" data-ecras="e2 k4 k5 k6"
-     data-nota="Ninguém conta o armazém. Quem vê uma posição que não bate, corrige-a ali.">Dar com uma posição errada</p>
+  <p data-funcao="arrumacao" data-ecras="e2 k4 k5 d2 k6"
+     data-nota="Ninguém conta o armazém. Quem vê uma posição que não bate, corrige-a ali — e o PDA pergunta antes, porque mudar stock não se desfaz.">Dar com uma posição errada</p>
+  <p data-funcao="arrumacao" data-ecras="t1"
+     data-nota="O motor dá trabalho enquanto se está noutra coisa. O aviso aparece por cima, não pede nada e vai-se embora; a tarefa fica à espera no ecrã da tarefa.">Chega trabalho a meio de outra coisa</p>
   <p data-funcao="arrumacao" data-ecras="e2 q1"
      data-nota="Ver onde está e quanto há. Não muda nada.">Consultar um artigo</p>
-  <p data-funcao="arrumacao" data-ecras="e2 q2 k5 k6"
+  <p data-funcao="arrumacao" data-ecras="e2 q2 k5 d2 k6"
      data-nota="Se o que lá está não bate, corrige-se sem sair da consulta.">Consultar uma posição e corrigi-la</p>
   <p data-funcao="arrumacao" data-ecras="p1 p2"
      data-nota="Também é tarefa: o motor dá-a quando uma posição fica vazia.">Levar a palete vazia</p>
@@ -82,8 +84,8 @@
      data-nota="O PDA diz o que fica por fechar. Quem sai, sai; o gestor fica a saber.">Sair com guias por fechar</p>
 
   <!-- Expedição -->
-  <p data-funcao="expedicao" data-ecras="xp0 xp1 x2 x3 x4 x5"
-     data-nota="Uma tarefa é uma guia: levanta-se na prateleira, confere-se volume a volume e leva-se ao camião. A saída só fecha quando a última guia dele subir.">Um turno normal</p>
+  <p data-funcao="expedicao" data-ecras="xp0 xp1 x2 x3 x4 d1 x5"
+     data-nota="Uma tarefa é uma guia: levanta-se na prateleira, confere-se volume a volume e leva-se ao camião. Fechar a saída pergunta antes: é o que não tem volta.">Um turno normal</p>
   <p data-funcao="expedicao" data-ecras="x2 x6 x7 x3 x4"
      data-nota="A guia fica incompleta e espera. O resto do camião segue.">Falta um volume na prateleira</p>
   <p data-funcao="expedicao" data-ecras="x3 x8 x4"
@@ -820,7 +822,7 @@
     <p class="txt-legenda">Conta para o limite de correções abertas.</p>
   </div>
   <div class="rodape">
-    <button type="button" class="btn btn--acao" data-ir="k6"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.5 5 5 10-11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Registar correção</button>
+    <button type="button" class="btn btn--acao" data-ir="d2"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.5 5 5 10-11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Registar correção</button>
   </div>
 </div>
 </div>
@@ -1447,7 +1449,7 @@
   </div>
   <div class="rodape">
     <button type="button" class="btn btn--acao" data-ir="xp1">Guia carregada<svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-    <button type="button" class="btn" data-ir="x5">Fechar a saída</button>
+    <button type="button" class="btn" data-ir="d1">Fechar a saída</button>
   </div>
 </div>
 </div>
@@ -1918,6 +1920,81 @@
 <!-- O ícone da app, montado com peças e não como imagem, para se poder
      afinar na tela como um ecrã. O SVG que vai para o Android e para a loja
      sai de importar/icone.py; se se mudar aqui, leva-se para lá à mão. -->
+<!-- ================= O QUE SE SOBREPÕE A UM ECRÃ =================
+     Vêm no fim porque não são passos: são estados que aparecem por cima do
+     ecrã em que a pessoa está. O diálogo pergunta antes do que não tem volta;
+     o aviso conta o que o sistema fez sozinho e vai-se embora. A folha (15,
+     36 e 49) é a terceira, e essa já cá estava. -->
+
+<div class="ecra" data-ecra="d1" data-objetivo="Perguntar antes de fechar a saída, que é o que não tem volta." data-funcao="expedicao" data-fluxo="Da prateleira ao camião" data-nome="63 · Fechar a saída?" data-refs="CU-15 · RF-122" hidden>
+<div class="pda">
+  <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Expedição</span><span class="faixa__nome">Ana Lopes</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span><span class="faixa__avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6" fill="currentColor"/><path d="M4.5 21c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5" fill="currentColor"/></svg></span></div>
+  <div class="passos">
+    <div class="passos__linha"><span class="passos__titulo">G-24187 · DPD</span><span class="passos__conta">Passo 3 de 4</span></div>
+    <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i></div>
+  </div>
+  <div class="corpo">
+    <p class="codigo por-baixo">CAIS-2</p>
+  </div>
+  <div class="dialogo">
+    <div class="dialogo__caixa">
+      <p class="dialogo__titulo">Fechar a saída do DPD?</p>
+      <p class="dialogo__texto">Faltam 2 volumes da G-24185. Se fechares, esses vão no camião seguinte e a guia fica incompleta.</p>
+      <div class="dialogo__botoes">
+        <button type="button" class="btn btn--acao" data-ir="x5">Fechar mesmo</button>
+        <button type="button" class="btn" data-ir="x4">Voltar a carregar</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="ecra" data-ecra="d2" data-objetivo="Perguntar antes de mudar o stock de uma posição, que ninguém desfaz." data-funcao="arrumacao" data-fluxo="Corrigir o que está numa posição" data-nome="64 · Corrigir o stock?" data-refs="CU-09 · RF-114 · RN-23" hidden>
+<div class="pda">
+  <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span><span class="faixa__avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6" fill="currentColor"/><path d="M4.5 21c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5" fill="currentColor"/></svg></span></div>
+  <header class="topo">
+    <button type="button" class="topo__voltar" data-ir="k5"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar</button>
+    <p class="topo__titulo">Corrigir</p>
+    <span class="faixa__rede topo__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span>
+  </header>
+  <div class="corpo">
+    <p class="codigo por-baixo">60300302</p>
+  </div>
+  <div class="dialogo">
+    <div class="dialogo__caixa">
+      <p class="dialogo__titulo">Corrigir 60300302?</p>
+      <p class="dialogo__texto">O sistema diz 12 e vais registar 6. Ficam menos 6 unidades em stock, e o gestor vê a diferença no relatório.</p>
+      <div class="dialogo__botoes">
+        <button type="button" class="btn btn--acao" data-ir="k6">Corrigir</button>
+        <button type="button" class="btn" data-ir="k5">Voltar a contar</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="ecra" data-ecra="t1" data-objetivo="Dizer que o motor deu trabalho novo, sem interromper o que se está a fazer." data-funcao="arrumacao" data-fluxo="Consultar" data-nome="65 · Aviso: tarefa nova" data-refs="CU-39 · CU-03 · RF-20" hidden>
+<div class="pda">
+  <header class="topo">
+    <button type="button" class="topo__voltar" data-ir="e2"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar</button>
+    <p class="topo__titulo">Consultar artigo</p>
+    <span class="faixa__rede topo__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span>
+  </header>
+  <div class="corpo">
+    <div class="cartao">
+      <span class="rotulo">Óleo 5W30 · 5 L</span>
+      <div class="linha">60300401<span class="linha__valor">40 un.</span></div>
+      <div class="linha">60300301<span class="linha__valor">12 un.</span></div>
+    </div>
+    <p class="txt-legenda">A consulta não muda nada. O trabalho continua onde estava.</p>
+  </div>
+  <div class="aviso">
+    <svg class="aviso__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M12 7v6" stroke="#012338" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1.3" fill="#012338"/></svg>
+    <span class="aviso__texto">Tens uma tarefa nova: guia GA-4471</span>
+  </div>
+</div>
+</div>
+
 <div class="ecra ecra--marca" data-ecra="icone" data-fluxo="Marca" data-nome="Ícone da app" data-refs="importar/icone.py" hidden>
 <div class="icone-app" role="img" aria-label="ROMAFE Armazém Inteligente">
   <svg class="icone-app__simbolo" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg>

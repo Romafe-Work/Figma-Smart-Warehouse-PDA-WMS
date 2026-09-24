@@ -93,6 +93,14 @@
       ]
     },
     {
+      grupo: 'Sobreposições',
+      itens: [
+        ['Diálogo', function () { return peca('div', 'dialogo', '<div class="dialogo__caixa"><p class="dialogo__titulo">Fazer isto?</p><p class="dialogo__texto">O que acontece se disser que sim, e a quem.</p><div class="dialogo__botoes"><button type="button" class="btn btn--acao">Fazer</button><button type="button" class="btn">Voltar</button></div></div>'); }],
+        ['Aviso', function () { return peca('div', 'aviso', '<svg class="aviso__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M12 7v6" stroke="#012338" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1.3" fill="#012338"/></svg><span class="aviso__texto">O que o sistema fez sozinho</span>'); }],
+        ['Folha', function () { return peca('div', 'folha', '<div class="folha__caixa"><h1 class="txt-lead">O que se passa?</h1><button type="button" class="folha__opcao">Primeira razão</button><button type="button" class="folha__opcao">Outro motivo — escrever</button></div>'); }]
+      ]
+    },
+    {
       grupo: 'Botões',
       itens: [
         ['Ação principal', function () { return peca('button', 'btn btn--acao', 'Nova ação'); }],
@@ -107,7 +115,7 @@
   /* Blocos que já são feitos para levar peças lá dentro. Procura-se um destes
      a subir a partir do que está escolhido: quem clica num selo quer o selo
      novo ao lado, e não dentro do selo antigo. */
-  var RECIPIENTES = '.corpo, .rodape, .cartao, .folha__caixa, .volumes, .atalhos, .numeros';
+  var RECIPIENTES = '.corpo, .rodape, .cartao, .folha__caixa, .dialogo__caixa, .dialogo__botoes, .volumes, .atalhos, .numeros';
 
   function ecraActual() {
     // no fluxo estão todos à vista: vale o que o editor tem nas camadas

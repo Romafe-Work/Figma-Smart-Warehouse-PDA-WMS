@@ -279,6 +279,35 @@ code { font-family: var(--f-mono); }
   background: var(--c-cartao); font: inherit; font-size: var(--t-body); color: var(--c-texto); text-align: left;
 }
 
+/* ---------- Diálogo: a pergunta que não se pode desfazer ----------
+   Só para o que não tem volta: fechar uma saída, mudar o stock de uma
+   posição. Duas saídas, a de fechar primeiro, porque é a que a pessoa
+   veio fazer. Não serve para avisar — para isso há o aviso, e a folha. */
+.dialogo { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: var(--e-lg); background: var(--c-veu); }
+.dialogo__caixa {
+  width: 100%; display: flex; flex-direction: column; gap: var(--e-sm);
+  padding: var(--e-lg); background: var(--c-cartao); border-radius: var(--r-lg);
+}
+.dialogo__titulo { font-size: var(--t-lead); font-weight: 700; }
+.dialogo__texto  { font-size: var(--t-body); color: var(--c-texto-2); }
+.dialogo__botoes { display: flex; flex-direction: column; gap: var(--e-sm); margin-top: var(--e-sm); }
+
+/* ---------- Aviso: o que aparece e vai-se embora ----------
+   Uma linha por cima do ecrã, sem botão nenhum: a pessoa não tem de fazer
+   nada, e por isso não a interrompe. Serve para o que o sistema fez sozinho
+   — o motor deu uma tarefa, a rede caiu, a leitura ficou guardada. */
+.aviso {
+  position: absolute; left: var(--e-lg); right: var(--e-lg); bottom: var(--e-lg);
+  display: grid; grid-template-columns: auto 1fr; gap: var(--e-sm);
+  align-items: center; padding: var(--e-md) var(--e-lg);
+  background: var(--c-invertido); color: var(--c-sobre-marca);
+  border-radius: var(--r-md); box-shadow: 0 6px 20px rgba(1, 35, 56, .28);
+}
+.aviso__icone { width: 22px; height: 22px; }
+.aviso__texto { font-size: var(--t-body); font-weight: 600; }
+.aviso--bom  { background: var(--c-bom);  color: #fff; }
+.aviso--erro { background: var(--c-erro); color: #fff; }
+
 /* ---------- a marca ----------
    Igual ao GoParts: ROMAFE nunca aparece sozinho. É o nome, o risco laranja
    e o subtítulo, sempre por esta ordem e sempre com o mesmo desenho. */

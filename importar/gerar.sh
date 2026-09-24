@@ -89,6 +89,9 @@ g8|59-gestor-feito
 g9|60-gestor-todas-operacoes
 g10|61-gestor-insights
 g3|62-sem-ligacao
+d1|63-expedicao-fechar-saida-dialogo
+d2|64-arrumacao-corrigir-stock-dialogo
+t1|65-aviso-tarefa-nova
 L
 )
 
