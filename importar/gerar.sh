@@ -10,7 +10,7 @@
 #   01-ecras.pdf                 os 62 ecrãs, uma página de 320 × 533 cada, em vetor
 #   01-ecras-en.pdf              o mesmo, em inglês
 #   02-ecras-com-titulo.pdf      os 19 com o nome por cima, para ler e mostrar
-#   04-casos-de-uso.pdf          um caso de uso por página, com os ecrãs em que acontece
+#   04-casos-de-uso.pdf          um caso de uso por página, com os ecrãs em que acontece (só em português)
 #   02-ecras-com-titulo-en.pdf   o mesmo, em inglês
 #   03-fluxo.png, 03-fluxo.pdf   o mapa de navegação: os ecrãs por fluxo, com as setas
 #   03-fluxo-arrumacao.*         só os ecrãs da arrumação, com as setas
@@ -135,11 +135,14 @@ H
   rm -f .titulos.html
   echo "  02-ecras-com-titulo$sufixo.pdf"
 
-  # 04-casos-de-uso: um caso de uso por página, com os ecrãs em que acontece
-  node casos.js "$lingua" "$pasta" > .casos.html
-  correr --no-pdf-header-footer --print-to-pdf="$PWD/04-casos-de-uso$sufixo.pdf" "file://$PWD/.casos.html"
-  rm -f .casos.html
-  echo "  04-casos-de-uso$sufixo.pdf ($(pdfinfo "04-casos-de-uso$sufixo.pdf" 2>/dev/null | awk '/^Pages/{print $2}') páginas)"
+  # 04-casos-de-uso: um caso de uso por página, com os ecrãs em que acontece.
+  # Só em português: é para ler na Romafe, e ela pediu-o assim (24 set.).
+  if [ "$lingua" = pt ]; then
+    node casos.js pt "$pasta" > .casos.html
+    correr --no-pdf-header-footer --print-to-pdf="$PWD/04-casos-de-uso.pdf" "file://$PWD/.casos.html"
+    rm -f .casos.html
+    echo "  04-casos-de-uso.pdf ($(pdfinfo 04-casos-de-uso.pdf 2>/dev/null | awk '/^Pages/{print $2}') páginas)"
+  fi
 
   # O mapa mede-se a si próprio (fluxo.js escreve o @page); a janela da captura
   # tem de ter esse tamanho, senão o PNG corta ou sobra.
