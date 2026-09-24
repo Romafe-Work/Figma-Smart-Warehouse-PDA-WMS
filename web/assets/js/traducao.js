@@ -237,7 +237,7 @@
     'Fora da v1': 'Not in v1',
     'Não tem ecrã: fica para a v2.': 'No screen: it waits for v2.',
     'Não tem ecrã: ficou de fora da v1.': 'No screen: it was left out of v1.',
-    'Não tem ecrã no PDA: resolve-se noutro lado.': 'No screen on the PDA: it is handled elsewhere.',
+    'Ainda não tem ecrã desenhado.': 'No screen drawn yet.',
     'Casos de uso e ecrãs': 'Use cases and screens',
     /* ── 1 tarefa = 1 guia (24 set.) ── */
     'Agora: guia G-24187 · 9 volumes · DPD': 'Now: order G-24187 · 9 parcels · DPD',

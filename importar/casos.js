@@ -68,41 +68,53 @@ const NOME_ATOR = { arrumacao: 'Arrumação', separacao: 'Separação', expedica
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 /* ---------- a folha ----------
-   Todos os casos, por ordem do número. Os que não têm ecrã têm página na
-   mesma, com a decisão que os deixou de fora. */
-casos.sort((a, b) => (parseInt(a.id.slice(3), 10) || 0) - (parseInt(b.id.slice(3), 10) || 0));
+   Por função, na ordem em que o armazém trabalha: arrumação, separação,
+   expedição, gestor. Depois os transversais, e no fim os que ficaram de
+   fora. Dentro de cada grupo, pelo número do caso. A função é a primeira
+   dos atores (o motor não conta), como no mapa. */
+const AREAS = ['arrumacao', 'separacao', 'expedicao', 'gestor', 'todas', 'fora'];
+const areaDe = (c) => c.estado ? 'fora'
+  : (c.atores.filter((a) => a !== 'motor' && a !== 'todas')[0] || 'todas');
+casos.sort((a, b) => (AREAS.indexOf(areaDe(a)) - AREAS.indexOf(areaDe(b)))
+  || ((parseInt(a.id.slice(3), 10) || 0) - (parseInt(b.id.slice(3), 10) || 0)));
 
-/* A página é fixa (1200 × 900): a altura das miniaturas sai do número de
-   ecrãs, para caberem sem transbordar para a página seguinte. */
-function medida(c) {
-  const n = c.ecras.length;
+/* A página é fixa (1200 × 900). Até 12 ecrãs cabem numa; daí para cima o
+   caso continua na página seguinte, para as miniaturas ficarem legíveis. */
+const POR_PAGINA = 12;
+function folhas(c) {
+  const p = [];
+  for (let i = 0; i < c.ecras.length; i += POR_PAGINA) p.push(c.ecras.slice(i, i + POR_PAGINA));
+  return p.length ? p : [[]];
+}
+function medida(ecras, temNota) {
+  const n = ecras.length;
   const linhas = n <= 6 ? 1 : 2;
   const porLinha = Math.ceil(n / linhas);
   const largura = (1200 - 96 - 20 * (porLinha - 1)) / porLinha;
-  const espaco = (900 - 80 - 120 - (c.nota ? 60 : 0) - 28 * linhas - 20 * (linhas - 1)) / linhas;
+  const espaco = (900 - 80 - 120 - (temNota ? 60 : 0) - 28 * linhas - 20 * (linhas - 1)) / linhas;
   return Math.floor(Math.min(largura * 800 / 480, espaco));
 }
 
-let paginas = casos.map((c) => `
+let paginas = casos.map((c) => folhas(c).map((ecras, i, todas) => `
 <section>
   <header class="cabeca">
-    <h1>${esc(c.id)} · ${esc(t(c.nome))}</h1>
+    <h1>${esc(c.id)} · ${esc(t(c.nome))}${todas.length > 1 ? ` (${i + 1}/${todas.length})` : ''}</h1>
     <p class="atores">${c.atores.map((x) => `<span>${esc(t(NOME_ATOR[x] || x))}</span>`).join('')}${
       c.estado ? `<span class="fora">${esc(t(c.estado === 'v2' ? 'v2' : 'Fora da v1'))}</span>` : ''}</p>
   </header>
-  ${c.nota ? `<p class="nota">${esc(t(c.nota))}</p>` : ''}
+  ${c.nota && i === 0 ? `<p class="nota">${esc(t(c.nota))}</p>` : ''}
   <div class="ecras">
-    ${c.ecras.length ? '' : `<p class="sem">${esc(t(c.estado === 'v2'
+    ${ecras.length ? '' : `<p class="sem">${esc(t(c.estado === 'v2'
       ? 'Não tem ecrã: fica para a v2.'
       : c.estado
         ? 'Não tem ecrã: ficou de fora da v1.'
-        : 'Não tem ecrã no PDA: resolve-se noutro lado.'))}</p>`}
-    ${c.ecras.map((e) => `<figure>
-      <img src="${pasta}/${ficheiro[e.id]}.png" alt="${esc(tNome(e.nome))}" style="height:${medida(c)}px">
+        : 'Ainda não tem ecrã desenhado.'))}</p>`}
+    ${ecras.map((e) => `<figure style="width:${Math.round(medida(ecras, c.nota && i === 0) * 480 / 800)}px">
+      <img src="${pasta}/${ficheiro[e.id]}.png" alt="${esc(tNome(e.nome))}" style="height:${medida(ecras, c.nota && i === 0)}px">
       <figcaption>${esc(tNome(e.nome))}</figcaption>
     </figure>`).join('')}
   </div>
-</section>`).join('');
+</section>`).join('')).join('');
 
 
 
@@ -124,8 +136,9 @@ h1 { font-size: 30px; font-weight: 700; margin: 0 0 8px; color: #00537e }
 .ecras { flex: 1; display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;
          align-content: flex-start; padding-top: 20px; overflow: hidden }
 figure { margin: 0; text-align: center }
+img { width: 100% }
 img { border: 1px solid #e3e5e8; display: block }
-figcaption { font-size: 13px; color: #6b6e74; margin-top: 6px; max-width: 340px }
+figcaption { font-size: 13px; color: #6b6e74; margin-top: 6px }
 .sem { margin: 0; font-size: 17px; color: #6b6e74; font-style: italic }
 </style>
 ${paginas}
