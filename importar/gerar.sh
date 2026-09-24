@@ -64,7 +64,7 @@ s4|34-separacao-prateleira-preparados
 s7|35-separacao-guia-fechada
 s5|36-separacao-o-que-se-passa
 s6|37-separacao-escreve-posicao
-s8|38-separacao-sair-com-guias
+s8|38-separacao-sair-guia-a-meio
 s9|39-separacao-consultar-guia
 sq1|40-separacao-consultar-artigo
 sq2|41-separacao-consultar-posicao

@@ -65,9 +65,9 @@
 
   <!-- Separação -->
   <p data-funcao="separacao" data-ecras="sp0 sp1 s1 s2 s4 s7"
-     data-nota="Uma tarefa é uma guia de separação. O motor ordena as paragens pelo caminho mais curto; fechada a guia na prateleira, dá a seguinte.">Um turno normal</p>
+     data-nota="Uma tarefa é uma guia. O motor ordena as paragens pelo caminho mais curto e escolhe a guia seguinte pela hora do camião e por onde a pessoa acabou — é isso que substitui o lote. A prateleira é reservada à cabeça.">Um turno normal</p>
   <p data-funcao="separacao" data-ecras="s2 s3 s4"
-     data-nota="Regista-se o que se tirou e fica uma correção na posição. A guia não sai sem o resto.">Na paragem falta quantidade</p>
+     data-nota="O que se tirou fica na guia; a diferença fica assinalada na posição e o gestor decide. A guia não sai sem o resto, e volta a ser tarefa quando o stock entrar.">Na paragem falta quantidade</p>
   <p data-funcao="separacao" data-ecras="s2 s6 s4"
      data-nota="Escreve-se o código e a volta segue.">A etiqueta não se lê</p>
   <p data-funcao="separacao" data-ecras="s2 s5 a8"
@@ -81,7 +81,7 @@
   <p data-funcao="separacao" data-ecras="p1 p2"
      data-nota="A mesma tarefa da arrumação; também calha à separação.">Levar a palete vazia</p>
   <p data-funcao="separacao" data-ecras="sp0 s8 e1"
-     data-nota="O PDA diz o que fica por fechar. Quem sai, sai; o gestor fica a saber.">Sair com guias por fechar</p>
+     data-nota="O que está no carro não volta às prateleiras: vai para a posição reservada à guia, e as linhas ficam registadas. Quem a apanhar continua na paragem seguinte.">Sair com a guia a meio</p>
 
   <!-- Expedição -->
   <p data-funcao="expedicao" data-ecras="xp0 xp1 x2 x3 x4 d1 x5"
@@ -128,7 +128,7 @@
   <p data-cu="CU-09" data-atores="arrumacao motor">Corrigir uma posição errada</p>
   <p data-cu="CU-10" data-atores="separacao motor" data-nota="Mudou a 24 de setembro: acabou o lote. O motor dá uma guia de cada vez, conforme a atividade dos PDA.">Receber a guia da vez</p>
   <p data-cu="CU-11" data-atores="separacao">Recolher uma guia</p>
-  <p data-cu="CU-12" data-atores="separacao">Sair com guias por fechar</p>
+  <p data-cu="CU-12" data-atores="separacao expedicao arrumacao" data-nota="24 set.: o que já se recolheu não volta às prateleiras. Vai para a posição reservada à guia e fica registado; o resto volta ao motor.">Sair com trabalho a meio</p>
   <p data-cu="CU-13" data-atores="expedicao">Ver o risco dos camiões</p>
   <p data-cu="CU-14" data-atores="expedicao">Uma encomenda incompleta espera</p>
   <p data-cu="CU-15" data-atores="expedicao">Carregar e fechar uma saída</p>
@@ -1003,6 +1003,7 @@
       <span class="selo selo--acento">Agora</span>
       <span class="tarefa__titulo">Guia G-24187 · Auto Peças Norte · 9 linhas</span>
       <span class="tarefa__porque">Porquê: o camião DPD fecha às 11h30</span>
+      <span class="tarefa__porque">As paragens ficam na zona 20, ao pé de onde acabaste</span>
     </button>
     <div class="cartao">
       <span class="rotulo">No armazém</span>
@@ -1033,7 +1034,8 @@
       <div class="linha">2 · 60200502<span class="linha__valor">4 × Óleo 5W30</span></div>
       <div class="linha">3 · 60300401<span class="linha__valor">2 × Pastilhas</span></div>
     </div>
-    <p class="txt-legenda">Mais 6 paragens. O motor ordenou-as pelo caminho mais curto.</p>
+    <div class="linha">Prateleira<span class="linha__valor linha__valor--mono">PP-DPD-03</span></div>
+    <p class="txt-legenda">Mais 6 paragens, na ordem mais curta. A prateleira já está reservada para esta guia: é lá que ela fica, inteira ou a meio.</p>
   </div>
   <div class="rodape">
     <button type="button" class="btn btn--acao" data-ir="s2"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5Z" fill="currentColor"/></svg>Começar a recolher</button>
@@ -1069,7 +1071,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="s3" data-objetivo="Registar o que falta e corrigir o stock ali mesmo." data-funcao="separacao" data-fluxo="Recolher uma guia" data-nome="33 · Falta quantidade" data-refs="CU-11 · RF-46 · RF-114 · RF-121" hidden>
+<div class="ecra" data-ecra="s3" data-objetivo="Registar o que se tirou e deixar a diferença assinalada na posição." data-funcao="separacao" data-fluxo="Recolher uma guia" data-nome="33 · Falta quantidade" data-refs="CU-11 · RF-46 · RF-114 · RF-121" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Separação</span><span class="faixa__nome">Rui Costa</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span><span class="faixa__avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6" fill="currentColor"/><path d="M4.5 21c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5" fill="currentColor"/></svg></span></div>
   <div class="passos">
@@ -1084,7 +1086,7 @@
       <div class="linha">Tiraste<span class="linha__valor">2</span></div>
       <div class="linha">Faltam<span class="linha__valor linha__valor--erro">4</span></div>
     </div>
-    <p class="txt-legenda">Fica registada como correção desta posição.</p>
+    <p class="txt-legenda">As 2 que tiraste ficam na guia. A diferença fica registada nesta posição e o gestor vê o sinal — mexer no stock é decisão dele.</p>
   </div>
   <div class="rodape">
     <button type="button" class="btn btn--acao" data-ir="s4"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.5 5 5 10-11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Registar e seguir</button>
@@ -1104,7 +1106,7 @@
     <p class="codigo">PP-DPD-03</p>
     <p class="txt-sec">Parte do camião DPD · 11h30 · junto ao cais de saída</p>
     <div class="cartao"><div class="linha">G-24187<span class="linha__valor">completa · 9 volumes</span></div></div>
-    <p class="txt-legenda">Se tivesse ficado alguma linha por recolher, a guia ia marcada como incompleta e esperava pelo stock.</p>
+    <p class="txt-legenda">Incompleta, ficava na mesma prateleira à espera: o motor volta a dá-la a alguém assim que o stock entrar.</p>
     <div class="leitor" data-ir="s7"><svg class="leitor__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8V4.5A1.5 1.5 0 0 1 4.5 3H8M16 3h3.5A1.5 1.5 0 0 1 21 4.5V8M21 16v3.5a1.5 1.5 0 0 1-1.5 1.5H16M8 21H4.5A1.5 1.5 0 0 1 3 19.5V16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 7.5v9M10 7.5v9M13 7.5v9M16.5 7.5v9" stroke="currentColor" stroke-width="2"/></svg><span class="leitor__traco" aria-hidden="true"></span>Lê a posição da prateleira onde a pousas</div>
   </div>
 </div>
@@ -1124,7 +1126,7 @@
       <div class="linha">Onde<span class="linha__valor">PP-DPD-03</span></div>
       <div class="linha">Camião<span class="linha__valor">DPD · 11h30</span></div>
     </div>
-    <p class="nota">A expedição leva-a quando o camião chegar. Incompleta, esperava pelo stock e não entrava na fila da expedição.</p>
+    <p class="nota">A expedição leva-a quando o camião chegar. Incompleta, não entrava na fila da expedição: ficava na prateleira, e o motor dava-a outra vez a alguém quando o stock entrasse.</p>
   </div>
   <div class="rodape">
     <button type="button" class="btn btn--acao" data-ir="sp1"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Próxima tarefa</button>
@@ -1178,7 +1180,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="s8" data-objetivo="Avisar que há trabalho por acabar antes de a pessoa sair do turno." data-fluxo="Quando a separação não corre bem" data-funcao="separacao" data-nome="38 · Sair com guias por fechar" data-refs="CU-12 · CU-25" hidden>
+<div class="ecra" data-ecra="s8" data-objetivo="Dizer onde fica o que já se recolheu, antes de a pessoa sair com a guia a meio." data-fluxo="Quando a separação não corre bem" data-funcao="separacao" data-nome="38 · Sair com a guia a meio" data-refs="CU-12 · CU-25" hidden>
 <div class="pda">
   <header class="topo">
     <button type="button" class="topo__voltar" data-ir="sp0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar</button>
@@ -1186,13 +1188,14 @@
     <span class="faixa__rede topo__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span>
   </header>
   <div class="corpo">
-    <div class="alerta alerta--aviso"><svg class="alerta__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.3 3.2a2 2 0 0 1 3.4 0l8.4 15a2 2 0 0 1-1.7 3H3.6a2 2 0 0 1-1.7-3Z" fill="currentColor"/><path d="M12 9v5" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="17.3" r="1.4" fill="#fff"/></svg><b class="alerta__titulo">Tens 1 guia por fechar</b><span class="alerta__texto">A G-24187 tem 4 linhas por recolher</span></div>
+    <div class="alerta alerta--aviso"><svg class="alerta__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.3 3.2a2 2 0 0 1 3.4 0l8.4 15a2 2 0 0 1-1.7 3H3.6a2 2 0 0 1-1.7-3Z" fill="currentColor"/><path d="M12 9v5" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="17.3" r="1.4" fill="#fff"/></svg><b class="alerta__titulo">Tens a guia G-24187 a meio</b><span class="alerta__texto">5 linhas recolhidas, 4 por recolher</span></div>
     <div class="cartao">
       <span class="rotulo">Se saíres agora</span>
-      <div class="linha">A guia<span class="linha__valor">volta à fila</span></div>
+      <div class="linha">O que já tiraste<span class="linha__valor linha__valor--forte">leva a PP-DPD-03</span></div>
+      <div class="linha">As 4 que faltam<span class="linha__valor">voltam ao motor</span></div>
       <div class="linha">O camião DPD<span class="linha__valor">11h30</span></div>
     </div>
-    <p class="nota">Quem entrar a seguir apanha-a onde a deixaste. O gestor vê quem saiu com trabalho aberto.</p>
+    <p class="nota">Nada volta à prateleira de origem: o que está no carro vai para a posição desta guia, e as linhas ficam registadas. Quem a apanhar continua na paragem 6 e junta o resto no mesmo sítio. O gestor vê quem saiu com uma guia aberta.</p>
   </div>
   <div class="rodape">
     <button type="button" class="btn btn--acao" data-ir="s2"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Continuar a guia</button>
