@@ -818,7 +818,7 @@
     if (!linhas.length) return null;
     var seccao = el('section', 'texto-fluxo__seccao texto-fluxo__percursos');
     seccao.appendChild(el('h2', null, 'Percursos'));
-    seccao.appendChild(el('p', 'texto-fluxo__descricao', 'O caminho de cada caso, do login ao fim. Clica num ecrã para o abrir.'));
+    seccao.appendChild(el('p', 'texto-fluxo__descricao', 'Um caso por linha, só por botões que existem e sem repetir ecrãs. O turno começa sempre no 01 · Entrar, que abre no início de cada função. Clica num ecrã para o abrir.'));
     var blocos = [];
     linhas.forEach(function (q) {
       var b = el('div', 'texto-fluxo__bloco texto-fluxo__percurso');
@@ -830,6 +830,7 @@
         caminho.appendChild(ligacao(id));
       });
       b.appendChild(caminho);
+      if (q.dataset.nota) b.appendChild(el('p', 'texto-fluxo__nota', q.dataset.nota));
       blocos.push(b);
       seccao.appendChild(b);
     });

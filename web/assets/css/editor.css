@@ -545,6 +545,7 @@ html:has(.so-fluxo), .so-fluxo { background: #eef0f3; }
 .texto-fluxo__percurso h3 { margin: 0 0 4px; font-size: 15px; }
 .texto-fluxo__caminho { margin: 0; font-size: 14px; line-height: 2; }
 .texto-fluxo__caminho .texto-fluxo__ecra { font-weight: 500; }
+.texto-fluxo__nota { margin: 2px 0 0; font-size: 13px; line-height: 1.5; color: #6b6e74; }
 
 
 /* ---------- Desenho de 23 de setembro: a moldura clara ---------- */

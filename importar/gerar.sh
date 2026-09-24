@@ -10,6 +10,7 @@
 #   01-ecras.pdf                 os 62 ecrãs, uma página de 320 × 533 cada, em vetor
 #   01-ecras-en.pdf              o mesmo, em inglês
 #   02-ecras-com-titulo.pdf      os 19 com o nome por cima, para ler e mostrar
+#   04-casos-de-uso.pdf          um caso de uso por página, com os ecrãs em que acontece
 #   02-ecras-com-titulo-en.pdf   o mesmo, em inglês
 #   03-fluxo.png, 03-fluxo.pdf   o mapa de navegação: os ecrãs por fluxo, com as setas
 #   03-fluxo-arrumacao.*         só os ecrãs da arrumação, com as setas
@@ -28,7 +29,7 @@ correr() { "$CH" --no-sandbox --disable-gpu --hide-scrollbars --virtual-time-bud
 ECRAS=$(cat <<'L'
 e1|01-entrar
 e2|02-inicio-arrumacao
-e3|03-fila-arrumacao
+e3|03-tarefa-arrumacao
 n1|04-receber-picar-chegada
 n2|05-receber-chegada-registada
 r1|06-receber-le-guia
@@ -55,12 +56,12 @@ p2|26-palete-vazia-no-parque
 q1|27-consultar-artigo
 q2|28-consultar-posicao
 sp0|29-separacao-inicio
-sp1|30-separacao-fila
-s1|31-separacao-lote
+sp1|30-separacao-tarefa
+s1|31-separacao-guia
 s2|32-separacao-paragem
 s3|33-separacao-falta-quantidade
 s4|34-separacao-prateleira-preparados
-s7|35-separacao-volta-fechada
+s7|35-separacao-guia-fechada
 s5|36-separacao-o-que-se-passa
 s6|37-separacao-escreve-posicao
 s8|38-separacao-sair-com-guias
@@ -68,7 +69,7 @@ s9|39-separacao-consultar-guia
 sq1|40-separacao-consultar-artigo
 sq2|41-separacao-consultar-posicao
 xp0|42-expedicao-inicio
-xp1|43-expedicao-fila
+xp1|43-expedicao-tarefa
 x1|44-expedicao-camioes
 x2|45-expedicao-conferir-volumes
 x3|46-expedicao-levar-ao-cais
@@ -133,6 +134,12 @@ H
   correr --no-pdf-header-footer --print-to-pdf="$PWD/02-ecras-com-titulo$sufixo.pdf" "file://$PWD/.titulos.html"
   rm -f .titulos.html
   echo "  02-ecras-com-titulo$sufixo.pdf"
+
+  # 04-casos-de-uso: um caso de uso por página, com os ecrãs em que acontece
+  node casos.js "$lingua" "$pasta" > .casos.html
+  correr --no-pdf-header-footer --print-to-pdf="$PWD/04-casos-de-uso$sufixo.pdf" "file://$PWD/.casos.html"
+  rm -f .casos.html
+  echo "  04-casos-de-uso$sufixo.pdf ($(pdfinfo "04-casos-de-uso$sufixo.pdf" 2>/dev/null | awk '/^Pages/{print $2}') páginas)"
 
   # O mapa mede-se a si próprio (fluxo.js escreve o @page); a janela da captura
   # tem de ter esse tamanho, senão o PNG corta ou sobra.

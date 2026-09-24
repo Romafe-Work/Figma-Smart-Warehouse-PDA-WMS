@@ -33,28 +33,83 @@
 
 <!-- Os percursos: o caminho escrito de cada caso, do login ao fim. Aparecem na aba Texto. -->
 <template id="percursos">
-  <p data-funcao="arrumacao" data-ecras="e1 e2 e3 a1 a2 a4 a5 e3">Um turno normal</p>
-  <p data-funcao="arrumacao" data-ecras="e2 n1 n2 e3 r1 r2 r4 e3">Chega mercadoria ao cais</p>
-  <p data-funcao="arrumacao" data-ecras="a2 g2 a3 a4 a5">A posição proposta está ocupada</p>
-  <p data-funcao="arrumacao" data-ecras="a4 a7 a5">A etiqueta não se lê</p>
-  <p data-funcao="arrumacao" data-ecras="e3 k1 k2 k3 e3">O motor manda corrigir uma posição</p>
-  <p data-funcao="arrumacao" data-ecras="e2 k4 k5 k6 e2">Dar com um erro e corrigir</p>
-  <p data-funcao="arrumacao" data-ecras="e3 p1 p2 e3">Levar a palete vazia</p>
-  <p data-funcao="arrumacao" data-ecras="e2 e1">Sair do turno</p>
-  <p data-funcao="separacao" data-ecras="e1 sp0 sp1 s1 s2 s3 s4 s7 sp1">Um turno normal</p>
-  <p data-funcao="separacao" data-ecras="s2 s5 s3 s4">Na paragem falta quantidade</p>
-  <p data-funcao="separacao" data-ecras="s2 s6 s3">A etiqueta não se lê</p>
-  <p data-funcao="separacao" data-ecras="sp0 s9 sp0">Ver como está uma guia</p>
-  <p data-funcao="separacao" data-ecras="sp1 p1 p2 sp1">Levar a palete vazia</p>
-  <p data-funcao="separacao" data-ecras="sp0 s8 e1">Sair com guias por fechar</p>
-  <p data-funcao="expedicao" data-ecras="e1 xp0 xp1 x1 x2 x3 x4 x5 xp1">Um turno normal</p>
-  <p data-funcao="expedicao" data-ecras="x2 x6 x7 x3 x4">Falta um volume na prateleira</p>
-  <p data-funcao="expedicao" data-ecras="x3 x8 x4">A etiqueta do cais não se lê</p>
-  <p data-funcao="expedicao" data-ecras="xp0 xq2 xp0">Ver o que está na prateleira</p>
-  <p data-funcao="expedicao" data-ecras="xp0 x9 e1">Sair com uma saída por fechar</p>
-  <p data-funcao="gestor" data-ecras="e1 gp0 g1 g4 g8 gp0">Ver como vai o turno</p>
-  <p data-funcao="gestor" data-ecras="gp0 g5 g8 gp0">Atribuir uma tarefa a alguém</p>
-  <p data-funcao="gestor" data-ecras="gp0 g6 g5 g8 gp0">Ver o armazém todo</p>
+  <!-- Arrumação -->
+  <p data-funcao="arrumacao" data-ecras="e2 e3 a1 a2 a4 a5"
+     data-nota="Uma tarefa é uma guia de arrumação, que pode ter várias paletes: o 14 volta ao 10 até à última. Só então o motor dá a guia seguinte.">Um turno normal</p>
+  <p data-funcao="arrumacao" data-ecras="e2 n1 n2 r1 r2 r4"
+     data-nota="O sistema não sabe o que vem: quem está no cais pica, confere e recebe, tudo seguido. No fim escolhe — arrumar o que chegou, ou picar mais uma chegada.">Chega mercadoria ao cais</p>
+  <p data-funcao="arrumacao" data-ecras="r2 r3 r4"
+     data-nota="Desvio do fluxo de cima: regista-se o que chegou de facto, e é isso que entra em stock.">…e a quantidade não bate</p>
+  <p data-funcao="arrumacao" data-ecras="a2 g2 a3 a4 a5"
+     data-nota="A posição fica marcada como ocupada e o sistema propõe logo a seguinte.">A posição proposta está ocupada</p>
+  <p data-funcao="arrumacao" data-ecras="a1 a6 a2"
+     data-nota="Escreve-se o código. O sistema conta as leituras à mão.">A etiqueta do artigo não se lê</p>
+  <p data-funcao="arrumacao" data-ecras="a4 a7 a5"
+     data-nota="O mesmo na prateleira. À terceira vez, o sistema aconselha o gestor a renovar a etiqueta.">A etiqueta da posição não se lê</p>
+  <p data-funcao="arrumacao" data-ecras="a2 g2 a8"
+     data-nota="A arrumação não bloqueia nada: diz o que se passa e o gestor decide. A tarefa deixa de ser tua.">Um problema que não é da arrumação</p>
+  <p data-funcao="arrumacao" data-ecras="k1 k2 k3"
+     data-nota="Nasce de um sinal no relatório do gestor: é ele que manda corrigir. O motor não descobre nada sozinho — só dá a tarefa a quem estiver livre.">O gestor manda corrigir uma posição</p>
+  <p data-funcao="arrumacao" data-ecras="e2 k4 k5 k6"
+     data-nota="Ninguém conta o armazém. Quem vê uma posição que não bate, corrige-a ali.">Dar com uma posição errada</p>
+  <p data-funcao="arrumacao" data-ecras="e2 q1"
+     data-nota="Ver onde está e quanto há. Não muda nada.">Consultar um artigo</p>
+  <p data-funcao="arrumacao" data-ecras="e2 q2 k5 k6"
+     data-nota="Se o que lá está não bate, corrige-se sem sair da consulta.">Consultar uma posição e corrigi-la</p>
+  <p data-funcao="arrumacao" data-ecras="p1 p2"
+     data-nota="Também é tarefa: o motor dá-a quando uma posição fica vazia.">Levar a palete vazia</p>
+  <p data-funcao="arrumacao" data-ecras="e2 e1"
+     data-nota="Na arrumação nada fica a meio. Sair é um toque.">Sair do turno</p>
+
+  <!-- Separação -->
+  <p data-funcao="separacao" data-ecras="sp0 sp1 s1 s2 s4 s7"
+     data-nota="Uma tarefa é uma guia de separação. O motor ordena as paragens pelo caminho mais curto; fechada a guia na prateleira, dá a seguinte.">Um turno normal</p>
+  <p data-funcao="separacao" data-ecras="s2 s3 s4"
+     data-nota="Regista-se o que se tirou e fica uma correção na posição. A guia não sai sem o resto.">Na paragem falta quantidade</p>
+  <p data-funcao="separacao" data-ecras="s2 s6 s4"
+     data-nota="Escreve-se o código e a volta segue.">A etiqueta não se lê</p>
+  <p data-funcao="separacao" data-ecras="s2 s5 a8"
+     data-nota="Fica registado, o gestor decide, e a volta continua na paragem seguinte.">Um problema na paragem</p>
+  <p data-funcao="separacao" data-ecras="sp0 s9"
+     data-nota="O que falta, onde ficou e para que camião vai.">Ver como está uma guia</p>
+  <p data-funcao="separacao" data-ecras="sp0 sq1"
+     data-nota="Onde está e quanto há, sem largar a volta.">Consultar um artigo</p>
+  <p data-funcao="separacao" data-ecras="sp0 sq2"
+     data-nota="O que está lá, sem largar a volta.">Consultar uma posição</p>
+  <p data-funcao="separacao" data-ecras="p1 p2"
+     data-nota="A mesma tarefa da arrumação; também calha à separação.">Levar a palete vazia</p>
+  <p data-funcao="separacao" data-ecras="sp0 s8 e1"
+     data-nota="O PDA diz o que fica por fechar. Quem sai, sai; o gestor fica a saber.">Sair com guias por fechar</p>
+
+  <!-- Expedição -->
+  <p data-funcao="expedicao" data-ecras="xp0 xp1 x2 x3 x4 x5"
+     data-nota="Uma tarefa é uma guia: levanta-se na prateleira, confere-se volume a volume e leva-se ao camião. A saída só fecha quando a última guia dele subir.">Um turno normal</p>
+  <p data-funcao="expedicao" data-ecras="x2 x6 x7 x3 x4"
+     data-nota="A guia fica incompleta e espera. O resto do camião segue.">Falta um volume na prateleira</p>
+  <p data-funcao="expedicao" data-ecras="x3 x8 x4"
+     data-nota="Escreve-se o cais e o carregamento segue.">A etiqueta do cais não se lê</p>
+  <p data-funcao="expedicao" data-ecras="xp0 x1"
+     data-nota="Ver o risco de cada camião — o que já está pronto e o que falta. Não é por aqui que se escolhe trabalho.">Ver os camiões de hoje</p>
+  <p data-funcao="expedicao" data-ecras="xp0 xq1"
+     data-nota="O que falta, onde ficou e quando sai.">Consultar uma guia</p>
+  <p data-funcao="expedicao" data-ecras="xp0 xq2"
+     data-nota="A prateleira toda, e para que camião vai cada guia.">Ver o que está na prateleira</p>
+  <p data-funcao="expedicao" data-ecras="xp0 x9 e1"
+     data-nota="O PDA diz que camião fica aberto antes de deixar sair.">Sair com uma saída por fechar</p>
+
+  <!-- Gestor -->
+  <p data-funcao="gestor" data-ecras="gp0 g1 g10"
+     data-nota="Os números do turno e, por baixo, os insights: onde se perde tempo e o que falha.">Um turno normal</p>
+  <p data-funcao="gestor" data-ecras="gp0 g1 g8"
+     data-nota="Cada sinal traz o que fazer a seguir. Se mandar corrigir uma posição, é aqui que nasce a tarefa que a arrumação vai receber.">Agir sobre um sinal</p>
+  <p data-funcao="gestor" data-ecras="gp0 g5 g8"
+     data-nota="Com o motivo escrito. Passa à frente na fila dessa pessoa e o motor aprende.">Atribuir uma tarefa a alguém</p>
+  <p data-funcao="gestor" data-ecras="gp0 g6 g5 g8"
+     data-nota="Quem está a trabalhar, o que falta, o que sai hoje — e atribuir a partir daí.">Ver o armazém todo</p>
+  <p data-funcao="gestor" data-ecras="gp0 g9 e2"
+     data-nota="O gestor entra em qualquer função e trabalha como ela.">Trabalhar como qualquer função</p>
+  <p data-funcao="gestor" data-ecras="gp0 e1"
+     data-nota="O gestor não tem trabalho por fechar no PDA.">Sair do turno</p>
 </template>
 
 <!-- Os casos de uso do dossiê, com as decisões tomadas: aparecem no fim da aba Texto.
@@ -65,11 +120,11 @@
   <p data-cu="CU-03" data-atores="todas">Consultar um artigo</p>
   <p data-cu="CU-04" data-atores="todas" data-estado="v2" data-nota="Precisa do mapa, que é da v2.">Ver onde fica uma posição</p>
   <p data-cu="CU-05" data-atores="separacao expedicao gestor" data-nota="A arrumação não bloqueia: diz «Artigo danificado» no «O que se passa?», e o gestor decide (22 set.).">Bloquear um artigo danificado</p>
-  <p data-cu="CU-06" data-atores="arrumacao" data-nota="É uma tarefa: vem pela fila, na ordem do motor. Nasce quando a arrumação pica a chegada (CU-40).">Receber o que chega</p>
+  <p data-cu="CU-06" data-atores="arrumacao" data-nota="Mudou a 24 de setembro: deixou de ser tarefa da fila. Quem pica a chegada (CU-40) confere e recebe logo a seguir, no mesmo fluxo.">Receber o que chega</p>
   <p data-cu="CU-07" data-atores="arrumacao">Arrumar uma palete</p>
   <p data-cu="CU-08" data-atores="" data-estado="fora" data-nota="Ninguém conta: a falta de quantidade corrige-se na posição, no PDA (18 set.).">Contar uma posição</p>
   <p data-cu="CU-09" data-atores="arrumacao motor">Corrigir uma posição errada</p>
-  <p data-cu="CU-10" data-atores="separacao motor">Receber o lote de guias</p>
+  <p data-cu="CU-10" data-atores="separacao motor" data-nota="Mudou a 24 de setembro: acabou o lote. O motor dá uma guia de cada vez, conforme a atividade dos PDA.">Receber a guia da vez</p>
   <p data-cu="CU-11" data-atores="separacao">Recolher uma guia</p>
   <p data-cu="CU-12" data-atores="separacao">Sair com guias por fechar</p>
   <p data-cu="CU-13" data-atores="expedicao">Ver o risco dos camiões</p>
@@ -80,7 +135,7 @@
   <p data-cu="CU-18" data-atores="gestor">Fixar a prioridade de uma tarefa</p>
   <p data-cu="CU-19" data-atores="gestor">Ver o que sai e o que vai sair</p>
   <p data-cu="CU-20" data-atores="gestor" data-nota="O motor aprende com as atribuições do gestor.">Atribuir uma tarefa a uma pessoa</p>
-  <p data-cu="CU-21" data-atores="todas">Ver a fila e saber o que fazer a seguir</p>
+  <p data-cu="CU-21" data-atores="todas" data-nota="Mudou a 24 de setembro: a pessoa não vê a fila. O motor dá uma tarefa de cada vez, conforme a atividade dos PDA, e ela vê só a que tem em mãos.">Ver o que fazer a seguir</p>
   <p data-cu="CU-22" data-atores="todas">Comunicar uma exceção</p>
   <p data-cu="CU-23" data-atores="todas">Ver os movimentos</p>
   <p data-cu="CU-24" data-atores="gestor">Desbloquear um artigo</p>
@@ -98,7 +153,7 @@
   <p data-cu="CU-36" data-atores="arrumacao separacao" data-nota="A arrumação na zona de máquina; a separação na zona de mão.">Levar a palete vazia ao parque</p>
   <p data-cu="CU-37" data-atores="gestor" data-nota="Saiu das operações da arrumação (22 set.). Falta decidir quem recebe; o gestor valida.">Receber uma devolução</p>
   <p data-cu="CU-38" data-atores="expedicao">Levar uma guia preparada ao cais</p>
-  <p data-cu="CU-39" data-atores="arrumacao separacao expedicao motor" data-nota="Novo — não está no dossiê. A pessoa carrega em «Começar» e o motor entrega a tarefa seguinte da fila; ao acabar uma, entrega a seguinte (22 set.).">Começar as tarefas</p>
+  <p data-cu="CU-39" data-atores="arrumacao separacao expedicao motor" data-nota="Novo — não está no dossiê. A pessoa carrega em «Começar» e o motor entrega-lhe uma tarefa; ao acabar essa, entrega a seguinte. Ela não escolhe nem vê a fila (24 set.).">Começar as tarefas</p>
   <p data-cu="CU-40" data-atores="arrumacao" data-nota="O sistema não sabe o que vem a caminho (23 set.): a arrumação pica a chegada no PDA e é daí que nasce a tarefa de receção. Só as paletes da SKF são picadas noutro PDA.">Registar a chegada de uma encomenda</p>
 </template>
 
@@ -205,15 +260,15 @@
     <span class="heroi__foto" aria-hidden="true"></span>
     <span class="heroi__risco" aria-hidden="true"></span>
     <h1 class="heroi__titulo">Bom dia, Marta</h1>
-    <p class="heroi__sub">Turno das 8h · 4 tarefas na tua fila</p>
+    <p class="heroi__sub">Turno das 8h · o motor dá-te uma tarefa de cada vez</p>
   </header>
   <div class="corpo menu__corpo">
 
     <section class="fazer" aria-labelledby="e2-agora">
       <h2 class="fazer__titulo" id="e2-agora">Trabalho</h2>
-      <button type="button" class="fazer__opcao fazer__opcao--primeira" data-ir="a1">
+      <button type="button" class="fazer__opcao fazer__opcao--primeira" data-ir="e3">
         <span class="fazer__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.5 2.5v19M20.5 2.5v19M3.5 11.5h17M3.5 20h17" fill="none" stroke="currentColor" stroke-width="2.2"/><rect class="tinta-acao" x="6" y="4.5" width="5" height="5"/><rect class="tinta-acao" x="13" y="4.5" width="5" height="5"/><rect class="tinta-acao" x="6" y="13.5" width="5" height="4.5"/><rect class="tinta-acao" x="13" y="13.5" width="5" height="4.5"/></svg></span>
-        <span class="fazer__texto"><span class="fazer__nome">Começar tarefas</span><span class="fazer__conta">A seguinte: Arrumar palete</span></span>
+        <span class="fazer__texto"><span class="fazer__nome">Começar tarefas</span><span class="fazer__conta">Agora: guia GA-4471 · 3 paletes</span></span>
         <svg class="atalho__seta" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
     </section>
@@ -243,8 +298,8 @@
 
   <nav class="abas-fundo" aria-label="Navegação">
     <button type="button" class="abas-fundo__aba" data-ir="e3">
-      <span class="abas-fundo__icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 6h13M8.5 12h13M8.5 18h13" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="3.5" cy="6" r="1.6" fill="currentColor"/><circle cx="3.5" cy="12" r="1.6" fill="currentColor"/><circle cx="3.5" cy="18" r="1.6" fill="currentColor"/></svg><span class="abas-fundo__contador" aria-label="4 tarefas">4</span></span>
-      Fila
+      <span class="abas-fundo__icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 6h13M8.5 12h13M8.5 18h13" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="3.5" cy="6" r="1.6" fill="currentColor"/><circle cx="3.5" cy="12" r="1.6" fill="currentColor"/><circle cx="3.5" cy="18" r="1.6" fill="currentColor"/></svg></span>
+      Tarefa
     </button>
     <button type="button" class="abas-fundo__aba" aria-current="page">
       <span class="abas-fundo__icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 22 11h-3v10.5h-5V15h-4v6.5H5V11H2Z" fill="currentColor"/></svg></span>
@@ -258,9 +313,13 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="e3" data-objetivo="Mostrar as tarefas por ordem, e porque é que cada uma está onde está." data-funcao="arrumacao" data-fluxo="Entrar e começar o turno" data-nome="03 · A fila, com o porquê" data-refs="CU-39 · CU-21 · RF-20 · RF-21 · RF-95" hidden>
+<div class="ecra" data-ecra="e3" data-objetivo="Mostrar a tarefa que o motor deu agora, e porque é que é esta." data-funcao="arrumacao" data-fluxo="Entrar e começar o turno" data-nome="03 · A tua próxima tarefa" data-refs="CU-39 · CU-21 · RF-20 · RF-21 · RF-95" hidden>
 <div class="pda">
-  <!-- Desenho de 22 de setembro. A barra de cima volta ao início; a rede
+  <!-- Desenho de 24 de setembro. A pessoa não escolhe nem vê a fila: o motor
+       distribui conforme a atividade dos PDA, uma tarefa de cada vez, ao
+       entrar no turno e sempre que uma acaba. Aqui vê-se a que está em mãos,
+       o porquê dela, e quanto trabalho está à espera no armazém — um número,
+       sem dizer o quê nem de quem. A barra de cima volta ao início; a rede
        continua à vista, porque sem rede o PDA não trabalha (RNF-01). -->
   <header class="topo">
     <button type="button" class="topo__voltar" data-ir="e2"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar</button>
@@ -269,38 +328,27 @@
   </header>
   <div class="corpo">
     <div class="cabeca-fila">
-      <h1 class="cabeca-fila__titulo">A tua fila</h1>
-      <span class="cabeca-fila__conta">4 tarefas</span>
+      <h1 class="cabeca-fila__titulo">A tua próxima tarefa</h1>
+      <span class="cabeca-fila__conta">1 de cada vez</span>
     </div>
-    <p class="cabeca-fila__sub">Por ordem. A de cima é a seguinte.</p>
+    <p class="cabeca-fila__sub">O motor deu-te esta. Quando acabares, dá a seguinte.</p>
     <button type="button" class="tarefa tarefa--destaque" data-ir="a1">
-      <span class="selo selo--acento">Seguinte</span>
-      <span class="tarefa__titulo">Arrumar palete · Óleo 5W30 (40 un.)</span>
+      <span class="selo selo--acento">Agora</span>
+      <span class="tarefa__titulo">Guia GA-4471 · 3 paletes</span>
       <span class="tarefa__porque">Porquê: espera há 2h10, a mais antiga</span>
     </button>
-    <button type="button" class="tarefa" data-ir="r1">
-      <span class="selo selo--acento">Receção</span>
-      <span class="tarefa__titulo">Receber 2 paletes · Castrol Portugal</span>
-      <span class="tarefa__porque">Porquê: chegaram ao cais às 10h05 e ocupam-no</span>
-    </button>
-    <button type="button" class="tarefa" data-ir="k1">
-      <span class="selo selo--erro">Correção</span>
-      <span class="tarefa__titulo">Corrigir 60300302</span>
-      <span class="tarefa__porque">Porquê: 6 un. de Óleo 5W30 estão fora do sítio</span>
-    </button>
-    <button type="button" class="tarefa" data-ir="p1">
-      <span class="selo selo--aviso">Palete vazia</span>
-      <span class="tarefa__titulo">Levar palete vazia ao parque</span>
-      <span class="tarefa__porque">Porquê: esvaziada às 10h02 em 60100201</span>
-    </button>
+    <div class="cartao">
+      <span class="rotulo">No armazém</span>
+      <div class="linha">À espera de alguém<span class="linha__valor linha__valor--forte">8 tarefas</span></div>
+      <div class="linha">A ser feitas agora<span class="linha__valor">5</span></div>
+    </div>
+    <p class="txt-legenda">O motor reparte pela atividade dos PDA. Ninguém escolhe, e ninguém apanha a tarefa de outro.</p>
   </div>
   <div class="rodape">
     <button type="button" class="btn btn--acao" data-ir="a1">Começar trabalho<svg class="btn__seta btn__seta--junto" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   </div>
 </div>
 </div>
-
-<!-- ================= RECEBER O QUE CHEGA (CU-06) ================= -->
 
 <div class="ecra" data-ecra="n1" data-objetivo="Picar a chegada: o sistema não sabe o que vem a caminho, por isso é aqui que a mercadoria entra no sistema." data-fluxo="Receber o que chega" data-funcao="arrumacao" data-nome="04 · Picar a chegada" data-refs="CU-40 · CU-06 · RF-30" hidden>
 <div class="pda">
@@ -345,11 +393,11 @@
       <div class="linha">Tarefa de receção<span class="linha__valor linha__valor--bom">1 nova</span></div>
       <div class="linha">Onde está<span class="linha__valor">Cais de entrada</span></div>
     </div>
-    <p class="nota">O motor põe-na na fila pela prioridade. Enquanto ninguém a começa, a mercadoria fica no cais.</p>
+    <p class="nota">O motor avalia o que chegou e põe a receção na fila pela prioridade, sozinho. Pica o resto do que veio: a mercadoria fica no cais até alguém começar a tarefa.</p>
   </div>
   <div class="rodape">
-    <button type="button" class="btn btn--acao" data-ir="e3"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Ver a fila</button>
-    <button type="button" class="btn" data-ir="e2"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11 12 3.5l8.5 7.5M6 9v11h12V9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar ao início</button>
+    <button type="button" class="btn btn--acao" data-ir="r1">Conferir esta chegada<svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button type="button" class="btn" data-ir="n1">Picar outra chegada</button>
   </div>
 </div>
 </div>
@@ -433,17 +481,18 @@
     <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i></div>
   </div>
   <div class="corpo">
-    <div class="alerta alerta--bom"><svg class="alerta__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="m7 12.5 3.3 3.3L17 9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><b class="alerta__titulo">Chegada registada às 10h05</b><span class="alerta__texto">Castrol Portugal · 2 paletes no cais</span></div>
+    <div class="alerta alerta--bom"><svg class="alerta__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="m7 12.5 3.3 3.3L17 9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><b class="alerta__titulo">Recebido às 10h18</b><span class="alerta__texto">GR-58213 · Castrol Portugal · 2 paletes</span></div>
     <div class="cartao">
-      <span class="rotulo">Passou ao motor</span>
-      <div class="linha">Tarefa de receção<span class="linha__valor linha__valor--bom">1 nova</span></div>
-      <div class="linha">Onde está<span class="linha__valor">Cais de entrada</span></div>
+      <span class="rotulo">Entrou em stock</span>
+      <div class="linha">Óleo 5W30 · 5 L<span class="linha__valor">40 un.</span></div>
+      <div class="linha">Filtro de óleo W712<span class="linha__valor">24 un.</span></div>
+      <div class="linha">Tarefas de arrumar<span class="linha__valor linha__valor--bom">2 novas</span></div>
     </div>
-    <p class="nota">O motor põe-na na fila pela prioridade. Enquanto ninguém a começa, a mercadoria fica no cais.</p>
+    <p class="txt-legenda">As 2 paletes ficam no cais até serem arrumadas.</p>
   </div>
   <div class="rodape">
-    <button type="button" class="btn btn--acao" data-ir="e3"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Ver a fila</button>
-    <button type="button" class="btn" data-ir="e2"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11 12 3.5l8.5 7.5M6 9v11h12V9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar ao início</button>
+    <button type="button" class="btn btn--acao" data-ir="e3">Começar a arrumar<svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button type="button" class="btn" data-ir="n1">Picar mais uma chegada</button>
   </div>
 </div>
 </div>
@@ -452,7 +501,7 @@
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span><span class="faixa__avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6" fill="currentColor"/><path d="M4.5 21c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5" fill="currentColor"/></svg></span></div>
   <div class="passos">
-    <div class="passos__linha"><span class="passos__titulo">Arrumar palete</span><span class="passos__conta">Passo 1 de 4</span></div>
+    <div class="passos__linha"><span class="passos__titulo">GA-4471 · palete 1 de 3</span><span class="passos__conta">Passo 1 de 4</span></div>
     <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i><i class="passos__traco"></i><i class="passos__traco"></i></div>
   </div>
   <div class="corpo">
@@ -471,11 +520,11 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="a2" data-objetivo="Dizer para onde levar a palete, e porquê." data-funcao="arrumacao" data-fluxo="Arrumar uma palete" data-nome="11 · Vai à proposta 1 de 3" data-refs="RF-31 · RF-32 · RF-35" hidden>
+<div class="ecra" data-ecra="a2" data-objetivo="Dizer para onde levar a palete, e porquê." data-funcao="arrumacao" data-fluxo="Arrumar uma palete" data-nome="11 · Vai à proposta 1 de 3" data-refs="CU-07 · RF-31 · RF-32 · RF-35" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span><span class="faixa__avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6" fill="currentColor"/><path d="M4.5 21c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5" fill="currentColor"/></svg></span></div>
   <div class="passos">
-    <div class="passos__linha"><span class="passos__titulo">Arrumar palete</span><span class="passos__conta">Passo 2 de 4</span></div>
+    <div class="passos__linha"><span class="passos__titulo">GA-4471 · palete 1 de 3</span><span class="passos__conta">Passo 2 de 4</span></div>
     <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i><i class="passos__traco"></i></div>
   </div>
   <div class="corpo">
@@ -501,11 +550,11 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="a3" data-objetivo="Registar a posição ocupada e passar à proposta seguinte." data-funcao="arrumacao" data-fluxo="Arrumar uma palete" data-nome="12 · A 1 estava ocupada" data-refs="RF-35 · RF-116" hidden>
+<div class="ecra" data-ecra="a3" data-objetivo="Registar a posição ocupada e passar à proposta seguinte." data-funcao="arrumacao" data-fluxo="Arrumar uma palete" data-nome="12 · A 1 estava ocupada" data-refs="CU-07 · RF-35 · RF-116" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span><span class="faixa__avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6" fill="currentColor"/><path d="M4.5 21c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5" fill="currentColor"/></svg></span></div>
   <div class="passos">
-    <div class="passos__linha"><span class="passos__titulo">Arrumar palete</span><span class="passos__conta">Passo 2 de 4</span></div>
+    <div class="passos__linha"><span class="passos__titulo">GA-4471 · palete 1 de 3</span><span class="passos__conta">Passo 2 de 4</span></div>
     <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i><i class="passos__traco"></i></div>
   </div>
   <div class="corpo">
@@ -525,11 +574,11 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="a4" data-objetivo="Confirmar, pela leitura, que a palete ficou na posição certa." data-funcao="arrumacao" data-fluxo="Arrumar uma palete" data-nome="13 · Lê a posição" data-refs="RF-33 · RF-34 · ADR-0011" hidden>
+<div class="ecra" data-ecra="a4" data-objetivo="Confirmar, pela leitura, que a palete ficou na posição certa." data-funcao="arrumacao" data-fluxo="Arrumar uma palete" data-nome="13 · Lê a posição" data-refs="CU-07 · RF-33 · RF-34 · ADR-0011" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span><span class="faixa__avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6" fill="currentColor"/><path d="M4.5 21c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5" fill="currentColor"/></svg></span></div>
   <div class="passos">
-    <div class="passos__linha"><span class="passos__titulo">Arrumar palete</span><span class="passos__conta">Passo 3 de 4</span></div>
+    <div class="passos__linha"><span class="passos__titulo">GA-4471 · palete 1 de 3</span><span class="passos__conta">Passo 3 de 4</span></div>
     <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i></div>
   </div>
   <div class="corpo">
@@ -547,24 +596,30 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="a5" data-objetivo="Confirmar o registo e passar à tarefa seguinte." data-funcao="arrumacao" data-fluxo="Arrumar uma palete" data-nome="14 · Arrumada" data-refs="RF-74 · RN-32" hidden>
+<div class="ecra" data-ecra="a5" data-objetivo="Confirmar o registo e passar à tarefa seguinte." data-funcao="arrumacao" data-fluxo="Arrumar uma palete" data-nome="14 · Arrumada" data-refs="CU-07 · RF-74 · RN-32" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span><span class="faixa__avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6" fill="currentColor"/><path d="M4.5 21c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5" fill="currentColor"/></svg></span></div>
   <div class="passos">
-    <div class="passos__linha"><span class="passos__titulo">Arrumar palete</span><span class="passos__conta">Passo 4 de 4</span></div>
+    <div class="passos__linha"><span class="passos__titulo">GA-4471 · palete 2 de 3</span><span class="passos__conta">Passo 4 de 4</span></div>
     <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i></div>
   </div>
   <div class="corpo">
-    <div class="alerta alerta--bom"><svg class="alerta__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="m7 12.5 3.3 3.3L17 9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><b class="alerta__titulo">Arrumada em 60300401</b><span class="alerta__texto">40 × Óleo 5W30 · registado com o teu nome às 10h14</span></div>
+    <div class="alerta alerta--bom"><svg class="alerta__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="m7 12.5 3.3 3.3L17 9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><b class="alerta__titulo">Palete arrumada em 60300401</b><span class="alerta__texto">40 × Óleo 5W30 · registado com o teu nome às 10h14</span></div>
     <div class="cartao">
       <span class="rotulo">Estado do stock</span>
       <div class="linha">Antes<span class="linha__valor">A aguardar arrumação · cais</span></div>
       <div class="linha">Agora<span class="linha__valor linha__valor--forte">Armazenado · 60300401</span></div>
     </div>
-    <p class="txt-legenda">Seguinte na fila: Corrigir 60300302 — stock fora do sítio.</p>
+    <div class="cartao">
+      <span class="rotulo">Esta guia</span>
+      <div class="linha">Paletes arrumadas<span class="linha__valor linha__valor--forte">2 de 3</span></div>
+      <div class="linha">Falta<span class="linha__valor">1 palete</span></div>
+    </div>
+    <p class="txt-legenda">Quando a última ficar arrumada, a guia fecha e o motor dá a seguinte.</p>
   </div>
   <div class="rodape">
-    <button type="button" class="btn btn--acao" data-ir="e3"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Próxima tarefa</button>
+    <button type="button" class="btn btn--acao" data-ir="a1">Palete seguinte<svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button type="button" class="btn" data-ir="e3">Ver a tarefa</button>
   </div>
 </div>
 </div>
@@ -649,7 +704,7 @@
   <div class="corpo">
     <div class="alerta alerta--aviso"><svg class="alerta__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.3 3.2a2 2 0 0 1 3.4 0l8.4 15a2 2 0 0 1-1.7 3H3.6a2 2 0 0 1-1.7-3Z" fill="currentColor"/><path d="M12 9v5" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="17.3" r="1.4" fill="#fff"/></svg><b class="alerta__titulo">Artigo danificado</b><span class="alerta__texto">Registado às 10h16 com o teu nome</span></div>
     <p class="txt-corpo">O gestor foi avisado. A palete fica onde está até ele decidir.</p>
-    <p class="txt-legenda">A tarefa sai da tua fila.</p>
+    <p class="txt-legenda">A tarefa deixa de ser tua. O motor dá-te a seguinte.</p>
   </div>
   <div class="rodape">
     <button type="button" class="btn btn--acao" data-ir="e3"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Próxima tarefa</button>
@@ -716,9 +771,9 @@
   <div class="corpo">
     <div class="alerta alerta--bom"><svg class="alerta__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="m7 12.5 3.3 3.3L17 9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><b class="alerta__titulo">6 × Óleo 5W30 mudaram de sítio</b><span class="alerta__texto">De 60300302 para 60300401 · às 10h31</span></div>
     <p class="txt-legenda">Sair e entrar foram um só registo. Não se criou stock novo.</p>
-  </div>
+    </div>
   <div class="rodape">
-    <button type="button" class="btn btn--acao" data-ir="e3"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Próxima tarefa</button>
+    <button type="button" class="btn btn--acao" data-ir="e3">Próxima tarefa<svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   </div>
 </div>
 </div>
@@ -743,7 +798,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="k5" data-objetivo="Dizer quantas unidades estão de facto na posição." data-fluxo="Corrigir o que está numa posição" data-funcao="arrumacao" data-nome="23 · O que está lá?" data-refs="RF-114 · RF-121" hidden>
+<div class="ecra" data-ecra="k5" data-objetivo="Dizer quantas unidades estão de facto na posição." data-fluxo="Corrigir o que está numa posição" data-funcao="arrumacao" data-nome="23 · O que está lá?" data-refs="CU-09 · RF-114 · RF-121" hidden>
 <div class="pda">
   <header class="topo">
     <button type="button" class="topo__voltar" data-ir="e2"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar</button>
@@ -770,7 +825,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="k6" data-objetivo="Confirmar a correção; o gestor vê a diferença." data-fluxo="Corrigir o que está numa posição" data-funcao="arrumacao" data-nome="24 · Correção registada" data-refs="RF-114 · RN-23" hidden>
+<div class="ecra" data-ecra="k6" data-objetivo="Confirmar a correção; o gestor vê a diferença." data-fluxo="Corrigir o que está numa posição" data-funcao="arrumacao" data-nome="24 · Correção registada" data-refs="CU-09 · RF-114 · RN-23" hidden>
 <div class="pda">
   <header class="topo">
     <button type="button" class="topo__voltar" data-ir="e2"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar</button>
@@ -882,14 +937,14 @@
     <span class="heroi__foto" aria-hidden="true"></span>
     <span class="heroi__risco" aria-hidden="true"></span>
     <h1 class="heroi__titulo">Bom dia, Rui</h1>
-    <p class="heroi__sub">Turno das 8h · 3 guias na tua volta</p>
+    <p class="heroi__sub">Turno das 8h · o motor dá-te uma guia de cada vez</p>
   </header>
   <div class="corpo menu__corpo">
     <section class="fazer" aria-labelledby="sp0-agora">
       <h2 class="fazer__titulo" id="sp0-agora">Trabalho</h2>
-      <button type="button" class="fazer__opcao fazer__opcao--primeira" data-ir="s1">
+      <button type="button" class="fazer__opcao fazer__opcao--primeira" data-ir="sp1">
         <span class="fazer__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2.5 4h3l2.5 10.5h10.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path class="tinta-acao" d="M7.2 6.5h13.3l-1.7 6.2H8.6Z"/><circle cx="9.5" cy="19" r="1.7" fill="currentColor"/><circle cx="17.5" cy="19" r="1.7" fill="currentColor"/></svg></span>
-        <span class="fazer__texto"><span class="fazer__nome">Começar a recolher</span><span class="fazer__conta">O teu lote: 3 guias · 18 linhas</span></span>
+        <span class="fazer__texto"><span class="fazer__nome">Começar a recolher</span><span class="fazer__conta">Agora: guia G-24187 · 9 linhas</span></span>
         <svg class="atalho__seta" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
     </section>
@@ -914,7 +969,7 @@
   <nav class="abas-fundo" aria-label="Navegação">
     <button type="button" class="abas-fundo__aba" data-ir="sp1">
       <span class="abas-fundo__icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 6h13M8.5 12h13M8.5 18h13" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="3.5" cy="6" r="1.6" fill="currentColor"/><circle cx="3.5" cy="12" r="1.6" fill="currentColor"/><circle cx="3.5" cy="18" r="1.6" fill="currentColor"/></svg><span class="abas-fundo__contador" aria-label="2 tarefas">2</span></span>
-      Fila
+      Tarefa
     </button>
     <button type="button" class="abas-fundo__aba" aria-current="page">
       <span class="abas-fundo__icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 22 11h-3v10.5h-5V15h-4v6.5H5V11H2Z" fill="currentColor"/></svg></span>
@@ -928,7 +983,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="sp1" data-objetivo="Mostrar o que a separação tem para fazer, por ordem do motor." data-fluxo="Começar o turno na separação" data-funcao="separacao" data-nome="30 · A tua fila" data-refs="CU-21 · RF-20" hidden>
+<div class="ecra" data-ecra="sp1" data-objetivo="Mostrar a volta que o motor deu agora, e porque é que é esta." data-fluxo="Começar o turno na separação" data-funcao="separacao" data-nome="30 · A tua próxima tarefa" data-refs="CU-21 · RF-20" hidden>
 <div class="pda">
   <header class="topo">
     <button type="button" class="topo__voltar" data-ir="sp0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar</button>
@@ -937,20 +992,21 @@
   </header>
   <div class="corpo">
     <div class="cabeca-fila">
-      <h1 class="cabeca-fila__titulo">A tua fila</h1>
-      <span class="cabeca-fila__conta">2 tarefas</span>
+      <h1 class="cabeca-fila__titulo">A tua próxima tarefa</h1>
+      <span class="cabeca-fila__conta">1 de cada vez</span>
     </div>
-    <p class="cabeca-fila__sub">Por ordem. A de cima é a seguinte.</p>
+    <p class="cabeca-fila__sub">O motor deu-te esta guia. Quando a fechares, dá a seguinte.</p>
     <button type="button" class="tarefa tarefa--destaque" data-ir="s1">
-      <span class="selo selo--acento">Seguinte</span>
-      <span class="tarefa__titulo">Volta · 3 guias · 18 linhas</span>
+      <span class="selo selo--acento">Agora</span>
+      <span class="tarefa__titulo">Guia G-24187 · Auto Peças Norte · 9 linhas</span>
       <span class="tarefa__porque">Porquê: o camião DPD fecha às 11h30</span>
     </button>
-    <button type="button" class="tarefa" data-ir="p1">
-      <span class="selo selo--aviso">Palete vazia</span>
-      <span class="tarefa__titulo">Levar palete vazia ao parque</span>
-      <span class="tarefa__porque">Porquê: esvaziada às 9h50 em 60201503</span>
-    </button>
+    <div class="cartao">
+      <span class="rotulo">No armazém</span>
+      <div class="linha">Guias à espera<span class="linha__valor linha__valor--forte">12</span></div>
+      <div class="linha">A serem recolhidas agora<span class="linha__valor">3</span></div>
+    </div>
+    <p class="txt-legenda">O motor reparte pela atividade dos PDA. Ninguém escolhe, e ninguém apanha a guia de outro.</p>
   </div>
   <div class="rodape">
     <button type="button" class="btn btn--acao" data-ir="s1"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Começar trabalho</button>
@@ -958,26 +1014,23 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="s1" data-objetivo="Mostrar as guias da volta, já escolhidas pelo motor." data-funcao="separacao" data-fluxo="Recolher uma guia" data-nome="31 · O lote, já cheio" data-refs="CU-10 · RF-40 · RF-41 · RF-44" hidden>
+<div class="ecra" data-ecra="s1" data-objetivo="Mostrar a guia que o motor deu, e a ordem das paragens." data-funcao="separacao" data-fluxo="Recolher uma guia" data-nome="31 · A tua guia, paragem a paragem" data-refs="CU-10 · RF-40 · RF-41 · RF-44" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Separação</span><span class="faixa__nome">Rui Costa</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span><span class="faixa__avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6" fill="currentColor"/><path d="M4.5 21c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5" fill="currentColor"/></svg></span></div>
-  <header class="barra"><h1 class="barra__titulo">O teu lote</h1><p class="barra__sub">3 guias · 18 linhas · 3 colunas</p></header>
+  <header class="barra"><h1 class="barra__titulo">A tua guia</h1><p class="barra__sub">G-24187 · 9 linhas · 3 colunas</p></header>
   <div class="corpo">
     <div class="tarefa tarefa--seguinte">
       <span class="selo selo--erro">Camião DPD · fecha 11h30</span>
       <span class="tarefa__titulo">G-24187 · Auto Peças Norte</span>
-      <span class="tarefa__porque">9 linhas · apertado: faltam 27 min de trabalho</span>
+      <span class="tarefa__porque">Apertado: faltam 27 min de trabalho</span>
     </div>
-    <div class="tarefa">
-      <span class="selo">Camião GLS · 14h00</span>
-      <span class="tarefa__titulo">G-24190 · Oficina Ribeiro</span>
-      <span class="tarefa__porque">6 linhas</span>
+    <div class="cartao">
+      <span class="rotulo">As primeiras paragens</span>
+      <div class="linha">1 · 60200201<span class="linha__valor">6 × Filtro W712</span></div>
+      <div class="linha">2 · 60200502<span class="linha__valor">4 × Óleo 5W30</span></div>
+      <div class="linha">3 · 60300401<span class="linha__valor">2 × Pastilhas</span></div>
     </div>
-    <div class="tarefa">
-      <span class="selo">Camião GLS · 14h00</span>
-      <span class="tarefa__titulo">G-24193 · Lubrificantes Sá</span>
-      <span class="tarefa__porque">3 linhas</span>
-    </div>
+    <p class="txt-legenda">Mais 6 paragens. O motor ordenou-as pelo caminho mais curto.</p>
   </div>
   <div class="rodape">
     <button type="button" class="btn btn--acao" data-ir="s2"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5Z" fill="currentColor"/></svg>Começar a recolher</button>
@@ -985,11 +1038,11 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="s2" data-objetivo="Levar a pessoa à posição e dizer o que tirar." data-funcao="separacao" data-fluxo="Recolher uma guia" data-nome="32 · Paragem: lê a posição" data-refs="RF-43 · RF-44 · RF-45" hidden>
+<div class="ecra" data-ecra="s2" data-objetivo="Levar a pessoa à posição e dizer o que tirar." data-funcao="separacao" data-fluxo="Recolher uma guia" data-nome="32 · Paragem: lê a posição" data-refs="CU-11 · RF-43 · RF-44 · RF-45" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Separação</span><span class="faixa__nome">Rui Costa</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span><span class="faixa__avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6" fill="currentColor"/><path d="M4.5 21c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5" fill="currentColor"/></svg></span></div>
   <div class="passos">
-    <div class="passos__linha"><span class="passos__titulo">Paragem 4 de 18</span><span class="passos__conta">G-24187</span></div>
+    <div class="passos__linha"><span class="passos__titulo">Paragem 4 de 9</span><span class="passos__conta">G-24187</span></div>
     <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i><i class="passos__traco"></i><i class="passos__traco"></i></div>
   </div>
   <div class="corpo">
@@ -1001,7 +1054,7 @@
       <span class="txt-sec">Para G-24187 · o stock já está reservado para ti</span>
     </div>
     <div class="linha">A seguir<span class="linha__valor">60200502 · 5 m</span></div>
-    <div class="leitor" data-ir="s3"><svg class="leitor__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8V4.5A1.5 1.5 0 0 1 4.5 3H8M16 3h3.5A1.5 1.5 0 0 1 21 4.5V8M21 16v3.5a1.5 1.5 0 0 1-1.5 1.5H16M8 21H4.5A1.5 1.5 0 0 1 3 19.5V16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 7.5v9M10 7.5v9M13 7.5v9M16.5 7.5v9" stroke="currentColor" stroke-width="2"/></svg><span class="leitor__traco" aria-hidden="true"></span>Lê a POSIÇÃO, depois o ARTIGO</div>
+    <div class="leitor" data-ir="s4"><svg class="leitor__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8V4.5A1.5 1.5 0 0 1 4.5 3H8M16 3h3.5A1.5 1.5 0 0 1 21 4.5V8M21 16v3.5a1.5 1.5 0 0 1-1.5 1.5H16M8 21H4.5A1.5 1.5 0 0 1 3 19.5V16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 7.5v9M10 7.5v9M13 7.5v9M16.5 7.5v9" stroke="currentColor" stroke-width="2"/></svg><span class="leitor__traco" aria-hidden="true"></span>Lê a POSIÇÃO, depois o ARTIGO</div>
   </div>
   <div class="rodape">
     <button type="button" class="btn btn--secundario" data-ir="s3"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 12h8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Falta quantidade</button>
@@ -1013,11 +1066,11 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="s3" data-objetivo="Registar o que falta e corrigir o stock ali mesmo." data-funcao="separacao" data-fluxo="Recolher uma guia" data-nome="33 · Falta quantidade" data-refs="RF-46 · RF-114 · RF-121" hidden>
+<div class="ecra" data-ecra="s3" data-objetivo="Registar o que falta e corrigir o stock ali mesmo." data-funcao="separacao" data-fluxo="Recolher uma guia" data-nome="33 · Falta quantidade" data-refs="CU-11 · RF-46 · RF-114 · RF-121" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Separação</span><span class="faixa__nome">Rui Costa</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span><span class="faixa__avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6" fill="currentColor"/><path d="M4.5 21c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5" fill="currentColor"/></svg></span></div>
   <div class="passos">
-    <div class="passos__linha"><span class="passos__titulo">Paragem 5 de 18</span><span class="passos__conta">G-24190</span></div>
+    <div class="passos__linha"><span class="passos__titulo">Paragem 5 de 9</span><span class="passos__conta">G-24187</span></div>
     <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i><i class="passos__traco"></i></div>
   </div>
   <div class="corpo">
@@ -1036,11 +1089,11 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="s4" data-objetivo="Deixar as guias na prateleira de preparados, e dizer onde ficaram." data-funcao="separacao" data-fluxo="Recolher uma guia" data-nome="34 · Leva à prateleira de preparados" data-refs="CU-11 · RF-115 · RF-117 · RN-33" hidden>
+<div class="ecra" data-ecra="s4" data-objetivo="Deixar a guia na prateleira de preparados, e dizer onde ficou." data-funcao="separacao" data-fluxo="Recolher uma guia" data-nome="34 · Leva à prateleira de preparados" data-refs="CU-11 · RF-115 · RF-117 · RN-33" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Separação</span><span class="faixa__nome">Rui Costa</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span><span class="faixa__avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6" fill="currentColor"/><path d="M4.5 21c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5" fill="currentColor"/></svg></span></div>
   <div class="passos">
-    <div class="passos__linha"><span class="passos__titulo">Fim da volta</span><span class="passos__conta">18 de 18</span></div>
+    <div class="passos__linha"><span class="passos__titulo">Fim da guia</span><span class="passos__conta">9 de 9</span></div>
     <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i></div>
   </div>
   <div class="corpo">
@@ -1048,28 +1101,27 @@
     <p class="codigo">PP-DPD-03</p>
     <p class="txt-sec">Parte do camião DPD · 11h30 · junto ao cais de saída</p>
     <div class="cartao"><div class="linha">G-24187<span class="linha__valor">completa · 9 volumes</span></div></div>
-    <div class="alerta alerta--aviso"><svg class="alerta__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.3 3.2a2 2 0 0 1 3.4 0l8.4 15a2 2 0 0 1-1.7 3H3.6a2 2 0 0 1-1.7-3Z" fill="currentColor"/><path d="M12 9v5" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="17.3" r="1.4" fill="#fff"/></svg><b class="alerta__titulo">G-24190 fica marcada como incompleta</b><span class="alerta__texto">Vai para PP-GLS-01 e não entra na fila da expedição.</span></div>
+    <p class="txt-legenda">Se tivesse ficado alguma linha por recolher, a guia ia marcada como incompleta e esperava pelo stock.</p>
     <div class="leitor" data-ir="s7"><svg class="leitor__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8V4.5A1.5 1.5 0 0 1 4.5 3H8M16 3h3.5A1.5 1.5 0 0 1 21 4.5V8M21 16v3.5a1.5 1.5 0 0 1-1.5 1.5H16M8 21H4.5A1.5 1.5 0 0 1 3 19.5V16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 7.5v9M10 7.5v9M13 7.5v9M16.5 7.5v9" stroke="currentColor" stroke-width="2"/></svg><span class="leitor__traco" aria-hidden="true"></span>Lê a posição da prateleira onde a pousas</div>
   </div>
 </div>
 </div>
 
-<div class="ecra" data-ecra="s7" data-objetivo="Confirmar que as guias ficaram na prateleira e que a volta acabou." data-fluxo="Recolher uma guia" data-funcao="separacao" data-nome="35 · Volta fechada" data-refs="CU-11 · CU-14 · RF-117" hidden>
+<div class="ecra" data-ecra="s7" data-objetivo="Confirmar que a guia ficou na prateleira e que a tarefa acabou." data-fluxo="Recolher uma guia" data-funcao="separacao" data-nome="35 · Guia fechada" data-refs="CU-11 · CU-14 · RF-117" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Separação</span><span class="faixa__nome">Rui Costa</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span><span class="faixa__avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6" fill="currentColor"/><path d="M4.5 21c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5" fill="currentColor"/></svg></span></div>
   <div class="passos">
-    <div class="passos__linha"><span class="passos__titulo">Fim da volta</span><span class="passos__conta">18 de 18</span></div>
+    <div class="passos__linha"><span class="passos__titulo">Fim da guia</span><span class="passos__conta">9 de 9</span></div>
     <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i></div>
   </div>
   <div class="corpo">
-    <div class="alerta alerta--bom"><svg class="alerta__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="m7 12.5 3.3 3.3L17 9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><b class="alerta__titulo">Volta fechada às 11h02</b><span class="alerta__texto">3 guias na prateleira de preparados</span></div>
+    <div class="alerta alerta--bom"><svg class="alerta__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="m7 12.5 3.3 3.3L17 9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><b class="alerta__titulo">Guia fechada às 11h02</b><span class="alerta__texto">G-24187 · completa · 9 volumes</span></div>
     <div class="cartao">
       <span class="rotulo">Deixaste</span>
-      <div class="linha">G-24187 · completa<span class="linha__valor">PP-DPD-03</span></div>
-      <div class="linha">G-24193 · completa<span class="linha__valor">PP-GLS-01</span></div>
-      <div class="linha">G-24190 · incompleta<span class="linha__valor linha__valor--aviso">fica à espera</span></div>
+      <div class="linha">Onde<span class="linha__valor">PP-DPD-03</span></div>
+      <div class="linha">Camião<span class="linha__valor">DPD · 11h30</span></div>
     </div>
-    <p class="nota">A expedição leva as completas. A incompleta espera pelo stock e não entra na fila da expedição.</p>
+    <p class="nota">A expedição leva-a quando o camião chegar. Incompleta, esperava pelo stock e não entrava na fila da expedição.</p>
   </div>
   <div class="rodape">
     <button type="button" class="btn btn--acao" data-ir="sp1"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Próxima tarefa</button>
@@ -1081,7 +1133,7 @@
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Separação</span><span class="faixa__nome">Rui Costa</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span><span class="faixa__avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6" fill="currentColor"/><path d="M4.5 21c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5" fill="currentColor"/></svg></span></div>
   <div class="passos">
-    <div class="passos__linha"><span class="passos__titulo">Paragem 4 de 18</span><span class="passos__conta">G-24187</span></div>
+    <div class="passos__linha"><span class="passos__titulo">Paragem 4 de 9</span><span class="passos__conta">G-24187</span></div>
     <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i><i class="passos__traco"></i></div>
   </div>
   <div class="corpo">
@@ -1105,7 +1157,7 @@
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Separação</span><span class="faixa__nome">Rui Costa</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span><span class="faixa__avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6" fill="currentColor"/><path d="M4.5 21c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5" fill="currentColor"/></svg></span></div>
   <div class="passos">
-    <div class="passos__linha"><span class="passos__titulo">Paragem 4 de 18</span><span class="passos__conta">G-24187</span></div>
+    <div class="passos__linha"><span class="passos__titulo">Paragem 4 de 9</span><span class="passos__conta">G-24187</span></div>
     <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i><i class="passos__traco"></i></div>
   </div>
   <div class="corpo">
@@ -1118,7 +1170,7 @@
     <p class="txt-legenda">Fica registada como leitura à mão. Se a etiqueta falhar muitas vezes, o sistema aconselha a renová-la.</p>
   </div>
   <div class="rodape">
-    <button type="button" class="btn btn--acao" data-ir="s3"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.5 5 5 10-11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Confirmar</button>
+    <button type="button" class="btn btn--acao" data-ir="s4"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.5 5 5 10-11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Confirmar</button>
   </div>
 </div>
 </div>
@@ -1131,16 +1183,16 @@
     <span class="faixa__rede topo__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span>
   </header>
   <div class="corpo">
-    <div class="alerta alerta--aviso"><svg class="alerta__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.3 3.2a2 2 0 0 1 3.4 0l8.4 15a2 2 0 0 1-1.7 3H3.6a2 2 0 0 1-1.7-3Z" fill="currentColor"/><path d="M12 9v5" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="17.3" r="1.4" fill="#fff"/></svg><b class="alerta__titulo">Tens 1 guia por fechar</b><span class="alerta__texto">A G-24190 tem 4 linhas por recolher</span></div>
+    <div class="alerta alerta--aviso"><svg class="alerta__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.3 3.2a2 2 0 0 1 3.4 0l8.4 15a2 2 0 0 1-1.7 3H3.6a2 2 0 0 1-1.7-3Z" fill="currentColor"/><path d="M12 9v5" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="17.3" r="1.4" fill="#fff"/></svg><b class="alerta__titulo">Tens 1 guia por fechar</b><span class="alerta__texto">A G-24187 tem 4 linhas por recolher</span></div>
     <div class="cartao">
       <span class="rotulo">Se saíres agora</span>
       <div class="linha">A guia<span class="linha__valor">volta à fila</span></div>
-      <div class="linha">O camião GLS<span class="linha__valor">14h00</span></div>
+      <div class="linha">O camião DPD<span class="linha__valor">11h30</span></div>
     </div>
     <p class="nota">Quem entrar a seguir apanha-a onde a deixaste. O gestor vê quem saiu com trabalho aberto.</p>
   </div>
   <div class="rodape">
-    <button type="button" class="btn btn--acao" data-ir="s2"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Continuar a volta</button>
+    <button type="button" class="btn btn--acao" data-ir="s2"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Continuar a guia</button>
     <button type="button" class="btn btn--secundario" data-ir="e1"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="m9 9 6 6m0-6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Sair mesmo</button>
   </div>
 </div>
@@ -1223,20 +1275,24 @@
     <span class="heroi__foto" aria-hidden="true"></span>
     <span class="heroi__risco" aria-hidden="true"></span>
     <h1 class="heroi__titulo">Bom dia, Ana</h1>
-    <p class="heroi__sub">Turno das 8h · 3 camiões hoje</p>
+    <p class="heroi__sub">Turno das 8h · o motor dá-te uma guia de cada vez</p>
   </header>
   <div class="corpo menu__corpo">
     <section class="fazer" aria-labelledby="xp0-agora">
       <h2 class="fazer__titulo" id="xp0-agora">Trabalho</h2>
-      <button type="button" class="fazer__opcao fazer__opcao--primeira" data-ir="x1">
+      <button type="button" class="fazer__opcao fazer__opcao--primeira" data-ir="xp1">
         <span class="fazer__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2.5 6h11v10h-11Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path class="tinta-acao" d="M13.5 9h4.2l3.3 3.3v3.7h-7.5Z"/><circle cx="7" cy="18" r="1.8" fill="currentColor"/><circle cx="17" cy="18" r="1.8" fill="currentColor"/></svg></span>
-        <span class="fazer__texto"><span class="fazer__nome">Começar a carregar</span><span class="fazer__conta">A seguir: camião DPD · fecha 11h30</span></span>
+        <span class="fazer__texto"><span class="fazer__nome">Começar a carregar</span><span class="fazer__conta">Agora: guia G-24187 · 9 volumes · DPD</span></span>
         <svg class="atalho__seta" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
     </section>
     <section class="fazer fazer--outras" aria-labelledby="xp0-ops">
       <h2 class="fazer__titulo" id="xp0-ops">Operações</h2>
       <div class="quadrados">
+        <button type="button" class="quadrado" data-ir="x1">
+          <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2.5 6.5h10v9h-10Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path class="tinta-acao" d="M12.5 9h4.2l3.3 3.3v3.2h-7.5Z"/><circle cx="7" cy="17.5" r="1.8" fill="currentColor"/><circle cx="17" cy="17.5" r="1.8" fill="currentColor"/></svg></span>
+          <span class="quadrado__nome">Camiões de hoje</span>
+        </button>
         <button type="button" class="quadrado" data-ir="xq1">
           <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4.5" y="2.5" width="15" height="19" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path class="traco-acao" d="M8 8h8M8 12h8M8 16h5" stroke-width="2" stroke-linecap="round"/></svg></span>
           <span class="quadrado__nome">Consultar guia</span>
@@ -1250,8 +1306,8 @@
   </div>
   <nav class="abas-fundo" aria-label="Navegação">
     <button type="button" class="abas-fundo__aba" data-ir="xp1">
-      <span class="abas-fundo__icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 6h13M8.5 12h13M8.5 18h13" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="3.5" cy="6" r="1.6" fill="currentColor"/><circle cx="3.5" cy="12" r="1.6" fill="currentColor"/><circle cx="3.5" cy="18" r="1.6" fill="currentColor"/></svg><span class="abas-fundo__contador" aria-label="2 tarefas">2</span></span>
-      Fila
+      <span class="abas-fundo__icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 6h13M8.5 12h13M8.5 18h13" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="3.5" cy="6" r="1.6" fill="currentColor"/><circle cx="3.5" cy="12" r="1.6" fill="currentColor"/><circle cx="3.5" cy="18" r="1.6" fill="currentColor"/></svg></span>
+      Tarefa
     </button>
     <button type="button" class="abas-fundo__aba" aria-current="page">
       <span class="abas-fundo__icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 22 11h-3v10.5h-5V15h-4v6.5H5V11H2Z" fill="currentColor"/></svg></span>
@@ -1265,7 +1321,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="xp1" data-objetivo="Mostrar o que a expedição tem para fazer, por ordem de fecho dos camiões." data-fluxo="Começar o turno na expedição" data-funcao="expedicao" data-nome="43 · A tua fila" data-refs="CU-21 · CU-13" hidden>
+<div class="ecra" data-ecra="xp1" data-objetivo="Mostrar o camião que o motor deu agora, e porque é que é este." data-fluxo="Começar o turno na expedição" data-funcao="expedicao" data-nome="43 · A tua próxima tarefa" data-refs="CU-21 · CU-13" hidden>
 <div class="pda">
   <header class="topo">
     <button type="button" class="topo__voltar" data-ir="xp0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar</button>
@@ -1274,37 +1330,38 @@
   </header>
   <div class="corpo">
     <div class="cabeca-fila">
-      <h1 class="cabeca-fila__titulo">A tua fila</h1>
-      <span class="cabeca-fila__conta">2 tarefas</span>
+      <h1 class="cabeca-fila__titulo">A tua próxima tarefa</h1>
+      <span class="cabeca-fila__conta">1 de cada vez</span>
     </div>
-    <p class="cabeca-fila__sub">Por ordem de fecho. A de cima é a seguinte.</p>
-    <button type="button" class="tarefa tarefa--destaque" data-ir="x1">
-      <span class="selo selo--acento">Seguinte</span>
-      <span class="tarefa__titulo">Carregar o camião DPD</span>
-      <span class="tarefa__porque">Porquê: fecha às 11h30 e já está no cais</span>
+    <p class="cabeca-fila__sub">O motor deu-te esta guia. Quando a carregares, dá a seguinte.</p>
+    <button type="button" class="tarefa tarefa--destaque" data-ir="x2">
+      <span class="selo selo--acento">Agora</span>
+      <span class="tarefa__titulo">Guia G-24187 · 9 volumes · camião DPD</span>
+      <span class="tarefa__porque">Porquê: o camião fecha às 11h30 e já está no cais</span>
     </button>
-    <button type="button" class="tarefa" data-ir="x2">
-      <span class="selo selo--aviso">Conferir</span>
-      <span class="tarefa__titulo">G-24193 na prateleira</span>
-      <span class="tarefa__porque">Porquê: vai no camião GLS das 14h00</span>
-    </button>
+    <div class="cartao">
+      <span class="rotulo">No armazém</span>
+      <div class="linha">Guias à espera<span class="linha__valor linha__valor--forte">7</span></div>
+      <div class="linha">A serem carregadas agora<span class="linha__valor">2</span></div>
+    </div>
+    <p class="txt-legenda">O motor reparte pela atividade dos PDA. Ninguém escolhe, e ninguém apanha a guia de outro.</p>
   </div>
   <div class="rodape">
-    <button type="button" class="btn btn--acao" data-ir="x1"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Começar trabalho</button>
+    <button type="button" class="btn btn--acao" data-ir="x2"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Começar trabalho</button>
   </div>
 </div>
 </div>
 
-<div class="ecra" data-ecra="x1" data-objetivo="Mostrar os camiões por hora de fecho, e o que está pronto." data-funcao="expedicao" data-fluxo="Da prateleira ao camião" data-nome="44 · Os camiões de hoje" data-refs="CU-13 · RF-50 · RF-51 · RF-56" hidden>
+<div class="ecra" data-ecra="x1" data-objetivo="Ver os camiões por hora de fecho e o risco de cada um; não é por aqui que se escolhe trabalho." data-funcao="expedicao" data-fluxo="Consultar na expedição" data-nome="44 · Os camiões de hoje" data-refs="CU-13 · RF-50 · RF-51 · RF-56" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Expedição</span><span class="faixa__nome">Ana Lopes</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span><span class="faixa__avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6" fill="currentColor"/><path d="M4.5 21c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5" fill="currentColor"/></svg></span></div>
   <header class="barra"><h1 class="barra__titulo">Camiões de hoje</h1><p class="barra__sub">Por ordem de fecho</p></header>
   <div class="corpo">
-    <button type="button" class="camiao" data-ir="x2">
+    <div class="camiao">
       <span class="camiao__nome">DPD</span><span class="camiao__hora camiao__hora--erro">11h30</span>
       <span class="camiao__estado">1 guia na prateleira · 0 no cais · <b>Apertado</b></span>
       <span class="camiao__barra"><i class="camiao__cheio camiao__cheio--erro" style="width:82%"></i></span>
-    </button>
+    </div>
     <div class="camiao">
       <span class="camiao__nome">GLS</span><span class="camiao__hora">14h00</span>
       <span class="camiao__estado">1 completa · 1 incompleta na prateleira</span>
@@ -1315,6 +1372,9 @@
       <span class="camiao__estado">4 guias por recolher</span>
       <span class="camiao__barra"><i class="camiao__cheio camiao__cheio--bom" style="width:12%"></i></span>
     </div>
+  </div>
+  <div class="rodape">
+    <button type="button" class="btn" data-ir="xp0">Voltar ao início</button>
   </div>
 </div>
 </div>
@@ -1347,7 +1407,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="x3" data-objetivo="Levar os volumes ao cais do camião." data-funcao="expedicao" data-fluxo="Da prateleira ao camião" data-nome="46 · Leva ao cais" data-refs="RF-119 · RF-113" hidden>
+<div class="ecra" data-ecra="x3" data-objetivo="Levar os volumes ao cais do camião." data-funcao="expedicao" data-fluxo="Da prateleira ao camião" data-nome="46 · Leva ao cais" data-refs="CU-38 · RF-119 · RF-113" hidden>
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Expedição</span><span class="faixa__nome">Ana Lopes</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span><span class="faixa__avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6" fill="currentColor"/><path d="M4.5 21c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5" fill="currentColor"/></svg></span></div>
   <div class="passos">
@@ -1361,6 +1421,9 @@
     <p class="txt-sec">Onde o camião DPD está a encostar</p>
     <div class="leitor" data-ir="x4"><svg class="leitor__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8V4.5A1.5 1.5 0 0 1 4.5 3H8M16 3h3.5A1.5 1.5 0 0 1 21 4.5V8M21 16v3.5a1.5 1.5 0 0 1-1.5 1.5H16M8 21H4.5A1.5 1.5 0 0 1 3 19.5V16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 7.5v9M10 7.5v9M13 7.5v9M16.5 7.5v9" stroke="currentColor" stroke-width="2"/></svg><span class="leitor__traco" aria-hidden="true"></span>Lê a etiqueta do cais onde pousas</div>
   </div>
+  <div class="rodape">
+    <button type="button" class="btn btn--secundario" data-ir="x8">Não consigo ler — escrever</button>
+  </div>
 </div>
 </div>
 
@@ -1368,21 +1431,23 @@
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Expedição</span><span class="faixa__nome">Ana Lopes</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span><span class="faixa__avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6" fill="currentColor"/><path d="M4.5 21c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5" fill="currentColor"/></svg></span></div>
   <div class="passos">
-    <div class="passos__linha"><span class="passos__titulo">Saída DPD · 11h30</span><span class="passos__conta">Passo 3 de 4</span></div>
+    <div class="passos__linha"><span class="passos__titulo">G-24187 · DPD</span><span class="passos__conta">Passo 3 de 4</span></div>
     <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i></div>
   </div>
   <div class="corpo">
     <h1 class="ordem ordem--menor">Lê ao carregar</h1>
     <div class="cartao">
-      <div class="linha">G-24187<span class="linha__valor linha__valor--bom">9/9 carregados</span></div>
+      <span class="rotulo">Neste camião</span>
+      <div class="linha">G-24187 · a tua<span class="linha__valor linha__valor--bom">9/9 carregados</span></div>
       <div class="linha">G-24181<span class="linha__valor linha__valor--bom">4/4 carregados</span></div>
       <div class="linha">G-24185<span class="linha__valor">1/3</span></div>
     </div>
     <div class="leitor"><svg class="leitor__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8V4.5A1.5 1.5 0 0 1 4.5 3H8M16 3h3.5A1.5 1.5 0 0 1 21 4.5V8M21 16v3.5a1.5 1.5 0 0 1-1.5 1.5H16M8 21H4.5A1.5 1.5 0 0 1 3 19.5V16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 7.5v9M10 7.5v9M13 7.5v9M16.5 7.5v9" stroke="currentColor" stroke-width="2"/></svg><span class="leitor__traco" aria-hidden="true"></span>Lê cada volume quando sobe ao camião</div>
-    <p class="txt-legenda">Documentos de transporte e observações longas: no computador da expedição.</p>
+    <p class="txt-legenda">A saída fecha quando a última guia do camião subir. Documentos de transporte: no computador da expedição.</p>
   </div>
   <div class="rodape">
-    <button type="button" class="btn btn--acao" data-ir="x5"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 6h11v10h-11ZM13.5 9h4l3.5 3.5V16h-7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="17.5" r="1.8" fill="currentColor"/><circle cx="17" cy="17.5" r="1.8" fill="currentColor"/></svg>Fechar saída — faltam 2 volumes</button>
+    <button type="button" class="btn btn--acao" data-ir="xp1">Guia carregada<svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button type="button" class="btn" data-ir="x5">Fechar a saída</button>
   </div>
 </div>
 </div>
@@ -1413,7 +1478,7 @@
 <div class="pda">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Expedição</span><span class="faixa__nome">Ana Lopes</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span><span class="faixa__avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6" fill="currentColor"/><path d="M4.5 21c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5" fill="currentColor"/></svg></span></div>
   <div class="passos">
-    <div class="passos__linha"><span class="passos__titulo">Saída DPD · 11h30</span><span class="passos__conta">Passo 1 de 4</span></div>
+    <div class="passos__linha"><span class="passos__titulo">G-24187 · DPD</span><span class="passos__conta">Passo 1 de 4</span></div>
     <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i><i class="passos__traco"></i><i class="passos__traco"></i></div>
   </div>
   <div class="corpo">
@@ -1436,7 +1501,7 @@
 <div class="ecra" data-ecra="x7" data-objetivo="Registar o volume que falta e dizer o que acontece à guia." data-fluxo="Quando a expedição não corre bem" data-funcao="expedicao" data-nome="50 · Falta um volume" data-refs="CU-14 · RF-118" hidden>
 <div class="pda">
   <div class="passos">
-    <div class="passos__linha"><span class="passos__titulo">Saída DPD · 11h30</span><span class="passos__conta">Passo 1 de 4</span></div>
+    <div class="passos__linha"><span class="passos__titulo">G-24187 · DPD</span><span class="passos__conta">Passo 1 de 4</span></div>
     <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i><i class="passos__traco"></i><i class="passos__traco"></i></div>
   </div>
   <div class="corpo">
@@ -1459,7 +1524,7 @@
 <div class="ecra" data-ecra="x8" data-objetivo="Identificar o cais quando a etiqueta não se lê." data-fluxo="Quando a expedição não corre bem" data-funcao="expedicao" data-nome="51 · Escreve o cais" data-refs="CU-02 · RF-92" hidden>
 <div class="pda">
   <div class="passos">
-    <div class="passos__linha"><span class="passos__titulo">Saída DPD · 11h30</span><span class="passos__conta">Passo 2 de 4</span></div>
+    <div class="passos__linha"><span class="passos__titulo">G-24187 · DPD</span><span class="passos__conta">Passo 2 de 4</span></div>
     <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i><i class="passos__traco"></i></div>
   </div>
   <div class="corpo">
@@ -1588,7 +1653,7 @@
   <nav class="abas-fundo" aria-label="Navegação">
     <button type="button" class="abas-fundo__aba" data-ir="g6">
       <span class="abas-fundo__icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 6h13M8.5 12h13M8.5 18h13" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="3.5" cy="6" r="1.6" fill="currentColor"/><circle cx="3.5" cy="12" r="1.6" fill="currentColor"/><circle cx="3.5" cy="18" r="1.6" fill="currentColor"/></svg><span class="abas-fundo__contador" aria-label="3 tarefas">3</span></span>
-      Fila
+      Armazém
     </button>
     <button type="button" class="abas-fundo__aba" aria-current="page">
       <span class="abas-fundo__icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 22 11h-3v10.5h-5V15h-4v6.5H5V11H2Z" fill="currentColor"/></svg></span>
@@ -1667,8 +1732,8 @@
   <div class="corpo">
     <div class="cartao">
       <span class="rotulo">Tarefa</span>
-      <span class="txt-lead">Arrumar palete · Óleo 5W30</span>
-      <span class="txt-sec">Está na fila da arrumação há 2h10</span>
+      <span class="txt-lead">Guia GA-4471 · 3 paletes</span>
+      <span class="txt-sec">Está à espera de alguém há 2h10</span>
     </div>
     <div class="entrada-texto">
       <label class="entrada-texto__rotulo" for="g5-quem">A quem</label>
@@ -1697,17 +1762,17 @@
     <div class="cartao">
       <span class="rotulo">Arrumação</span>
       <div class="linha">Marta Silva<span class="linha__valor">a arrumar 60300401</span></div>
-      <div class="linha">Na fila<span class="linha__valor">4 tarefas</span></div>
+      <div class="linha">Guias à espera<span class="linha__valor">4</span></div>
       <div class="linha">No cais<span class="linha__valor linha__valor--aviso">2 paletes por receber</span></div>
     </div>
     <div class="cartao">
       <span class="rotulo">Separação</span>
-      <div class="linha">Rui Costa<span class="linha__valor">paragem 4 de 18</span></div>
+      <div class="linha">Rui Costa<span class="linha__valor">G-24187 · paragem 4 de 9</span></div>
       <div class="linha">Guias por fechar<span class="linha__valor linha__valor--aviso">1</span></div>
     </div>
     <div class="cartao">
       <span class="rotulo">Expedição</span>
-      <div class="linha">Ana Lopes<span class="linha__valor">a carregar o DPD</span></div>
+      <div class="linha">Ana Lopes<span class="linha__valor">G-24187 · a carregar</span></div>
       <div class="linha">Fecha às<span class="linha__valor">11h30</span></div>
     </div>
   </div>
@@ -1726,7 +1791,7 @@
   </header>
   <div class="corpo">
     <div class="alerta alerta--bom"><svg class="alerta__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="m7 12.5 3.3 3.3L17 9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><b class="alerta__titulo">Tarefa atribuída a Marta Silva</b><span class="alerta__texto">Com o motivo escrito · às 10h22</span></div>
-    <p class="nota">Ela recebe-a como a seguinte da fila. O motor aprende com a atribuição.</p>
+    <p class="nota">Ela recebe-a como a seguinte. O motor aprende com a atribuição.</p>
   </div>
   <div class="rodape">
     <button type="button" class="btn btn--acao" data-ir="gp0"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11 12 3.5l8.5 7.5M6 9v11h12V9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar ao início</button>
@@ -1837,7 +1902,7 @@
     <div class="cartao">
       <span class="rotulo">Ficou gravado</span>
       <div class="linha">Paragem 3 de 18<span class="linha__valor linha__valor--bom">confirmada às 10h21</span></div>
-      <div class="linha">Paragem 4 de 18<span class="linha__valor linha__valor--aviso">por confirmar</span></div>
+      <div class="linha">Paragem 4 de 9<span class="linha__valor linha__valor--aviso">por confirmar</span></div>
     </div>
     <p class="txt-sec">Aproxima-te do corredor principal. Quando a ligação voltar, retomas na paragem 4.</p>
     <p class="txt-legenda">Números do lote: da última ligação, às 10h21.</p>
