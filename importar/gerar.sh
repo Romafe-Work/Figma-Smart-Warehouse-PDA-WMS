@@ -29,7 +29,6 @@ correr() { "$CH" --no-sandbox --disable-gpu --hide-scrollbars --virtual-time-bud
 ECRAS=$(cat <<'L'
 e1|01-entrar
 e2|02-inicio-arrumacao
-e3|03-tarefa-arrumacao
 n1|04-receber-picar-chegada
 n2|05-receber-chegada-registada
 r1|06-receber-le-guia
@@ -78,7 +77,7 @@ x5|48-expedicao-saida-fechada
 x6|49-expedicao-o-que-se-passa
 x7|50-expedicao-falta-volume
 x8|51-expedicao-escreve-cais
-x9|52-expedicao-sair-com-saida
+x9|52-expedicao-sair-guia-a-meio
 xq1|53-expedicao-consultar-guia
 xq2|54-expedicao-prateleira
 gp0|55-gestor-inicio
@@ -88,6 +87,7 @@ g6|58-gestor-agora
 g8|59-gestor-feito
 g9|60-gestor-todas-operacoes
 g10|61-gestor-insights
+g11|67-gestor-chegou-um-camiao
 g3|62-sem-ligacao
 d1|63-expedicao-fechar-saida-dialogo
 d2|64-arrumacao-corrigir-stock-dialogo
