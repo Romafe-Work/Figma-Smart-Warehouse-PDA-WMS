@@ -551,12 +551,38 @@
   /* ---------------- painel de camadas ---------------- */
   var IGNORAR = { SCRIPT: 1, STYLE: 1, BR: 1, PATH: 1, CIRCLE: 1, RECT: 1, LINE: 1, DIALOG: 1 };
 
+  /* Um botão com ícone tem o texto ao lado do <svg>, solto dentro do botão —
+     e o duplo clique só escreve em quem não tem filhos, senão apagava o
+     ícone ao escrever. Então dá-se-lhe casa: cada texto solto passa a viver
+     num <span>, que é uma folha como as outras e se edita como elas.
+     Acontece nos separadores de baixo, nos botões de ação e nos atalhos. */
+  function darCasaAosTextos(raiz) {
+    if (!raiz) return;
+    var porVer = [raiz];
+    while (porVer.length) {
+      var no = porVer.pop();
+      if (no.tagName === 'svg' || IGNORAR[no.tagName]) continue;
+      var filhos = [].slice.call(no.childNodes);
+      var temElemento = filhos.some(function (f) { return f.nodeType === 1; });
+      filhos.forEach(function (f) {
+        if (f.nodeType === 1) { porVer.push(f); return; }
+        if (f.nodeType !== 3 || !temElemento) return;
+        if (!f.nodeValue.replace(/\s+/g, ' ').trim()) return;
+        var span = document.createElement('span');
+        span.className = 'ed-solto';
+        span.textContent = f.nodeValue;
+        no.replaceChild(span, f);
+      });
+    }
+  }
+
   function construirCamadas() {
     listaCamadas.textContent = '';
     /* As camadas começam no aparelho e não no ecrã: o que está fora do
        <div class="pda"> é a tela, e não se leva para o Kotlin. */
     var ecra = ecraVisivel();
     var raiz = ecra.querySelector('.pda') || ecra;
+    darCasaAosTextos(raiz);
 
     (function andar(no, nivel) {
       for (var i = 0; i < no.children.length; i++) {
@@ -584,6 +610,7 @@
 
     /* No fluxo escolhe-se em qualquer ecrã, e não só no das camadas. */
     if (emFluxo()) {
+      [].slice.call(document.querySelectorAll('.ecra > .pda')).forEach(darCasaAosTextos);
       [].slice.call(document.querySelectorAll('.ecra > .pda *')).forEach(function (f) {
         if (!IGNORAR[f.tagName] && !f.closest('svg:not(:scope)')) f.setAttribute('data-ed-alvo', '');
       });
@@ -1462,6 +1489,10 @@
 
     montar();
     montarDica();
+    /* Antes de repor o que estava guardado: o texto solto de um botão passa a
+       viver num <span>, e é esse <span> que o seletor guardado nomeia. Se isto
+       corresse depois, o que a pessoa escreveu num botão perdia-se ao abrir. */
+    [].slice.call(document.querySelectorAll('.ecra > .pda')).forEach(darCasaAosTextos);
     carregar();
     construirCamadas();
     pintarProps();

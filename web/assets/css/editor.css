@@ -541,6 +541,10 @@ html:has(.so-fluxo), .so-fluxo { background: #eef0f3; }
   display: flex; justify-content: flex-end; margin: 0 0 6px; font-size: 13px; font-weight: 600; color: #00537e;
 }
 
+/* O texto que estava solto dentro de um botão ganhou um <span> para se poder
+   editar. Não muda nada no desenho: herda tudo do pai. */
+.ed-solto { display: inline; }
+
 /* os percursos: o caminho de cada caso, numa linha */
 .texto-fluxo__percurso h3 { margin: 0 0 4px; font-size: 15px; }
 .texto-fluxo__caminho { margin: 0; font-size: 14px; line-height: 2; }
