@@ -125,7 +125,9 @@ const desescapar = (s) => s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace
 for (const [ficheiro, funcao] of Object.entries(PAGINAS)) {
   const caminho = path.join(WEB, ficheiro);
   let pagina = fs.readFileSync(caminho, 'utf8');
-  const lista = pagina.match(/<ol class="casos">[\s\S]*?<\/ol>/);
+  /* Só a lista dos casos: as regras, na mesma página, usam a classe
+     «regras» precisamente para isto não se enganar outra vez. */
+  const lista = pagina.match(/<ol class="casos" id="lista-casos">[\s\S]*?<\/ol>/);
   if (!lista) { console.log('  sem lista de casos: ' + ficheiro); continue; }
 
   /* o que já estava escrito, por título */
@@ -146,7 +148,7 @@ for (const [ficheiro, funcao] of Object.entries(PAGINAS)) {
   const novos = meus.filter((p) => !escrito[p.titulo]).map((p) => p.titulo);
   const fora = Object.keys(escrito).filter((t) => !meus.some((p) => p.titulo === t));
 
-  pagina = pagina.replace(lista[0], '<ol class="casos">\n' + itens.join('\n') + '\n      </ol>');
+  pagina = pagina.replace(lista[0], '<ol class="casos" id="lista-casos">\n' + itens.join('\n') + '\n      </ol>');
   /* o título da secção conta os casos */
   pagina = pagina.replace(/<h2>Os (nove|sete|catorze|\d+) casos[^<]*<\/h2>/,
     '<h2>Os ' + meus.length + ' casos</h2>');

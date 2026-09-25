@@ -12,20 +12,20 @@
 <style>
   /* O mesmo desenho do resumo da arrumação: os casos numerados, o caminho de
      ecrãs por baixo do título, e a frase que diz o que acontece. */
-  .casos { list-style: none; margin: 0; padding: 0; counter-reset: caso; }
-  .casos > li { counter-increment: caso; margin: 0 0 var(--e-lg); padding-left: 44px; position: relative; }
-  .casos > li::before {
+  .casos, .regras { list-style: none; margin: 0; padding: 0; counter-reset: caso; }
+  .casos > li, .regras > li { counter-increment: caso; margin: 0 0 var(--e-lg); padding-left: 44px; position: relative; }
+  .casos > li::before, .regras > li::before {
     content: counter(caso); position: absolute; left: 0; top: 0;
     width: 30px; height: 30px; display: grid; place-items: center;
     background: var(--c-acento); color: #fff; border-radius: 50%;
     font-size: var(--t-small); font-weight: 700;
   }
-  .casos h3 { margin: 4px 0 6px; font-size: var(--t-lead); }
+  .casos h3, .regras h3 { margin: 4px 0 6px; font-size: var(--t-lead); }
   .caminho { margin: 0 0 4px; font-family: var(--f-mono, monospace); font-size: var(--t-small); color: var(--c-acento); line-height: 1.7; }
-  .casos p { margin: 0; }
+  .casos p, .regras p { margin: 0; }
   .porrever { border-left: 3px solid var(--c-acao); padding-left: var(--e-lg); }
   .regras__grupo { font-size: var(--t-lead); margin: var(--e-lg) 0 var(--e-md); color: var(--c-texto-2); }
-  .casos > li > h3 { margin-top: 0; }
+  .casos > li > h3, .regras > li > h3 { margin-top: 0; }
 </style>
 </head>
 <body>
@@ -66,45 +66,16 @@
     <section class="seccao" id="regras">
       <h2>As regras</h2>
       <h3 class="regras__grupo">As que valem para todas as funções</h3>
-      <ol class="casos">
-        <li>
-          <h3>Um turno normal</h3>
-          <p class="caminho">42 · Início da expedição › 43 · A tua próxima tarefa › 45 · Confere volume a volume › 46 · Leva ao cais › 47 · Carregar e fechar a saída › 63 · Fechar a saída? › 48 · Saída fechada</p>
-          <p>Uma tarefa é uma guia: levanta-se na prateleira, confere-se volume a volume e leva-se ao camião. Fechar a saída pergunta antes: é o que não tem volta.</p>
-        </li>
-        <li>
-          <h3>Falta um volume na prateleira</h3>
-          <p class="caminho">42 · Início da expedição › 43 · A tua próxima tarefa › 45 · Confere volume a volume › 49 · O que se passa? › 50 · Falta um volume › 46 · Leva ao cais › 47 · Carregar e fechar a saída</p>
-          <p>A guia vai incompleta e o resto do camião segue. Fica um sinal no relatório: faltava na prateleira um volume que a separação lá deixou.</p>
-        </li>
-        <li>
-          <h3>A etiqueta do cais não se lê</h3>
-          <p class="caminho">42 · Início da expedição › 43 · A tua próxima tarefa › 45 · Confere volume a volume › 46 · Leva ao cais › 51 · Escreve o cais › 47 · Carregar e fechar a saída</p>
-          <p>Escreve-se o cais e o carregamento segue.</p>
-        </li>
-        <li>
-          <h3>Ver os camiões de hoje</h3>
-          <p class="caminho">42 · Início da expedição › 44 · Os camiões de hoje</p>
-          <p>Ver o risco de cada camião — o que já está pronto e o que falta. Não é por aqui que se escolhe trabalho.</p>
-        </li>
-        <li>
-          <h3>Consultar uma guia</h3>
-          <p class="caminho">42 · Início da expedição › 53 · Consultar guia</p>
-          <p>O que falta, onde ficou e quando sai.</p>
-        </li>
-        <li>
-          <h3>Ver o que está na prateleira</h3>
-          <p class="caminho">42 · Início da expedição › 54 · Ver a prateleira de preparados</p>
-          <p>A prateleira toda, e para que camião vai cada guia.</p>
-        </li>
-        <li>
-          <h3>Sair com a guia a meio</h3>
-          <p class="caminho">42 · Início da expedição › 52 · Sair com a guia a meio › 01 · Entrar</p>
-          <p>Nenhum volume desce do camião: os que subiram ficam registados, os que faltam voltam ao motor com a guia, e a saída fica aberta.</p>
-        </li>
+      <ol class="regras">
+        <li><h3>O motor entrega, a pessoa não escolhe</h3><p>Uma tarefa de cada vez, conforme a atividade dos PDA: ao entrar no turno, e outra vez sempre que uma acaba.</p></li>
+        <li><h3>Ninguém vê a fila</h3><p>Vê-se a tarefa que se tem em mãos e dois números do armazém — o que espera e o que está a ser feito. O que vem a seguir não se sabe.</p></li>
+        <li><h3>Uma tarefa é uma guia</h3><p>Não é uma linha, nem uma palete, nem um lote de guias.</p></li>
+        <li><h3>O menu tem uma opção para trabalhar</h3><p>Em «Operações» só entra o que não é tarefa: consultas, e registos que avisam o sistema de uma coisa que ele não pode saber sozinho.</p></li>
+        <li><h3>O que não se desfaz pergunta antes</h3><p>Mudar stock e fechar uma saída passam por um diálogo que diz o que se perde.</p></li>
+        <li><h3>Sem rede o PDA não trabalha</h3><p>Guarda o que já leu e não deixa avançar: tudo o que faz precisa de confirmação do sistema.</p></li>
       </ol>
       <h3 class="regras__grupo">As desta função</h3>
-      <ol class="casos">
+      <ol class="regras">
         <li><h3>Uma guia por tarefa, da prateleira ao camião</h3><p>Levanta-se em PP-DPD-03, confere-se volume a volume, leva-se ao cais.</p></li>
         <li><h3>O motor prefere quem já lá está</h3><p>A guia seguinte do mesmo camião vai para quem acabou de carregar uma dele.</p></li>
         <li><h3>A saída fecha na última guia</h3><p>Fechar antes disso é decisão de quem está no cais, e o PDA pergunta primeiro, dizendo o que fica para o camião seguinte.</p></li>
@@ -116,7 +87,7 @@
 
     <section class="seccao" id="expedicao">
       <h2>Os 7 casos</h2>
-      <ol class="casos">
+      <ol class="casos" id="lista-casos">
         <li>
           <h3>Um turno normal</h3>
           <p class="caminho">42 · Início da expedição › 43 · A tua próxima tarefa › 45 · Confere volume a volume › 46 · Leva ao cais › 47 · Carregar e fechar a saída › 63 · Fechar a saída? › 48 · Saída fechada</p>
