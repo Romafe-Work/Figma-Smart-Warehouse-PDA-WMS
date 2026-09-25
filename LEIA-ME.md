@@ -13,6 +13,7 @@ Feito como o `Figma-WebShop-GoParts`: o mesmo editor, apontado ao PDA.
 | `importar/icone/*.png` | O ícone da app: o inteiro a 512 e 1024 para a loja, o símbolo nas cinco densidades do Android (48 a 192) |
 | `importar/icone.py` | Gera os dois SVG do ícone em `web/assets/img/` |
 | `importar/gerar.sh` | Gera tudo, nas duas línguas. Mudar um token, um ecrã ou uma tradução e voltar a correr |
+| `importar/caminhos.js` | Reescreve os caminhos das páginas de resumo a partir dos ecrãs: nomes inteiros e o fluxo completo desde o início da função. Correr depois de mexer nos percursos |
 
 ## O código: `web/`
 

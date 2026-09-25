@@ -99,76 +99,81 @@
     </section>
 
     <section class="seccao" id="casos">
-      <h2>Os catorze casos</h2>
+      <h2>Os 15 casos</h2>
       <ol class="casos">
         <li>
           <h3>Um turno normal</h3>
-          <p class="caminho">02 início › 10 lê o artigo › 11 proposta 1 de 3 › 13 lê a posição › 14 arrumada</p>
+          <p class="caminho">02 · Início da arrumação › 10 · Lê o artigo › 11 · Vai à proposta 1 de 3 › 13 · Lê a posição › 14 · Arrumada</p>
           <p>A guia pode ter várias paletes: o 14 volta ao 10 até à última, e só então vem a guia seguinte.</p>
         </li>
         <li>
           <h3>Chega mercadoria ao cais</h3>
-          <p class="caminho">04 picar a chegada › 05 registada › 06 lê a guia do fornecedor › 07 confere › 09 recebido</p>
+          <p class="caminho">02 · Início da arrumação › 67 · Chegou um camião › 04 · Picar a chegada › 05 · Chegada registada › 06 · Lê a guia do fornecedor › 07 · Confere o que chegou › 09 · Recebido</p>
           <p>Pica-se, confere-se e recebe-se tudo seguido. No fim: começar a arrumar o que chegou.</p>
         </li>
         <li>
           <h3>…e a quantidade não bate</h3>
-          <p class="caminho">07 › 08 a quantidade não bate › 09 recebido</p>
+          <p class="caminho">02 · Início da arrumação › 67 · Chegou um camião › 04 · Picar a chegada › 05 · Chegada registada › 06 · Lê a guia do fornecedor › 07 · Confere o que chegou › 08 · A quantidade não bate › 09 · Recebido</p>
           <p>Regista-se o que chegou de facto, e é isso que entra em stock.</p>
         </li>
         <li>
           <h3>A posição proposta está ocupada</h3>
-          <p class="caminho">11 › 15 o que se passa? › 12 a 1 estava ocupada › 13 › 14</p>
+          <p class="caminho">02 · Início da arrumação › 10 · Lê o artigo › 11 · Vai à proposta 1 de 3 › 15 · O que se passa? › 12 · A 1 estava ocupada › 13 · Lê a posição › 14 · Arrumada</p>
           <p>A posição fica marcada como ocupada, o sistema propõe logo a seguinte das três, e o gestor vê o sinal.</p>
         </li>
         <li>
           <h3>A etiqueta do artigo não se lê</h3>
-          <p class="caminho">10 › 16 escreve o artigo › 11</p>
+          <p class="caminho">02 · Início da arrumação › 10 · Lê o artigo › 16 · Escreve o artigo › 11 · Vai à proposta 1 de 3</p>
           <p>O sistema conta as leituras à mão.</p>
         </li>
         <li>
           <h3>A etiqueta da posição não se lê</h3>
-          <p class="caminho">13 › 17 escreve a posição › 14</p>
+          <p class="caminho">02 · Início da arrumação › 10 · Lê o artigo › 11 · Vai à proposta 1 de 3 › 13 · Lê a posição › 17 · Escreve a posição › 14 · Arrumada</p>
           <p>À terceira vez na mesma etiqueta, o sistema aconselha o gestor a renová-la.</p>
         </li>
         <li>
           <h3>Um problema que não é da arrumação</h3>
-          <p class="caminho">11 › 15 o que se passa? › 18 problema registado</p>
+          <p class="caminho">02 · Início da arrumação › 10 · Lê o artigo › 11 · Vai à proposta 1 de 3 › 15 · O que se passa? › 18 · Problema registado</p>
           <p>A arrumação não bloqueia nada: diz o que se passa, o gestor decide, e a tarefa deixa de ser dela.</p>
         </li>
         <li>
           <h3>O gestor manda corrigir uma posição</h3>
-          <p class="caminho">19 tira da origem › 20 põe no destino › 21 corrigida</p>
+          <p class="caminho">02 · Início da arrumação › o motor dá a tarefa › 19 · Tira da origem › 20 · Põe no destino › 21 · Corrigida</p>
           <p>Nasce de um sinal no relatório do gestor. O motor não descobre erros sozinho.</p>
         </li>
         <li>
           <h3>Dar com uma posição errada</h3>
-          <p class="caminho">02 › 22 lê a posição do erro › 23 o que está lá? › 64 corrigir o stock? › 24 correção registada</p>
+          <p class="caminho">02 · Início da arrumação › 22 · Lê a posição do erro › 23 · O que está lá? › 64 · Corrigir o stock? › 24 · Correção registada</p>
           <p>Não é uma ronda: é quando se dá de caras com o erro. O PDA pergunta antes, porque mudar stock não se desfaz.</p>
         </li>
         <li>
+          <h3>Chega trabalho a meio de outra coisa</h3>
+          <p class="caminho">65 · Aviso: tarefa nova</p>
+          <p>O motor dá uma tarefa enquanto se está a consultar. O aviso aparece por cima, não pede nada e vai-se embora; a tarefa fica à espera.</p>
+        </li>
+        <li>
           <h3>Consultar um artigo</h3>
-          <p class="caminho">02 › 27 consultar artigo</p>
+          <p class="caminho">02 · Início da arrumação › 27 · Consultar artigo</p>
           <p>Onde está e quanto há. Não muda nada.</p>
         </li>
         <li>
           <h3>Consultar uma posição e corrigi-la</h3>
-          <p class="caminho">02 › 28 › 23 › 64 › 24</p>
+          <p class="caminho">02 · Início da arrumação › 28 · Consultar posição › 23 · O que está lá? › 64 · Corrigir o stock? › 24 · Correção registada</p>
           <p>Se o que lá está não bate, corrige-se sem sair da consulta, com a mesma pergunta antes.</p>
         </li>
         <li>
           <h3>Levar a palete vazia</h3>
-          <p class="caminho">25 leva ao parque › 26 no parque</p>
+          <p class="caminho">02 · Início da arrumação › o motor dá a tarefa › 25 · Leva ao parque › 26 · No parque</p>
           <p>Também é tarefa: o motor dá-a quando uma posição fica vazia.</p>
         </li>
         <li>
-          <h3>Chega trabalho a meio de outra coisa</h3>
-          <p class="caminho">65 aviso</p>
-          <p>O motor dá uma tarefa enquanto se está a consultar. O aviso aparece por cima, não pede nada e vai-se embora; a tarefa fica à espera.</p>
+          <h3>Falta pouco para o fim do turno</h3>
+          <p class="caminho">68 · Fim do turno à vista › 25 · Leva ao parque › 26 · No parque</p>
+          <p>O motor sabe a que horas o turno acaba e deixa de dar o que não cabe no tempo que resta: dá as curtas, ou nenhuma. Uma tarefa já começada não é interrompida.</p>
         </li>
         <li>
           <h3>Sair com uma guia a meio</h3>
-          <p class="caminho">02 › 66 › 01</p>
+          <p class="caminho">02 · Início da arrumação › 66 · Sair com uma guia a meio › 01 · Entrar</p>
           <p>Cada palete fica registada quando é arrumada, por isso o que já se fez não se perde. As que faltam voltam ao motor e vão para a próxima pessoa. O gestor vê quem saiu com uma guia aberta.</p>
         </li>
       </ol>
