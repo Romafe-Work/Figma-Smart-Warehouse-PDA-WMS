@@ -227,6 +227,13 @@
     'Ver como está uma guia': 'Checking how an order is doing',
     'Percursos': 'Paths',
     /* ── a expedição e o gestor, caso a caso (25 set.) ── */
+    'Registada 14 min depois de encostar': 'Logged 14 min after it pulled in',
+    'O cais esteve preso nesse tempo, e o motor não sabia': 'The dock was tied up for that long, and the engine did not know',
+    'G-24190 incompleta há 2h': 'G-24190 incomplete for 2h',
+    'O stock não entrou. Quem o vai buscar?': 'The stock never came in. Who goes after it?',
+    'Ver todos (5)': 'See all (5)',
+    'Registar a chegada de um camião': 'Log a truck arrival',
+    'O sistema não sabe o que vem a caminho: enquanto ninguém registar o camião, ele não existe para o motor. O registo cria a tarefa de picar, e é aí que o relógio começa.': 'The system does not know what is coming: until someone logs the truck, it does not exist for the engine. The log creates the scan task, and that is when the clock starts.',
     'Turno das 8h · 8 tarefas à espera no armazém': '8 am shift · 8 tasks waiting in the warehouse',
     'Zona 30, máquina · há 2h10': 'Zone 30, machine · 2h10 ago',
     'Chegou um camião': 'A truck has arrived',

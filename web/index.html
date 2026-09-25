@@ -104,6 +104,8 @@
      data-nota="Os números do turno e, por baixo, os insights: onde se perde tempo e o que falha.">Um turno normal</p>
   <p data-funcao="gestor" data-ecras="gp0 g1 g8"
      data-nota="Cada sinal traz o que fazer a seguir. Se mandar corrigir uma posição, é aqui que nasce a tarefa que a arrumação vai receber.">Agir sobre um sinal</p>
+  <p data-funcao="gestor" data-ecras="gp0 g11 g8"
+     data-nota="O sistema não sabe o que vem a caminho: enquanto ninguém registar o camião, ele não existe para o motor. O registo cria a tarefa de picar, e é aí que o relógio começa.">Registar a chegada de um camião</p>
   <p data-funcao="gestor" data-ecras="gp0 g5 g8"
      data-nota="Com o motivo escrito. Passa à frente na fila dessa pessoa e o motor aprende.">Atribuir uma tarefa a alguém</p>
   <p data-funcao="gestor" data-ecras="gp0 g6 g5 g8"
@@ -1668,7 +1670,7 @@
     <div class="titulo-seccao">
       <span class="titulo-seccao__risco" aria-hidden="true"></span>
       <h2 class="titulo-seccao__texto">Sinais</h2>
-      <button type="button" class="titulo-seccao__ver" data-ir="g10">Ver todos (3)<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button type="button" class="titulo-seccao__ver" data-ir="g10">Ver todos (5)<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
     <button type="button" class="tarefa tarefa--sinal tarefa--mapa" data-ir="g8">
       <span class="tarefa__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21.5s-6.5-6.2-6.5-11.5a6.5 6.5 0 0 1 13 0c0 5.3-6.5 11.5-6.5 11.5Z" fill="currentColor"/><circle cx="12" cy="10" r="2.3" fill="#fff"/></svg></span>
@@ -1681,6 +1683,18 @@
       <span class="selo selo--erro">Stock</span>
       <span class="tarefa__titulo">60200502 com 2 correções abertas</span>
       <span class="tarefa__porque">Pode sair stock sem registo</span><svg class="tarefa__seta" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button type="button" class="tarefa tarefa--sinal tarefa--mapa" data-ir="g8">
+      <span class="tarefa__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21.5s-6.5-6.2-6.5-11.5a6.5 6.5 0 0 1 13 0c0 5.3-6.5 11.5-6.5 11.5Z" fill="currentColor"/><circle cx="12" cy="10" r="2.3" fill="#fff"/></svg></span>
+      <span class="selo selo--aviso">Chegada</span>
+      <span class="tarefa__titulo">Registada 14 min depois de encostar</span>
+      <span class="tarefa__porque">O cais esteve preso nesse tempo, e o motor não sabia</span>
+    </button>
+    <button type="button" class="tarefa tarefa--sinal tarefa--stock" data-ir="g8">
+      <span class="tarefa__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21.5s-6.5-6.2-6.5-11.5a6.5 6.5 0 0 1 13 0c0 5.3-6.5 11.5-6.5 11.5Z" fill="currentColor"/><circle cx="12" cy="10" r="2.3" fill="#fff"/></svg></span>
+      <span class="selo selo--aviso">Guia</span>
+      <span class="tarefa__titulo">G-24190 incompleta há 2h</span>
+      <span class="tarefa__porque">O stock não entrou. Quem o vai buscar?</span>
     </button>
     <button type="button" class="tarefa tarefa--sinal tarefa--etiqueta" data-ir="g8">
       <span class="tarefa__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12.5 2.5H21v8.5L11 21 2.5 12.5Z" fill="currentColor"/><circle cx="16.5" cy="7" r="1.7" fill="#fff"/></svg></span>

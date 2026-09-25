@@ -54,9 +54,8 @@
           guia</b> — de separação, ou a guia que sobe ao camião na expedição.
         </p>
         <p>
-          A <b>separação</b> já levou a mesma passagem caso a caso: o que fica a meio, a prateleira
-          reservada à cabeça, a diferença que a falta de quantidade deixa, e o que substitui o
-          lote. A <b>expedição</b> e o <b>gestor</b> ainda não.
+          As três já levaram a mesma passagem caso a caso que a arrumação: o que fica a meio, de
+          onde nasce cada tarefa, e o que substitui o lote.
         </p>
       </div>
     </section>
@@ -118,12 +117,12 @@
         <li>
           <h3>Um turno normal</h3>
           <p class="caminho">42 início › 43 a tarefa › 45 confere volume a volume › 46 leva ao cais › 47 carregar › 63 fechar a saída? › 48 saída fechada</p>
-          <p>A guia levanta-se na prateleira, confere-se volume a volume e leva-se ao camião. A saída só fecha quando a última guia dele sobe, e pergunta antes.</p>
+          <p>A guia levanta-se na prateleira, confere-se volume a volume e leva-se ao camião. O motor prefere dar a guia seguinte do mesmo camião a quem já está no cais. Quando a última guia sobe, a saída fecha sozinha; fechar antes disso é decisão de quem está no cais, e o PDA pergunta.</p>
         </li>
         <li>
           <h3>Falta um volume na prateleira</h3>
           <p class="caminho">45 › 49 o que se passa? › 50 falta um volume › 46 › 47</p>
-          <p>A guia fica incompleta e espera. O resto do camião segue.</p>
+          <p>A guia vai incompleta e o resto do camião segue. Fica um sinal no relatório: faltava na prateleira um volume que a separação lá deixou. É o gestor que decide quem o vai procurar — a expedição não manda trabalho à separação.</p>
         </li>
         <li>
           <h3>A etiqueta do cais não se lê</h3>
@@ -146,9 +145,9 @@
           <p>A prateleira toda, e para que camião vai cada guia.</p>
         </li>
         <li>
-          <h3>Sair com uma saída por fechar</h3>
-          <p class="caminho">42 › 52 sair com uma saída por fechar › 01</p>
-          <p>O PDA diz que camião fica aberto antes de deixar sair.</p>
+          <h3>Sair com a guia a meio</h3>
+          <p class="caminho">42 › 52 sair com a guia a meio › 01</p>
+          <p>Nenhum volume desce do camião: os que já subiram ficam lá e registados, os que faltam voltam ao motor com a guia, e a saída fica aberta. Quem a apanhar continua no volume seguinte.</p>
         </li>
       </ol>
     </section>
@@ -160,6 +159,11 @@
           <h3>Um turno normal</h3>
           <p class="caminho">55 início › 56 relatório do turno › 61 insights</p>
           <p>Os números do turno e, por baixo, os insights: onde se perde tempo e o que falha.</p>
+        </li>
+        <li>
+          <h3>Registar a chegada de um camião</h3>
+          <p class="caminho">55 › 67 chegou um camião › 59 feito</p>
+          <p>O sistema não sabe o que vem a caminho: enquanto ninguém registar o camião, ele não existe para o motor. O registo cria a tarefa de picar, e é aí que o relógio começa. O relatório mostra quanto tempo passou entre o camião encostar e a tarefa nascer.</p>
         </li>
         <li>
           <h3>Agir sobre um sinal</h3>
