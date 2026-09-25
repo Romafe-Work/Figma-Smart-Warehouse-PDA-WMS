@@ -71,3 +71,26 @@ pre code { font-size: var(--t-tiny); line-height: 1.7; }
   .doc-indice { position: static; }
   .seccao { padding: var(--e-lg); }
 }
+
+
+/* ---------- Escrever nestas páginas ----------
+   A barra fica presa ao fundo e diz a verdade: o que se escreve aqui vive no
+   navegador de quem escreveu, e não no ficheiro. Ver `assets/js/escrever.js`. */
+.barra-escrita {
+  position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 12px; z-index: 20;
+  padding: 10px 14px; border-radius: 999px;
+  background: var(--c-invertido); color: var(--c-sobre-marca);
+  box-shadow: 0 6px 24px rgba(1, 35, 56, .3);
+  font-size: var(--t-small);
+}
+.barra-escrita__conta { white-space: nowrap; }
+.barra-escrita__botao {
+  font: inherit; font-weight: 600; cursor: pointer;
+  padding: 6px 12px; border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, .35);
+  background: transparent; color: inherit;
+}
+.barra-escrita__botao--acao { background: var(--c-acao); border-color: var(--c-acao); }
+[contenteditable="true"] { outline: 2px solid var(--c-acao); outline-offset: 3px; border-radius: 3px; }
+@media print { .barra-escrita { display: none; } }

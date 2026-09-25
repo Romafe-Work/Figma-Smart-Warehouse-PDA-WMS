@@ -54,6 +54,8 @@
      data-nota="Ninguém conta o armazém. Quem vê uma posição que não bate, corrige-a ali — e o PDA pergunta antes, porque mudar stock não se desfaz.">Dar com uma posição errada</p>
   <p data-funcao="arrumacao" data-ecras="t1"
      data-nota="O motor dá trabalho enquanto se está noutra coisa. O aviso aparece por cima, não pede nada e vai-se embora; a tarefa fica à espera no ecrã da tarefa.">Chega trabalho a meio de outra coisa</p>
+  <p data-funcao="arrumacao" data-ecras="e2 c1 c2"
+     data-nota="Quem tem uma dúvida chama o gestor sem largar a tarefa: ele vê onde a pessoa está e o que tem em mãos. Enquanto espera, a tarefa fica com ela e o motor não lhe dá outra.">Chamar o gestor</p>
   <p data-funcao="arrumacao" data-ecras="e2 q1"
      data-nota="Ver onde está e quanto há. Não muda nada.">Consultar um artigo</p>
   <p data-funcao="arrumacao" data-ecras="e2 q2 k5 d2 k6"
@@ -108,12 +110,14 @@
      data-nota="Cada sinal traz o que fazer a seguir. Se mandar corrigir uma posição, é aqui que nasce a tarefa que a arrumação vai receber.">Agir sobre um sinal</p>
   <p data-funcao="gestor" data-ecras="gp0 g11 g8"
      data-nota="O sistema não sabe o que vem a caminho: enquanto ninguém registar o camião, ele não existe para o motor. O registo cria a tarefa de picar, e é aí que o relógio começa.">Registar a chegada de um camião</p>
+  <p data-funcao="gestor" data-ecras="gp0 g12 g5 g8"
+     data-nota="O gestor é o único que vê a fila toda, e porque é que cada tarefa está naquela ordem. De lá pode dar uma a alguém.">Ver a fila e dar uma tarefa</p>
   <p data-funcao="gestor" data-ecras="gp0 g5 g8"
      data-nota="Com o motivo escrito. Passa à frente na fila dessa pessoa e o motor aprende.">Atribuir uma tarefa a alguém</p>
   <p data-funcao="gestor" data-ecras="gp0 g6 g5 g8"
      data-nota="Quem está a trabalhar, o que falta, o que sai hoje — e atribuir a partir daí.">Ver o armazém todo</p>
   <p data-funcao="gestor" data-ecras="gp0 g9 e2"
-     data-nota="O gestor entra em qualquer função e trabalha como ela.">Trabalhar como qualquer função</p>
+     data-nota="Faz tudo o que as outras funções fazem — não para mandar, mas para ajudar quem está a precisar. Fica registado em nome dele.">Trabalhar como qualquer função</p>
   <p data-funcao="gestor" data-ecras="gp0 e1"
      data-nota="O gestor não tem trabalho por fechar no PDA.">Sair do turno</p>
 </template>
@@ -297,6 +301,10 @@
       <button type="button" class="quadrado" data-ir="q2">
         <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.5 2.5v19M20.5 2.5v19M3.5 11.5h17M3.5 20h17" fill="none" stroke="currentColor" stroke-width="2.2"/><rect class="tinta-acao" x="6" y="13.5" width="5" height="4.5"/><circle class="traco-acao" cx="14.5" cy="6.5" r="2.6" fill="none" stroke-width="2"/><path class="traco-acao" d="m16.5 8.5 2 2" stroke-width="2" stroke-linecap="round"/></svg></span>
         <span class="quadrado__nome">Consultar posição</span>
+      </button>
+      <button type="button" class="quadrado" data-ir="c1">
+        <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 3.5h11a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H12l-4.5 4v-4H6.5a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle class="tinta-acao" cx="12" cy="10" r="1.6"/><circle class="tinta-acao" cx="8" cy="10" r="1.6"/><circle class="tinta-acao" cx="16" cy="10" r="1.6"/></svg></span>
+        <span class="quadrado__nome">Chamar o gestor</span>
       </button>
       </div>
     </section>
@@ -937,6 +945,10 @@
           <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.5 2.5v19M20.5 2.5v19M3.5 11.5h17M3.5 20h17" fill="none" stroke="currentColor" stroke-width="2.2"/><rect class="tinta-acao" x="6" y="13.5" width="5" height="4.5"/><circle class="traco-acao" cx="14.5" cy="6.5" r="2.6" fill="none" stroke-width="2"/><path class="traco-acao" d="m16.5 8.5 2 2" stroke-width="2" stroke-linecap="round"/></svg></span>
           <span class="quadrado__nome">Consultar posição</span>
         </button>
+      <button type="button" class="quadrado" data-ir="c1">
+        <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 3.5h11a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H12l-4.5 4v-4H6.5a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle class="tinta-acao" cx="12" cy="10" r="1.6"/><circle class="tinta-acao" cx="8" cy="10" r="1.6"/><circle class="tinta-acao" cx="16" cy="10" r="1.6"/></svg></span>
+        <span class="quadrado__nome">Chamar o gestor</span>
+      </button>
       </div>
     </section>
   </div>
@@ -1282,6 +1294,10 @@
           <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3.5 3v18M20.5 3v18M3.5 12h17M3.5 20.5h17" fill="none" stroke="currentColor" stroke-width="2.2"/><rect class="tinta-acao" x="6.5" y="5.5" width="4.5" height="4.5"/><rect class="tinta-acao" x="13" y="14" width="4.5" height="4.5"/></svg></span>
           <span class="quadrado__nome">Ver a prateleira de preparados</span>
         </button>
+      <button type="button" class="quadrado" data-ir="c1">
+        <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 3.5h11a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H12l-4.5 4v-4H6.5a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle class="tinta-acao" cx="12" cy="10" r="1.6"/><circle class="tinta-acao" cx="8" cy="10" r="1.6"/><circle class="tinta-acao" cx="16" cy="10" r="1.6"/></svg></span>
+        <span class="quadrado__nome">Chamar o gestor</span>
+      </button>
       </div>
     </section>
   </div>
@@ -1634,6 +1650,10 @@
           <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8.5 6h13M8.5 12h13M8.5 18h13" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle class="tinta-acao" cx="3.5" cy="6" r="1.8"/><circle class="tinta-acao" cx="3.5" cy="12" r="1.8"/><circle class="tinta-acao" cx="3.5" cy="18" r="1.8"/></svg></span>
           <span class="quadrado__nome">Todas as operações</span>
         </button>
+      <button type="button" class="quadrado" data-ir="g12">
+        <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8.5 6h13M8.5 12h13M8.5 18h13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle class="tinta-acao" cx="4" cy="6" r="1.8"/><circle class="tinta-acao" cx="4" cy="12" r="1.8"/><circle class="tinta-acao" cx="4" cy="18" r="1.8"/></svg></span>
+        <span class="quadrado__nome">A fila</span>
+      </button>
       </div>
     </section>
   </div>
@@ -1685,7 +1705,7 @@
     <div class="titulo-seccao">
       <span class="titulo-seccao__risco" aria-hidden="true"></span>
       <h2 class="titulo-seccao__texto">Sinais</h2>
-      <button type="button" class="titulo-seccao__ver" data-ir="g10">Ver todos (5)<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button type="button" class="titulo-seccao__ver" data-ir="g10">Ver todos (6)<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
     <button type="button" class="tarefa tarefa--sinal tarefa--mapa" data-ir="g8">
       <span class="tarefa__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21.5s-6.5-6.2-6.5-11.5a6.5 6.5 0 0 1 13 0c0 5.3-6.5 11.5-6.5 11.5Z" fill="currentColor"/><circle cx="12" cy="10" r="2.3" fill="#fff"/></svg></span>
@@ -1698,6 +1718,12 @@
       <span class="selo selo--erro">Stock</span>
       <span class="tarefa__titulo">60200502 com 2 correções abertas</span>
       <span class="tarefa__porque">Pode sair stock sem registo</span><svg class="tarefa__seta" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button type="button" class="tarefa tarefa--sinal tarefa--erro" data-ir="g8">
+      <span class="tarefa__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21.5s-6.5-6.2-6.5-11.5a6.5 6.5 0 0 1 13 0c0 5.3-6.5 11.5-6.5 11.5Z" fill="currentColor"/><circle cx="12" cy="10" r="2.3" fill="#fff"/></svg></span>
+      <span class="selo selo--erro">Chamada</span>
+      <span class="tarefa__titulo">Marta Silva chamou-te, há 2 min</span>
+      <span class="tarefa__porque">Zona 30 · «Não sei o que fazer a isto» · está parada à espera</span>
     </button>
     <button type="button" class="tarefa tarefa--sinal tarefa--mapa" data-ir="g8">
       <span class="tarefa__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21.5s-6.5-6.2-6.5-11.5a6.5 6.5 0 0 1 13 0c0 5.3-6.5 11.5-6.5 11.5Z" fill="currentColor"/><circle cx="12" cy="10" r="2.3" fill="#fff"/></svg></span>
@@ -1798,7 +1824,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="g9" data-objetivo="Dar ao gestor tudo: trabalhar como qualquer função, e todas as operações delas." data-fluxo="O gestor" data-funcao="gestor" data-nome="60 · Todas as operações" data-refs="CU-32 · CU-03 · CU-06 · CU-09" hidden>
+<div class="ecra" data-ecra="g9" data-objetivo="Dar ao gestor tudo o que as outras funções fazem, para poder ajudar quem está a precisar — e não só mandar." data-fluxo="O gestor" data-funcao="gestor" data-nome="60 · Todas as operações" data-refs="CU-32 · CU-03 · CU-06 · CU-09" hidden>
 <div class="pda">
   <header class="topo">
     <button type="button" class="topo__voltar" data-ir="gp0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar</button>
@@ -2081,6 +2107,91 @@
       Sair
     </button>
   </nav>
+</div>
+</div>
+
+<!-- ================= A FILA, QUE SÓ O GESTOR VÊ ================= -->
+
+<div class="ecra" data-ecra="g12" data-objetivo="Mostrar ao gestor a fila toda: o que espera, porque está naquela ordem, e quem está a fazer o quê. É o único que a vê." data-fluxo="O gestor" data-funcao="gestor" data-nome="69 · A fila de trabalho" data-refs="CU-21 · CU-19 · RF-20 · RF-21" hidden>
+<div class="pda">
+  <header class="topo">
+    <button type="button" class="topo__voltar" data-ir="gp0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar</button>
+    <p class="topo__titulo">A fila</p>
+    <span class="faixa__rede topo__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span>
+  </header>
+  <div class="corpo">
+    <div class="cabeca-fila">
+      <h1 class="cabeca-fila__titulo">A fila do armazém</h1>
+      <span class="cabeca-fila__conta">8 à espera</span>
+    </div>
+    <p class="cabeca-fila__sub">Por ordem do motor. Ninguém vê isto senão tu.</p>
+    <button type="button" class="tarefa" data-ir="g5">
+      <span class="selo selo--erro">Chegada</span>
+      <span class="tarefa__titulo">Picar o camião da Castrol</span>
+      <span class="tarefa__porque">Porquê: está no cais há 14 min e prende-o</span>
+    </button>
+    <button type="button" class="tarefa" data-ir="g5">
+      <span class="selo selo--acento">Arrumar</span>
+      <span class="tarefa__titulo">Guia GA-4471 · 3 paletes</span>
+      <span class="tarefa__porque">Porquê: espera há 2h10, a mais antiga</span>
+    </button>
+    <button type="button" class="tarefa" data-ir="g5">
+      <span class="selo selo--aviso">Correção</span>
+      <span class="tarefa__titulo">Corrigir 60300302</span>
+      <span class="tarefa__porque">Porquê: mandaste-a tu, às 10h22</span>
+    </button>
+    <div class="cartao">
+      <span class="rotulo">A ser feitas agora</span>
+      <div class="linha">Marta Silva<span class="linha__valor">GA-4471 · palete 2 de 3</span></div>
+      <div class="linha">Rui Costa<span class="linha__valor">G-24187 · paragem 4 de 9</span></div>
+      <div class="linha">Ana Lopes<span class="linha__valor">G-24187 · a carregar</span></div>
+    </div>
+    <p class="txt-legenda">Toca numa para a dar a alguém. Quem trabalha vê só a que tem em mãos: a fila é tua.</p>
+  </div>
+</div>
+</div>
+
+<!-- ================= CHAMAR O GESTOR (todas as funções) ================= -->
+
+<div class="ecra" data-ecra="c1" data-objetivo="Chamar o gestor sem largar a tarefa, e dizer-lhe onde se está e porquê." data-fluxo="Chamar o gestor" data-funcao="todas" data-nome="70 · Chamar o gestor" data-refs="CU-22 · RF-83" hidden>
+<div class="pda">
+  <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span><span class="faixa__avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6" fill="currentColor"/><path d="M4.5 21c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5" fill="currentColor"/></svg></span></div>
+  <header class="topo">
+    <button type="button" class="topo__voltar" data-ir="e2"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar</button>
+    <p class="topo__titulo">Chamar</p>
+    <span class="faixa__rede topo__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span>
+  </header>
+  <div class="corpo">
+    <h1 class="ordem ordem--menor">Chamar o gestor</h1>
+    <div class="cartao">
+      <span class="rotulo">Ele vai saber</span>
+      <div class="linha">Onde estás<span class="linha__valor">Zona 30 · 60300401</span></div>
+      <div class="linha">O que tens em mãos<span class="linha__valor">Guia GA-4471</span></div>
+    </div>
+    <p class="txt-corpo">Diz-lhe o que é, para ele saber se vem ou se responde daí.</p>
+    <button type="button" class="folha__opcao" data-ir="c2">Não sei o que fazer a isto</button>
+    <button type="button" class="folha__opcao" data-ir="c2">O que está aqui não é o que o PDA diz</button>
+    <button type="button" class="folha__opcao" data-ir="c2">Preciso de ajuda para mexer nisto</button>
+    <button type="button" class="folha__opcao" data-ir="c2">Outro motivo — escrever</button>
+  </div>
+</div>
+</div>
+
+<div class="ecra" data-ecra="c2" data-objetivo="Confirmar que o gestor foi chamado, e que a tarefa não se perde à espera dele." data-fluxo="Chamar o gestor" data-funcao="todas" data-nome="71 · O gestor foi chamado" data-refs="CU-22" hidden>
+<div class="pda">
+  <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span><span class="faixa__avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6" fill="currentColor"/><path d="M4.5 21c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5" fill="currentColor"/></svg></span></div>
+  <div class="corpo">
+    <div class="alerta alerta--bom"><svg class="alerta__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="m7 12.5 3.3 3.3L17 9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><b class="alerta__titulo">O gestor foi chamado</b><span class="alerta__texto">Paulo Mendes · avisado às 10h26</span></div>
+    <div class="cartao">
+      <span class="rotulo">Enquanto esperas</span>
+      <div class="linha">A tarefa<span class="linha__valor">fica contigo</span></div>
+      <div class="linha">O motor<span class="linha__valor">não te dá outra</span></div>
+    </div>
+    <p class="nota">Ele vê onde estás e o que tens em mãos. Se não puder vir, responde pelo PDA — e se for preciso, faz ele a tarefa, que pode fazer o que qualquer função faz.</p>
+  </div>
+  <div class="rodape">
+    <button type="button" class="btn btn--acao" data-ir="a1"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Continuar a tarefa</button>
+  </div>
 </div>
 </div>
 

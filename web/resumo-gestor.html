@@ -86,7 +86,7 @@
     </section>
 
     <section class="seccao" id="gestor">
-      <h2>Os 7 casos</h2>
+      <h2>Os 8 casos</h2>
       <ol class="casos" id="lista-casos">
         <li>
           <h3>Um turno normal</h3>
@@ -102,6 +102,11 @@
           <h3>Registar a chegada de um camião</h3>
           <p class="caminho">55 · Início do gestor › 67 · Chegou um camião › 59 · Feito</p>
           <p>O sistema não sabe o que vem a caminho: enquanto ninguém registar o camião, ele não existe para o motor. O registo cria a tarefa de picar, e é aí que o relógio começa. O relatório mostra quanto tempo passou entre o camião encostar e a tarefa nascer.</p>
+        </li>
+        <li>
+          <h3>Ver a fila e dar uma tarefa</h3>
+          <p class="caminho">55 · Início do gestor › 69 · A fila de trabalho › 57 · Atribuir uma tarefa › 59 · Feito</p>
+          <p>O gestor é o único que vê a fila toda, e porque é que cada tarefa está naquela ordem. De lá pode dar uma a alguém.</p>
         </li>
         <li>
           <h3>Atribuir uma tarefa a alguém</h3>
@@ -130,5 +135,6 @@
 </div>
 
 <script src="assets/js/traducao.js"></script>
+<script src="assets/js/escrever.js"></script>
 </body>
 </html>
