@@ -37,7 +37,7 @@
   <p data-funcao="arrumacao" data-ecras="e2 a1 a2 a4 a5"
      data-nota="Uma tarefa é uma guia de arrumação, que pode ter várias paletes: o 14 volta ao 10 até à última. Só então o motor dá a guia seguinte.">Um turno normal</p>
   <p data-funcao="arrumacao" data-ecras="e2 g11 n1 n2 r1 r2 r4"
-     data-nota="Registar não é escolher trabalho: é dizer ao sistema que o camião está lá, e pode ser qualquer pessoa — o gestor não tem de cá estar. Quem regista e está livre fica com a tarefa na hora; quem não está, só regista. Depois conta-se, confere-se e recebe-se tudo seguido.">Chega mercadoria ao cais</p>
+     data-nota="Registar não é escolher trabalho: é dizer ao sistema que o camião está lá. Está em quem passa pelo cais de entrada — a arrumação — e no gestor, e por isso não depende de ele cá estar. Quem regista e está livre fica com a tarefa na hora; depois conta-se, confere-se e recebe-se tudo seguido.">Chega mercadoria ao cais</p>
   <p data-funcao="arrumacao" data-ecras="r2 r3 r4"
      data-nota="Desvio do fluxo de cima: regista-se o que chegou de facto, e é isso que entra em stock.">…e a quantidade não bate</p>
   <p data-funcao="arrumacao" data-ecras="a2 g2 a3 a4 a5"
@@ -929,10 +929,6 @@
     <section class="fazer fazer--outras" aria-labelledby="sp0-ops">
       <h2 class="fazer__titulo" id="sp0-ops">Operações</h2>
       <div class="quadrados">
-        <button type="button" class="quadrado" data-ir="g11">
-          <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2.5 6.5h10v9h-10Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path class="tinta-acao" d="M12.5 9h4.2l3.3 3.3v3.2h-7.5Z"/><circle cx="7" cy="17.5" r="1.8" fill="currentColor"/><circle cx="17" cy="17.5" r="1.8" fill="currentColor"/></svg></span>
-          <span class="quadrado__nome">Chegou um camião</span>
-        </button>
         <button type="button" class="quadrado" data-ir="s9">
           <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4.5" y="2.5" width="15" height="19" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path class="traco-acao" d="M8 8h8M8 12h8M8 16h5" stroke-width="2" stroke-linecap="round"/></svg></span>
           <span class="quadrado__nome">Consultar guia</span>
@@ -1278,10 +1274,6 @@
     <section class="fazer fazer--outras" aria-labelledby="xp0-ops">
       <h2 class="fazer__titulo" id="xp0-ops">Operações</h2>
       <div class="quadrados">
-        <button type="button" class="quadrado" data-ir="g11">
-          <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2.5 6.5h10v9h-10Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path class="tinta-acao" d="M12.5 9h4.2l3.3 3.3v3.2h-7.5Z"/><circle cx="7" cy="17.5" r="1.8" fill="currentColor"/><circle cx="17" cy="17.5" r="1.8" fill="currentColor"/></svg></span>
-          <span class="quadrado__nome">Chegou um camião</span>
-        </button>
         <button type="button" class="quadrado" data-ir="x1">
           <span class="quadrado__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2.5 6.5h10v9h-10Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path class="tinta-acao" d="M12.5 9h4.2l3.3 3.3v3.2h-7.5Z"/><circle cx="7" cy="17.5" r="1.8" fill="currentColor"/><circle cx="17" cy="17.5" r="1.8" fill="currentColor"/></svg></span>
           <span class="quadrado__nome">Camiões de hoje</span>
@@ -2042,7 +2034,7 @@
 </div>
 </div>
 
-<div class="ecra" data-ecra="g11" data-objetivo="Pôr a chegada de um camião dentro do sistema, que é o que cria a tarefa de picar. De quem der por ele — o gestor, ou quem está no armazém." data-fluxo="Receber o que chega" data-funcao="todas" data-nome="67 · Chegou um camião" data-refs="CU-40 · CU-20 · RF-30" hidden>
+<div class="ecra" data-ecra="g11" data-objetivo="Pôr a chegada de um camião dentro do sistema, que é o que cria a tarefa de picar. Está na arrumação, que trabalha o cais de entrada, e no gestor." data-fluxo="Receber o que chega" data-funcao="todas" data-nome="67 · Chegou um camião" data-refs="CU-40 · CU-20 · RF-30" hidden>
 <div class="pda">
   <header class="topo">
     <button type="button" class="topo__voltar" data-ir="gp0"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Voltar</button>
