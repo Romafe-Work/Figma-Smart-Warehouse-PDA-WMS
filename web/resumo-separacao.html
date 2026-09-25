@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A separação, caso a caso — Ecrãs do PDA</title>
+<meta name="description" content="Os nove casos da separação, com os ecrãs de cada um.">
+<link rel="icon" href="assets/img/simbolo-app.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/documentacao.css">
+<style>
+  /* O mesmo desenho do resumo da arrumação: os casos numerados, o caminho de
+     ecrãs por baixo do título, e a frase que diz o que acontece. */
+  .casos { list-style: none; margin: 0; padding: 0; counter-reset: caso; }
+  .casos > li { counter-increment: caso; margin: 0 0 var(--e-lg); padding-left: 44px; position: relative; }
+  .casos > li::before {
+    content: counter(caso); position: absolute; left: 0; top: 0;
+    width: 30px; height: 30px; display: grid; place-items: center;
+    background: var(--c-acento); color: #fff; border-radius: 50%;
+    font-size: var(--t-small); font-weight: 700;
+  }
+  .casos h3 { margin: 4px 0 6px; font-size: var(--t-lead); }
+  .caminho { margin: 0 0 4px; font-family: var(--f-mono, monospace); font-size: var(--t-small); color: var(--c-acento); line-height: 1.7; }
+  .casos p { margin: 0; }
+  .porrever { border-left: 3px solid var(--c-acao); padding-left: var(--e-lg); }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#conteudo">Saltar para o conteúdo</a>
+
+<header class="doc-topo">
+  <div>
+    <h1 class="doc-topo__titulo">Armazém Inteligente · PDA</h1>
+    <p class="doc-topo__sub">A separação, caso a caso</p>
+  </div>
+  <nav class="doc-topo__nav" aria-label="Páginas">
+    <a href="index.html">Ecrãs</a>
+    <a href="resumo-arrumacao.html">Arrumação</a>
+    <a href="resumo-separacao.html">Separação</a>
+    <a href="resumo-expedicao.html">Expedição</a>
+    <a href="resumo-gestor.html">Gestor</a>
+    <a href="menu.html">O menu</a>
+  </nav>
+</header>
+
+<div class="doc-corpo doc-corpo--simples">
+  <main class="doc-conteudo" id="conteudo">
+
+    <section class="seccao" id="modelo">
+      <h2>O modelo, que é o mesmo das outras</h2>
+      <p>
+        O motor entrega uma tarefa de cada vez, conforme a atividade dos PDA. A pessoa não escolhe
+        nem vê a fila, e <b>uma tarefa é uma guia</b>. Na separação, a prateleira de preparados é reservada quando o motor dá a guia — é o que torna possível sair a meio sem perder nada.
+      </p>
+    </section>
+
+    <section class="seccao" id="separacao">
+      <h2>Os nove casos</h2>
+      <ol class="casos">
+        <li>
+          <h3>Um turno normal</h3>
+          <p class="caminho">29 início › 30 a tarefa › 31 a guia, paragem a paragem › 32 paragem: lê a posição › 34 leva à prateleira › 35 guia fechada</p>
+          <p>O motor ordena as paragens pelo caminho mais curto, e escolhe a guia seguinte pela hora do camião <i>e</i> por onde a pessoa acabou — é isso que substitui o lote. A posição na prateleira de preparados é reservada quando a guia é dada, e vê-se logo no 31.</p>
+        </li>
+        <li>
+          <h3>Na paragem falta quantidade</h3>
+          <p class="caminho">32 › 33 falta quantidade › 34</p>
+          <p>O que se tirou fica na guia. A diferença fica assinalada na posição e o gestor vê o sinal — mandar mexer no stock é decisão dele, como na arrumação. A guia não sai sem o resto, e volta a ser tarefa assim que o stock entrar.</p>
+        </li>
+        <li>
+          <h3>A etiqueta não se lê</h3>
+          <p class="caminho">32 › 37 escreve a posição › 34</p>
+          <p>Escreve-se o código e a guia segue.</p>
+        </li>
+        <li>
+          <h3>Um problema na paragem</h3>
+          <p class="caminho">32 › 36 o que se passa? › 18 problema registado</p>
+          <p>Fica registado, o gestor decide, e segue-se para a paragem seguinte.</p>
+        </li>
+        <li>
+          <h3>Ver como está uma guia</h3>
+          <p class="caminho">29 › 39 consultar guia</p>
+          <p>O que falta, onde ficou e para que camião vai.</p>
+        </li>
+        <li>
+          <h3>Consultar um artigo</h3>
+          <p class="caminho">29 › 40 consultar artigo</p>
+          <p>Onde está e quanto há, sem largar a guia.</p>
+        </li>
+        <li>
+          <h3>Consultar uma posição</h3>
+          <p class="caminho">29 › 41 consultar posição</p>
+          <p>O que está lá, sem largar a guia.</p>
+        </li>
+        <li>
+          <h3>Levar a palete vazia</h3>
+          <p class="caminho">25 leva ao parque › 26 no parque</p>
+          <p>A mesma tarefa da arrumação; também calha à separação.</p>
+        </li>
+        <li>
+          <h3>Sair com a guia a meio</h3>
+          <p class="caminho">29 › 38 sair com a guia a meio › 01</p>
+          <p>O que está no carro não volta às prateleiras de origem: vai para a posição já reservada à guia, e as linhas ficam registadas. As que faltam voltam ao motor, e quem apanhar a guia continua na paragem seguinte e junta o resto no mesmo sítio.</p>
+        </li>
+      </ol>
+    </section>
+
+  </main>
+</div>
+
+<script src="assets/js/traducao.js"></script>
+</body>
+</html>

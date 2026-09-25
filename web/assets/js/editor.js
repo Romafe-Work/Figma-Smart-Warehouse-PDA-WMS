@@ -1181,7 +1181,7 @@
     var abas = el('div', 'ed-abas');
     abas.setAttribute('role', 'tablist');
     ABAS.forEach(function (par) {
-      var b = el('button', 'ed-aba' + (par[0] === 'menu' ? ' ed-aba--larga' : ''));
+      var b = el('button', 'ed-aba' + (par[0] === 'menu' || par[0].indexOf('resumo') === 0 ? ' ed-aba--larga' : ''));
       b.type = 'button';
       if (IC_ABA[par[0]]) {
         b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true">' + IC_ABA[par[0]] + '</svg>';
@@ -1316,14 +1316,18 @@
     'como-funciona': '<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9.6 9.2a2.5 2.5 0 1 1 3.3 2.4c-.6.2-.9.7-.9 1.3v.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1.1" fill="currentColor"/>'
 ,
     'menu': '<rect x="3.5" y="3.5" width="17" height="17" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7 8.5h10M7 12h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="6.6" y="15" width="4" height="3" rx=".8" fill="currentColor"/><rect x="12.4" y="15" width="4" height="3" rx=".8" fill="currentColor"/>',
+    'resumo-separacao': '<path d="M4 5.5h16M4 10.5h16M4 15.5h10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="18" cy="17.5" r="3.2" fill="none" stroke="currentColor" stroke-width="1.8"/>',
+    'resumo-expedicao': '<path d="M4 5.5h16M4 10.5h16M4 15.5h10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="18" cy="17.5" r="3.2" fill="none" stroke="currentColor" stroke-width="1.8"/>',
+    'resumo-gestor': '<path d="M4 5.5h16M4 10.5h16M4 15.5h10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="18" cy="17.5" r="3.2" fill="none" stroke="currentColor" stroke-width="1.8"/>',
     'resumo-arrumacao': '<path d="M4 5.5h16M4 10.5h16M4 15.5h10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="18" cy="17.5" r="3.2" fill="none" stroke="currentColor" stroke-width="1.8"/>',
-    'resumo-resto': '<path d="M4 5.5h16M4 10.5h16M4 15.5h16M4 20.5h10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>'
   };
-  /* As páginas que ficam no painel. A documentação, o como funciona e os dois
-     resumos saíram a 25 de setembro: continuam em web/ e abrem pelo endereço
-     (documentacao.html, como-funciona.html, resumo-arrumacao.html,
-     resumo-resto.html), mas já não ocupam o painel de quem está a desenhar. */
-  var ABAS = [['', 'Ecrãs'], ['fluxo', 'Fluxo'], ['texto', 'Texto'], ['menu', 'O menu']];
+  /* As páginas que ficam no painel: os ecrãs, o mapa, o texto, o menu da app,
+     e um resumo por função. A documentação e o como funciona saíram a 25 de
+     setembro — continuam em web/ e abrem pelo endereço, mas não ocupam o
+     painel de quem está a desenhar. */
+  var ABAS = [['', 'Ecrãs'], ['fluxo', 'Fluxo'], ['texto', 'Texto'], ['menu', 'O menu'],
+              ['resumo-arrumacao', 'Arrumação'], ['resumo-separacao', 'Separação'],
+              ['resumo-expedicao', 'Expedição'], ['resumo-gestor', 'Gestor']];
   var leitura = null, textoEl = null;
 
   function abrirLeitura(qual) {

@@ -31,8 +31,10 @@ web/
   assets/css/editor.css      a moldura do editor e a tela
   assets/css/documentacao.css só as duas páginas de documentação
   menu.html                  o menu da app: a regra, o teste, e um menu por função
-  resumo-arrumacao.html      a arrumação caso a caso (fora do painel)
-  resumo-resto.html          separação, expedição e gestor (idem)
+  resumo-arrumacao.html      a arrumação caso a caso
+  resumo-separacao.html      a separação caso a caso
+  resumo-expedicao.html      a expedição caso a caso
+  resumo-gestor.html         o gestor caso a caso
   assets/js/ecras.js         que ecrã se vê, e os modos #so= das capturas
   assets/js/fluxo.js         o mapa de navegação (#so=fluxo, as abas «Fluxo» e «Texto»)
   assets/js/vendor/          o Mermaid, que desenha os diagramas da aba «Texto»

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A expedição, caso a caso — Ecrãs do PDA</title>
+<meta name="description" content="Os sete casos da expedição, com os ecrãs de cada um.">
+<link rel="icon" href="assets/img/simbolo-app.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/documentacao.css">
+<style>
+  /* O mesmo desenho do resumo da arrumação: os casos numerados, o caminho de
+     ecrãs por baixo do título, e a frase que diz o que acontece. */
+  .casos { list-style: none; margin: 0; padding: 0; counter-reset: caso; }
+  .casos > li { counter-increment: caso; margin: 0 0 var(--e-lg); padding-left: 44px; position: relative; }
+  .casos > li::before {
+    content: counter(caso); position: absolute; left: 0; top: 0;
+    width: 30px; height: 30px; display: grid; place-items: center;
+    background: var(--c-acento); color: #fff; border-radius: 50%;
+    font-size: var(--t-small); font-weight: 700;
+  }
+  .casos h3 { margin: 4px 0 6px; font-size: var(--t-lead); }
+  .caminho { margin: 0 0 4px; font-family: var(--f-mono, monospace); font-size: var(--t-small); color: var(--c-acento); line-height: 1.7; }
+  .casos p { margin: 0; }
+  .porrever { border-left: 3px solid var(--c-acao); padding-left: var(--e-lg); }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#conteudo">Saltar para o conteúdo</a>
+
+<header class="doc-topo">
+  <div>
+    <h1 class="doc-topo__titulo">Armazém Inteligente · PDA</h1>
+    <p class="doc-topo__sub">A expedição, caso a caso</p>
+  </div>
+  <nav class="doc-topo__nav" aria-label="Páginas">
+    <a href="index.html">Ecrãs</a>
+    <a href="resumo-arrumacao.html">Arrumação</a>
+    <a href="resumo-separacao.html">Separação</a>
+    <a href="resumo-expedicao.html">Expedição</a>
+    <a href="resumo-gestor.html">Gestor</a>
+    <a href="menu.html">O menu</a>
+  </nav>
+</header>
+
+<div class="doc-corpo doc-corpo--simples">
+  <main class="doc-conteudo" id="conteudo">
+
+    <section class="seccao" id="modelo">
+      <h2>O modelo, que é o mesmo das outras</h2>
+      <p>
+        O motor entrega uma tarefa de cada vez, conforme a atividade dos PDA. A pessoa não escolhe
+        nem vê a fila, e <b>uma tarefa é uma guia</b>. Na expedição, a guia vai da prateleira ao camião; a saída só fecha quando a última guia dele sobe.
+      </p>
+    </section>
+
+    <section class="seccao" id="expedicao">
+      <h2>Os sete casos</h2>
+      <ol class="casos">
+        <li>
+          <h3>Um turno normal</h3>
+          <p class="caminho">42 início › 43 a tarefa › 45 confere volume a volume › 46 leva ao cais › 47 carregar › 63 fechar a saída? › 48 saída fechada</p>
+          <p>A guia levanta-se na prateleira, confere-se volume a volume e leva-se ao camião. O motor prefere dar a guia seguinte do mesmo camião a quem já está no cais. Quando a última guia sobe, a saída fecha sozinha; fechar antes disso é decisão de quem está no cais, e o PDA pergunta.</p>
+        </li>
+        <li>
+          <h3>Falta um volume na prateleira</h3>
+          <p class="caminho">45 › 49 o que se passa? › 50 falta um volume › 46 › 47</p>
+          <p>A guia vai incompleta e o resto do camião segue. Fica um sinal no relatório: faltava na prateleira um volume que a separação lá deixou. É o gestor que decide quem o vai procurar — a expedição não manda trabalho à separação.</p>
+        </li>
+        <li>
+          <h3>A etiqueta do cais não se lê</h3>
+          <p class="caminho">46 › 51 escreve o cais › 47</p>
+          <p>Escreve-se o cais e o carregamento segue.</p>
+        </li>
+        <li>
+          <h3>Ver os camiões de hoje</h3>
+          <p class="caminho">42 › 44 os camiões de hoje</p>
+          <p>O risco de cada camião — o que está pronto e o que falta. Não é por aqui que se escolhe trabalho.</p>
+        </li>
+        <li>
+          <h3>Consultar uma guia</h3>
+          <p class="caminho">42 › 53 consultar guia</p>
+          <p>O que falta, onde ficou e quando sai.</p>
+        </li>
+        <li>
+          <h3>Ver o que está na prateleira</h3>
+          <p class="caminho">42 › 54 ver a prateleira de preparados</p>
+          <p>A prateleira toda, e para que camião vai cada guia.</p>
+        </li>
+        <li>
+          <h3>Sair com a guia a meio</h3>
+          <p class="caminho">42 › 52 sair com a guia a meio › 01</p>
+          <p>Nenhum volume desce do camião: os que já subiram ficam lá e registados, os que faltam voltam ao motor com a guia, e a saída fica aberta. Quem a apanhar continua no volume seguinte.</p>
+        </li>
+      </ol>
+    </section>
+
+  </main>
+</div>
+
+<script src="assets/js/traducao.js"></script>
+</body>
+</html>

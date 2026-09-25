@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>O gestor, caso a caso — Ecrãs do PDA</title>
+<meta name="description" content="Os sete casos do gestor, com os ecrãs de cada um.">
+<link rel="icon" href="assets/img/simbolo-app.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/documentacao.css">
+<style>
+  /* O mesmo desenho do resumo da arrumação: os casos numerados, o caminho de
+     ecrãs por baixo do título, e a frase que diz o que acontece. */
+  .casos { list-style: none; margin: 0; padding: 0; counter-reset: caso; }
+  .casos > li { counter-increment: caso; margin: 0 0 var(--e-lg); padding-left: 44px; position: relative; }
+  .casos > li::before {
+    content: counter(caso); position: absolute; left: 0; top: 0;
+    width: 30px; height: 30px; display: grid; place-items: center;
+    background: var(--c-acento); color: #fff; border-radius: 50%;
+    font-size: var(--t-small); font-weight: 700;
+  }
+  .casos h3 { margin: 4px 0 6px; font-size: var(--t-lead); }
+  .caminho { margin: 0 0 4px; font-family: var(--f-mono, monospace); font-size: var(--t-small); color: var(--c-acento); line-height: 1.7; }
+  .casos p { margin: 0; }
+  .porrever { border-left: 3px solid var(--c-acao); padding-left: var(--e-lg); }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#conteudo">Saltar para o conteúdo</a>
+
+<header class="doc-topo">
+  <div>
+    <h1 class="doc-topo__titulo">Armazém Inteligente · PDA</h1>
+    <p class="doc-topo__sub">O gestor, caso a caso</p>
+  </div>
+  <nav class="doc-topo__nav" aria-label="Páginas">
+    <a href="index.html">Ecrãs</a>
+    <a href="resumo-arrumacao.html">Arrumação</a>
+    <a href="resumo-separacao.html">Separação</a>
+    <a href="resumo-expedicao.html">Expedição</a>
+    <a href="resumo-gestor.html">Gestor</a>
+    <a href="menu.html">O menu</a>
+  </nav>
+</header>
+
+<div class="doc-corpo doc-corpo--simples">
+  <main class="doc-conteudo" id="conteudo">
+
+    <section class="seccao" id="modelo">
+      <h2>O modelo, que é o mesmo das outras</h2>
+      <p>
+        O motor entrega uma tarefa de cada vez, conforme a atividade dos PDA. A pessoa não escolhe
+        nem vê a fila, e <b>uma tarefa é uma guia</b>. O gestor é a exceção: não recebe tarefas do motor, dá-as — e é dele que nascem as correções e o registo de um camião.
+      </p>
+    </section>
+
+    <section class="seccao" id="gestor">
+      <h2>Os casos do gestor</h2>
+      <ol class="casos">
+        <li>
+          <h3>Um turno normal</h3>
+          <p class="caminho">55 início › 56 relatório do turno › 61 insights</p>
+          <p>Os números do turno e, por baixo, os insights: onde se perde tempo e o que falha.</p>
+        </li>
+        <li>
+          <h3>Registar a chegada de um camião</h3>
+          <p class="caminho">55 › 67 chegou um camião › 59 feito</p>
+          <p>O sistema não sabe o que vem a caminho: enquanto ninguém registar o camião, ele não existe para o motor. O registo cria a tarefa de picar, e é aí que o relógio começa. O relatório mostra quanto tempo passou entre o camião encostar e a tarefa nascer.</p>
+        </li>
+        <li>
+          <h3>Agir sobre um sinal</h3>
+          <p class="caminho">55 › 56 › 59 feito</p>
+          <p>Cada sinal traz o que fazer a seguir. Se mandar corrigir uma posição, é aqui que nasce a tarefa que a arrumação vai receber.</p>
+        </li>
+        <li>
+          <h3>Atribuir uma tarefa a alguém</h3>
+          <p class="caminho">55 › 57 atribuir uma tarefa › 59 feito</p>
+          <p>Com o motivo escrito. Passa à frente na fila dessa pessoa e o motor aprende.</p>
+        </li>
+        <li>
+          <h3>Ver o armazém todo</h3>
+          <p class="caminho">55 › 58 o que está a acontecer › 57 › 59</p>
+          <p>Quem está a trabalhar, o que falta, o que sai hoje — e atribuir a partir daí.</p>
+        </li>
+        <li>
+          <h3>Trabalhar como qualquer função</h3>
+          <p class="caminho">55 › 60 todas as operações › 02 início da arrumação</p>
+          <p>O gestor entra em qualquer função e trabalha como ela.</p>
+        </li>
+        <li>
+          <h3>Sair do turno</h3>
+          <p class="caminho">55 › 01</p>
+          <p>O gestor não tem trabalho por fechar no PDA.</p>
+        </li>
+      </ol>
+    </section>
+
+  </main>
+</div>
+
+<script src="assets/js/traducao.js"></script>
+</body>
+</html>
