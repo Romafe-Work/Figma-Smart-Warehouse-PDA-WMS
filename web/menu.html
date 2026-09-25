@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>O menu da app — Ecrãs do PDA</title>
+<meta name="description" content="O que é o menu do PDA, o que entra em cada bloco, e a regra que decide onde vai uma coisa nova.">
+<link rel="icon" href="assets/img/simbolo-app.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/documentacao.css">
+<style>
+  /* A anatomia do menu desenha-se com os mesmos blocos do ecrã, em ponto
+     grande, para se ver o que é cada parte sem abrir o PDA. */
+  .anatomia { display: grid; gap: var(--e-md); max-width: 460px; }
+  .parte { border: 1px solid var(--c-cinzento); border-radius: var(--r-md); padding: var(--e-lg); background: var(--c-cartao); }
+  .parte__nome { font-size: var(--t-small); font-weight: 700; letter-spacing: .06em;
+                 text-transform: uppercase; color: var(--c-acento); margin: 0 0 4px; }
+  .parte__regra { margin: 0; font-size: var(--t-small); color: var(--c-texto-2); }
+  .parte--fixa { border-style: dashed; background: transparent; }
+  .teste { list-style: none; margin: 0; padding: 0; counter-reset: passo; }
+  .teste > li { counter-increment: passo; position: relative; padding-left: 44px; margin-bottom: var(--e-lg); }
+  .teste > li::before {
+    content: counter(passo); position: absolute; left: 0; top: 0;
+    width: 30px; height: 30px; display: grid; place-items: center;
+    background: var(--c-acento); color: #fff; border-radius: 50%;
+    font-size: var(--t-small); font-weight: 700;
+  }
+  .teste > li > b:first-child { display: block; margin-bottom: 2px; }
+  .nunca { border-left: 3px solid var(--c-erro); padding-left: var(--e-lg); }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#conteudo">Saltar para o conteúdo</a>
+
+<header class="doc-topo">
+  <div>
+    <h1 class="doc-topo__titulo">Armazém Inteligente · PDA</h1>
+    <p class="doc-topo__sub">O menu da app</p>
+  </div>
+  <nav class="doc-topo__nav" aria-label="Páginas">
+    <a href="index.html">Ecrãs</a>
+    <a href="resumo-arrumacao.html">Arrumação</a>
+    <a href="resumo-resto.html">O resto</a>
+  </nav>
+</header>
+
+<div class="doc-corpo doc-corpo--simples">
+  <main class="doc-conteudo" id="conteudo">
+
+    <section class="seccao" id="ideia">
+      <h2>A ideia numa frase</h2>
+      <p>
+        O menu é o mesmo nas quatro funções, e tem três blocos: <b>Trabalho</b>, com uma opção só;
+        <b>Operações</b>, com o que não é trabalho; e três separadores em baixo. O que muda de
+        função para função são as palavras, não a forma.
+      </p>
+      <p class="nota">
+        A razão de ser assim é uma decisão anterior a este ecrã: <b>a pessoa não escolhe trabalho
+        nem vê a fila</b>. O motor atribui uma tarefa de cada vez. Um menu com várias maneiras de
+        começar seria um menu a oferecer escolhas que não existem.
+      </p>
+    </section>
+
+    <section class="seccao" id="anatomia">
+      <h2>A anatomia, de cima para baixo</h2>
+      <div class="anatomia">
+        <div class="parte parte--fixa">
+          <p class="parte__nome">Faixa</p>
+          <p class="parte__regra">Função · nome de quem entrou · estado da rede. Igual em todos os
+          ecrãs da app, e nunca se mexe.</p>
+        </div>
+        <div class="parte">
+          <p class="parte__nome">Cabeçalho</p>
+          <p class="parte__regra">«Bom dia, <i>nome</i>» e uma linha só: o turno, e quanto trabalho
+          está à espera <b>no armazém</b> — nunca a fila da pessoa, que ela não vê.</p>
+        </div>
+        <div class="parte">
+          <p class="parte__nome">Trabalho</p>
+          <p class="parte__regra">Uma opção, sempre uma. O verbo é o da função («Começar a
+          arrumar», «Começar a recolher», «Começar a carregar»). Por baixo, duas linhas: <b>o
+          quê</b> (a guia e o tamanho dela) e <b>onde e porquê</b> (a zona, a hora do camião, há
+          quanto tempo espera). Um toque e está a trabalhar.</p>
+        </div>
+        <div class="parte">
+          <p class="parte__nome">Operações</p>
+          <p class="parte__regra">Quadrados, dois por linha, no máximo seis. Só entra aqui o que
+          <b>não é tarefa</b>: as consultas, e os registos que avisam o sistema de uma coisa que
+          ele não pode saber sozinho.</p>
+        </div>
+        <div class="parte parte--fixa">
+          <p class="parte__nome">Separadores</p>
+          <p class="parte__regra">Três, fixos: <b>Tarefa</b> (leva ao trabalho que tem em mãos),
+          <b>Início</b> e <b>Sair</b>. No gestor, o primeiro é <b>Armazém</b>, porque ele não tem
+          tarefa própria.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="seccao" id="teste">
+      <h2>Onde vai uma coisa nova: o teste</h2>
+      <p>
+        Quando aparecer alguma coisa que o PDA tem de fazer, estas quatro perguntas dizem onde é
+        que ela vive. Pela ordem, e pára-se na primeira que der «sim».
+      </p>
+      <ol class="teste">
+        <li>
+          <b>Alguém tem de o fazer, mais cedo ou mais tarde?</b>
+          É <b>tarefa</b>. Não entra no menu: o motor dá-a. Arrumar, receber, corrigir uma posição,
+          levar a palete vazia.
+        </li>
+        <li>
+          <b>Avisa o sistema de uma coisa que ele não pode saber sozinho?</b>
+          É <b>operação</b>, e é um registo — nunca trabalho. «Chegou um camião» é o exemplo: quem
+          dá pelo camião regista, e é o motor que decide quem vai lá.
+        </li>
+        <li>
+          <b>Só serve para ver?</b>
+          É <b>operação</b>, e é uma consulta. Não muda nada, e volta-se de onde se veio.
+        </li>
+        <li>
+          <b>É uma decisão sobre o trabalho dos outros?</b>
+          É do <b>gestor</b>. Atribuir, mandar corrigir, ver o armazém todo.
+        </li>
+      </ol>
+      <div class="nunca">
+        <p><b>O que nunca entra no menu:</b></p>
+        <ul>
+          <li><b>Escolher trabalho.</b> Nem lista de tarefas, nem «que queres fazer a seguir».</li>
+          <li><b>Ver a fila.</b> A pessoa vê a tarefa que tem, e números do armazém. Mais nada.</li>
+          <li><b>O mapa.</b> Fica para a v2.</li>
+          <li><b>Contagens.</b> Ninguém conta o armazém: as diferenças corrigem-se na posição.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="seccao" id="quatro">
+      <h2>Os quatro menus, hoje</h2>
+      <div class="rolo">
+        <table class="tabela">
+          <thead>
+            <tr><th></th><th>Trabalho</th><th>Operações</th><th>Separadores</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>Arrumação</b><br>ecrã 02</td>
+              <td>Começar a arrumar<br><small>Guia GA-4471 · 3 paletes<br>Zona 30, máquina · há 2h10</small></td>
+              <td>Chegou um camião · Corrigir posição · Consultar artigo · Consultar posição</td>
+              <td>Tarefa · Início · Sair</td>
+            </tr>
+            <tr>
+              <td><b>Separação</b><br>ecrã 29</td>
+              <td>Começar a recolher<br><small>Guia G-24187 · 9 linhas<br>Zona 20 · camião DPD às 11h30</small></td>
+              <td>Chegou um camião · Consultar guia · Consultar artigo · Consultar posição</td>
+              <td>Tarefa · Início · Sair</td>
+            </tr>
+            <tr>
+              <td><b>Expedição</b><br>ecrã 42</td>
+              <td>Começar a carregar<br><small>Guia G-24187 · 9 volumes<br>Prateleira PP-DPD-03 · DPD às 11h30</small></td>
+              <td>Chegou um camião · Camiões de hoje · Consultar guia · Ver a prateleira</td>
+              <td>Tarefa · Início · Sair</td>
+            </tr>
+            <tr>
+              <td><b>Gestor</b><br>ecrã 55</td>
+              <td>Ver o turno<br><small>Números e sinais</small></td>
+              <td>Chegou um camião · Insights · O que está a acontecer · Atribuir uma tarefa · Todas as operações</td>
+              <td>Armazém · Início · Sair</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="nota">
+        As três funções têm «Chegou um camião» porque o registo não é trabalho: quem der pelo
+        camião regista, esteja o gestor cá ou não. O gestor é o único cuja opção de Trabalho não
+        leva a trabalho nenhum — leva ao relatório, que é o que ele faz.
+      </p>
+    </section>
+
+    <section class="seccao" id="aberto">
+      <h2>O que ainda não está decidido</h2>
+      <ul>
+        <li>
+          <b>Um menu por pessoa, ou por função?</b> Hoje é por função. Se alguém fizer duas coisas
+          no mesmo turno, ou troca de sessão, ou o menu tem de mostrar as duas.
+        </li>
+        <li>
+          <b>O gestor trabalha como qualquer função (ecrã 60).</b> Isso é uma quinta porta no menu
+          dele, e é a única que abre o menu de outra pessoa. Vale a pena confirmar que é mesmo
+          assim que se quer.
+        </li>
+        <li>
+          <b>Seis operações é o teto.</b> A expedição já tem quatro. Quando passar de seis, ou se
+          agrupa, ou alguma coisa ali não era operação.
+        </li>
+      </ul>
+    </section>
+
+  </main>
+</div>
+
+<script src="assets/js/traducao.js"></script>
+</body>
+</html>
