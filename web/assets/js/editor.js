@@ -1181,7 +1181,7 @@
     var abas = el('div', 'ed-abas');
     abas.setAttribute('role', 'tablist');
     ABAS.forEach(function (par) {
-      var b = el('button', 'ed-aba' + (par[0].indexOf('resumo') === 0 || par[0] === 'menu' || par[0] === 'documentacao' || par[0] === 'como-funciona' ? ' ed-aba--larga' : ''));
+      var b = el('button', 'ed-aba' + (par[0] === 'menu' ? ' ed-aba--larga' : ''));
       b.type = 'button';
       if (IC_ABA[par[0]]) {
         b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true">' + IC_ABA[par[0]] + '</svg>';
@@ -1319,7 +1319,11 @@
     'resumo-arrumacao': '<path d="M4 5.5h16M4 10.5h16M4 15.5h10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="18" cy="17.5" r="3.2" fill="none" stroke="currentColor" stroke-width="1.8"/>',
     'resumo-resto': '<path d="M4 5.5h16M4 10.5h16M4 15.5h16M4 20.5h10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>'
   };
-  var ABAS = [['', 'Ecrãs'], ['fluxo', 'Fluxo'], ['texto', 'Texto'], ['menu', 'O menu'], ['resumo-arrumacao', 'Arrumação'], ['resumo-resto', 'O resto'], ['documentacao', 'Documentação'], ['como-funciona', 'Como funciona']];
+  /* As páginas que ficam no painel. A documentação, o como funciona e os dois
+     resumos saíram a 25 de setembro: continuam em web/ e abrem pelo endereço
+     (documentacao.html, como-funciona.html, resumo-arrumacao.html,
+     resumo-resto.html), mas já não ocupam o painel de quem está a desenhar. */
+  var ABAS = [['', 'Ecrãs'], ['fluxo', 'Fluxo'], ['texto', 'Texto'], ['menu', 'O menu']];
   var leitura = null, textoEl = null;
 
   function abrirLeitura(qual) {

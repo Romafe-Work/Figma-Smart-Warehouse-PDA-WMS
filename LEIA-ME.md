@@ -19,8 +19,8 @@ Feito como o `Figma-WebShop-GoParts`: o mesmo editor, apontado ao PDA.
 ```
 web/
   index.html                 os 62 ecrãs, em modo de edição
-  documentacao.html          o sistema documentado, com exemplos vivos
-  como-funciona.html         o que é e como está montado
+  documentacao.html          o sistema documentado, com exemplos vivos (fora do painel; abre pelo endereço)
+  como-funciona.html         o que é e como está montado (idem)
   assets/css/tokens.css      os valores, copiados de 05-design/03 sem alterar
   assets/css/base.css        faixa, barra, passos, cartão, selo, botões, leitor, alerta, tarefa, vazio, folha
   assets/css/entrada.css     só entrar e o menu
@@ -30,6 +30,9 @@ web/
   assets/css/gestor.css      só o gestor
   assets/css/editor.css      a moldura do editor e a tela
   assets/css/documentacao.css só as duas páginas de documentação
+  menu.html                  o menu da app: a regra, o teste, e um menu por função
+  resumo-arrumacao.html      a arrumação caso a caso (fora do painel)
+  resumo-resto.html          separação, expedição e gestor (idem)
   assets/js/ecras.js         que ecrã se vê, e os modos #so= das capturas
   assets/js/fluxo.js         o mapa de navegação (#so=fluxo, as abas «Fluxo» e «Texto»)
   assets/js/vendor/          o Mermaid, que desenha os diagramas da aba «Texto»

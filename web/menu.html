@@ -135,45 +135,128 @@
       </div>
     </section>
 
-    <section class="seccao" id="quatro">
-      <h2>Os quatro menus, hoje</h2>
+    <section class="seccao" id="arrumacao">
+      <h2>Arrumação · ecrã 02</h2>
+      <p class="parte__regra">Turno das 8h · 8 tarefas à espera no armazém</p>
       <div class="rolo">
         <table class="tabela">
-          <thead>
-            <tr><th></th><th>Trabalho</th><th>Operações</th><th>Separadores</th></tr>
-          </thead>
           <tbody>
             <tr>
-              <td><b>Arrumação</b><br>ecrã 02</td>
-              <td>Começar a arrumar<br><small>Guia GA-4471 · 3 paletes<br>Zona 30, máquina · há 2h10</small></td>
-              <td>Chegou um camião · Corrigir posição · Consultar artigo · Consultar posição</td>
-              <td>Tarefa · Início · Sair</td>
+              <td><b>Trabalho</b></td>
+              <td><b>Começar a arrumar</b><br>
+                Guia GA-4471 · 3 paletes<br>
+                Zona 30, máquina · há 2h10</td>
             </tr>
             <tr>
-              <td><b>Separação</b><br>ecrã 29</td>
-              <td>Começar a recolher<br><small>Guia G-24187 · 9 linhas<br>Zona 20 · camião DPD às 11h30</small></td>
-              <td>Chegou um camião · Consultar guia · Consultar artigo · Consultar posição</td>
-              <td>Tarefa · Início · Sair</td>
+              <td><b>Operações</b></td>
+              <td>
+                <b>Chegou um camião</b> — registo. Cria a tarefa de picar, esteja o gestor cá ou não.<br>
+                <b>Corrigir posição</b> — registo. Quando se dá de caras com uma posição que não bate.<br>
+                <b>Consultar artigo</b> — consulta.<br>
+                <b>Consultar posição</b> — consulta.
+              </td>
             </tr>
-            <tr>
-              <td><b>Expedição</b><br>ecrã 42</td>
-              <td>Começar a carregar<br><small>Guia G-24187 · 9 volumes<br>Prateleira PP-DPD-03 · DPD às 11h30</small></td>
-              <td>Chegou um camião · Camiões de hoje · Consultar guia · Ver a prateleira</td>
-              <td>Tarefa · Início · Sair</td>
-            </tr>
-            <tr>
-              <td><b>Gestor</b><br>ecrã 55</td>
-              <td>Ver o turno<br><small>Números e sinais</small></td>
-              <td>Chegou um camião · Insights · O que está a acontecer · Atribuir uma tarefa · Todas as operações</td>
-              <td>Armazém · Início · Sair</td>
-            </tr>
+            <tr><td><b>Separadores</b></td><td>Tarefa · Início · Sair</td></tr>
           </tbody>
         </table>
       </div>
       <p class="nota">
-        As três funções têm «Chegou um camião» porque o registo não é trabalho: quem der pelo
-        camião regista, esteja o gestor cá ou não. O gestor é o único cuja opção de Trabalho não
-        leva a trabalho nenhum — leva ao relatório, que é o que ele faz.
+        Arrumar, receber e corrigir por tarefa não estão aqui de propósito: são trabalho, e o
+        trabalho vem do motor.
+      </p>
+    </section>
+
+    <section class="seccao" id="separacao">
+      <h2>Separação · ecrã 29</h2>
+      <p class="parte__regra">Turno das 8h · 12 guias à espera no armazém</p>
+      <div class="rolo">
+        <table class="tabela">
+          <tbody>
+            <tr>
+              <td><b>Trabalho</b></td>
+              <td><b>Começar a recolher</b><br>
+                Guia G-24187 · 9 linhas<br>
+                Zona 20 · camião DPD às 11h30</td>
+            </tr>
+            <tr>
+              <td><b>Operações</b></td>
+              <td>
+                <b>Chegou um camião</b> — registo, o mesmo das outras funções.<br>
+                <b>Consultar guia</b> — consulta. O que falta, onde ficou, para que camião vai.<br>
+                <b>Consultar artigo</b> — consulta.<br>
+                <b>Consultar posição</b> — consulta.
+              </td>
+            </tr>
+            <tr><td><b>Separadores</b></td><td>Tarefa · Início · Sair</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="nota">
+        A separação não corrige stock por sua conta: quando falta quantidade numa paragem,
+        assinala a diferença dentro da tarefa e o gestor decide. Por isso não tem «Corrigir
+        posição» no menu.
+      </p>
+    </section>
+
+    <section class="seccao" id="expedicao">
+      <h2>Expedição · ecrã 42</h2>
+      <p class="parte__regra">Turno das 8h · 7 guias à espera no armazém</p>
+      <div class="rolo">
+        <table class="tabela">
+          <tbody>
+            <tr>
+              <td><b>Trabalho</b></td>
+              <td><b>Começar a carregar</b><br>
+                Guia G-24187 · 9 volumes<br>
+                Prateleira PP-DPD-03 · DPD às 11h30</td>
+            </tr>
+            <tr>
+              <td><b>Operações</b></td>
+              <td>
+                <b>Chegou um camião</b> — registo.<br>
+                <b>Camiões de hoje</b> — consulta. O risco de cada um; não é por aqui que se escolhe trabalho.<br>
+                <b>Consultar guia</b> — consulta.<br>
+                <b>Ver a prateleira de preparados</b> — consulta.
+              </td>
+            </tr>
+            <tr><td><b>Separadores</b></td><td>Tarefa · Início · Sair</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="nota">
+        «Camiões de hoje» é a única consulta que mostra pressão — e foi por isso que saiu do
+        caminho da tarefa: quem a vê não passa dali para o trabalho.
+      </p>
+    </section>
+
+    <section class="seccao" id="gestor">
+      <h2>Gestor · ecrã 55</h2>
+      <p class="parte__regra">Turno das 8h · 47 tarefas feitas</p>
+      <div class="rolo">
+        <table class="tabela">
+          <tbody>
+            <tr>
+              <td><b>Trabalho</b></td>
+              <td><b>Ver o turno</b><br>
+                Números e sinais</td>
+            </tr>
+            <tr>
+              <td><b>Operações</b></td>
+              <td>
+                <b>Chegou um camião</b> — registo.<br>
+                <b>Insights</b> — consulta. Onde se perde tempo, o que falha, o que o motor aprendeu.<br>
+                <b>O que está a acontecer</b> — consulta. Quem trabalha em quê, agora.<br>
+                <b>Atribuir uma tarefa</b> — decisão sobre o trabalho dos outros.<br>
+                <b>Todas as operações</b> — entra em qualquer função e trabalha como ela.
+              </td>
+            </tr>
+            <tr><td><b>Separadores</b></td><td>Armazém · Início · Sair</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="nota">
+        É o único menu cuja opção de Trabalho não leva a trabalho: leva ao relatório. O gestor não
+        recebe tarefas do motor — dá-as.
       </p>
     </section>
 
