@@ -227,6 +227,7 @@
     'Ver como está uma guia': 'Checking how an order is doing',
     'Percursos': 'Paths',
     /* ── a expedição e o gestor, caso a caso (25 set.) ── */
+    'A tarefa nasce quando o gestor regista o camião (ecrã 67) e o motor dá-a a quem acabar primeiro. Pica-se, confere-se e recebe-se tudo seguido; no fim, começar a arrumar o que chegou.': 'The task is born when the manager logs the truck (screen 67) and the engine gives it to whoever finishes first. Scan, check and book in, all in one go; at the end, start putting away what arrived.',
     'Registada 14 min depois de encostar': 'Logged 14 min after it pulled in',
     'O cais esteve preso nesse tempo, e o motor não sabia': 'The dock was tied up for that long, and the engine did not know',
     'G-24190 incompleta há 2h': 'G-24190 incomplete for 2h',
