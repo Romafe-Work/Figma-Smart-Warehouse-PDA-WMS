@@ -88,6 +88,7 @@ g8|59-gestor-feito
 g9|60-gestor-todas-operacoes
 g10|61-gestor-insights
 g11|67-gestor-chegou-um-camiao
+e4|68-arrumacao-fim-do-turno
 g3|62-sem-ligacao
 d1|63-expedicao-fechar-saida-dialogo
 d2|64-arrumacao-corrigir-stock-dialogo

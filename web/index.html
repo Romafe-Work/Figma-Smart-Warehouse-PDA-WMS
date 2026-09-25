@@ -60,6 +60,8 @@
      data-nota="Se o que lá está não bate, corrige-se sem sair da consulta.">Consultar uma posição e corrigi-la</p>
   <p data-funcao="arrumacao" data-ecras="p1 p2"
      data-nota="Também é tarefa: o motor dá-a quando uma posição fica vazia.">Levar a palete vazia</p>
+  <p data-funcao="arrumacao" data-ecras="e4 p1 p2"
+     data-nota="O motor sabe a que horas o turno acaba e deixa de dar o que não cabe no tempo que resta: dá as curtas, ou nenhuma. Uma tarefa já começada não é interrompida.">Falta pouco para o fim do turno</p>
   <p data-funcao="arrumacao" data-ecras="e2 d3 e1"
      data-nota="Cada palete fica registada quando é arrumada: o que já fizeste não se perde. O que falta da guia volta ao motor, e o gestor vê quem saiu com uma guia aberta.">Sair com uma guia a meio</p>
 
@@ -2024,6 +2026,47 @@
   <div class="rodape">
     <button type="button" class="btn btn--acao" data-ir="g8"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.5 5 5 10-11" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Criar a tarefa de picar</button>
   </div>
+</div>
+</div>
+
+<div class="ecra" data-ecra="e4" data-objetivo="Perto do fim do turno, o motor deixa de dar o que não cabe no tempo que resta." data-funcao="arrumacao" data-fluxo="Entrar e começar o turno" data-nome="68 · Fim do turno à vista" data-refs="CU-25 · CU-39 · RF-20" hidden>
+<div class="pda menu">
+  <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span><span class="faixa__avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6" fill="currentColor"/><path d="M4.5 21c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5" fill="currentColor"/></svg></span></div>
+  <header class="heroi">
+    <span class="heroi__foto" aria-hidden="true"></span>
+    <span class="heroi__risco" aria-hidden="true"></span>
+    <h1 class="heroi__titulo">Faltam 2 min</h1>
+    <p class="heroi__sub">O teu turno acaba às 16h30</p>
+  </header>
+  <div class="corpo menu__corpo">
+
+    <section class="fazer" aria-labelledby="e4-agora">
+      <h2 class="fazer__titulo" id="e4-agora">Trabalho</h2>
+      <button type="button" class="fazer__opcao fazer__opcao--primeira" data-ir="p1">
+        <span class="fazer__circulo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 17.5h18M5.5 17.5V13h13v4.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><rect class="tinta-acao" x="8" y="6" width="8" height="5"/></svg></span>
+        <span class="fazer__texto"><span class="fazer__nome">Começar tarefas</span><span class="fazer__conta">Palete vazia ao parque · 2 min</span><span class="fazer__conta">É o que cabe no que falta</span></span>
+        <svg class="atalho__seta" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </section>
+
+    <div class="alerta alerta--aviso"><svg class="alerta__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.3 3.2a2 2 0 0 1 3.4 0l8.4 15a2 2 0 0 1-1.7 3H3.6a2 2 0 0 1-1.7-3Z" fill="currentColor"/><path d="M12 9v5" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="17.3" r="1.4" fill="#fff"/></svg><b class="alerta__titulo">As guias grandes ficam para o turno seguinte</b><span class="alerta__texto">O motor já não dá o que não cabe em 2 min. Uma tarefa começada acaba-se: ninguém é interrompido.</span></div>
+
+  </div>
+
+  <nav class="abas-fundo" aria-label="Navegação">
+    <button type="button" class="abas-fundo__aba" data-ir="a1">
+      <span class="abas-fundo__icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 6h13M8.5 12h13M8.5 18h13" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="3.5" cy="6" r="1.6" fill="currentColor"/><circle cx="3.5" cy="12" r="1.6" fill="currentColor"/><circle cx="3.5" cy="18" r="1.6" fill="currentColor"/></svg></span>
+      Tarefa
+    </button>
+    <button type="button" class="abas-fundo__aba" aria-current="page">
+      <span class="abas-fundo__icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 22 11h-3v10.5h-5V15h-4v6.5H5V11H2Z" fill="currentColor"/></svg></span>
+      Início
+    </button>
+    <button type="button" class="abas-fundo__aba" data-ir="e1">
+      <span class="abas-fundo__icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3.5H4.5v17H14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M10 12h11m-4-4.5 4.5 4.5-4.5 4.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      Sair
+    </button>
+  </nav>
 </div>
 </div>
 
