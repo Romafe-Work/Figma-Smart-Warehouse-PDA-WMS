@@ -24,6 +24,8 @@
   .caminho { margin: 0 0 4px; font-family: var(--f-mono, monospace); font-size: var(--t-small); color: var(--c-acento); line-height: 1.7; }
   .casos p { margin: 0; }
   .porrever { border-left: 3px solid var(--c-acao); padding-left: var(--e-lg); }
+  .regras__grupo { font-size: var(--t-lead); margin: var(--e-lg) 0 var(--e-md); color: var(--c-texto-2); }
+  .casos > li > h3 { margin-top: 0; }
 </style>
 </head>
 <body>
@@ -41,19 +43,75 @@
     <a href="resumo-separacao.html">Separação</a>
     <a href="resumo-expedicao.html">Expedição</a>
     <a href="resumo-gestor.html">Gestor</a>
-    <a href="menu.html">O menu</a>
+    
   </nav>
 </header>
 
 <div class="doc-corpo doc-corpo--simples">
   <main class="doc-conteudo" id="conteudo">
 
-    <section class="seccao" id="modelo">
-      <h2>O modelo, que é o mesmo das outras</h2>
-      <p>
-        O motor entrega uma tarefa de cada vez, conforme a atividade dos PDA. A pessoa não escolhe
-        nem vê a fila, e <b>uma tarefa é uma guia</b>. O gestor é a exceção: não recebe tarefas do motor, dá-as — e é dele que nascem as correções e o registo de um camião.
-      </p>
+    <section class="seccao" id="menu">
+      <h2>O menu desta função · ecrã 55</h2>
+      <div class="rolo">
+        <table class="tabela">
+          <tbody>
+            <tr><td><b>Trabalho</b></td><td><b>Ver o turno</b><br><small>Números e sinais</small></td></tr>
+            <tr><td><b>Operações</b></td><td><b>Chegou um camião</b> — registo<br><b>Insights</b> — consulta — onde se perde tempo, o que falha, o que o motor aprendeu<br><b>O que está a acontecer</b> — consulta — quem trabalha em quê, agora<br><b>Atribuir uma tarefa</b> — decisão sobre o trabalho dos outros<br><b>Todas as operações</b> — entra em qualquer função e trabalha como ela</td></tr>
+            <tr><td><b>Separadores</b></td><td>Armazém · Início · Sair</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="seccao" id="regras">
+      <h2>As regras</h2>
+      <h3 class="regras__grupo">As que valem para todas as funções</h3>
+      <ol class="casos">
+        <li>
+          <h3>Um turno normal</h3>
+          <p class="caminho">55 · Início do gestor › 56 · Relatório do turno › 61 · Insights</p>
+          <p>Os números do turno e, por baixo, os insights: onde se perde tempo e o que falha.</p>
+        </li>
+        <li>
+          <h3>Agir sobre um sinal</h3>
+          <p class="caminho">55 · Início do gestor › 56 · Relatório do turno › 59 · Feito</p>
+          <p>Cada sinal traz o que fazer a seguir. Se mandar corrigir uma posição, é aqui que nasce a tarefa que a arrumação vai receber.</p>
+        </li>
+        <li>
+          <h3>Registar a chegada de um camião</h3>
+          <p class="caminho">55 · Início do gestor › 67 · Chegou um camião › 59 · Feito</p>
+          <p>O sistema não sabe o que vem a caminho: enquanto ninguém registar o camião, ele não existe para o motor. O registo cria a tarefa de picar, e é aí que o relógio começa.</p>
+        </li>
+        <li>
+          <h3>Atribuir uma tarefa a alguém</h3>
+          <p class="caminho">55 · Início do gestor › 57 · Atribuir uma tarefa › 59 · Feito</p>
+          <p>Com o motivo escrito. Passa à frente na fila dessa pessoa e o motor aprende.</p>
+        </li>
+        <li>
+          <h3>Ver o armazém todo</h3>
+          <p class="caminho">55 · Início do gestor › 58 · O que está a acontecer › 57 · Atribuir uma tarefa › 59 · Feito</p>
+          <p>Quem está a trabalhar, o que falta, o que sai hoje — e atribuir a partir daí.</p>
+        </li>
+        <li>
+          <h3>Trabalhar como qualquer função</h3>
+          <p class="caminho">55 · Início do gestor › 60 · Todas as operações › 02 · Início da arrumação</p>
+          <p>O gestor entra em qualquer função e trabalha como ela.</p>
+        </li>
+        <li>
+          <h3>Sair do turno</h3>
+          <p class="caminho">55 · Início do gestor › 01 · Entrar</p>
+          <p>O gestor não tem trabalho por fechar no PDA.</p>
+        </li>
+      </ol>
+      <h3 class="regras__grupo">As desta função</h3>
+      <ol class="casos">
+        <li><h3>O gestor não recebe tarefas: dá-as</h3><p>É o único cuja opção de Trabalho não leva a trabalho — leva ao relatório.</p></li>
+        <li><h3>As correções nascem dele</h3><p>A partir de um sinal no relatório. O motor não descobre erros sozinho, e nenhuma função manda trabalho a outra.</p></li>
+        <li><h3>Atribuir é com o motivo escrito</h3><p>A tarefa passa à frente na fila dessa pessoa, e o motor aprende com o padrão das atribuições.</p></li>
+        <li><h3>Registar um camião não é exclusivo dele</h3><p>Qualquer pessoa pode. O gestor regista quando é ele a dar pelo camião, e o relatório mostra quanto tempo passou entre encostar e ser registado.</p></li>
+        <li><h3>O relatório mostra o que ninguém vê de outra maneira</h3><p>O tempo cego da chegada, as guias incompletas à espera de stock, as posições recusadas, as etiquetas que já não se leem.</p></li>
+        <li><h3>Pode trabalhar como qualquer função</h3><p>Pelo 60, e fica registado em nome dele.</p></li>
+      </ol>
     </section>
 
     <section class="seccao" id="gestor">

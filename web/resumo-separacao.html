@@ -24,6 +24,8 @@
   .caminho { margin: 0 0 4px; font-family: var(--f-mono, monospace); font-size: var(--t-small); color: var(--c-acento); line-height: 1.7; }
   .casos p { margin: 0; }
   .porrever { border-left: 3px solid var(--c-acao); padding-left: var(--e-lg); }
+  .regras__grupo { font-size: var(--t-lead); margin: var(--e-lg) 0 var(--e-md); color: var(--c-texto-2); }
+  .casos > li > h3 { margin-top: 0; }
 </style>
 </head>
 <body>
@@ -41,19 +43,85 @@
     <a href="resumo-separacao.html">Separação</a>
     <a href="resumo-expedicao.html">Expedição</a>
     <a href="resumo-gestor.html">Gestor</a>
-    <a href="menu.html">O menu</a>
+    
   </nav>
 </header>
 
 <div class="doc-corpo doc-corpo--simples">
   <main class="doc-conteudo" id="conteudo">
 
-    <section class="seccao" id="modelo">
-      <h2>O modelo, que é o mesmo das outras</h2>
-      <p>
-        O motor entrega uma tarefa de cada vez, conforme a atividade dos PDA. A pessoa não escolhe
-        nem vê a fila, e <b>uma tarefa é uma guia</b>. Na separação, a prateleira de preparados é reservada quando o motor dá a guia — é o que torna possível sair a meio sem perder nada.
-      </p>
+    <section class="seccao" id="menu">
+      <h2>O menu desta função · ecrã 29</h2>
+      <div class="rolo">
+        <table class="tabela">
+          <tbody>
+            <tr><td><b>Trabalho</b></td><td><b>Começar a recolher</b><br><small>Guia G-24187 · 9 linhas<br>Zona 20 · camião DPD às 11h30</small></td></tr>
+            <tr><td><b>Operações</b></td><td><b>Chegou um camião</b> — registo — o mesmo das outras funções<br><b>Consultar guia</b> — consulta — o que falta, onde ficou, para que camião vai<br><b>Consultar artigo</b> — consulta<br><b>Consultar posição</b> — consulta</td></tr>
+            <tr><td><b>Separadores</b></td><td>Tarefa · Início · Sair</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="seccao" id="regras">
+      <h2>As regras</h2>
+      <h3 class="regras__grupo">As que valem para todas as funções</h3>
+      <ol class="casos">
+        <li>
+          <h3>Um turno normal</h3>
+          <p class="caminho">29 · Início da separação › 30 · A tua próxima tarefa › 31 · A tua guia, paragem a paragem › 32 · Paragem: lê a posição › 34 · Leva à prateleira de preparados › 35 · Guia fechada</p>
+          <p>Uma tarefa é uma guia. O motor ordena as paragens pelo caminho mais curto e escolhe a guia seguinte pela hora do camião e por onde a pessoa acabou — é isso que substitui o lote. A prateleira é reservada à cabeça.</p>
+        </li>
+        <li>
+          <h3>Na paragem falta quantidade</h3>
+          <p class="caminho">29 · Início da separação › 30 · A tua próxima tarefa › 31 · A tua guia, paragem a paragem › 32 · Paragem: lê a posição › 33 · Falta quantidade › 34 · Leva à prateleira de preparados</p>
+          <p>O que se tirou fica na guia; a diferença fica assinalada na posição e o gestor decide. A guia não sai sem o resto, e volta a ser tarefa quando o stock entrar.</p>
+        </li>
+        <li>
+          <h3>A etiqueta não se lê</h3>
+          <p class="caminho">29 · Início da separação › 30 · A tua próxima tarefa › 31 · A tua guia, paragem a paragem › 32 · Paragem: lê a posição › 37 · Escreve a posição › 34 · Leva à prateleira de preparados</p>
+          <p>Escreve-se o código e a volta segue.</p>
+        </li>
+        <li>
+          <h3>Um problema na paragem</h3>
+          <p class="caminho">29 · Início da separação › 30 · A tua próxima tarefa › 31 · A tua guia, paragem a paragem › 32 · Paragem: lê a posição › 36 · O que se passa? › 18 · Problema registado</p>
+          <p>Fica registado, o gestor decide, e a volta continua na paragem seguinte.</p>
+        </li>
+        <li>
+          <h3>Ver como está uma guia</h3>
+          <p class="caminho">29 · Início da separação › 39 · Consultar guia</p>
+          <p>O que falta, onde ficou e para que camião vai.</p>
+        </li>
+        <li>
+          <h3>Consultar um artigo</h3>
+          <p class="caminho">29 · Início da separação › 40 · Consultar artigo</p>
+          <p>Onde está e quanto há, sem largar a volta.</p>
+        </li>
+        <li>
+          <h3>Consultar uma posição</h3>
+          <p class="caminho">29 · Início da separação › 41 · Consultar posição</p>
+          <p>O que está lá, sem largar a volta.</p>
+        </li>
+        <li>
+          <h3>Levar a palete vazia</h3>
+          <p class="caminho">29 · Início da separação › o motor dá a tarefa › 25 · Leva ao parque › 26 · No parque</p>
+          <p>A mesma tarefa da arrumação; também calha à separação.</p>
+        </li>
+        <li>
+          <h3>Sair com a guia a meio</h3>
+          <p class="caminho">29 · Início da separação › 38 · Sair com a guia a meio › 01 · Entrar</p>
+          <p>O que está no carro não volta às prateleiras: vai para a posição reservada à guia, e as linhas ficam registadas. Quem a apanhar continua na paragem seguinte.</p>
+        </li>
+      </ol>
+      <h3 class="regras__grupo">As desta função</h3>
+      <ol class="casos">
+        <li><h3>Uma guia por tarefa, e acabou o lote</h3><p>O que o substitui é a escolha da seguinte: o motor dá a guia pela hora do camião e por onde a pessoa acabou a anterior.</p></li>
+        <li><h3>As paragens vêm na ordem mais curta</h3><p>Dentro da guia, o caminho é do motor.</p></li>
+        <li><h3>A prateleira é reservada à cabeça</h3><p>A posição de preparados é dada com a guia, e vê-se no 31. É o que torna possível sair a meio sem perder nada.</p></li>
+        <li><h3>Nada volta à prateleira de origem</h3><p>Quem sai a meio leva o que está no carro para a posição da guia. As linhas ficam registadas; quem a apanhar continua na paragem seguinte.</p></li>
+        <li><h3>Falta de quantidade não é correção</h3><p>O que se tirou fica na guia; a diferença fica assinalada na posição e o gestor decide. Uma só origem para as correções, como na arrumação.</p></li>
+        <li><h3>A guia incompleta não sai</h3><p>Não entra na fila da expedição, fica na prateleira, e volta a ser tarefa assim que o stock entrar.</p></li>
+      </ol>
     </section>
 
     <section class="seccao" id="separacao">
