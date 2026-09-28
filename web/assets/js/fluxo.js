@@ -75,16 +75,23 @@
     tela.appendChild(cabeca);
 
     /* As linhas, pela ordem dos fluxos no index.html. O ícone é a marca, e
-       não um ecrã do aparelho: fica de fora, onde estava. */
+       não um ecrã do aparelho: fica de fora, onde estava.
+
+       Uma linha por fluxo, e não por troço seguido: um ecrã acrescentado no
+       fim do index.html — como o 69 · A fila de trabalho — vai para a linha
+       do fluxo a que pertence, e não abre uma segunda linha com o mesmo nome
+       lá em baixo. */
     ordem = [].slice.call(tela.querySelectorAll('.ecra'));
-    var linha = null, nomeLinha = null;
+    var linha = null, linhas = {};
     ordem.forEach(function (ecra) {
       ecra.dataset.fluxoEscondido = ecra.hidden ? '1' : '';
       if (ecra.classList.contains('ecra--marca')) return;
       ecra.hidden = false;
-      if (ecra.dataset.fluxo !== nomeLinha) {
-        nomeLinha = ecra.dataset.fluxo;
+      var nomeLinha = ecra.dataset.fluxo;
+      linha = linhas['f:' + nomeLinha];
+      if (!linha) {
         linha = document.createElement('section');
+        linhas['f:' + nomeLinha] = linha;
         linha.className = 'fluxo__linha';
         var rotulo = document.createElement('h2');
         rotulo.className = 'fluxo__rotulo';

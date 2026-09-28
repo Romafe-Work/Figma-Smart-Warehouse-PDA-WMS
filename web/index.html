@@ -118,6 +118,12 @@
      data-nota="Quem está a trabalhar, o que falta, o que sai hoje — e atribuir a partir daí.">Ver o armazém todo</p>
   <p data-funcao="gestor" data-ecras="gp0 g9 e2"
      data-nota="Faz tudo o que as outras funções fazem — não para mandar, mas para ajudar quem está a precisar. Fica registado em nome dele.">Trabalhar como qualquer função</p>
+  <p data-funcao="gestor" data-ecras="gp0 g9 e2 a1 a2 a4 a5"
+     data-nota="Entra na arrumação e faz a guia como qualquer pessoa: lê o artigo, vai à posição que o motor propõe e confirma. Fica registado em nome dele.">Arrumar ele mesmo uma guia</p>
+  <p data-funcao="gestor" data-ecras="gp0 g9 sp0 s1 s2 s4 s7"
+     data-nota="Entra na separação e faz a volta paragem a paragem, até deixar a guia na prateleira de preparados. Fica registado em nome dele.">Separar ele mesmo uma guia</p>
+  <p data-funcao="gestor" data-ecras="gp0 g9 xp0 x2 x3 x4 d1 x5"
+     data-nota="Entra na expedição, confere os volumes, leva-os ao cais e carrega. Fechar a saída pergunta-lhe antes, como a qualquer pessoa. Fica registado em nome dele.">Carregar ele mesmo um camião</p>
   <p data-funcao="gestor" data-ecras="gp0 e1"
      data-nota="O gestor não tem trabalho por fechar no PDA.">Sair do turno</p>
 </template>
@@ -186,9 +192,10 @@
   <p data-fluxo="Começar o turno na expedição">A expedição entra, vê os camiões do turno pela hora de fecho e começa a carregar.</p>
   <p data-fluxo="Quando a expedição não corre bem">Falta um volume na prateleira, o camião não chegou, a etiqueta não se lê — e sair do turno com uma saída aberta.</p>
   <p data-fluxo="Consultar na expedição">Ver como está uma guia, e o que está na prateleira de preparados.</p>
-  <p data-fluxo="O gestor">O gestor vê como vai o turno, lê os sinais, atribui tarefas com motivo escrito e vê o armazém todo.</p>
+  <p data-fluxo="O gestor">O gestor vê como vai o turno, lê os sinais, atribui tarefas com motivo escrito e vê o armazém todo. É o único que vê a fila de trabalho, e faz o trabalho de qualquer função quando é preciso ajudar.</p>
   <p data-fluxo="Quando falta a ligação">O PDA trabalha ligado à Rolgest. Sem ligação diz que parou, e mostra o que ficou gravado.</p>
   <p data-fluxo="Comunicar um problema">Qualquer função comunica o que a impede de seguir: fica registado com quem o disse e a que horas, e o gestor é avisado.</p>
+  <p data-fluxo="Chamar o gestor">Quem tem uma dúvida chama o gestor sem largar a tarefa. Ele vê onde a pessoa está e o que tem em mãos, e pode vir, responder pelo PDA ou fazer ele a tarefa.</p>
 </template>
 
 <main class="tela" id="tela">
