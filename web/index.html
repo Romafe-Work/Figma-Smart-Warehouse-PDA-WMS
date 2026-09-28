@@ -136,16 +136,16 @@
   <p data-cu="CU-03" data-atores="todas">Consultar um artigo</p>
   <p data-cu="CU-04" data-atores="todas" data-estado="v2" data-nota="Precisa do mapa, que é da v2.">Ver onde fica uma posição</p>
   <p data-cu="CU-05" data-atores="separacao expedicao gestor" data-nota="A arrumação não bloqueia: diz «Artigo danificado» no «O que se passa?», e o gestor decide (22 set.).">Bloquear um artigo danificado</p>
-  <p data-cu="CU-06" data-atores="arrumacao" data-nota="Mudou a 24 de setembro: deixou de ser tarefa da fila. Quem pica a chegada (CU-40) confere e recebe logo a seguir, no mesmo fluxo.">Receber o que chega</p>
-  <p data-cu="CU-07" data-atores="arrumacao">Arrumar uma palete</p>
+  <p data-cu="CU-06" data-atores="arrumacao gestor" data-nota="Mudou a 24 de setembro: deixou de ser tarefa da fila. Quem pica a chegada (CU-40) confere e recebe logo a seguir, no mesmo fluxo. O gestor também o faz, pelo 60 · Todas as operações (28 set.).">Receber o que chega</p>
+  <p data-cu="CU-07" data-atores="arrumacao gestor" data-nota="O gestor também o faz, pelo 60 · Todas as operações (28 set.).">Arrumar uma palete</p>
   <p data-cu="CU-08" data-atores="" data-estado="fora" data-nota="Ninguém conta: a falta de quantidade corrige-se na posição, no PDA (18 set.).">Contar uma posição</p>
-  <p data-cu="CU-09" data-atores="arrumacao motor">Corrigir uma posição errada</p>
+  <p data-cu="CU-09" data-atores="arrumacao gestor motor" data-nota="O gestor também o faz, pelo 60 · Todas as operações (28 set.).">Corrigir uma posição errada</p>
   <p data-cu="CU-10" data-atores="separacao motor" data-nota="Mudou a 24 de setembro: acabou o lote. O motor dá uma guia de cada vez, conforme a atividade dos PDA.">Receber a guia da vez</p>
-  <p data-cu="CU-11" data-atores="separacao">Recolher uma guia</p>
+  <p data-cu="CU-11" data-atores="separacao gestor" data-nota="O gestor também o faz, pelo 60 · Todas as operações (28 set.).">Recolher uma guia</p>
   <p data-cu="CU-12" data-atores="separacao expedicao arrumacao" data-nota="24 set.: o que já se recolheu não volta às prateleiras. Vai para a posição reservada à guia e fica registado; o resto volta ao motor.">Sair com trabalho a meio</p>
   <p data-cu="CU-13" data-atores="expedicao">Ver o risco dos camiões</p>
   <p data-cu="CU-14" data-atores="expedicao">Uma encomenda incompleta espera</p>
-  <p data-cu="CU-15" data-atores="expedicao">Carregar e fechar uma saída</p>
+  <p data-cu="CU-15" data-atores="expedicao gestor" data-nota="O gestor também o faz, pelo 60 · Todas as operações (28 set.).">Carregar e fechar uma saída</p>
   <p data-cu="CU-16" data-atores="gestor">Ver o relatório do turno</p>
   <p data-cu="CU-17" data-atores="gestor">Ler os sinais</p>
   <p data-cu="CU-18" data-atores="gestor">Fixar a prioridade de uma tarefa</p>
@@ -166,11 +166,11 @@
   <p data-cu="CU-33" data-atores="gestor" data-nota="Só o gestor, ou quem ele autorizar.">Ler e atribuir um código de barras</p>
   <p data-cu="CU-34" data-atores="gestor" data-nota="Não é para quem trabalha no armazém — arrumação, separação e expedição não o veem; só o gestor (22 set.).">Ver o que já se decidiu antes</p>
   <p data-cu="CU-35" data-atores="gestor motor" data-nota="A arrumação não pede: o sistema aconselha renovar a etiqueta quando a posição é escrita à mão muitas vezes (RF-92), e o gestor vê o sinal.">Pedir uma etiqueta de posição</p>
-  <p data-cu="CU-36" data-atores="arrumacao separacao" data-nota="A arrumação na zona de máquina; a separação na zona de mão.">Levar a palete vazia ao parque</p>
+  <p data-cu="CU-36" data-atores="arrumacao separacao gestor" data-nota="A arrumação na zona de máquina; a separação na zona de mão. O gestor também o faz, pelo 60 · Todas as operações (28 set.).">Levar a palete vazia ao parque</p>
   <p data-cu="CU-37" data-atores="gestor" data-nota="Saiu das operações da arrumação (22 set.). Falta decidir quem recebe; o gestor valida.">Receber uma devolução</p>
-  <p data-cu="CU-38" data-atores="expedicao">Levar uma guia preparada ao cais</p>
+  <p data-cu="CU-38" data-atores="expedicao gestor" data-nota="O gestor também o faz, pelo 60 · Todas as operações (28 set.).">Levar uma guia preparada ao cais</p>
   <p data-cu="CU-39" data-atores="arrumacao separacao expedicao motor" data-nota="Novo — não está no dossiê. A pessoa carrega em «Começar» e o motor entrega-lhe uma tarefa; ao acabar essa, entrega a seguinte. Ela não escolhe nem vê a fila (24 set.).">Começar as tarefas</p>
-  <p data-cu="CU-40" data-atores="arrumacao" data-nota="O sistema não sabe o que vem a caminho (23 set.): a arrumação pica a chegada no PDA e é daí que nasce a tarefa de receção. Só as paletes da SKF são picadas noutro PDA.">Registar a chegada de uma encomenda</p>
+  <p data-cu="CU-40" data-atores="arrumacao gestor" data-nota="O sistema não sabe o que vem a caminho (23 set.): a arrumação pica a chegada no PDA e é daí que nasce a tarefa de receção. Só as paletes da SKF são picadas noutro PDA. O gestor também o regista, pelo 67 · Chegou um camião (28 set.).">Registar a chegada de uma encomenda</p>
 </template>
 
 <!-- O que é cada fluxo: aparece no mapa do Fluxo, ao lado do nome da linha. -->
@@ -189,7 +189,7 @@
   <p data-fluxo="Começar o turno na separação">A separação entra, vê a volta que o motor lhe deu e começa. O lote enche-se sozinho e a guia entra inteira.</p>
   <p data-fluxo="Quando a separação não corre bem">Os desvios da volta: não há nada na posição, está lá menos do que a guia pede, a etiqueta não se lê — e sair do turno com guias por fechar.</p>
   <p data-fluxo="Consultar na separação">Ver como está uma guia, onde está um artigo, ou o que está numa posição, sem mexer em nada.</p>
-  <p data-fluxo="Começar o turno na expedição">A expedição entra, vê os camiões do turno pela hora de fecho e começa a carregar.</p>
+  <p data-fluxo="Começar o turno na expedição">A expedição entra e começa. Como na arrumação, não vê a lista do que há para fazer: o motor dá-lhe uma guia de cada vez, pela hora de fecho do camião, e a seguinte quando essa subir.</p>
   <p data-fluxo="Quando a expedição não corre bem">Falta um volume na prateleira, o camião não chegou, a etiqueta não se lê — e sair do turno com uma saída aberta.</p>
   <p data-fluxo="Consultar na expedição">Ver como está uma guia, e o que está na prateleira de preparados.</p>
   <p data-fluxo="O gestor">O gestor vê como vai o turno, lê os sinais, atribui tarefas com motivo escrito e vê o armazém todo. É o único que vê a fila de trabalho, e faz o trabalho de qualquer função quando é preciso ajudar.</p>
@@ -1260,7 +1260,7 @@
 
 <!-- ================= 4 · DA PRATELEIRA DE PREPARADOS AO CAMIÃO ================= -->
 
-<div class="ecra" data-ecra="xp0" data-objetivo="Mostrar os camiões do turno e pôr a pessoa a carregar com um toque; dá acesso às consultas." data-fluxo="Começar o turno na expedição" data-funcao="expedicao" data-nome="42 · Início da expedição" data-refs="CU-01 · CU-39 · CU-13 · CU-25" hidden>
+<div class="ecra" data-ecra="xp0" data-objetivo="Mostrar a guia que o motor deu e pôr a pessoa a carregar com um toque; dá acesso às consultas." data-fluxo="Começar o turno na expedição" data-funcao="expedicao" data-nome="42 · Início da expedição" data-refs="CU-01 · CU-39 · CU-13 · CU-25" hidden>
 <div class="pda menu">
   <div class="faixa"><svg class="faixa__icone" viewBox="250 140 524 470" aria-hidden="true"><path d="M278 588V306L512 167l233 139v282" fill="none" stroke="currentColor" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/><rect class="tinta-acao" x="380" y="327" width="261" height="167" rx="16"/><rect x="472" y="327" width="73" height="83" rx="8" fill="currentColor"/><path class="tinta-acao" d="M355 512h311a10 10 0 0 1 10 10v55a10 10 0 0 1-10 10h-45a8 8 0 0 1-8-8v-24H408v24a8 8 0 0 1-8 8h-45a10 10 0 0 1-10-10v-55a10 10 0 0 1 10-10Z"/></svg><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Expedição</span><span class="faixa__nome">Ana Lopes</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span><span class="faixa__avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6" fill="currentColor"/><path d="M4.5 21c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5" fill="currentColor"/></svg></span></div>
   <header class="heroi">
