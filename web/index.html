@@ -106,8 +106,12 @@
   <!-- Gestor -->
   <p data-funcao="gestor" data-ecras="gp0 g1 g10"
      data-nota="Os números do turno e, por baixo, os insights: onde se perde tempo e o que falha.">Um turno normal</p>
+  <p data-funcao="gestor" data-ecras="gp0 g10"
+     data-nota="Os insights têm entrada própria no menu: para os ver não é preciso passar pelo relatório. Mostram onde se perde tempo, o que falha e o que o motor aprendeu com as atribuições. O que ele propõe fica em proposta — quem muda a régua é a direção.">Ver os insights</p>
   <p data-funcao="gestor" data-ecras="gp0 g1 g8"
      data-nota="Cada sinal traz o que fazer a seguir. Se mandar corrigir uma posição, é aqui que nasce a tarefa que a arrumação vai receber.">Agir sobre um sinal</p>
+  <p data-funcao="gestor" data-ecras="gp0 g1 g8"
+     data-nota="A chamada chega ao relatório como mais um sinal, mas com alguém parado do outro lado: diz quem chamou, onde está e o que tem em mãos. Enquanto espera, a tarefa fica com essa pessoa e o motor não lhe dá outra.">Alguém te chamou</p>
   <p data-funcao="gestor" data-ecras="gp0 g11 g8"
      data-nota="O sistema não sabe o que vem a caminho: enquanto ninguém registar o camião, ele não existe para o motor. O registo cria a tarefa de picar, e é aí que o relógio começa.">Registar a chegada de um camião</p>
   <p data-funcao="gestor" data-ecras="gp0 g12 g5 g8"
@@ -124,6 +128,18 @@
      data-nota="Entra na separação e faz a volta paragem a paragem, até deixar a guia na prateleira de preparados. Fica registado em nome dele.">Separar ele mesmo uma guia</p>
   <p data-funcao="gestor" data-ecras="gp0 g9 xp0 x2 x3 x4 d1 x5"
      data-nota="Entra na expedição, confere os volumes, leva-os ao cais e carrega. Fechar a saída pergunta-lhe antes, como a qualquer pessoa. Fica registado em nome dele.">Carregar ele mesmo um camião</p>
+  <p data-funcao="gestor" data-ecras="gp0 g9 n1 n2 r1 r2 r4"
+     data-nota="Pelo 60 entra na receção e faz os três atos seguidos: pica o que está no cais, confere a guia do fornecedor e recebe. O que entra em stock é o que a conferência disser. Fica registado em nome dele.">Picar e receber ele mesmo uma chegada</p>
+  <p data-funcao="gestor" data-ecras="gp0 g9 k4 k5 d2 k6"
+     data-nota="Dá de caras com uma posição que não bate e corrige-a ele, sem mandar a tarefa a ninguém: lê a posição, diz o que lá está de facto e confirma. Mudar stock pergunta-lhe antes, como a qualquer pessoa.">Corrigir ele mesmo uma posição</p>
+  <p data-funcao="gestor" data-ecras="gp0 g9 q1"
+     data-nota="Onde está o artigo e quanto há em cada sítio. Não muda nada.">Consultar um artigo</p>
+  <p data-funcao="gestor" data-ecras="gp0 g9 q2"
+     data-nota="O que o sistema diz que está na posição. Se não bater, corrige-se sem sair da consulta.">Consultar uma posição</p>
+  <p data-funcao="gestor" data-ecras="gp0 g9 xq1"
+     data-nota="Como está uma guia: o que falta, onde ficou e quando está prevista sair.">Consultar uma guia</p>
+  <p data-funcao="gestor" data-ecras="gp0 g9 xq2"
+     data-nota="O que já está preparado e para que camião vai cada guia. É a resposta à pergunta que o telefone traz mais vezes.">Ver o que está na prateleira</p>
   <p data-funcao="gestor" data-ecras="gp0 e1"
      data-nota="O gestor não tem trabalho por fechar no PDA.">Sair do turno</p>
 </template>

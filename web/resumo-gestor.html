@@ -56,7 +56,8 @@
         <table class="tabela">
           <tbody>
             <tr><td><b>Trabalho</b></td><td><b>Ver o turno</b><br><small>Números e sinais</small></td></tr>
-            <tr><td><b>Operações</b></td><td><b>Chegou um camião</b> — registo<br><b>Insights</b> — consulta — onde se perde tempo, o que falha, o que o motor aprendeu<br><b>O que está a acontecer</b> — consulta — quem trabalha em quê, agora<br><b>Atribuir uma tarefa</b> — decisão sobre o trabalho dos outros<br><b>Todas as operações</b> — entra em qualquer função e trabalha como ela<br><b>A fila</b> — consulta — é o único que a vê: o que espera e porque está naquela ordem</td></tr>
+            <tr><td><b>Operações</b></td><td><b>Chegou um camião</b> — registo<br><b>Insights</b> — consulta — onde se perde tempo, o que falha, o que o motor aprendeu<br><b>O que está a acontecer</b> — consulta — quem trabalha em quê, agora<br><b>Atribuir uma tarefa</b> — decisão sobre o trabalho dos outros<br><b>Todas as operações</b> — abre a lista de baixo<br><b>A fila</b> — consulta — é o único que a vê: o que espera e porque está naquela ordem</td></tr>
+            <tr><td><b>Todas as operações</b><br><small>ecrã 60</small></td><td><b>Arrumação</b> · <b>Separação</b> · <b>Expedição</b> — entra na função e trabalha como ela, em nome dele<br><b>Chegada</b> — pica e recebe o que está no cais<br><b>Corrigir</b> — corrige o que está numa posição, sem mandar a tarefa a ninguém<br><b>Artigo</b> · <b>Posição</b> · <b>Guia</b> · <b>Prateleira</b> — consultas</td></tr>
             <tr><td><b>Separadores</b></td><td>Armazém · Início · Sair</td></tr>
           </tbody>
         </table>
@@ -86,7 +87,7 @@
     </section>
 
     <section class="seccao" id="gestor">
-      <h2>Os 11 casos</h2>
+      <h2>Os 19 casos</h2>
       <ol class="casos" id="lista-casos">
         <li>
           <h3>Um turno normal</h3>
@@ -94,9 +95,19 @@
           <p>Os números do turno e, por baixo, os insights: onde se perde tempo e o que falha.</p>
         </li>
         <li>
+          <h3>Ver os insights</h3>
+          <p class="caminho">55 · Início do gestor › 61 · Insights</p>
+          <p>Os insights têm entrada própria no menu: para os ver não é preciso passar pelo relatório. Mostram onde se perde tempo, o que falha e o que o motor aprendeu com as atribuições. O que ele propõe fica em proposta — quem muda a régua é a direção.</p>
+        </li>
+        <li>
           <h3>Agir sobre um sinal</h3>
           <p class="caminho">55 · Início do gestor › 56 · Relatório do turno › 59 · Feito</p>
           <p>Cada sinal traz o que fazer a seguir. Se mandar corrigir uma posição, é aqui que nasce a tarefa que a arrumação vai receber.</p>
+        </li>
+        <li>
+          <h3>Alguém te chamou</h3>
+          <p class="caminho">55 · Início do gestor › 56 · Relatório do turno › 59 · Feito</p>
+          <p>A chamada chega ao relatório como mais um sinal, mas com alguém parado do outro lado: diz quem chamou, onde está e o que tem em mãos. Enquanto espera, a tarefa fica com essa pessoa e o motor não lhe dá outra.</p>
         </li>
         <li>
           <h3>Registar a chegada de um camião</h3>
@@ -137,6 +148,36 @@
           <h3>Carregar ele mesmo um camião</h3>
           <p class="caminho">55 · Início do gestor › 60 · Todas as operações › 42 · Início da expedição › 45 · Confere volume a volume › 46 · Leva ao cais › 47 · Carregar e fechar a saída › 63 · Fechar a saída? › 48 · Saída fechada</p>
           <p>Entra na expedição, confere os volumes, leva-os ao cais e carrega. Fechar a saída pergunta-lhe antes, como a qualquer pessoa. Fica registado em nome dele.</p>
+        </li>
+        <li>
+          <h3>Picar e receber ele mesmo uma chegada</h3>
+          <p class="caminho">55 · Início do gestor › 60 · Todas as operações › 04 · Picar a chegada › 05 · Chegada registada › 06 · Lê a guia do fornecedor › 07 · Confere o que chegou › 09 · Recebido</p>
+          <p>Pelo 60 entra na receção e faz os três atos seguidos: pica o que está no cais, confere a guia do fornecedor e recebe. O que entra em stock é o que a conferência disser. Fica registado em nome dele.</p>
+        </li>
+        <li>
+          <h3>Corrigir ele mesmo uma posição</h3>
+          <p class="caminho">55 · Início do gestor › 60 · Todas as operações › 22 · Lê a posição do erro › 23 · O que está lá? › 64 · Corrigir o stock? › 24 · Correção registada</p>
+          <p>Dá de caras com uma posição que não bate e corrige-a ele, sem mandar a tarefa a ninguém: lê a posição, diz o que lá está de facto e confirma. Mudar stock pergunta-lhe antes, como a qualquer pessoa.</p>
+        </li>
+        <li>
+          <h3>Consultar um artigo</h3>
+          <p class="caminho">55 · Início do gestor › 60 · Todas as operações › 27 · Consultar artigo</p>
+          <p>Onde está o artigo e quanto há em cada sítio. Não muda nada.</p>
+        </li>
+        <li>
+          <h3>Consultar uma posição</h3>
+          <p class="caminho">55 · Início do gestor › 60 · Todas as operações › 28 · Consultar posição</p>
+          <p>O que o sistema diz que está na posição. Se não bater, corrige-se sem sair da consulta.</p>
+        </li>
+        <li>
+          <h3>Consultar uma guia</h3>
+          <p class="caminho">55 · Início do gestor › 60 · Todas as operações › 53 · Consultar guia</p>
+          <p>Como está uma guia: o que falta, onde ficou e quando está prevista sair.</p>
+        </li>
+        <li>
+          <h3>Ver o que está na prateleira</h3>
+          <p class="caminho">55 · Início do gestor › 60 · Todas as operações › 54 · Ver a prateleira de preparados</p>
+          <p>O que já está preparado e para que camião vai cada guia. É a resposta à pergunta que o telefone traz mais vezes.</p>
         </li>
         <li>
           <h3>Sair do turno</h3>
