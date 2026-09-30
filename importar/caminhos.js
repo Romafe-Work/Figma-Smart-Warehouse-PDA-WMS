@@ -37,7 +37,10 @@ for (const m of html.matchAll(/<div class="ecra[^>]*>/g)) {
 for (const bloco of html.split(/(?=<div class="ecra[ "])/)) {
   const id = (bloco.match(/data-ecra="([^"]+)"/) || [])[1];
   if (!id) continue;
-  setas[id] = [...new Set([...bloco.matchAll(/data-ir="([^"]+)"/g)].map((x) => x[1]))];
+  /* A barra de topo (voltar, chamar o gestor) não é caminho: leva
+     `data-sem-seta`, e o caminho de um caso não passa por lá. */
+  const botoes = [...bloco.matchAll(/<[^>]*data-ir="([^"]+)"[^>]*>/g)].filter((x) => !/data-sem-seta/.test(x[0]));
+  setas[id] = [...new Set(botoes.map((x) => x[1]))];
 }
 
 /* Os ecrãs de exceção não servem para lá chegar: passar pelo «Sair» para

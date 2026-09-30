@@ -50,6 +50,20 @@ Abre `web/index.html` no navegador. A documentação e o como funciona abrem
 dentro dele, nas abas do topo do painel esquerdo — `index.html#doc=documentacao`
 vai direto. As duas páginas também abrem sozinhas.
 
+## A barra é a mesma em todos os ecrãs
+
+Desde 30 de setembro, a barra escura do topo leva sempre as duas saídas: o
+**voltar**, à esquerda, e o **chamar o gestor**, à direita. Não são uma linha
+nova — tomam o lugar do símbolo da app e do retrato, que diziam o que o nome ao
+lado já diz —, e por isso nenhum ecrã perdeu altura.
+
+Ficam de fora o ecrã de entrar, os ecrãs de início (de onde não se volta a lado
+nenhum, e que guardam o símbolo), os ecrãs do gestor e o «sem ligação» — sem
+rede não se chama ninguém.
+
+No mapa não se desenham: levam `data-sem-seta`, e cento e tal setas a dizer a
+mesma coisa tapavam o fluxo. A legenda do mapa diz onde é que elas estão.
+
 ## Português e inglês
 
 O ecrã lê-se nas duas línguas, e o painel do editor muda com ele: camadas,

@@ -45,6 +45,34 @@ code { font-family: var(--f-mono); }
 .faixa__rede--sem { font-weight: 700; text-transform: uppercase; letter-spacing: .04em; font-size: var(--t-tiny); }
 .faixa__rede--sem .faixa__ponto { background: var(--c-cinzento); }
 
+/* ---------- Voltar e chamar o gestor, em todos os ecrãs — 30 de setembro ----
+   Não ganham linha própria: a faixa e o topo são a única barra do ecrã, e uma
+   segunda linha tirava 48 dp ao corpo, que já está cheio. Na faixa, o «voltar»
+   toma o lugar do símbolo da app — que fica nos ecrãs de início, de onde não
+   se volta a lado nenhum — e o «chamar» o lugar do retrato, que dizia o que o
+   nome ao lado já diz. Ocupam a mesma caixa de 24 dp que ocupavam, para a
+   faixa não mudar de altura e não cortar o último botão dos ecrãs cheios; o
+   alvo de toque cresce por fora, no ::after, e não empurra nada. */
+.faixa__voltar, .faixa__chamar {
+  position: relative; flex: none;
+  display: flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px; padding: 0;
+  border: 0; background: none; color: inherit;
+}
+.faixa__voltar::after, .faixa__chamar::after {
+  content: ""; position: absolute; inset: calc(-1 * var(--e-md)) calc(-1 * var(--e-sm));
+}
+.faixa__voltar svg, .faixa__chamar svg, .topo__chamar svg { width: 20px; height: 20px; }
+
+/* O fim do topo: a rede e o chamar, na mesma célula da grelha. */
+.topo__fim { justify-self: end; display: flex; align-items: center; gap: var(--e-md); align-self: stretch; }
+.topo__chamar {
+  display: flex; align-items: center; justify-content: center; flex: none;
+  width: 28px; min-height: var(--alvo); padding: 0;
+  margin-right: calc(-1 * var(--e-sm));
+  border: 0; background: none; color: inherit;
+}
+
 /* Ícones a duas cores: o traço é currentColor, e o realce é o laranja de
    ação. Num atributo de SVG um var() não se resolve; numa classe, sim. */
 .tinta-acao { fill: var(--c-acao); }
@@ -238,7 +266,7 @@ code { font-family: var(--f-mono); }
 }
 .topo__voltar svg { width: 20px; height: 20px; }
 .topo__titulo { font-size: var(--t-body); font-weight: 700; }
-.topo__rede { justify-self: end; font-size: var(--t-small); }
+.topo__rede { justify-self: end; font-size: var(--t-small); }  /* num .topo__fim o justify-self não conta, e não estorva */
 
 /* ---------- Cabeça da fila: o título e quantas são ---------- */
 .cabeca-fila { display: flex; align-items: center; justify-content: space-between; gap: var(--e-md); }

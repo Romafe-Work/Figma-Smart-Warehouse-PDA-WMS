@@ -20,6 +20,12 @@
 (function () {
   'use strict';
 
+  /* O «voltar» e o «chamar o gestor» estão na barra de todos os ecrãs desde
+     30 de setembro. Desenhá-los dava mais de cem setas — quase todas a dizer
+     o mesmo — e o mapa deixava de se ler. Levam `data-sem-seta`, navegam na
+     tela como qualquer outra peça, e ficam fora do mapa e da aba Texto. */
+  var LIGACAO = '[data-ir]:not([data-sem-seta])';
+
   var NS = 'http://www.w3.org/2000/svg';
   var CHAVE_ZOOM = 'pda:fluxo:zoom';
   var ZOOMS = [0.1, 0.25, 0.33, 0.5, 0.67, 0.75, 1, 1.25, 1.5, 2, 3];
@@ -52,7 +58,7 @@
     cabeca.innerHTML =
       '<h1 class="fluxo__titulo">Mapa de navegação do PDA<span class="fluxo__funcao"></span></h1>' +
       '<p class="fluxo__legenda"><span class="fluxo__amostra" aria-hidden="true"></span>' +
-      'Contornado a azul: o botão ou a leitura que leva a outro ecrã. A seta diz a qual.</p>';
+      'Contornado a azul: o botão ou a leitura que leva a outro ecrã. A seta diz a qual. '+ 'O «voltar» e o «chamar o gestor» estão na barra de todos os ecrãs, e não se desenham.</p>';
     /* Ver só os ecrãs de uma função: o que a arrumação vê, de ponta a ponta.
        Os ecrãs de todas (entrar, sem ligação) ficam em qualquer uma. */
     var filtro = document.createElement('div');
@@ -568,7 +574,7 @@
     // várias peças para o mesmo ecrã chegam-lhe em sítios diferentes
     var chegadas = {}, saidas = {}, faixas = {};
 
-    [].slice.call(mapa.querySelectorAll('[data-ir]')).forEach(function (peca) {
+    [].slice.call(mapa.querySelectorAll(LIGACAO)).forEach(function (peca) {
       var destino = mapa.querySelector('.ecra[data-ecra="' + peca.dataset.ir + '"] > .pda');
       var origem = peca.closest('.ecra > .pda');
       if (!destino || !origem || destino === origem) return;
@@ -579,7 +585,7 @@
 
       var n = chegadas[peca.dataset.ir] = (chegadas[peca.dataset.ir] || 0) + 1;
       // a chave: de que ecrã, qual das ligações dele, para onde
-      var ligacoes = [].slice.call(origem.querySelectorAll('[data-ir]'));
+      var ligacoes = [].slice.call(origem.querySelectorAll(LIGACAO));
       var chave = origem.parentNode.dataset.ecra + '#' + ligacoes.indexOf(peca) + '>' + peca.dataset.ir;
       var dv = desvios[chave] || { x: 0, y: 0 };
       // a peça de onde sai a seta só se realça quando a seta está escolhida
@@ -744,7 +750,7 @@
         obj.appendChild(el('span', null, e.dataset.objetivo));
         bloco.appendChild(obj);
       }
-      var saidas = [].slice.call(e.querySelectorAll('.pda [data-ir]'));
+      var saidas = [].slice.call(e.querySelectorAll('.pda ' + LIGACAO));
       if (saidas.length) {
         var ul = el('ul', 'texto-fluxo__saidas');
         saidas.forEach(function (s) {
