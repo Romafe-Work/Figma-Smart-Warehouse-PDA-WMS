@@ -335,6 +335,11 @@ code { font-family: var(--f-mono); }
 .aviso__texto { font-size: var(--t-body); font-weight: 600; }
 .aviso--bom  { background: var(--c-bom);  color: #fff; }
 .aviso--erro { background: var(--c-erro); color: #fff; }
+/* O ícone é um círculo cheio com o desenho vazado. No aviso escuro o vazado
+   está escrito no SVG (#012338); nestes a cor vem de tokens, e num atributo
+   de SVG um var() não se resolve — por isso está aqui, numa classe. */
+.aviso--bom  .aviso__vazado { stroke: var(--c-bom); }
+.aviso--erro .aviso__vazado { stroke: var(--c-erro); }
 
 /* ---------- a marca ----------
    Igual ao GoParts: ROMAFE nunca aparece sozinho. É o nome, o risco laranja

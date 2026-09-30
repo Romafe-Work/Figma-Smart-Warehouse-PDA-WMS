@@ -371,6 +371,15 @@
     'A consulta não muda nada. O trabalho continua onde estava.': 'A look-up changes nothing. The work stays where it was.',
     'Tens uma tarefa nova: guia GA-4471': 'You have a new task: note GA-4471',
     'Aviso: tarefa nova': 'Notice: new task',
+
+    /* ── os textos de exemplo da paleta (pecas.js) ── */
+    'Fazer isto?': 'Do this?',
+    'O que acontece se disser que sim, e a quem.': 'What happens if you say yes, and to whom.',
+    'Fazer': 'Do it',
+    'O que o sistema fez sozinho': 'What the system did on its own',
+    'Correu bem, e ficou guardado': 'It went well, and it is saved',
+    'Não deu. O que fazer a seguir': "It did not work. What to do next",
+    'Primeira razão': 'First reason',
     'Ninguém conta o armazém. Quem vê uma posição que não bate, corrige-a ali — e o PDA pergunta antes, porque mudar stock não se desfaz.': 'Nobody counts the warehouse. Whoever sees a location that does not match fixes it there — and the PDA asks first, because changing stock cannot be undone.',
     'Chega trabalho a meio de outra coisa': 'Work arrives in the middle of something else',
     'O motor dá trabalho enquanto se está noutra coisa. O aviso aparece por cima, não pede nada e vai-se embora; a tarefa fica à espera no ecrã da tarefa.': 'The engine hands out work while you are on something else. The notice shows on top, asks for nothing and goes away; the task waits on the task screen.',
