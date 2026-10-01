@@ -1426,7 +1426,6 @@
     'Lote obrigatório': 'Batch required',
     'Validade': 'Best before',
     'O motor manda tirar deste lote por ser o mais antigo que serve.': 'The engine has you take this batch because it is the oldest one that will do.',
-    'Porquê esta posição?': 'Why this location?',
     'Z30 · C03 · P01': 'Z30 · C03 · S01',
     'Z30 · C03 · P02': 'Z30 · C03 · S02',
     'Z30 · C04 · P01': 'Z30 · C04 · S01',

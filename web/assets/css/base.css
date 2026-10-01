@@ -457,14 +457,6 @@ code { font-family: var(--f-mono); }
 :root[data-modo="normal"] .nota,
 :root[data-modo="normal"] .cabeca-fila__sub { display: none; }
 
-/* o ⓘ que recolhe uma explicação: toca-se para a abrir */
-.porque-botao {
-  display: flex; align-items: center; gap: var(--e-sm); width: 100%;
-  min-height: var(--alvo); padding: 0 var(--e-md);
-  border: 0; border-radius: var(--r-md); background: transparent;
-  color: var(--c-acento); font: 700 var(--t-small) var(--f-base); text-align: left;
-}
-.porque-botao__icone { width: 20px; height: 20px; flex: none; }
 
 /* ---------- o tempo que falta, na cabeça da tarefa ----------
    Não mede pessoas: diz quando é que a coisa tem de estar feita. Por isso

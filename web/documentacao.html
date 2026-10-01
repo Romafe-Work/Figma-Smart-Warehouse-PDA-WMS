@@ -357,15 +357,19 @@
       </p>
       <p>
         Duas classes e uma regra. <code>.so-treino</code> é o que só aparece a aprender;
-        <code>.so-normal</code> é o que o substitui a trabalhar, tipicamente um ⓘ que abre a
-        explicação. E, sem ninguém lhes tocar uma a uma, <code>.txt-legenda</code> e
-        <code>.nota</code> são sempre de treino: por definição, são o que se explica.
+        <code>.so-normal</code> é o que, quando faz falta, o substitui a trabalhar. E, sem
+        ninguém lhes tocar uma a uma, <code>.txt-legenda</code> e <code>.nota</code> são
+        sempre de treino: por definição, são o que se explica.
       </p>
-      <pre><code>&lt;button class="porque-botao so-normal"&gt;ⓘ Porquê esta posição?&lt;/button&gt;
-&lt;div class="cartao cartao--acento cartao--info so-treino"&gt;
-  &lt;span class="rotulo rotulo--acento"&gt;Porquê aqui&lt;/span&gt;
-  &lt;span class="porque-aqui"&gt;Sai muito — 34 por dia — e fica a 8 m do cais.&lt;/span&gt;
-&lt;/div&gt;</code></pre>
+      <p>
+        O que <strong>não</strong> se faz é esconder a explicação atrás de um ⓘ. Experimentou-se
+        no «Porquê aqui» do ecrã 11 e saiu no mesmo dia: um ícone sozinho não diz o que esconde,
+        e quem está a aprender não vai lá tocar. Ou a frase serve e fica escrita, ou não serve e
+        tira-se — meio caminho não há.
+      </p>
+      <pre><code>&lt;p class="txt-legenda"&gt;…&lt;/p&gt;        &lt;!-- some em modo normal, sem classe nenhuma --&gt;
+&lt;p class="nota"&gt;…&lt;/p&gt;               &lt;!-- idem --&gt;
+&lt;span class="txt-sec so-treino"&gt;…&lt;/span&gt;   &lt;!-- e o que se marca à mão --&gt;</code></pre>
       <p class="nota">
         Isto veio da revisão de 1 de outubro de 2026: o conteúdo que estava escrito era bom
         para explicar o conceito e a mais para o uso diário. Em vez de o cortar, deu-se-lhe um
