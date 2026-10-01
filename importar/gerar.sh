@@ -7,7 +7,7 @@
 #
 #   ecras/NN-nome.png            cada ecrã a 480 × 800 px, o tamanho real do EDA61K
 #   ecras-en/NN-nome.png         o mesmo, em inglês
-#   01-ecras.pdf                 os 79 ecrãs, uma página de 320 × 533 cada, em vetor
+#   01-ecras.pdf                 os 78 ecrãs, uma página de 320 × 533 cada, em vetor
 #   01-ecras-en.pdf              o mesmo, em inglês
 #   02-ecras-com-titulo.pdf      os 19 com o nome por cima, para ler e mostrar
 #   04-casos-de-uso.pdf          um caso de uso por página, com os ecrãs em que acontece (só em português)
@@ -99,7 +99,6 @@ t1|65-aviso-tarefa-nova
 d3|66-arrumacao-sair-guia-a-meio
 lr1|72-leitura-certa
 lr2|73-leitura-errada
-lb1|74-problema-com-a-etiqueta
 f1|75-juntar-fotografia
 c3|76-resposta-do-gestor
 z1|77-pausar-a-tarefa

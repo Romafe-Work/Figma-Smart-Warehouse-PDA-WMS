@@ -52,8 +52,8 @@
      data-nota="A posição fica marcada como ocupada e o sistema propõe logo a seguinte.">A posição proposta está ocupada</p>
   <p data-funcao="arrumacao" data-ecras="a1 a6 a2"
      data-nota="Escreve-se o código. O sistema conta as leituras à mão.">A etiqueta do artigo não se lê</p>
-  <p data-funcao="arrumacao" data-ecras="a4 lb1 a7 a5"
-     data-nota="Escrever à mão deixou de ser um botão ao lado da leitura: é «Problema com a etiqueta?», e aí separam-se as duas coisas — escrever o código agora, ou mandar renovar a etiqueta. À terceira vez, o sistema aconselha-o sozinho.">A etiqueta da posição não se lê</p>
+  <p data-funcao="arrumacao" data-ecras="a4 a7 a5"
+     data-nota="Escrever à mão deixou de competir com a leitura: é um link discreto no fundo, não um botão ao lado dela. Ninguém pede etiqueta nova — o sistema conta as vezes que a posição é escrita à mão e aconselha o gestor sozinho (RF-92).">A etiqueta da posição não se lê</p>
   <p data-funcao="arrumacao" data-ecras="g2 f1 a8"
      data-nota="O gestor decide de onde está, se vir a fotografia. É sempre opcional: quem não a tira regista na mesma.">Juntar fotografia a um problema</p>
   <p data-funcao="arrumacao" data-ecras="d3 z1 z2"
@@ -98,7 +98,7 @@
      data-nota="O que está lá, sem largar a volta.">Consultar uma posição</p>
   <p data-funcao="separacao" data-ecras="s2 lr1 s4"
      data-nota="A leitura responde sozinha: verde e bip curto quando é a certa, e diz logo o que se lê a seguir. Não há botão pelo meio — quem lê não está a olhar para o ecrã.">A leitura corre bem</p>
-  <p data-funcao="separacao" data-ecras="s2 lr2 lb1"
+  <p data-funcao="separacao" data-ecras="s2 lr2 s6"
      data-nota="Vermelho, vibração e bip grave. Fica no ecrã até se ler outra vez, e diz onde se devia estar.">…e quando se lê a posição errada</p>
   <p data-funcao="separacao" data-ecras="p1 p2"
      data-nota="A mesma tarefa da arrumação; também calha à separação.">Levar a palete vazia</p>
@@ -201,7 +201,7 @@
   <p data-cu="CU-32" data-atores="" data-estado="fora" data-nota="Fora do PDA (30 set.): o gestor não cria utilizadores. As contas e os perfis vêm do Keycloak — ADR-0013 —, e o PDA só sabe quem entrou.">Criar e gerir utilizadores</p>
   <p data-cu="CU-33" data-atores="gestor" data-nota="Só o gestor, ou quem ele autorizar.">Ler e atribuir um código de barras</p>
   <p data-cu="CU-34" data-atores="gestor" data-nota="Não é para quem trabalha no armazém — arrumação, separação e expedição não o veem; só o gestor (22 set.).">Ver o que já se decidiu antes</p>
-  <p data-cu="CU-35" data-atores="todas motor" data-nota="Pede quem vê a etiqueta estragada, seja de que função for (30 set.): o botão está onde o problema aparece — nos ecrãs em que se escreve a posição ou o cais à mão, 17, 37 e 51 —, e não no menu, que isto não é coisa que se vá lá buscar. O sistema continua a aconselhar sozinho: conta as vezes que a posição é escrita à mão (RF-92) e o gestor vê o sinal.">Pedir uma etiqueta de posição</p>
+  <p data-cu="CU-35" data-atores="" data-estado="fora" data-nota="Fora do desenho a 1 de outubro de 2026: ninguém pede etiqueta nova pelo PDA. Era um botão nos ecrãs em que se escreve o código à mão — 17, 37 e 51 — e saiu de todos. O sistema continua a tratar disto sozinho: conta as leituras à mão de cada posição (RF-92) e, passado o limite, levanta a mão no relatório do gestor, que é quem manda imprimir.">Pedir uma etiqueta de posição</p>
   <p data-cu="CU-36" data-atores="arrumacao separacao gestor" data-nota="A arrumação na zona de máquina; a separação na zona de mão. O gestor também o faz, pelo 60 · Todas as operações (28 set.).">Levar a palete vazia ao parque</p>
   <p data-cu="CU-37" data-atores="gestor" data-nota="Saiu das operações da arrumação (22 set.). Falta decidir quem recebe; o gestor valida.">Receber uma devolução</p>
   <p data-cu="CU-38" data-atores="expedicao gestor" data-nota="O gestor também o faz, pelo 60 · Todas as operações (28 set.).">Levar uma guia preparada ao cais</p>
@@ -619,7 +619,7 @@
     <div class="leitor" data-ir="a5"><svg class="leitor__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8V4.5A1.5 1.5 0 0 1 4.5 3H8M16 3h3.5A1.5 1.5 0 0 1 21 4.5V8M21 16v3.5a1.5 1.5 0 0 1-1.5 1.5H16M8 21H4.5A1.5 1.5 0 0 1 3 19.5V16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 7.5v9M10 7.5v9M13 7.5v9M16.5 7.5v9" stroke="currentColor" stroke-width="2"/></svg><span class="leitor__traco" aria-hidden="true"></span>O sistema confirma de novo, ao ler, que a posição ainda serve</div>
   </div>
   <div class="rodape">
-    <button type="button" class="discreto" data-ir="lb1">Problema com a etiqueta?</button>
+    <button type="button" class="discreto" data-ir="a7">Não consigo ler — escrever</button>
   </div>
 </div>
 </div>
@@ -718,7 +718,6 @@
   </div>
   <div class="rodape">
     <button type="button" class="btn btn--acao" data-ir="a5"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.5 5 5 10-11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Confirmar</button>
-    <button type="button" class="btn btn--secundario" data-ir="a8"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 6.5h17v11h-17Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path class="tinta-acao" d="M6.5 9.5h8v2h-8ZM6.5 13h5v2h-5Z"/></svg>Pedir etiqueta nova</button>
   </div>
 </div>
 </div>
@@ -1093,7 +1092,7 @@
   </div>
   <div class="rodape">
     <div class="par"><button type="button" class="btn btn--secundario" data-ir="s3"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 12h8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Falta quantidade</button><button type="button" class="btn" data-ir="s5"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 2.5 20h19Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 10v4.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="17.2" r="1.2" fill="currentColor"/></svg>Outro problema</button></div>
-    <button type="button" class="discreto" data-ir="lb1">Problema com a etiqueta?</button>
+    <button type="button" class="discreto" data-ir="s6">Não consigo ler — escrever</button>
     </div>
 </div>
 </div>
@@ -1203,7 +1202,6 @@
   </div>
   <div class="rodape">
     <button type="button" class="btn btn--acao" data-ir="s4"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.5 5 5 10-11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Confirmar</button>
-    <button type="button" class="btn btn--secundario" data-ir="a8"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 6.5h17v11h-17Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path class="tinta-acao" d="M6.5 9.5h8v2h-8ZM6.5 13h5v2h-5Z"/></svg>Pedir etiqueta nova</button>
   </div>
 </div>
 </div>
@@ -1584,7 +1582,6 @@
   </div>
   <div class="rodape">
     <button type="button" class="btn btn--acao" data-ir="x4"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.5 5 5 10-11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Confirmar</button>
-    <button type="button" class="btn btn--secundario" data-ir="a8"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 6.5h17v11h-17Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path class="tinta-acao" d="M6.5 9.5h8v2h-8ZM6.5 13h5v2h-5Z"/></svg>Pedir etiqueta nova</button>
   </div>
 </div>
 </div>
@@ -2297,31 +2294,11 @@
   </div>
   <div class="rodape">
     <button type="button" class="btn btn--acao" data-ir="s2"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8V4.5A1.5 1.5 0 0 1 4.5 3H8M16 3h3.5A1.5 1.5 0 0 1 21 4.5V8M21 16v3.5a1.5 1.5 0 0 1-1.5 1.5H16M8 21H4.5A1.5 1.5 0 0 1 3 19.5V16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 7.5v9M10 7.5v9M13 7.5v9M16.5 7.5v9" stroke="currentColor" stroke-width="2"/></svg>Ler outra vez</button>
-    <button type="button" class="discreto" data-ir="lb1">Problema com a etiqueta?</button>
+    <button type="button" class="discreto" data-ir="s6">Não consigo ler — escrever</button>
   </div>
 </div>
 </div>
 
-<div class="ecra" data-ecra="lb1" data-objetivo="Separar as duas coisas que se fazem a uma etiqueta que não se lê: escrever o código agora, e mandar renová-la." data-funcao="todas" data-fluxo="Comunicar um problema" data-nome="74 · Problema com a etiqueta?" data-refs="CU-02 · CU-35 · RF-92" hidden>
-<div class="pda">
-  <div class="faixa"><button type="button" class="faixa__voltar" data-ir="a4" data-sem-seta aria-label="Voltar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span><button type="button" class="faixa__chamar" data-ir="c1" data-sem-seta aria-label="Chamar o gestor"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h11a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H12l-4.5 4v-4H6.5a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle class="tinta-acao" cx="8" cy="10" r="1.6"/><circle class="tinta-acao" cx="12" cy="10" r="1.6"/><circle class="tinta-acao" cx="16" cy="10" r="1.6"/></svg></button></div>
-  <div class="passos">
-    <div class="passos__linha"><span class="passos__titulo">GA-4471 · palete 1 de 3</span><span class="passos__conta">Passo 3 de 4</span></div>
-    <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i></div>
-  </div>
-  <div class="corpo">
-    <p class="codigo por-baixo">60300401</p>
-    <div class="folha">
-      <div class="folha__caixa">
-        <h1 class="txt-lead">Problema com a etiqueta?</h1>
-        <button type="button" class="folha__opcao" data-ir="a7">Escrever o código</button>
-        <button type="button" class="folha__opcao" data-ir="a8">Etiqueta danificada — pedir nova</button>
-        <p class="txt-legenda">Escrever conta como leitura à mão. À terceira vez na mesma posição, o sistema aconselha o gestor a renovar a etiqueta sem ninguém a pedir.</p>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
 
 <div class="ecra" data-ecra="f1" data-objetivo="Deixar o gestor ver o que se passou sem ir ao sítio. A fotografia é sempre opcional." data-funcao="todas" data-fluxo="Comunicar um problema" data-nome="75 · Juntar fotografia" data-refs="CU-22 · RF-83" hidden>
 <div class="pda">
