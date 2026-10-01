@@ -1286,6 +1286,23 @@
     });
     peE.appendChild(idiomaBarra);
 
+    /* E a do modo. O mesmo ecrã escrito uma só vez: em «Normal» vê-se o que a
+       pessoa vê a trabalhar — ação grande e o mínimo de texto —, em «Treino»
+       vê-se o mesmo com as explicações por cima. Nada se perde ao trocar:
+       quem esconde é o CSS, pela classe `so-treino`. */
+    var modoBarra = el('div', 'ed-degraus');
+    [['normal', 'Normal'], ['treino', 'Treino']].forEach(function (par) {
+      var b = el('button', 'ed-degrau', par[1]);
+      b.type = 'button';
+      b.dataset.edModo = par[0];
+      b.setAttribute('aria-pressed', String(document.documentElement.dataset.modo === par[0]));
+      b.addEventListener('click', function () {
+        if (window.PdaEcras) window.PdaEcras.modo(par[0]);
+      });
+      modoBarra.appendChild(b);
+    });
+    peE.appendChild(modoBarra);
+
     painelEsq.appendChild(peE);
 
     /* painel direito: propriedades */

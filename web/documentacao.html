@@ -42,6 +42,9 @@
       <li><a href="#blocos">Cartão, tarefa e leitor</a></li>
       <li><a href="#vazio">Vazio e folha de exceção</a></li>
       <li><a href="#dialogo">Diálogo e aviso</a></li>
+      <li><a href="#modo">Modo normal e modo de treino</a></li>
+      <li><a href="#leitura">A resposta à leitura</a></li>
+      <li><a href="#numeros">Números, progresso e espera</a></li>
       <li><a href="#kotlin">Do CSS ao Kotlin</a></li>
     </ol>
   </nav>
@@ -336,6 +339,114 @@
   &lt;svg class="aviso__icone"&gt;…&lt;/svg&gt;
   &lt;span class="aviso__texto"&gt;Tens uma tarefa nova: guia GA-4471&lt;/span&gt;
 &lt;/div&gt;</code></pre>
+    </section>
+
+    <section class="seccao" id="modo">
+      <h2>Modo normal e modo de treino</h2>
+      <p>
+        O ecrã é um só e está escrito uma vez. O que muda é <strong>quanto dele se vê</strong>.
+        Em <strong>treino</strong> lê-se tudo: porque é que o motor deu aquela tarefa, o que
+        acontece ao stock, porque é que a posição é aquela. Em <strong>normal</strong> fica o
+        que serve a quem está a arrumar a terceira palete da manhã: a ordem, o número, a ação.
+      </p>
+      <p>
+        Nada se apaga ao trocar — quem esconde é o CSS. O modo vive no
+        <code>&lt;html data-modo&gt;</code>, e o editor tem o degrau para o alternar; também se
+        abre direto com <code>#modo=treino</code>. Por omissão vale <strong>normal</strong>,
+        porque é o ecrã verdadeiro: o de treino é o que se vê nas três primeiras semanas.
+      </p>
+      <p>
+        Duas classes e uma regra. <code>.so-treino</code> é o que só aparece a aprender;
+        <code>.so-normal</code> é o que o substitui a trabalhar, tipicamente um ⓘ que abre a
+        explicação. E, sem ninguém lhes tocar uma a uma, <code>.txt-legenda</code> e
+        <code>.nota</code> são sempre de treino: por definição, são o que se explica.
+      </p>
+      <pre><code>&lt;button class="porque-botao so-normal"&gt;ⓘ Porquê esta posição?&lt;/button&gt;
+&lt;div class="cartao cartao--acento cartao--info so-treino"&gt;
+  &lt;span class="rotulo rotulo--acento"&gt;Porquê aqui&lt;/span&gt;
+  &lt;span class="porque-aqui"&gt;Sai muito — 34 por dia — e fica a 8 m do cais.&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+      <p class="nota">
+        Isto veio da revisão de 1 de outubro de 2026: o conteúdo que estava escrito era bom
+        para explicar o conceito e a mais para o uso diário. Em vez de o cortar, deu-se-lhe um
+        interruptor.
+      </p>
+    </section>
+
+    <section class="seccao" id="leitura">
+      <h2>A resposta à leitura</h2>
+      <p>
+        É o gesto que mais se repete no turno, e quem o faz quase nunca está a olhar para o
+        ecrã: tem a palete numa mão e o aparelho na outra. Por isso a resposta
+        <strong>ocupa o ecrã todo</strong>, tem cor, e o aparelho acompanha-a com
+        <strong>som e vibração</strong>. Verde e bip curto quando é a certa; vermelho, bip
+        grave e vibração quando não é.
+      </p>
+      <p>
+        Não há botão pelo meio. A leitura certa diz logo o que se lê a seguir e segue sozinha;
+        a errada fica no ecrã até se ler outra vez, e diz onde se devia estar. A linha do som e
+        da vibração fica escrita no ecrã de propósito — é desenho, e tem de passar para o
+        Kotlin com o resto.
+      </p>
+      <div class="demo">
+        <div class="demo__coluna">
+          <div class="leitura leitura--certa"><svg class="leitura__marca" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".5"/><path d="m6 12.5 4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg><p class="leitura__titulo">Posição certa</p><p class="leitura__codigo">60200201</p><p class="leitura__texto">Agora lê o ARTIGO</p><p class="leitura__sinal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h4L13 5v14L8 14.5H4Z" fill="currentColor"/><path d="M16.5 9a4.5 4.5 0 0 1 0 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Bip curto</p></div>
+        </div>
+        <div class="demo__coluna">
+          <div class="leitura leitura--errada"><svg class="leitura__marca" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".5"/><path d="M7.5 7.5l9 9M16.5 7.5l-9 9" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></svg><p class="leitura__titulo">Não é esta posição</p><p class="leitura__codigo">60200401</p><p class="leitura__texto">Devias estar em Z20 · C02 · P01</p><p class="leitura__sinal"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="3" width="8" height="18" rx="2" fill="currentColor"/><path d="M4 9v6M20 9v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Vibração e bip grave</p></div>
+        </div>
+      </div>
+      <p class="nota">Nos ecrãs: 72 · Leitura certa e 73 · Leitura errada. Vale para todas as leituras, não só para a da separação.</p>
+      <p>
+        E a posição, onde quer que apareça grande, lê-se como quem anda lá:
+        <strong>Z30 · C03 · P01</strong>, com o código de oito algarismos pequeno por baixo
+        para conferir com a etiqueta. O armazém — o 60 — não entra, que é sempre o mesmo.
+      </p>
+      <div class="demo">
+        <div class="demo__coluna">
+          <div class="posicao"><p class="posicao__humana">Z30 · C03 · P01</p><p class="posicao__codigo">Código 60300301</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="seccao" id="numeros">
+      <h2>Números, progresso e espera</h2>
+      <p>
+        No chão do armazém lê-se o <strong>número</strong>, não a linha. Quando o que importa
+        é uma conta — pedidas, tiradas, em falta —, cada parcela é um bloco com o nome pequeno
+        por cima e o valor grande por baixo. A que falta é vermelha, a que já está é verde.
+      </p>
+      <p>
+        O <strong>progresso</strong> diz quanto já vai, em número e em barra, e vem sempre
+        acompanhado da lista do que falta: saber que vão 18 de 22 não chega para ir buscar os
+        outros quatro. A <strong>espera</strong> é a linha do tempo de um pedido ao gestor —
+        enviado, visto, respondido —, para quem chamou não ficar a olhar para o teto.
+      </p>
+      <div class="demo">
+        <div class="demo__coluna">
+          <div class="contas">
+            <div class="conta"><span class="conta__nome">Precisas</span><span class="conta__valor">6</span></div>
+            <div class="conta conta--feito"><span class="conta__nome">Tiraste</span><span class="conta__valor">2</span></div>
+            <div class="conta conta--falta"><span class="conta__nome">Faltam</span><span class="conta__valor">4</span></div>
+          </div>
+          <div class="progresso">
+            <div class="progresso__linha"><span class="progresso__nome">DPD · CAIS-2</span><span class="progresso__conta">18 / 22</span></div>
+            <div class="progresso__barra"><i class="progresso__cheio" style="width:82%"></i></div>
+          </div>
+        </div>
+        <div class="demo__coluna">
+          <div class="espera">
+            <div class="espera__passo espera__passo--feito"><span class="espera__ponto"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="espera__texto">Pedido enviado</span><span class="espera__hora">10h26</span></div>
+            <div class="espera__passo espera__passo--agora"><span class="espera__ponto"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="3"/><path d="M12 8v4.5l3 1.8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span><span class="espera__texto">Ainda não visto</span><span class="espera__hora">—</span></div>
+            <div class="espera__passo"><span class="espera__ponto"></span><span class="espera__texto">Vem, ou responde daí</span><span class="espera__hora">—</span></div>
+          </div>
+        </div>
+      </div>
+      <p class="nota">
+        Nos ecrãs: as contas no 33, o progresso no 47, a espera no 71 e no 76. O tempo que
+        falta ao camião — <code>.passos__tempo</code> — vive na cabeça da tarefa, ao pé do
+        nome da guia e não ao pé do nome de quem a faz: mede o processo, não a pessoa.
+      </p>
     </section>
 
     <section class="seccao" id="kotlin">

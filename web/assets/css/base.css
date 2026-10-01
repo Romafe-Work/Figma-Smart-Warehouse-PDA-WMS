@@ -430,3 +430,216 @@ code { font-family: var(--f-mono); }
   background: var(--c-neutro-suave); color: var(--c-neutro);
 }
 .tarefa__circulo svg { width: 22px; height: 22px; }
+
+
+/* =========================================================
+   O QUE A REVISÃO DE 1 DE OUTUBRO DE 2026 TROUXE
+
+   A lógica dos fluxos não mudou. Mudou a interface de quem trabalha
+   horas seguidas com o aparelho na mão: menos texto, uma ação grande,
+   o estado da tarefa sempre no mesmo sítio, e resposta forte à leitura.
+   ========================================================= */
+
+/* ---------- modo normal e modo de treino ----------
+   O mesmo ecrã serve para as duas coisas, e o conteúdo é um só. O que muda
+   é quanto dele se vê: no trabalho do dia a dia, o mínimo; na formação, as
+   explicações todas. `.so-treino` é o que só se lê a aprender; `.so-normal`
+   é o que o substitui quando se está a trabalhar — tipicamente um ⓘ.
+   O modo está no <html data-modo>, e o editor tem o degrau para o trocar. */
+:root[data-modo="normal"] .so-treino { display: none; }
+:root[data-modo="treino"] .so-normal { display: none; }
+
+/* E, sem se lhes tocar uma a uma: a legenda e a nota são, por definição, o
+   que se explica. Quem está a arrumar a terceira palete da manhã já sabe
+   como o motor reparte o trabalho — e aquelas linhas estão a ocupar o
+   espaço do número que ela precisa de ler ao longe. */
+:root[data-modo="normal"] .txt-legenda,
+:root[data-modo="normal"] .nota,
+:root[data-modo="normal"] .cabeca-fila__sub { display: none; }
+
+/* o ⓘ que recolhe uma explicação: toca-se para a abrir */
+.porque-botao {
+  display: flex; align-items: center; gap: var(--e-sm); width: 100%;
+  min-height: var(--alvo); padding: 0 var(--e-md);
+  border: 0; border-radius: var(--r-md); background: transparent;
+  color: var(--c-acento); font: 700 var(--t-small) var(--f-base); text-align: left;
+}
+.porque-botao__icone { width: 20px; height: 20px; flex: none; }
+
+/* ---------- o tempo que falta, na cabeça da tarefa ----------
+   Não mede pessoas: diz quando é que a coisa tem de estar feita. Por isso
+   está ao pé do nome da tarefa e não ao pé do nome de quem a faz. */
+.passos__tempo {
+  padding: 2px var(--e-sm); border-radius: var(--r-pill);
+  background: var(--c-neutro-suave); color: var(--c-texto-2);
+  font: 700 var(--t-small) var(--f-mono); font-variant-numeric: tabular-nums;
+}
+.passos__tempo--aperta { background: var(--c-erro-suave); color: var(--c-erro); }
+.passos__linha--tempo { gap: var(--e-sm); }
+
+/* ---------- a resposta à leitura ----------
+   Quem lê muitas vezes não olha para o ecrã: a resposta tem de dar pelo
+   canto do olho, e o aparelho acompanha-a com som e vibração. A faixa
+   ocupa o ecrã todo, verde ou vermelha, e não tem botão — certa, segue
+   sozinha; errada, fica até se ler outra vez. */
+.leitura {
+  flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: var(--e-md); padding: var(--e-xl) var(--e-lg); text-align: center;
+  color: var(--c-sobre-marca);
+}
+.leitura--certa  { background: var(--c-bom); }
+.leitura--errada { background: var(--c-erro); }
+.leitura__marca { width: 84px; height: 84px; flex: none; }
+.leitura__titulo { font-size: var(--t-big); font-weight: 700; line-height: 1.1; }
+.leitura__codigo {
+  font: 700 var(--t-huge)/1.05 var(--f-mono); letter-spacing: -.02em;
+  font-variant-numeric: tabular-nums;
+}
+.leitura__texto { font-size: var(--t-body); line-height: 1.3; }
+/* o que o aparelho faz ao mesmo tempo: fica escrito, para o desenho não se
+   perder quando isto passar a Kotlin */
+.leitura__sinal {
+  display: flex; align-items: center; gap: var(--e-sm);
+  padding: var(--e-xs) var(--e-md); border-radius: var(--r-pill);
+  background: rgba(255,255,255,.18); font-size: var(--t-tiny); font-weight: 700;
+}
+.leitura__sinal svg { width: 16px; height: 16px; }
+
+/* ---------- os números que importam ----------
+   Pedidas, tiraste, faltam. No chão do armazém lê-se o número, não a linha. */
+.contas { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--e-sm); }
+.conta {
+  display: grid; gap: var(--e-xs); padding: var(--e-md) var(--e-sm);
+  background: var(--c-cartao); border-radius: var(--r-md); text-align: center;
+}
+.conta__nome {
+  font-size: var(--t-micro); font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--c-texto-3);
+}
+.conta__valor {
+  font-size: var(--t-huge); font-weight: 700; line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.conta--falta { background: var(--c-erro-suave); }
+.conta--falta .conta__valor { color: var(--c-erro); }
+.conta--feito .conta__valor { color: var(--c-bom); }
+
+/* ---------- quanto já vai ----------
+   A barra do carregamento: a conta em números e a barra por baixo. */
+.progresso { display: grid; gap: var(--e-sm); }
+.progresso__linha { display: flex; justify-content: baseline; align-items: baseline; gap: var(--e-sm); }
+.progresso__nome { font-size: var(--t-body); font-weight: 700; }
+.progresso__conta {
+  margin-left: auto; font: 700 var(--t-body) var(--f-mono); font-variant-numeric: tabular-nums;
+  color: var(--c-acento);
+}
+.progresso__barra {
+  height: 10px; border-radius: var(--r-pill); background: var(--c-neutro-suave); overflow: hidden;
+}
+.progresso__cheio { display: block; height: 100%; border-radius: var(--r-pill); background: var(--c-acento); }
+
+/* ---------- o pedido ao gestor, passo a passo ----------
+   Chamar e ficar sem saber de nada é o que faz a pessoa ir lá acima.
+   Aqui vê-se se ele já leu, se vem, e o que respondeu. */
+.espera { display: grid; gap: 0; }
+.espera__passo {
+  display: grid; grid-template-columns: 22px 1fr auto; align-items: start;
+  column-gap: var(--e-md); padding-bottom: var(--e-lg); position: relative;
+}
+.espera__passo:last-child { padding-bottom: 0; }
+.espera__passo:not(:last-child)::before {
+  content: ""; position: absolute; left: 10px; top: 20px; bottom: 0;
+  width: 2px; background: var(--c-cinzento);
+}
+.espera__ponto {
+  width: 22px; height: 22px; border-radius: var(--r-pill); z-index: 1;
+  background: var(--c-cinzento); display: grid; place-items: center;
+}
+.espera__ponto svg { width: 14px; height: 14px; color: var(--c-sobre-marca); }
+.espera__texto { font-size: var(--t-body); color: var(--c-texto-3); line-height: 1.25; }
+.espera__hora { font: 500 var(--t-small) var(--f-mono); color: var(--c-texto-3); }
+.espera__passo--feito .espera__ponto { background: var(--c-bom); }
+.espera__passo--feito .espera__texto { color: var(--c-texto); }
+.espera__passo--feito .espera__hora { color: var(--c-texto-2); }
+.espera__passo--agora .espera__ponto { background: var(--c-acao); }
+.espera__passo--agora .espera__texto { color: var(--c-texto); font-weight: 700; }
+
+/* ---------- o que precisa do gestor ----------
+   Primeiro os problemas, depois a operação, e as análises no fim. Cada
+   linha diz quem a levantou e há quanto tempo espera. */
+.precisa { display: grid; gap: var(--e-sm); }
+.precisa__item {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center;
+  column-gap: var(--e-md); width: 100%; border: 0; text-align: left;
+  min-height: var(--alvo); padding: var(--e-sm) var(--e-lg);
+  background: var(--c-cartao); border-radius: var(--r-md);
+  border-left: 4px solid var(--c-cinzento);
+}
+.precisa__item--urgente { border-left-color: var(--c-erro);   background: var(--c-erro-suave); }
+.precisa__item--serio   { border-left-color: var(--c-serio); }
+.precisa__item--aviso   { border-left-color: var(--c-aviso); }
+.precisa__ponto { width: 22px; height: 22px; color: var(--c-texto-2); }
+.precisa__item--urgente .precisa__ponto { color: var(--c-erro); }
+.precisa__texto { display: grid; gap: 1px; }
+.precisa__nome { font-size: var(--t-body); font-weight: 700; line-height: 1.2; }
+.precisa__quem { font-size: var(--t-tiny); color: var(--c-texto-2); }
+.precisa__tempo {
+  font: 700 var(--t-small) var(--f-mono); color: var(--c-texto-2);
+  font-variant-numeric: tabular-nums;
+}
+.precisa__item--urgente .precisa__tempo { color: var(--c-erro); }
+
+/* ---------- a saída pequena ----------
+   O que não deve competir com a ação principal: «Problema com a etiqueta?»
+   é um link no fundo, não um botão ao lado do grande. */
+.discreto {
+  display: block; width: 100%; min-height: var(--alvo); border: 0; background: transparent;
+  color: var(--c-acento); font: 500 var(--t-small) var(--f-base);
+  text-decoration: underline; text-underline-offset: 3px;
+}
+
+/* ---------- a fotografia da incidência ----------
+   O gestor vê o que se passou sem ir lá. É sempre opcional. */
+.foto {
+  display: flex; align-items: center; justify-content: center; gap: var(--e-md);
+  width: 100%; min-height: 96px; padding: var(--e-lg);
+  border: 2px dashed var(--c-cinzento); border-radius: var(--r-md);
+  background: var(--c-cartao); color: var(--c-acento);
+  font: 700 var(--t-body) var(--f-base);
+}
+.foto__icone { width: 30px; height: 30px; flex: none; }
+
+/* ---------- a tarefa em pausa ----------
+   Pausar não é largar: a tarefa continua desta pessoa e o motor não lhe
+   dá outra. Largar devolve-a ao motor — são dois ecrãs e dois registos. */
+.pausa {
+  flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: var(--e-lg); padding: var(--e-xl); text-align: center;
+}
+.pausa__marca { width: 72px; height: 72px; color: var(--c-aviso); }
+.pausa__titulo { font-size: var(--t-big); font-weight: 700; }
+.pausa__relogio {
+  font: 700 var(--t-huge) var(--f-mono); color: var(--c-texto-2);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- a posição, como quem anda no armazém a lê ----------
+   Oito algarismos são para conferir, não para decorar no caminho. Quem vai
+   lá pensa «zona 30, coluna 03, prateleira 01» — é isso que fica grande, e
+   o código fica por baixo, pequeno, para bater com a etiqueta. O armazém
+   (o 60) não entra: é sempre o mesmo. */
+.posicao { display: grid; gap: 2px; }
+.posicao__humana {
+  font: 700 var(--t-huge)/1.05 var(--f-base); letter-spacing: -.01em;
+  color: var(--c-acento); white-space: nowrap;
+}
+.posicao__codigo {
+  font: 500 var(--t-small) var(--f-mono); color: var(--c-texto-2);
+  font-variant-numeric: tabular-nums;
+}
+.posicao--menor .posicao__humana { font-size: var(--t-big); }
+
+/* Uma linha por coisa: o gestor passa os olhos, não lê. O nome e o que o
+   acompanha cortam-se antes de embrulhar. */
+.precisa__nome, .precisa__quem { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.precisa__texto { min-width: 0; }

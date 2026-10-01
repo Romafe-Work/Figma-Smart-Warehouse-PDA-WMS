@@ -11,6 +11,11 @@
      web/index.html#so=todos  os ecrãs todos seguidos, um por página ao
                               imprimir — é o PDF de importar/
      web/index.html#so=fluxo  o mapa de navegação, que monta o fluxo.js
+
+   E, por cima de qualquer uma delas, o modo:
+     web/index.html#modo=treino   as explicações todas, para a formação
+     web/index.html#modo=normal   o que se vê a trabalhar — é o que vale
+                                  por omissão, porque é o ecrã verdadeiro
    ========================================================= */
 (function () {
   'use strict';
@@ -31,6 +36,24 @@
   }
 
   var so = (location.hash.match(/so=([a-z0-9]+)/) || [])[1];
+
+  /* O modo é do aparelho inteiro, não de um ecrã: fica no <html>, para o CSS
+     poder esconder as explicações sem ninguém lhes mexer no HTML. Normal é o
+     que vale: é o ecrã que a pessoa vê ao fim de três semanas de armazém. */
+  var CHAVE_MODO = 'pda:modo';
+
+  function porModo(modo) {
+    document.documentElement.dataset.modo = modo === 'treino' ? 'treino' : 'normal';
+    try { localStorage.setItem(CHAVE_MODO, document.documentElement.dataset.modo); } catch (e) {}
+    var degraus = document.querySelectorAll('[data-ed-modo]');
+    for (var i = 0; i < degraus.length; i++) {
+      degraus[i].setAttribute('aria-pressed', String(degraus[i].dataset.edModo === document.documentElement.dataset.modo));
+    }
+  }
+
+  var modoPedido = (location.hash.match(/modo=(treino|normal)/) || [])[1];
+  if (!modoPedido) { try { modoPedido = localStorage.getItem(CHAVE_MODO); } catch (e) {} }
+  porModo(modoPedido || 'normal');
 
   /* Ao imprimir, cada ecrã é uma página do tamanho do aparelho. É o que faz
      do PDF uma coisa que o Figma e o Canva abrem em peças. */
@@ -87,5 +110,10 @@
     }
   }
 
-  window.PdaEcras = { soUm: so === 'todos' || so === 'fluxo' || existe(so), lembrar: lembrar };
+  window.PdaEcras = {
+    soUm: so === 'todos' || so === 'fluxo' || existe(so),
+    lembrar: lembrar,
+    modo: porModo,
+    modoActual: function () { return document.documentElement.dataset.modo; }
+  };
 })();
