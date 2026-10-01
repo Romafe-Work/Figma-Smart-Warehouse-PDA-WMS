@@ -601,19 +601,6 @@ code { font-family: var(--f-mono); }
 }
 .foto__icone { width: 30px; height: 30px; flex: none; }
 
-/* ---------- a tarefa em pausa ----------
-   Pausar não é largar: a tarefa continua desta pessoa e o motor não lhe
-   dá outra. Largar devolve-a ao motor — são dois ecrãs e dois registos. */
-.pausa {
-  flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: var(--e-lg); padding: var(--e-xl); text-align: center;
-}
-.pausa__marca { width: 72px; height: 72px; color: var(--c-aviso); }
-.pausa__titulo { font-size: var(--t-big); font-weight: 700; }
-.pausa__relogio {
-  font: 700 var(--t-huge) var(--f-mono); color: var(--c-texto-2);
-  font-variant-numeric: tabular-nums;
-}
 
 /* ---------- a posição, como quem anda no armazém a lê ----------
    Oito algarismos são para conferir, não para decorar no caminho. Quem vai

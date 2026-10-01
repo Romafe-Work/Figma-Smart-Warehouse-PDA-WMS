@@ -56,8 +56,6 @@
      data-nota="Escrever à mão deixou de competir com a leitura: é um link discreto no fundo, não um botão ao lado dela. Ninguém pede etiqueta nova — o sistema conta as vezes que a posição é escrita à mão e aconselha o gestor sozinho (RF-92).">A etiqueta da posição não se lê</p>
   <p data-funcao="arrumacao" data-ecras="g2 f1 a8"
      data-nota="O gestor decide de onde está, se vir a fotografia. É sempre opcional: quem não a tira regista na mesma.">Juntar fotografia a um problema</p>
-  <p data-funcao="arrumacao" data-ecras="d3 z1 z2"
-     data-nota="Pausar não é largar: a tarefa continua desta pessoa e o motor não a dá a mais ninguém. Largar devolve-a ao motor.">Pausar em vez de largar</p>
   <p data-funcao="arrumacao" data-ecras="c1 c2 c3"
      data-nota="O pedido deixa de acabar em «avisado»: vê-se se ele já leu, se vem, e o que respondeu. Se não chegar, chama-se outra vez e o pedido sobe de urgência no ecrã dele.">Chamar o gestor e ver a resposta</p>
   <p data-funcao="arrumacao" data-ecras="a2 g2 a8"
@@ -206,7 +204,6 @@
   <p data-cu="CU-37" data-atores="gestor" data-nota="Saiu das operações da arrumação (22 set.). Falta decidir quem recebe; o gestor valida.">Receber uma devolução</p>
   <p data-cu="CU-38" data-atores="expedicao gestor" data-nota="O gestor também o faz, pelo 60 · Todas as operações (28 set.).">Levar uma guia preparada ao cais</p>
   <p data-cu="CU-39" data-atores="arrumacao separacao expedicao gestor motor" data-nota="Novo — não está no dossiê. A pessoa carrega em «Começar» e o motor entrega-lhe uma tarefa; ao acabar essa, entrega a seguinte. Ela não escolhe nem vê a fila (24 set.). O gestor também começa qualquer tarefa, pelo 60 · Todas as operações, e aí é ele que escolhe: o motor não lhe entrega nada, porque ele não tem fila própria (30 set.).">Começar as tarefas</p>
-  <p data-cu="CU-41" data-atores="todas motor" data-nota="Novo a 1 de outubro de 2026, da revisão de interface. Até aqui só havia continuar ou largar, e quem ia à casa de banho largava a guia — que voltava ao motor e ia parar a outra pessoa. Pausar guarda-a: continua desta pessoa, com o motivo escrito, e o motor não lhe dá outra enquanto estiver parada.">Pausar uma tarefa</p>
   <p data-cu="CU-40" data-atores="arrumacao gestor" data-nota="O sistema não sabe o que vem a caminho (23 set.): a arrumação pica a chegada no PDA e é daí que nasce a tarefa de receção. Só as paletes da SKF são picadas noutro PDA. O gestor também o regista, pelo 67 · Chegou um camião (28 set.).">Registar a chegada de uma encomenda</p>
 </template>
 
@@ -233,7 +230,6 @@
   <p data-fluxo="Quando falta a ligação">O PDA trabalha ligado à Rolgest. Sem ligação diz que parou, e mostra o que ficou gravado.</p>
   <p data-fluxo="Comunicar um problema">Qualquer função comunica o que a impede de seguir: fica registado com quem o disse e a que horas, e o gestor é avisado.</p>
   <p data-fluxo="A resposta à leitura">A leitura é a coisa que mais vezes se faz no turno, e quem a faz raramente está a olhar para o ecrã. A resposta ocupa o ecrã todo, tem cor, som e vibração, e diz logo o que vem a seguir.</p>
-  <p data-fluxo="Pausar a tarefa">Parar sem devolver. A tarefa continua de quem a tem, o motor não lhe dá outra, e o gestor vê a pausa e o motivo. Ao fim de meia hora recebe um sinal.</p>
   <p data-fluxo="Chamar o gestor">Quem tem uma dúvida chama o gestor sem largar a tarefa. Ele vê onde a pessoa está e o que tem em mãos, e pode vir, responder pelo PDA ou fazer ele a tarefa.</p>
 </template>
 
@@ -1225,7 +1221,7 @@
   </div>
   <div class="rodape">
     <button type="button" class="btn btn--acao" data-ir="s2"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Continuar a guia</button>
-    <div class="par"><button type="button" class="btn btn--secundario" data-ir="z1"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1.4" fill="currentColor"/><rect x="14" y="4" width="4" height="16" rx="1.4" fill="currentColor"/></svg>Pausar</button><button type="button" class="btn" data-ir="e1"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="m9 9 6 6m0-6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Sair mesmo</button></div>
+    <button type="button" class="btn btn--secundario" data-ir="e1"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="m9 9 6 6m0-6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Sair mesmo</button>
   </div>
 </div>
 </div>
@@ -1605,7 +1601,7 @@
   </div>
   <div class="rodape">
     <button type="button" class="btn btn--acao" data-ir="x4"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Continuar a carregar</button>
-    <div class="par"><button type="button" class="btn btn--secundario" data-ir="z1"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1.4" fill="currentColor"/><rect x="14" y="4" width="4" height="16" rx="1.4" fill="currentColor"/></svg>Pausar</button><button type="button" class="btn" data-ir="e1"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="m9 9 6 6m0-6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Sair mesmo</button></div>
+    <button type="button" class="btn btn--secundario" data-ir="e1"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="m9 9 6 6m0-6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Sair mesmo</button>
   </div>
 </div>
 </div>
@@ -2099,7 +2095,7 @@
   </div>
   <div class="rodape">
     <button type="button" class="btn btn--acao" data-ir="a1"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6.5 6.5 6.5-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Continuar a guia</button>
-    <div class="par"><button type="button" class="btn btn--secundario" data-ir="z1"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1.4" fill="currentColor"/><rect x="14" y="4" width="4" height="16" rx="1.4" fill="currentColor"/></svg>Pausar</button><button type="button" class="btn" data-ir="e1"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="m9 9 6 6m0-6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Sair mesmo</button></div>
+    <button type="button" class="btn btn--secundario" data-ir="e1"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="m9 9 6 6m0-6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Sair mesmo</button>
   </div>
 </div>
 </div>
@@ -2343,55 +2339,7 @@
 </div>
 </div>
 
-<!-- ================= PAUSAR (não é largar) ================= -->
 
-<div class="ecra" data-ecra="z1" data-objetivo="Parar a tarefa sem a devolver ao motor, e dizer porquê." data-funcao="todas" data-fluxo="Pausar a tarefa" data-nome="77 · Pausar a tarefa" data-refs="CU-12 · CU-39 · RF-20" hidden>
-<div class="pda">
-  <div class="faixa"><button type="button" class="faixa__voltar" data-ir="a2" data-sem-seta aria-label="Voltar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span><button type="button" class="faixa__chamar" data-ir="c1" data-sem-seta aria-label="Chamar o gestor"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h11a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H12l-4.5 4v-4H6.5a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle class="tinta-acao" cx="8" cy="10" r="1.6"/><circle class="tinta-acao" cx="12" cy="10" r="1.6"/><circle class="tinta-acao" cx="16" cy="10" r="1.6"/></svg></button></div>
-  <div class="passos">
-    <div class="passos__linha"><span class="passos__titulo">GA-4471 · palete 1 de 3</span><span class="passos__conta">Passo 2 de 4</span></div>
-    <div class="passos__barra"><i class="passos__traco passos__traco--feito"></i><i class="passos__traco passos__traco--feito"></i><i class="passos__traco"></i><i class="passos__traco"></i></div>
-  </div>
-  <div class="corpo">
-    <p class="codigo por-baixo">60300301</p>
-    <div class="folha">
-      <div class="folha__caixa">
-        <h1 class="txt-lead">Pausar — porquê?</h1>
-        <button type="button" class="folha__opcao" data-ir="z2">Pausa</button>
-        <button type="button" class="folha__opcao" data-ir="z2">Empilhador ou equipamento</button>
-        <button type="button" class="folha__opcao" data-ir="z2">À espera do gestor</button>
-        <button type="button" class="folha__opcao" data-ir="z2">Corredor bloqueado</button>
-        <button type="button" class="folha__opcao" data-ir="z2">Outra operação urgente</button>
-        <p class="txt-legenda">Pausar não é largar: a tarefa continua tua e o motor não a dá a mais ninguém nem te dá outra. Largar devolve-a — é o 66.</p>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
-<div class="ecra" data-ecra="z2" data-objetivo="Mostrar que a tarefa está parada e continua desta pessoa, e pô-la a andar outra vez com um toque." data-funcao="todas" data-fluxo="Pausar a tarefa" data-nome="78 · Tarefa em pausa" data-refs="CU-12 · CU-39 · RF-20" hidden>
-<div class="pda">
-  <div class="faixa"><button type="button" class="faixa__voltar" data-ir="z1" data-sem-seta aria-label="Voltar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="faixa__divisor" aria-hidden="true"></span><span class="faixa__perfil">Arrumação</span><span class="faixa__nome">Marta Silva</span><span class="faixa__rede"><span class="faixa__ponto" aria-hidden="true"></span>ligado</span><button type="button" class="faixa__chamar" data-ir="c1" data-sem-seta aria-label="Chamar o gestor"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h11a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H12l-4.5 4v-4H6.5a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle class="tinta-acao" cx="8" cy="10" r="1.6"/><circle class="tinta-acao" cx="12" cy="10" r="1.6"/><circle class="tinta-acao" cx="16" cy="10" r="1.6"/></svg></button></div>
-  <div class="pausa">
-    <svg class="pausa__marca" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="8.5" y="7.5" width="2.8" height="9" rx="1.2" fill="currentColor"/><rect x="12.7" y="7.5" width="2.8" height="9" rx="1.2" fill="currentColor"/></svg>
-    <p class="pausa__titulo">GA-4471 em pausa</p>
-    <p class="pausa__relogio">00:06:12</p>
-    <p class="txt-corpo">Corredor bloqueado · desde as 10h18</p>
-  </div>
-  <div class="corpo">
-    <div class="cartao">
-      <div class="linha">A tarefa<span class="linha__valor linha__valor--forte">continua tua</span></div>
-      <div class="linha">O motor<span class="linha__valor">não te dá outra</span></div>
-      <div class="linha">O gestor<span class="linha__valor">vê a pausa e o motivo</span></div>
-    </div>
-    <p class="txt-legenda">Ao fim de meia hora o gestor recebe um sinal, para a palete não ficar esquecida no corredor até ao fim do turno.</p>
-  </div>
-  <div class="rodape">
-    <button type="button" class="btn btn--acao" data-ir="a2"><svg class="btn__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5Z" fill="currentColor"/></svg>Retomar</button>
-    <button type="button" class="btn btn--secundario" data-ir="d3">Largar a guia e sair</button>
-  </div>
-</div>
-</div>
 
 <div class="ecra" data-ecra="d4" data-objetivo="Obrigar a dizer porque é que a saída fecha sem tudo lá dentro, e deixar isso registado com o nome de quem decidiu." data-funcao="expedicao" data-fluxo="Da prateleira ao camião" data-nome="79 · Fechar incompleta: porquê?" data-refs="CU-14 · CU-15 · RF-122" hidden>
 <div class="pda">
