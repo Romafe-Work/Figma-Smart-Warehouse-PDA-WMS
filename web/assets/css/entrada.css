@@ -67,6 +67,14 @@
 }
 .entrada-texto__ver svg { width: 20px; height: 20px; }
 
+/* passo 2: o utilizador do passo 1 fica à vista, com «mudar» */
+.sessao__quem {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--e-sm);
+  padding: var(--e-sm) var(--e-md); border-radius: var(--r-sm, 6px);
+  background: var(--c-fundo); font-size: var(--t-small);
+}
+.sessao__nome  { font-weight: 700; }
+.sessao__mudar { color: var(--c-acento); font-weight: 700; }
 .sessao__entrar { position: relative; margin-top: var(--e-sm); }
 .sessao__seta { position: absolute; right: var(--e-lg); width: 22px; height: 22px; }
 

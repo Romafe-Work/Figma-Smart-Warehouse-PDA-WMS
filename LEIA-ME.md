@@ -96,7 +96,7 @@ transportadoras nem a marca.
 
 | Fluxo | Ecrãs | De onde vêm |
 | --- | --- | --- |
-| Entrar e começar o turno | 01 Entrar · 02 Início da arrumação · 03 A fila | CU-01 · CU-39 · RF-20 |
+| Entrar e começar o turno | 01 Entrar (utilizador) · 01b A palavra-passe · 02 Início da arrumação · 03 A fila | CU-01 · CU-39 · RF-20 |
 | Receber o que chega | 04 Picar a chegada · 05 Chegada registada · 06 Lê a guia · 07 Confere · 08 A quantidade não bate · 09 Recebido | CU-40 · CU-06 |
 | Arrumar uma palete | 10 a 14 | CU-07 · RF-31 a RF-35 |
 | Quando a arrumação não corre bem | 15 O que se passa? · 16 Escreve o artigo · 17 Escreve a posição | CU-22 · RF-92 |

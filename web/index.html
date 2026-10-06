@@ -237,7 +237,7 @@
 
 <!-- ================= 1 · ENTRAR E COMEÇAR O TURNO ================= -->
 
-<div class="ecra" data-ecra="e1" data-objetivo="Identificar quem está a usar o PDA, com utilizador e palavra-passe." data-funcao="todas" data-fluxo="Entrar e começar o turno" data-nome="01 · Entrar" data-refs="CU-01 · RF-01 · RF-03">
+<div class="ecra" data-ecra="e1" data-objetivo="Passo 1: só o utilizador ou o endereço, e o domínio decide o caminho. Conta nossa segue para a palavra-passe (01b); empresa cliente com início de sessão próprio abre a página dela no navegador do PDA. É a página do Keycloak, com o tema do PDA: a aplicação nunca recebe a palavra-passe." data-funcao="todas" data-fluxo="Entrar e começar o turno" data-nome="01 · Entrar" data-refs="CU-01 · RF-01 · RF-03">
 <div class="pda entrar">
   <div class="entrar__foto" role="img" aria-label="Corredor do armazém da Romafe"></div>
 
@@ -265,21 +265,66 @@
 
   <form class="sessao" onsubmit="return false">
     <h2 class="sessao__titulo">Iniciar sessão</h2>
-    <p class="sessao__sub">Utiliza o teu utilizador e palavra-passe.</p>
+    <p class="sessao__sub">Começa pelo teu utilizador. A palavra-passe vem a seguir.</p>
 
     <div class="entrada-texto">
-      <label class="entrada-texto__rotulo" for="e1-utilizador">Utilizador</label>
+      <label class="entrada-texto__rotulo" for="e1-utilizador">Utilizador ou endereço</label>
       <div class="entrada-texto__caixa">
         <svg class="entrada-texto__icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7.5" r="4.5" fill="currentColor"/><path d="M3.5 21.5c0-4.7 3.8-7.5 8.5-7.5s8.5 2.8 8.5 7.5Z" fill="currentColor"/></svg>
         <input class="entrada-texto__campo" id="e1-utilizador" type="text" autocomplete="username" placeholder="Ex.: 1042 ou marta.silva">
       </div>
     </div>
 
+    <button type="submit" class="btn btn--acao sessao__entrar" data-ir="e1b">
+      Continuar
+      <svg class="sessao__seta" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </form>
+
+  <p class="versao">ROMAFE · v1.0.0</p>
+</div>
+</div>
+
+<div class="ecra" data-ecra="e1b" data-objetivo="Passo 2, conta nossa: a palavra-passe valida no Keycloak. O utilizador fica à vista com «mudar», para quem pega no PDA a meio do turno ver logo se é o seu nome. A recusa é sempre a mesma, esteja o utilizador errado ou a palavra-passe." data-funcao="todas" data-fluxo="Entrar e começar o turno" data-nome="01b · A palavra-passe" data-refs="CU-01 · RF-01 · RF-03" hidden>
+<div class="pda entrar">
+  <div class="entrar__foto" role="img" aria-label="Corredor do armazém da Romafe"></div>
+
+  <header class="entrar__topo">
+    <div class="lockup lockup--invertido">
+      <p class="lockup__nome">ROMAFE</p>
+      <span class="lockup__risco" aria-hidden="true"></span>
+      <p class="lockup__sub">Armazém Inteligente</p>
+    </div>
+    <div class="aparelho">
+      <p class="aparelho__nome">PDA-01</p>
+      <p class="aparelho__estado">
+        <svg viewBox="0 0 16 12" aria-label="Rede boa"><rect x="0" y="8" width="3" height="4" fill="currentColor"/><rect x="4.3" y="5.5" width="3" height="6.5" fill="currentColor"/><rect x="8.6" y="3" width="3" height="9" fill="currentColor"/><rect x="12.9" y="0" width="3" height="12" fill="currentColor"/></svg>
+        <svg viewBox="0 0 20 12" aria-hidden="true"><rect x="1" y="1" width="16" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="3" width="12" height="6" rx=".5" fill="currentColor"/><rect x="18" y="4" width="2" height="4" rx=".5" fill="currentColor"/></svg>
+        100%
+      </p>
+    </div>
+  </header>
+
+  <div class="entrar__boas-vindas">
+    <h1 class="entrar__titulo">Bem-vindo</h1>
+    <p class="entrar__lema">Acede ao sistema para começar a trabalhar.</p>
+    <span class="entrar__risco" aria-hidden="true"></span>
+  </div>
+
+  <form class="sessao" onsubmit="return false">
+    <h2 class="sessao__titulo">Iniciar sessão</h2>
+    <p class="sessao__sub">Escreve a tua palavra-passe.</p>
+
+    <p class="sessao__quem">
+      <span class="sessao__nome">marta.silva</span>
+      <a class="sessao__mudar" href="#" data-ir="e1">mudar</a>
+    </p>
+
     <div class="entrada-texto">
-      <label class="entrada-texto__rotulo" for="e1-palavra-passe">Palavra-passe</label>
+      <label class="entrada-texto__rotulo" for="e1b-palavra-passe">Palavra-passe</label>
       <div class="entrada-texto__caixa">
         <svg class="entrada-texto__icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V7.5a5 5 0 0 1 10 0V10" fill="none" stroke="currentColor" stroke-width="2.4"/><rect x="4" y="10" width="16" height="12" rx="2.5" fill="currentColor"/><circle cx="12" cy="15.3" r="1.7" fill="#fff"/><rect x="11.1" y="15.5" width="1.8" height="3.4" rx=".9" fill="#fff"/></svg>
-        <input class="entrada-texto__campo" id="e1-palavra-passe" type="password" autocomplete="current-password" placeholder="Introduz a tua palavra-passe">
+        <input class="entrada-texto__campo" id="e1b-palavra-passe" type="password" autocomplete="current-password" placeholder="Introduz a tua palavra-passe">
         <button type="button" class="entrada-texto__ver" aria-label="Mostrar a palavra-passe">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 20 20 4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
         </button>
